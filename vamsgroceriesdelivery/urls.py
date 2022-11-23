@@ -15,9 +15,10 @@ Including another URLconf
 """
 from .settings import *
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,include,re_path
 from django.conf import settings
 from django.conf.urls.static import static
+
 
 admin.site.site_header = env.str('ADMIN_SITE_HEADER')                    
 admin.site.index_title = env.str('ADMIN_INDEX_TITLE')                 
@@ -25,5 +26,8 @@ admin.site.site_title = env.str('ADMIN_SITE_TITLE')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('account.urls')),
+    path('accounts/', include('user.urls')),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/v1/dj-rest-auth/", include("dj_rest_auth.urls")),
+    path("api/v1/dj-rest-auth/registration/",include("dj_rest_auth.registration.urls")),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

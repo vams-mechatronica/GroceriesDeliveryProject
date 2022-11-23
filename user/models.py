@@ -7,7 +7,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(null=True,blank=True,max_length=100)
     last_name = models.CharField(null=True,blank=True,max_length=100)
     email = models.EmailField(null=True)
-    mobileno = models.CharField(null=False,max_length=10,default="",unique=True)
+    mobileno = models.CharField(verbose_name="Mobile Number",null=False,max_length=10,default="",unique=True)
     username = models.CharField(null=True,max_length=50,unique=True)
     address = models.CharField(null=True,max_length=255,default="")
 

@@ -42,13 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     #account App
-    'account.apps.AccountConfig',
+    'user.apps.AccountConfig',
 
     #Third-party App
     'rest_framework',
     'corsheaders',
     'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',  # new
+    'allauth.account',  # new
+    'allauth.socialaccount',  # new
+    'dj_rest_auth.registration',
 ]
 
 MIDDLEWARE = [
@@ -74,10 +80,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+SITE_ID = 1
 
 WSGI_APPLICATION = 'vamsgroceriesdelivery.wsgi.application'
 
@@ -117,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
