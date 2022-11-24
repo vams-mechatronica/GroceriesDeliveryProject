@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include,re_path
 from django.conf import settings
 from django.conf.urls.static import static
+from dj_rest_auth.views import PasswordResetConfirmView
 
 
 admin.site.site_header = env.str('ADMIN_SITE_HEADER')                    
@@ -30,4 +31,8 @@ urlpatterns = [
     path("api/v1/accounts/", include("dj_rest_auth.urls")),
     path("api/v1/accounts/registration/",include("dj_rest_auth.registration.urls")),
     path('api/v1/accounts/', include('user.urls')),
+    path(
+        'rest-auth/password/reset/confirm/<slug:uidb64>/<slug:token>/',
+        PasswordResetConfirmView.as_view(), name='password_reset_confirm'
+    ),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
