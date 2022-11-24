@@ -112,5 +112,27 @@ class RegisterSerializer(serializers.Serializer):
         # user.save()
         return user
 
+class UpdateUserSerializer(serializers.ModelSerializer):
 
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'address')
+        read_only_fields = ('email',)
+        extra_kwargs = {
+            'first_name': {'required': True},
+            'last_name': {'required': True},
+        }
 
+    def update(self, instance, validated_data):
+        user = self.context['request'].user
+
+        if user.pk != instance.pk:
+            raise serializers.ValidationError({"authorize": "You dont have permission for this user."})
+
+        instance.first_name = validated_data['first_name']
+        instance.last_name = validated_data['last_name']
+        instance.username = validated_data['username']
+        instance.address = validated_data['address']
+
+        instance.save()
+        return instance

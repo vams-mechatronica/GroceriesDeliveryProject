@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib import auth
+from .serializers import UpdateUserSerializer
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
+User = get_user_model()
 
 
 # Create your views here.
@@ -54,3 +59,14 @@ def logout(request):
         auth.logout(request)
         print('logged out from websites..')
         return redirect('login')
+
+class UpdateProfileView(generics.UpdateAPIView):
+    
+    queryset = User.objects.all()
+    permission_classes = (IsAuthenticated,)
+    serializer_class = UpdateUserSerializer
+
+    def get_object(self):
+        return self.request.user
+
+
