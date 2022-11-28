@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     #account App
     'user.apps.AccountConfig',
 
+    #products APP
+    'products.apps.ProductsConfig',
+
     #Third-party App
     'rest_framework',
     'corsheaders',
@@ -72,7 +75,7 @@ ROOT_URLCONF = 'vamsgroceriesdelivery.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,6 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -165,3 +169,6 @@ ACCOUNT_EMAIL_REQUIRED=env('ACCOUNT_EMAIL_REQUIRED')
 ACCOUNT_UNIQUE_EMAIL=env('ACCOUNT_UNIQUE_EMAIL')
 ACCOUNT_EMAIL_VERIFICATION=env('ACCOUNT_EMAIL_VERIFICATION')
 ACCOUNT_ADAPTER = 'user.adapters.CustomUserAccountAdapter'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
