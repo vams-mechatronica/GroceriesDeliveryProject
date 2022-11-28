@@ -11,7 +11,7 @@ admin.site.register(Products,ProductsAdmin)
 
 class CategoriesAdmin(admin.ModelAdmin):
     list_display: list = ('category_name','product_id')
-    search_fields: list = ('category_name','product_id')
+    search_fields: list = ('category_name','product_id__product_name')
 
 admin.site.register(Categories,CategoriesAdmin)
 

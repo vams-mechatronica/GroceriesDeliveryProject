@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from .storage import ProductFileStorage
 from django.contrib.auth import get_user_model
+from datetime import date
 
 user = get_user_model()
 
@@ -53,7 +54,7 @@ class Categories(models.Model):               #----Catagory Details----#
 class ProductImages(models.Model):
     image_id = models.AutoField(_("Image Id"),primary_key=True)
     product_id = models.ForeignKey(Products, verbose_name=_("Product Id"), on_delete=models.CASCADE)
-    images = models.ImageField(_("Product Image"), storage=ProductFileStorage(name='product',id=image_id).imageFileStorage, height_field=None, width_field=None, max_length=None)
+    images = models.ImageField(_("Product Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
 
     def __str__(self):
         return "Product ID: {}, Image URL: {}".format(self.product_id,self.images)
@@ -64,7 +65,7 @@ class ProductReviewAndRatings(models.Model):
     product_id = models.ForeignKey(Products, verbose_name=_("Product Id"), on_delete=models.CASCADE)
     review = models.CharField(_("Product Review"), max_length=1024,null=True)
     rating = models.CharField(_("Product Rating"), max_length=50,choices=RATINGS,null=True)
-    upload_images = models.ImageField(_(""), storage=ProductFileStorage(name='review',id=author_id).imageFileStorage, height_field=None, width_field=None, max_length=None)
+    upload_images = models.ImageField(_("Images"),upload_to=ProductFileStorage(name='review',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
 
     def __str__(self):
         return "Author ID: {}, Product Id: {}, Ratings: {}".format(self.author_id,self.product_id,self.rating)
