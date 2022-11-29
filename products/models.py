@@ -35,40 +35,37 @@ class Products(models.Model):
     class Meta:
         db_table = "Product"
 
-    
-    
 class Categories(models.Model):               #----Catagory Details----#
     category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=255)
     short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
-    product_id = models.ForeignKey(Products,on_delete=models.CASCADE,null=False)
+    products = models.ForeignKey(Products,on_delete=models.CASCADE,null=False)
     
     def __str__(self):
-        return "Categories ID: {}, Product ID: {}".format(self.category_id,self.product_id)
+        return "Categories ID: {}, Product ID: {}".format(self.category_id,self.products)
     
     class Meta:
         db_table = "Categories"
 
-
 class ProductImages(models.Model):
     image_id = models.AutoField(_("Image Id"),primary_key=True)
-    product_id = models.ForeignKey(Products, verbose_name=_("Product Id"), on_delete=models.CASCADE)
+    products = models.ForeignKey(Products, verbose_name=_("images"),related_name="images", on_delete=models.CASCADE)
     images = models.ImageField(_("Product Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
 
     def __str__(self):
-        return "Product ID: {}, Image URL: {}".format(self.product_id,self.images)
+        return "Product ID: {}, Image URL: {}".format(self.products,self.images)
 
 class ProductReviewAndRatings(models.Model):
     RATINGS = (('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),)
-    author_id = models.ForeignKey(user, verbose_name=_("Author Id"), on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Products, verbose_name=_("Product Id"), on_delete=models.CASCADE)
+    author = models.ForeignKey(user, verbose_name=_("Author Id"), on_delete=models.CASCADE)
+    products = models.ForeignKey(Products, verbose_name=_("reviews"),related_name="reviews", on_delete=models.CASCADE)
     review = models.CharField(_("Product Review"), max_length=1024,null=True)
-    rating = models.CharField(_("Product Rating"), max_length=50,choices=RATINGS,null=True)
-    upload_images = models.ImageField(_("Images"),upload_to=ProductFileStorage(name='review',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
+    ratings = models.CharField(_("Product Rating"), max_length=50,choices=RATINGS,null=True)
+    upload_image = models.ImageField(_("Images"),upload_to=ProductFileStorage(name='review',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
 
     def __str__(self):
-        return "Author ID: {}, Product Id: {}, Ratings: {}".format(self.author_id,self.product_id,self.rating)
+        return "Author ID: {}, Product Id: {}, Ratings: {}".format(self.author,self.products,self.ratings)
 
 
 

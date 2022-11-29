@@ -35,4 +35,5 @@ urlpatterns = [
         'rest-auth/password/reset/confirm/<slug:uidb64>/<slug:token>/',
         PasswordResetConfirmView.as_view(), name='password_reset_confirm'
     ),
+    path('api/v1/',include('products.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

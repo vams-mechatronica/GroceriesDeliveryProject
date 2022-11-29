@@ -13,7 +13,7 @@ class ProductFileStorage:
     def imageFileStorage(self):
         self.file_path_str = '{}/{}'.format(self.table_name,self.product_id)
         self.file_path = os.path.join(settings.MEDIA_ROOT, self.file_path_str)
-        fs = FileSystemStorage(location=self.file_path,file_permissions_mode=0o644,base_url=self.file_path)
+        fs = FileSystemStorage(location=self.file_path,file_permissions_mode=0o644,base_url=urljoin('http://127.0.0.1:8000/media/',self.file_path_str))
         return fs
     
     @property
