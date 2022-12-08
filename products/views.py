@@ -11,6 +11,16 @@ from .serializer import *
 
 User = get_user_model()
 
+def index(request):
+    if request.user.id != None:
+        user_details = User.objects.get(pk = request.user.id)
+    else:
+        user_details = "Please select user"
+    products = Products.objects.all()
+    context = ({'products':products,'user':user_details})
+    return render(request,"index.html",context=context)
+
+
 # Create your views here.
 class ProductDetails(APIView):
     permission_classes = (AllowAny,)
