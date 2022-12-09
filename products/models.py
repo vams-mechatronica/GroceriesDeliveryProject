@@ -7,13 +7,6 @@ from datetime import date
 user = get_user_model()
 
 # Create your models here.
-class ProductImages(models.Model):
-    image_id = models.AutoField(_("Image Id"),primary_key=True)
-    images = models.ImageField(_("Product Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
-
-    def __str__(self):
-        return "Image URL: {}".format(self.images)
-
 class ProductReviewAndRatings(models.Model):
     RATINGS = (('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),)
     author = models.ForeignKey(user, verbose_name=_("Author Id"), on_delete=models.CASCADE)
@@ -43,7 +36,7 @@ class Products(models.Model):
     item_package_quantity = models.CharField(max_length=50,default="",null=True)
     expiry_date = models.DateField(_("Expiry Date"), auto_now=False, auto_now_add=False)
     packing_date = models.DateField(_("Packing Date"), auto_now=False, auto_now_add=False)
-    prodimages = models.ForeignKey(ProductImages, verbose_name=_("ProdImages"),related_name="prodImages", on_delete=models.CASCADE,null=True)
+    prodimages = models.ImageField(_("Product Images"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
     prodreviews = models.ForeignKey(ProductReviewAndRatings, verbose_name=_("ProdReviews"),related_name="prodReviews", on_delete=models.CASCADE,null=True)
 
     
@@ -55,10 +48,18 @@ class Products(models.Model):
     
     class Meta:
         db_table = "Product"
+class ProductImages(models.Model):
+    image_id = models.AutoField(_("Image Id"),primary_key=True)
+    images = models.ImageField(_("Product Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
+    products = models.ForeignKey(Products,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "Image URL: {}".format(self.images)
 
 class Categories(models.Model):               #----Catagory Details----#
+    CATEGORIES = (('Bread & Milk','BREAD & MILK'),('Vegetables','VEGETABLES'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Biscuits, Snacks & Chocolates','BISCUITS, SNACKS & CHOCOLATES'),('Medicines','MEDICINES'),('Pan Corner','PAN CORNER'),('Comida','COMIDA'),('Trending','TRENDING'),)
     category_id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=255)
+    category_name = models.CharField(max_length=255,choices=CATEGORIES,null= False,default=None)
     short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     products = models.ForeignKey(Products,on_delete=models.CASCADE,null=False)

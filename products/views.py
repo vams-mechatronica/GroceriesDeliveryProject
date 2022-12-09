@@ -16,7 +16,7 @@ def index(request):
         user_details = User.objects.get(pk = request.user.id)
     else:
         user_details = "Please select user"
-    products = Products.objects.all()
+    products = Categories.objects.all()
     context = ({'products':products,'user':user_details})
     return render(request,"index.html",context=context)
 

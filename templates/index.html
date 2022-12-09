@@ -78,19 +78,19 @@
                                 </div>
                                 <div class="product_cat_name_3">
                                     <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Vegitable</span>
+                                    <span>Vegetable</span>
                                 </div>
                             </div>
                             <div class="product_cat_row">
                                 <div class="pproduct_cat_name_center">
                                     <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>chocolates</span>
+                                    <span>Chocolates</span>
                                 </div>
                             </div>
                             <div class="product_cat_row">
                                 <div class="product_cat_name_4">
                                     <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Breakfast & dairy</span>
+                                    <span>Breakfast & Dairy</span>
                                 </div>
                                 <div class="product_cat_name_5">
                                     <img src="{% static 'img/icons/drink.png' %}" alt="drink">
@@ -111,22 +111,26 @@
         <div class="container">
           <div class="row">
             <div class="product_heading">
-              <h2>Breakfast & dairy</h2>
+              <h2>Breakfast & Dairy</h2>
               <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider">
-              {% for prod in products %}
-              <div class="product_grid">
-                <div class="product_img"><img src=/media/{{prod.prodimages.images}} alt=""></div>
-                <div class="product_name"><p>{{prod.product_name}}</p></div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span class="pro_sell">₹{{prod.max_retail_price}}</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
-              </div>
-              {% endfor %}
+              
+                {% for prod in products %}
+                  {% if prod.category_name == "Breakfast & Dairy" %}
+                    <div class="product_grid">
+                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      </div>
+                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              
               <div class="product_grid">
                 <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
                 <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
@@ -245,32 +249,24 @@
         <div class="container">
           <div class="row">
             <div class="product_heading">
-              <h2>Biscuits, snacks & chocolates</h2>
+              <h2>Biscuits, Snacks & Chocolates</h2>
               <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider1">
               {% for prod in products %}
-              <div class="product_grid">
-                <div class="product_img"><img src=/media/{{prod.prodimages.images}} alt=""></div>
-                <div class="product_name"><p>{{prod.product_name}}</p></div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span class="pro_sell">₹{{prod.max_retail_price}}</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
-              </div>
+                  {% if prod.category_name == "Biscuits, Snacks & Chocolates" %}
+                    <div class="product_grid">
+                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      </div>
+                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                    </div>
+                  {% endif %}
               {% endfor %}
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
               <div class="product_grid">
                 <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
                 <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
@@ -389,21 +385,23 @@
         <div class="container">
           <div class="row">
             <div class="product_heading">
-              <h2>Trending near You</h2>
+              <h2>Vegetables</h2>
               <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider2">
               {% for prod in products %}
-              <div class="product_grid">
-                <div class="product_img"><img src=/media/{{prod.prodimages.images}} alt=""></div>
-                <div class="product_name"><p>{{prod.product_name}}</p></div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span class="pro_sell">₹{{prod.max_retail_price}}</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
-              </div>
+              {% if prod.category_name == "Vegetables" %}
+                    <div class="product_grid">
+                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      </div>
+                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                    </div>
+                  {% endif %}
               {% endfor %}
               <div class="product_grid">
                 <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
@@ -546,21 +544,23 @@
         <div class="container">
           <div class="row">
             <div class="product_heading">
-              <h2>Trending near You</h2>
+              <h2>Bread & Milk</h2>
               <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider3">
               {% for prod in products %}
-              <div class="product_grid">
-                <div class="product_img"><img src=/media/{{prod.prodimages.images}} alt=""></div>
-                <div class="product_name"><p>{{prod.product_name}}</p></div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span class="pro_sell">₹{{prod.max_retail_price}}</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
-              </div>
+                {% if prod.category_name == "Bread & Milk" %}
+                  <div class="product_grid">
+                    <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                    <div class="product_name"><p>{{prod.products.product_name}}</p></div>
+                    <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                    <div class="d-flex justify-content-between">
+                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                      <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                    </div>
+                    <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                  </div>
+                {% endif %}
               {% endfor %}
               <div class="product_grid">
                 <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
@@ -695,16 +695,18 @@
             </div>
             <div class="slider4">
               {% for prod in products %}
-              <div class="product_grid">
-                <div class="product_img"><img src=/media/{{prod.prodimages.images}} alt=""></div>
-                <div class="product_name"><p>{{prod.product_name}}</p></div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span class="pro_sell">₹{{prod.max_retail_price}}</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
-              </div>
+              {% if prod.category_name == "Trending" %}
+                    <div class="product_grid">
+                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      </div>
+                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                    </div>
+                  {% endif %}
               {% endfor %}
               <div class="product_grid">
                 <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
