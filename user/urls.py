@@ -3,9 +3,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('register', views.register, name='register'),
-    path('login', views.login, name='login'),
-    path('logout', views.logout, name='logout'),
-    path('update/user/profile/', views.UpdateProfileView.as_view(), name='auth_update_profile'),
-   
+    path('accounts/register', views.register, name='register'),
+    path('accounts/login', views.login, name='login'),
+    path('accounts/logout', views.logout, name='logout'),
+    path('accounts/update/user/profile/', views.UpdateProfileView.as_view(), name='auth_update_profile'),
+    path('accounts/userprofile/',views.UserProfileView.as_view(),name="user_profile"),
 ]

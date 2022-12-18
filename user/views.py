@@ -2,8 +2,12 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib import auth
 from .serializers import UpdateUserSerializer
-from rest_framework import generics
+from rest_framework import generics,status
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from products.serializer import userSerializer
+
 
 User = get_user_model()
 
@@ -55,10 +59,10 @@ def login(request):
 
 
 def logout(request):
-    if request.method == 'POST':
-        auth.logout(request)
-        print('logged out from websites..')
-        return redirect('login')
+    # if request.method == 'POST':
+    auth.logout(request)
+        # print('logged out from websites..')
+    return redirect('index')
 
 class UpdateProfileView(generics.UpdateAPIView):
     
@@ -68,5 +72,14 @@ class UpdateProfileView(generics.UpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+class UserProfileView(APIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = userSerializer
+
+    def get(self,request,format = None):
+        user = User.objects.get(pk=self.request.user.id)
+        serializer=userSerializer(user)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
 

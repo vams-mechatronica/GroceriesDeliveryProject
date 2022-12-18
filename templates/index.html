@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="generator" content="">
-    <title>New Templete</title>
+    <title>Home</title>
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -35,16 +35,25 @@
             </a>
     
             <div class="dropdown text-end">
-              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-              </a>
-              <ul class="dropdown-menu text-small" style="">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="api-auth/logout/?next=/api/v1/accounts/logout/">Sign out</a></li>
-              </ul>
+              {% if user.id != None %}
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="/media/{{user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" style="">
+                  <li><a class="dropdown-item" href="#">New project...</a></li>
+                  <li><a class="dropdown-item" href="#">Settings</a></li>
+                  <li><a class="dropdown-item" href="{% url 'user_profile' %}">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+                </ul>
+              {% else %}
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" style="">
+                  <li><a class="dropdown-item" href={% url 'rest_login' %}>Login</a></li>
+                </ul>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -119,7 +128,7 @@
                 {% for prod in products %}
                   {% if prod.category_name == "Breakfast & Dairy" %}
                     <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
                       <div class="product_name"><p>{{prod.products.product_name}}</p></div>
                       <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                       <div class="d-flex justify-content-between">
@@ -256,7 +265,7 @@
               {% for prod in products %}
                   {% if prod.category_name == "Biscuits, Snacks & Chocolates" %}
                     <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
                       <div class="product_name"><p>{{prod.products.product_name}}</p></div>
                       <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                       <div class="d-flex justify-content-between">
@@ -390,18 +399,18 @@
             </div>
             <div class="slider2">
               {% for prod in products %}
-              {% if prod.category_name == "Vegetables" %}
-                    <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
-                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
-                      <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
-                      </div>
-                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                {% if prod.category_name == "Vegetables" %}
+                  <div class="product_grid">
+                    <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
+                    <div class="product_name"><p>{{prod.products.product_name}}</p></div>
+                    <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                    <div class="d-flex justify-content-between">
+                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                      <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
                     </div>
-                  {% endif %}
+                    <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                  </div>
+                {% endif %}
               {% endfor %}
               <div class="product_grid">
                 <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
@@ -532,9 +541,11 @@
           <div class="row">
             <div class="col-md-12">
               <div class="pr_slide">
-                <img src="{% static 'img/product/Group-33704.webp' %}" alt="">
-                <img src="{% static 'img/product/Group-33704.webp' %}" alt="">
-                <img src="{% static 'img/product/Group-33704.webp' %}" alt="">
+                {% for banner in banners %}
+                  {% if banner.banner_status == "Activate" and banner.position == "Home" %}
+                    <img src=/media/{{banner.banner_images}} alt="" height ="264" width="1440" >
+                  {% endif %}
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -551,7 +562,7 @@
               {% for prod in products %}
                 {% if prod.category_name == "Bread & Milk" %}
                   <div class="product_grid">
-                    <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                    <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
                     <div class="product_name"><p>{{prod.products.product_name}}</p></div>
                     <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                     <div class="d-flex justify-content-between">
@@ -697,7 +708,7 @@
               {% for prod in products %}
               {% if prod.category_name == "Trending" %}
                     <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prodimages}} alt=""></div>
+                      <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
                       <div class="product_name"><p>{{prod.products.product_name}}</p></div>
                       <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                       <div class="d-flex justify-content-between">

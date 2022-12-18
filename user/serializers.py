@@ -116,7 +116,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'address')
+        fields = ('username', 'first_name', 'last_name', 'address','avatar')
         read_only_fields = ('email',)
         extra_kwargs = {
             'first_name': {'required': True},
@@ -133,6 +133,7 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         instance.last_name = validated_data['last_name']
         instance.username = validated_data['username']
         instance.address = validated_data['address']
+        instance.avatar = validated_data['avatar']
 
         instance.save()
         return instance

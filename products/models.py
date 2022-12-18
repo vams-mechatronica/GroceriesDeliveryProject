@@ -7,16 +7,6 @@ from datetime import date
 user = get_user_model()
 
 # Create your models here.
-class ProductReviewAndRatings(models.Model):
-    RATINGS = (('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),)
-    author = models.ForeignKey(user, verbose_name=_("Author Id"), on_delete=models.CASCADE)
-    review = models.CharField(_("Product Review"), max_length=1024,null=True)
-    ratings = models.CharField(_("Product Rating"), max_length=50,choices=RATINGS,null=True)
-    upload_image = models.ImageField(_("ImagesForReview"),upload_to=ProductFileStorage(name='review',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
-
-    def __str__(self):
-        return "Author ID: {}, Ratings: {}".format(self.author,self.ratings)
-
 class Products(models.Model):
     FEATURE = (('NON VEG','NON VEGETERIAN'),('VEG','VEGETERIAN'),)
 
@@ -36,9 +26,8 @@ class Products(models.Model):
     item_package_quantity = models.CharField(max_length=50,default="",null=True)
     expiry_date = models.DateField(_("Expiry Date"), auto_now=False, auto_now_add=False)
     packing_date = models.DateField(_("Packing Date"), auto_now=False, auto_now_add=False)
-    prodimages = models.ImageField(_("Product Images"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
-    prodreviews = models.ForeignKey(ProductReviewAndRatings, verbose_name=_("ProdReviews"),related_name="prodReviews", on_delete=models.CASCADE,null=True)
-
+    prod_mainimage = models.ImageField(_("Product Main Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
+    
     
     def __str__(self):
         return "Product Name: {}".format(self.product_name)
@@ -48,10 +37,23 @@ class Products(models.Model):
     
     class Meta:
         db_table = "Product"
+
+class ProductReviewAndRatings(models.Model):
+    RATINGS = (('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),)
+    author = models.ForeignKey(user, verbose_name=_("Author Id"), on_delete=models.CASCADE)
+    review = models.CharField(_("Product Review"), max_length=1024,null=True)
+    ratings = models.CharField(_("Product Rating"), max_length=50,choices=RATINGS,null=True)
+    upload_image = models.ImageField(_("ImagesForReview"),upload_to=ProductFileStorage(name='review',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
+    review_date = models.DateTimeField(verbose_name="review_date",auto_now=True)
+    prodreviews = models.ForeignKey(Products, verbose_name=_("ProdReviews"),related_name="prodReviews", on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        return "Author ID: {}, Ratings: {}".format(self.author,self.ratings)
+
 class ProductImages(models.Model):
     image_id = models.AutoField(_("Image Id"),primary_key=True)
-    images = models.ImageField(_("Product Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
-    products = models.ForeignKey(Products,on_delete=models.CASCADE)
+    images = models.ImageField(_("Product_Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
+    products = models.ForeignKey(Products,on_delete=models.CASCADE,related_name="prodImages")
 
     def __str__(self):
         return "Image URL: {}".format(self.images)
@@ -62,13 +64,24 @@ class Categories(models.Model):               #----Catagory Details----#
     category_name = models.CharField(max_length=255,choices=CATEGORIES,null= False,default=None)
     short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
-    products = models.ForeignKey(Products,on_delete=models.CASCADE,null=False)
+    products = models.ForeignKey(Products,on_delete=models.CASCADE,null=False,related_name="prodCategories")
     
     def __str__(self):
         return "Categories ID: {}, Product ID: {}".format(self.category_id,self.products)
     
     class Meta:
         db_table = "Categories"
+
+class Banners(models.Model):
+    ChoiceStatus = (('Activate','ACTIVATE'),('Deactivate','DEACTIVATE'),)
+    position = models.CharField(_("position"), max_length=50,null=False)
+    banner_name = models.CharField(_("bannername"), max_length=50,null=False)
+    banner_images = models.ImageField(_("bannerimages"), upload_to=ProductFileStorage(name='banners',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
+    banner_status = models.CharField(max_length=20,choices=ChoiceStatus,null=False,default=None)
+
+    def __str__(self):
+        return "Banner Name: {}, Banner Status: {}".format(self.banner_name,self.banner_status)
+
 
 
 

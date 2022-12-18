@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     #products APP
     'products.apps.ProductsConfig',
 
+    #store App
+    'stores.apps.StoresConfig',
+
     #Third-party App
     'rest_framework',
     'corsheaders',
@@ -99,11 +102,14 @@ WSGI_APPLICATION = 'vamsgroceriesdelivery.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('USERNAME'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('DATABASE_URL'),
+        'PORT': env('DATABASE_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

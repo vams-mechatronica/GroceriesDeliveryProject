@@ -26,3 +26,9 @@ class ProductRARAdmin(admin.ModelAdmin):
     search_fields: list = ('author','ratings')
 
 admin.site.register(ProductReviewAndRatings,ProductRARAdmin)
+
+class BannersAdmin(admin.ModelAdmin):
+    list_display: list = ('banner_name','banner_status','banner_images')
+    search_fields: list = ('banner_status','banner_name')
+
+admin.site.register(Banners,BannersAdmin)
