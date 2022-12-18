@@ -25,6 +25,8 @@
 <link href="{% static 'theme/css/bootstrap.min.css' %}" rel="stylesheet">
 <!-- Custom styles for this site -->
 <link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/custome.css' %}" rel="stylesheet">
+
   </head>
   <body>
     <header class="p-3">
@@ -121,21 +123,24 @@
           <div class="row">
             <div class="product_heading">
               <h2>Breakfast & Dairy</h2>
-              <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
+              <a href={% url 'seeallproductsincategory' 10 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider">
               
                 {% for prod in products %}
-                  {% if prod.category_name == "Breakfast & Dairy" %}
+                  {% if prod.category.category_name == "Breakfast & Dairy" %}
                     <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
-                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
-                      <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      <div class="product_img" >
+                        <a href="{% url 'productdetail' prod.product.product_id%}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a>
                       </div>
-                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                      <div class="product_name"><p>{{prod.product.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
+                      <div class="d-flex justify-content-between">
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
+                        <a href={% url 'productdetail' prod.product.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+
+                      </div>
+                      <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
                     </div>
                   {% endif %}
                 {% endfor %}
@@ -146,7 +151,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -156,7 +161,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -166,7 +171,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -176,7 +181,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -186,7 +191,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -196,7 +201,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -206,7 +211,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -216,7 +221,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -226,7 +231,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -236,7 +241,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -246,7 +251,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -259,20 +264,20 @@
           <div class="row">
             <div class="product_heading">
               <h2>Biscuits, Snacks & Chocolates</h2>
-              <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
+              <a href={% url 'seeallproductsincategory' 11 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider1">
               {% for prod in products %}
-                  {% if prod.category_name == "Biscuits, Snacks & Chocolates" %}
+                  {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" %}
                     <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
-                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                      <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
+                      <div class="product_name"><p>{{prod.product.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
                       <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
+                        <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                       </div>
-                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                      <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
                     </div>
                   {% endif %}
               {% endfor %}
@@ -282,7 +287,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -292,7 +297,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -302,7 +307,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -312,7 +317,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -322,7 +327,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -332,7 +337,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -342,7 +347,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -352,7 +357,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -362,7 +367,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -372,7 +377,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -382,7 +387,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -395,20 +400,20 @@
           <div class="row">
             <div class="product_heading">
               <h2>Vegetables</h2>
-              <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
+              <a href={% url 'seeallproductsincategory' 9 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider2">
               {% for prod in products %}
-                {% if prod.category_name == "Vegetables" %}
+                {% if prod.category.category_name == "Vegetables" %}
                   <div class="product_grid">
-                    <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
-                    <div class="product_name"><p>{{prod.products.product_name}}</p></div>
-                    <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                    <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
+                    <div class="product_name"><p>{{prod.product.product_name}}</p></div>
+                    <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
                     <div class="d-flex justify-content-between">
-                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                      <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
+                      <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                     </div>
-                    <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                    <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
                   </div>
                 {% endif %}
               {% endfor %}
@@ -418,7 +423,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -428,7 +433,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -438,7 +443,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -448,7 +453,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -458,7 +463,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -468,7 +473,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -478,7 +483,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -488,7 +493,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -498,7 +503,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -508,7 +513,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -518,7 +523,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -528,7 +533,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -556,20 +561,20 @@
           <div class="row">
             <div class="product_heading">
               <h2>Bread & Milk</h2>
-              <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
+              <a href={% url 'seeallproductsincategory' 8 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider3">
               {% for prod in products %}
-                {% if prod.category_name == "Bread & Milk" %}
+                {% if prod.category.category_name == "Bread & Milk" %}
                   <div class="product_grid">
-                    <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
-                    <div class="product_name"><p>{{prod.products.product_name}}</p></div>
-                    <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                    <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
+                    <div class="product_name"><p>{{prod.product.product_name}}</p></div>
+                    <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
                     <div class="d-flex justify-content-between">
-                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                      <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
+                      <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                     </div>
-                    <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                    <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
                   </div>
                 {% endif %}
               {% endfor %}
@@ -579,7 +584,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -589,7 +594,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -599,7 +604,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -609,7 +614,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -619,7 +624,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -629,7 +634,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -639,7 +644,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -649,7 +654,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -659,7 +664,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -669,7 +674,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -679,7 +684,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -689,7 +694,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -702,20 +707,20 @@
           <div class="row">
             <div class="product_heading">
               <h2>Trending near You</h2>
-              <a href="#" class="see_all">See All <i class="bi bi-chevron-right"></i></a>
+              <a href={% url 'seeallproductsincategory' 15 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
             </div>
             <div class="slider4">
               {% for prod in products %}
-              {% if prod.category_name == "Trending" %}
+              {% if prod.category.category_name == "Trending" %}
                     <div class="product_grid">
-                      <div class="product_img"><img src=/media/{{prod.products.prod_mainimage}} alt=""></div>
-                      <div class="product_name"><p>{{prod.products.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
+                      <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
+                      <div class="product_name"><p>{{prod.product.product_name}}</p></div>
+                      <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
                       <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.products.list_price}}</span><span class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                        <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
+                        <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                       </div>
-                      <div class="product_dicont"><span>{{prod.products.discount}}% off</span></div>
+                      <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
                     </div>
                   {% endif %}
               {% endfor %}
@@ -725,7 +730,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -735,7 +740,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -745,7 +750,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -755,7 +760,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -765,7 +770,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -775,7 +780,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -785,7 +790,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -795,7 +800,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -805,7 +810,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -815,7 +820,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -825,7 +830,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>
@@ -835,7 +840,7 @@
                 <div class="product_Quantity"><span>90G</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <button type="button" class="btn btn-outline-warning btn-sm">ADD</button>
+                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>50% off</span></div>
               </div>

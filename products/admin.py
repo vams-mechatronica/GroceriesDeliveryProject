@@ -10,8 +10,8 @@ class ProductsAdmin(admin.ModelAdmin):
 admin.site.register(Products,ProductsAdmin)
 
 class CategoriesAdmin(admin.ModelAdmin):
-    list_display: list = ('category_name','products')
-    search_fields: list = ('category_name','products__product_name')
+    list_display: list = ('category_id','category_name')
+    search_fields: list = ('category_id','category_name')
 
 admin.site.register(Categories,CategoriesAdmin)
 
@@ -32,3 +32,9 @@ class BannersAdmin(admin.ModelAdmin):
     search_fields: list = ('banner_status','banner_name')
 
 admin.site.register(Banners,BannersAdmin)
+
+# class CategoriesProductsAdmin(admin.ModelAdmin):
+#     list_display: list = ('categoriesproduct_id',)
+#     search_fields: list = ('categoriesproduct_id',)
+
+admin.site.register(CategoriesProducts)

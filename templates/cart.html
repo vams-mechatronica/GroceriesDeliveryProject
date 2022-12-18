@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- title -->
+        <title>Cart Page</title>
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        <meta name="author" content="">
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/favicon" href="image/fevicon.png">
+        <!-- bootstrap -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- simple-line icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/simple-line-icons.css' %}">
+        <!-- font-awesome icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- themify icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
+        <!-- ion icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+        <!-- owl slider -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
+        <!-- swiper -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+        <!-- animation -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+        <!-- style -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    </head>
+    <body class="home-1">
+        <!-- cart header -->
+        <div class="cart-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <h1>Cart</h1>
+                        <div class="change-address">
+                            <ul>
+                                <li><span class="save-add"><b>WORK</b></span>- <span class="current-add">{{user.address}}</span></li>
+                            </ul>
+                            <a href="#" class="chng-add"><i class="ion-ios-location"></i> Change Address</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End cart header -->
+        <!-- cart start -->
+        <section class="cart-page section-tb-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-xs-12 col-sm-12 col-md-12 col-lg-8">
+                        <div class="cart-area">
+                            <div class="cart-details">
+                                <div class="cart-all-pro">
+                                    <div class="cart-pro">
+                                        <div class="cart-pro-image">
+                                            <a href="product.html"><img src="img/tajmahal.png" class="img-fluid" alt="tajmahal.png" width="50"></a>
+                                        </div>
+                                        <div class="pro-details">
+                                            <a href="#">Taj Mahal Tea</a>
+                                            <span class="pro-size"><span class="size"></span> 500g</span>
+                                        </div>
+                                    </div>
+                                    <div class="qty-item">
+                                        <div class="center">
+                                            <div class="plus-minus">
+                                                <span>
+                                                    <a href="javascript:void(0)" class="minus-btn text-black">-</a>
+                                                    <input type="text" name="name" value="1">
+                                                    <a href="javascript:void(0)" class="plus-btn text-black">+</a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="all-pro-price">
+                                        <span>₹304</span>
+                                        <span class="sell_price">₹50</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-4">
+                        <div class="cart-total">
+                            <div class="cart-price">
+                                <span><b>Summery</b></span>
+                                <div class="d-flex">
+                                    <span class="sell_price">₹186</span>
+                                <span class="total">₹159</span>
+                                </div>
+                            </div>
+                            <div class="cart-price">
+                                <span>Product</span>
+                                <div class="d-flex">
+                                    <span class="sell_price">₹15</span>
+                                <span class="total color_green">₹7</span>
+                                </div>
+                            </div>
+                             <div class="cart-price">
+                                <span>Delivery</span>
+                                <div class="d-flex">
+                                    <span class="sell_price">₹35</span>
+                                <span class="total color_green">₹15</span>
+                                </div>
+                            </div>
+                            
+                            <div class="shop-total">
+                                <span><b>Total</b></span>
+                                <span class="total-amount">₹181</span>
+                            </div>
+                            <a href="#" class="check-link btn btn-style1">Continue to payment</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- cart end -->
+        <!-- jquery -->
+        <script src="js/modernizr-2.8.3.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <!-- bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- popper -->
+        <script src="js/popper.min.js"></script>
+        <!-- fontawesome -->
+        <script src="js/fontawesome.min.js"></script>
+        <!-- swiper -->
+        <script src="js/swiper.min.js"></script>
+        <!-- custom -->
+        <script src="js/custom.js"></script>
+    </body>
+</html>

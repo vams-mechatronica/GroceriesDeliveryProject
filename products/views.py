@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from .serializer import *
+from django.views.generic import *
 
 User = get_user_model()
 
@@ -17,7 +18,7 @@ def index(request):
     else:
         user_details = "Please select user"
     banners = Banners.objects.all()
-    products = Categories.objects.all()
+    products = CategoriesProducts.objects.all()
     context = ({'products':products,'user':user_details,'banners':banners})
     return render(request,"index.html",context=context)
 
@@ -29,3 +30,23 @@ class ProductDetails(APIView):
         tbl_product = Products.objects.all()
         serializer = ProductsSerializer(instance=tbl_product, many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+
+
+def seeAllProductsInCategory(request,pk):
+    categorydetails = Categories.objects.get(pk = pk)
+    productdetail = CategoriesProducts.objects.filter(category = categorydetails.category_id)
+    print(categorydetails)
+    context = {'category':categorydetails,
+                'products':productdetail,
+            }
+    return render(request,"list.html",context)
+
+def productDetailsPageView(request,pk):
+    productdetail = Products.objects.get(pk=pk)
+    context = {
+        'product':productdetail
+    }
+    return render(request,"detail-page.html",context)
+
+def cartCheckoutPageView(request):
+    return render(request,"cart.html")

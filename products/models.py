@@ -61,16 +61,26 @@ class ProductImages(models.Model):
 class Categories(models.Model):               #----Catagory Details----#
     CATEGORIES = (('Bread & Milk','BREAD & MILK'),('Vegetables','VEGETABLES'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Biscuits, Snacks & Chocolates','BISCUITS, SNACKS & CHOCOLATES'),('Medicines','MEDICINES'),('Pan Corner','PAN CORNER'),('Comida','COMIDA'),('Trending','TRENDING'),)
     category_id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=255,choices=CATEGORIES,null= False,default=None)
+    category_name = models.CharField(max_length=255,choices=CATEGORIES,null= False,default=None,unique=True)
     short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
-    products = models.ForeignKey(Products,on_delete=models.CASCADE,null=False,related_name="prodCategories")
     
     def __str__(self):
-        return "Categories ID: {}, Product ID: {}".format(self.category_id,self.products)
+        return "Categories ID: {}, category's Name: {}".format(self.category_id,self.category_name)
     
     class Meta:
         db_table = "Categories"
+
+class CategoriesProducts(models.Model):
+    categoriesproduct_id = models.AutoField(primary_key=True)
+    category = models.ForeignKey(Categories, verbose_name=_("Pro Category"), on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, verbose_name=_("Category Products"), on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return "ID: {} Category: {} Products: {}".format(self.categoriesproduct_id,self.category,self.product)
+    
+    class Meta:
+        db_table = "CategoriesProducts"
 
 class Banners(models.Model):
     ChoiceStatus = (('Activate','ACTIVATE'),('Deactivate','DEACTIVATE'),)

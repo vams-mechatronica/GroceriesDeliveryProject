@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- title -->
+        <title>Detail Page</title>
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        <meta name="author" content="">
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/favicon" href="image/fevicon.png">
+        <!-- bootstrap -->
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- simple-line icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/simple-line-icons.css' %}">
+        <!-- font-awesome icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- themify icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
+        <!-- ion icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+        <!-- owl slider -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
+        <!-- swiper -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+        <!-- animation -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+        <!-- style -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+    </head>
+    <body class="home-1">
+        <!-- top Control -->
+        <div class="topcontrol my-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between">
+                            <i class="bi bi-x-circle-fill"></i>
+                         <i class="bi bi-search"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End top Control -->
+        <!-- product info start -->
+        <section class=" pro-page">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12 pro-image">
+                        <div class="row">
+                            <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 larg-image">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade show active" id="image-11">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(/media/{{product.prod_mainimage}})">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-22">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/prro-page-image01.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-33">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image1-1.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-44">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image1.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-55">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image2.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-66">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image2-2.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-77">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image3.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                    <div class="tab-pane fade" id="image-88">
+                                        <a href="javascript:void(0)" class="long-img">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image03.jpg)">
+                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            </figure>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 pro-info">
+                                <h4>{{product.product_name}}</h4>
+                                <span class="pro-size"><span class="size"></span>{{product.net_content}}</span>
+                                <div class="pro-price justify-content-between">
+                                    <div class="d-flex">
+                                        <span class="new-price">₹{{product.list_price}}</span>
+                                    <span class="old-price"><del>₹{{product.max_retail_price}}</del></span>
+                                    <div class="Pro-lable">
+                                        <span class="p-discount">{{product.discount}}% Off</span>
+                                    </div>
+                                    </div>
+                                     <a href="#" class="btn btn-style1">ADD</a>
+                                </div>
+                                <span class="pro-details">About Product</span>
+                                <p>{{product.long_desc}}</p>
+                               <div class="pro-btn">
+                                    <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between"><div><span>1 items</span>  | <span> ₹304</span></div><div><i class="bi bi-bag"></i> View cart</div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- product info end -->
+        
+       
+      
+       
+
+        <script>
+            function zoom(e){
+              var zoomer = e.currentTarget;
+              e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+              e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+              x = offsetX/zoomer.offsetWidth*100
+              y = offsetY/zoomer.offsetHeight*100
+              zoomer.style.backgroundPosition = x + '% ' + y + '%';
+            }
+        </script>
+        <div class="mm-fullscreen-bg"></div>
+        <!-- jquery -->
+        <script src="js/modernizr-2.8.3.min.js"></script>
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <!-- bootstrap -->
+        <script src="js/bootstrap.min.js"></script>
+        <!-- popper -->
+        <script src="js/popper.min.js"></script>
+        <!-- fontawesome -->
+        <script src="js/fontawesome.min.js"></script>
+        <!-- owl carousal -->
+        <script src="js/owl.carousel.min.js"></script>
+        <!-- swiper -->
+        <script src="js/swiper.min.js"></script>
+        <!-- custom -->
+        <script src="js/custom.js"></script>
+    </body>
+</html>
