@@ -126,7 +126,7 @@
                                         <span class="p-discount">{{product.discount}}% Off</span>
                                     </div>
                                     </div>
-                                     <a href="#" class="btn btn-style1">ADD</a>
+                                     <a href="{% url 'addtocart' product.product_id%}" class="btn btn-style1">ADD</a>
                                 </div>
                                 <span class="pro-details">About Product</span>
                                 <p>{{product.long_desc}}</p>

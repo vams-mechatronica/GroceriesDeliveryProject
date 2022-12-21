@@ -57,34 +57,36 @@
                 <div class="row">
                     <div class="col-xl-9 col-xs-12 col-sm-12 col-md-12 col-lg-8">
                         <div class="cart-area">
+                            {% for item in cartitems  %}
                             <div class="cart-details">
                                 <div class="cart-all-pro">
                                     <div class="cart-pro">
                                         <div class="cart-pro-image">
-                                            <a href="product.html"><img src="img/tajmahal.png" class="img-fluid" alt="tajmahal.png" width="50"></a>
+                                            <a href="{% url 'productdetail' item.item.product_id %}"><img src="/media/{{item.item.prod_mainimage}}" class="img-fluid" alt="tajmahal.png" width="50"></a>
                                         </div>
                                         <div class="pro-details">
-                                            <a href="#">Taj Mahal Tea</a>
-                                            <span class="pro-size"><span class="size"></span> 500g</span>
+                                            <a href="{% url 'productdetail' item.item.product_id %}">{{item.item.product_name}}</a>
+                                            <span class="pro-size"><span class="size"></span> {{item.item.net_content}}</span>
                                         </div>
                                     </div>
                                     <div class="qty-item">
                                         <div class="center">
                                             <div class="plus-minus">
                                                 <span>
-                                                    <a href="javascript:void(0)" class="minus-btn text-black">-</a>
-                                                    <input type="text" name="name" value="1">
-                                                    <a href="javascript:void(0)" class="plus-btn text-black">+</a>
+                                                    <a href="{% url 'removesingleitemfromcart' item.item.product_id %}" class="minus-btn text-black">-</a>
+                                                    <input type="text" name="name" value="{{item.quantity}}">
+                                                    <a href="{% url 'addtocart' item.item.product_id %}" class="plus-btn text-black">+</a>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="all-pro-price">
-                                        <span>₹304</span>
-                                        <span class="sell_price">₹50</span>
+                                        <span>₹{{item.get_amount_saved}}</span>
+                                        <span class="sell_price">₹{{item.get_total_item_price}}</span>
                                     </div>
                                 </div>
                             </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="col-xl-3 col-xs-12 col-sm-12 col-md-12 col-lg-4">

@@ -16,7 +16,7 @@ class Products(models.Model):
     short_desc = models.TextField(max_length=250,null=True,blank=True)
     long_desc = models.TextField(max_length=1024,null=True,blank=True)
     max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2)
-    discount = models.CharField(_("Discount"), max_length=8)
+    discount = models.DecimalField(_("Discount"), max_digits=5, decimal_places=2,null=True,blank=True)
     list_price = models.DecimalField(_("Our Price"), max_digits=8, decimal_places=2)
     unit = models.CharField(max_length=50)
     material_feature = models.CharField(max_length=50, blank=True, choices=FEATURE)

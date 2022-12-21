@@ -48,5 +48,3 @@ def productDetailsPageView(request,pk):
     }
     return render(request,"detail-page.html",context)
 
-def cartCheckoutPageView(request):
-    return render(request,"cart.html")
