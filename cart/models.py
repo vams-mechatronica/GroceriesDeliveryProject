@@ -17,10 +17,10 @@ class Cart(models.Model):
         return f"{self.quantity} of {self.item.product_name}"
 
     def get_total_item_price(self):
-        return self.quantity * self.item.list_price
+        return self.quantity * self.item.max_retail_price
 
     def get_total_discount_item_price(self):
-        return self.quantity * self.item.discount
+        return self.quantity * ((self.item.discount/100)*self.item.max_retail_price)
 
     def get_amount_saved(self):
         return self.get_total_item_price() - self.get_total_discount_item_price()
