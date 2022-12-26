@@ -13,21 +13,12 @@ class Products(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=150)
     display_name = models.CharField(max_length=150)
-    short_desc = models.TextField(max_length=250,null=True,blank=True)
-    long_desc = models.TextField(max_length=1024,null=True,blank=True)
-    max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2)
-    discount = models.DecimalField(_("Discount"), max_digits=5, decimal_places=2,null=True,blank=True)
-    list_price = models.DecimalField(_("Our Price"), max_digits=8, decimal_places=2)
+    long_desc = models.TextField(max_length=5000,null=True,blank=True)
     unit = models.CharField(max_length=50)
     material_feature = models.CharField(max_length=50, blank=True, choices=FEATURE)
     brand = models.CharField(max_length=250,default="",null=True)
     flavour = models.CharField(max_length=250,default="",null=True)
-    net_content = models.CharField(max_length=50,default="",null=True)
-    item_package_quantity = models.CharField(max_length=50,default="",null=True)
-    expiry_date = models.DateField(_("Expiry Date"), auto_now=False, auto_now_add=False)
-    packing_date = models.DateField(_("Packing Date"), auto_now=False, auto_now_add=False)
     prod_mainimage = models.ImageField(_("Product Main Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
-    
     
     def __str__(self):
         return "Product Name: {}".format(self.product_name)
@@ -64,6 +55,7 @@ class Categories(models.Model):               #----Catagory Details----#
     category_name = models.CharField(max_length=255,choices=CATEGORIES,null= False,default=None,unique=True)
     short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
+    category_image = models.ImageField(_("category image"), upload_to=ProductFileStorage(name='category',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
     
     def __str__(self):
         return "Categories ID: {}, category's Name: {}".format(self.category_id,self.category_name)

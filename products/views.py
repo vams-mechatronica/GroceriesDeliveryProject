@@ -19,7 +19,8 @@ def index(request):
         user_details = "Please select user"
     banners = Banners.objects.all()
     products = CategoriesProducts.objects.all()
-    context = ({'products':products,'user':user_details,'banners':banners})
+    categories = Categories.objects.all()
+    context = ({'products':products,'user':user_details,'banners':banners,'categories':categories})
     return render(request,"index.html",context=context)
 
 

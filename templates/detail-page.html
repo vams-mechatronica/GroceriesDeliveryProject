@@ -129,7 +129,7 @@
                                      <a href="{% url 'addtocart' product.product_id%}" class="btn btn-style1">ADD</a>
                                 </div>
                                 <span class="pro-details">About Product</span>
-                                <p>{{product.long_desc}}</p>
+                                <p>{{product.long_desc|safe}}</p>
                                <div class="pro-btn">
                                     <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between"><div><span>1 items</span>  | <span> ₹304</span></div><div><i class="bi bi-bag"></i> View cart</div></a>
                                 </div>

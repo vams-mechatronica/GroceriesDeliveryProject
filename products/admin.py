@@ -3,9 +3,9 @@ from .models import *
 
 # Register your models here.
 class ProductsAdmin(admin.ModelAdmin):
-    list_display: list = ('product_name','max_retail_price','discount','brand','list_price')
-    ordering: list = ['-expiry_date']
-    search_fields: list = ('product_name','discount','brand','expiry_date')
+    list_display: list = ('product_name','brand','material_feature')
+    ordering: list = []
+    search_fields: list = ('product_name','brand','material_feature')
 
 admin.site.register(Products,ProductsAdmin)
 
