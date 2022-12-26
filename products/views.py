@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializer import *
 from django.views.generic import *
+from user.models import *
 
 User = get_user_model()
 
@@ -20,7 +21,8 @@ def index(request):
     banners = Banners.objects.all()
     products = CategoriesProducts.objects.all()
     categories = Categories.objects.all()
-    context = ({'products':products,'user':user_details,'banners':banners,'categories':categories})
+    useraddress = UserAddresses.objects.get(user = request.user.id)
+    context = ({'products':products,'user':user_details,'banners':banners,'categories':categories,"useraddress":useraddress})
     return render(request,"index.html",context=context)
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser
+from .models import CustomUser,UserAddresses
 # Register your models here.
 
 class CustomUserAdmin(admin.ModelAdmin):
@@ -8,3 +8,5 @@ class CustomUserAdmin(admin.ModelAdmin):
     search_fields: list = ('email','mobileno','first_name','last_name','username')
 
 admin.site.register(CustomUser,CustomUserAdmin)
+
+admin.site.register(UserAddresses)

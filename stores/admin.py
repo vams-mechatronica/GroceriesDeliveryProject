@@ -9,7 +9,7 @@ class StoreProductsAdmin(admin.ModelAdmin):
 admin.site.register(StoreProductsDetails,StoreProductsAdmin)
 
 class StoreDetailsAdmin(admin.ModelAdmin):
-    list_display: list = ('storeName','storeAddress','storeLocalityPinCode')
+    list_display: list = ('storeName','storeAddress','storeLocalityPinCode','storeServicablePinCodes')
     ordering: list = ['-storeLocalityPinCode']
     search_fields: list = ('storeName','storeLocalityPinCode','storeServicablePinCodes')
 

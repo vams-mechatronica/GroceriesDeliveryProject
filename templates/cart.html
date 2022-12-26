@@ -62,10 +62,10 @@
                                 <div class="cart-all-pro">
                                     <div class="cart-pro">
                                         <div class="cart-pro-image">
-                                            <a href="{% url 'productdetail' item.item.product_id %}"><img src="/media/{{item.item.prod_mainimage}}" class="img-fluid" alt="tajmahal.png" width="50"></a>
+                                            <a href="{% url 'productdetail' item.item.products.product_id %}"><img src="/media/{{item.item.products.prod_mainimage}}" class="img-fluid" alt="tajmahal.png" width="50"></a>
                                         </div>
                                         <div class="pro-details">
-                                            <a href="{% url 'productdetail' item.item.product_id %}">{{item.item.product_name}}</a>
+                                            <a href="{% url 'productdetail' item.item.products.product_id %}">{{item.item.products.product_name}}</a>
                                             <span class="pro-size"><span class="size"></span> {{item.item.net_content}}</span>
                                         </div>
                                     </div>
@@ -73,9 +73,9 @@
                                         <div class="center">
                                             <div class="plus-minus">
                                                 <span>
-                                                    <a href="{% url 'removesingleitemfromcart' item.item.product_id %}" class="minus-btn text-black">-</a>
+                                                    <a href="{% url 'removesingleitemfromcart' item.item.products.product_id %}" class="minus-btn text-black">-</a>
                                                     <input type="text" name="name" value="{{item.quantity}}">
-                                                    <a href="{% url 'addtocart' item.item.product_id %}" class="plus-btn text-black">+</a>
+                                                    <a href="{% url 'addtocart' item.item.products.product_id %}" class="plus-btn text-black">+</a>
                                                 </span>
                                             </div>
                                         </div>
