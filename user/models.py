@@ -5,9 +5,6 @@ from products.storage import ProductFileStorage
 from datetime import date
 from django.utils.translation import gettext_lazy as _
 
-
-
-
 # Create your models here.
 class CustomUser(AbstractUser):
     first_name = models.CharField(null=True,blank=True,max_length=100)
@@ -37,7 +34,9 @@ class UserAddresses(models.Model):
     def __str__(self) -> str:
         return "user:{} city: {} pincode: {} phoneno. {}".format(self.user,self.city,self.pincode,self.addPhoneNumber)
 
-
+    def user_address(self):
+        address = self.addressLine1+", "+self.addressLine2+", "+self.city+", "+ str(self.pincode)
+        return address
    
 
 

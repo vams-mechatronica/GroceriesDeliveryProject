@@ -10,19 +10,21 @@ from .models import *
 from .serializer import *
 from django.views.generic import *
 from user.models import *
+from stores.models import *
 
 User = get_user_model()
 
 def index(request):
     if request.user.id != None:
-        user_details = User.objects.get(pk = request.user.id)
+        user_details = UserAddresses.objects.get(user = request.user.id)
+        products = StoreProductsDetails.objects.filter(store__storeLocalityPinCode = user_details.pincode)
+
     else:
         user_details = "Please select user"
+        products = StoreProductsDetails.objects.all()
     banners = Banners.objects.all()
-    products = CategoriesProducts.objects.all()
     categories = Categories.objects.all()
-    useraddress = UserAddresses.objects.get(user = request.user.id)
-    context = ({'products':products,'user':user_details,'banners':banners,'categories':categories,"useraddress":useraddress})
+    context = ({'user':user_details,'banners':banners,'products':products,'categories':categories})
     return render(request,"index.html",context=context)
 
 
@@ -37,8 +39,11 @@ class ProductDetails(APIView):
 
 def seeAllProductsInCategory(request,pk):
     categorydetails = Categories.objects.get(pk = pk)
-    productdetail = CategoriesProducts.objects.filter(category = categorydetails.category_id)
-    print(categorydetails)
+    if request.user.id != None:
+        user_details = UserAddresses.objects.get(user = request.user.id)
+        productdetail = StoreProductsDetails.objects.filter(category = categorydetails.category_id,store__storeLocalityPinCode = user_details.pincode)
+    else:
+        productdetail = StoreProductsDetails.objects.filter(category = categorydetails.category_id)
     context = {'category':categorydetails,
                 'products':productdetail,
             }

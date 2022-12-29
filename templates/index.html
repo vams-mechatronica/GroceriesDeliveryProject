@@ -1,914 +1,423 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="generator" content="">
-    <title>Home</title>
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-  
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="generator" content="">
+  <title>Home</title>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
+  <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+  <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+  <meta name="theme-color" content="#712cf9">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 
 
-<!-- Theme styles for this theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
-<link href="{% static 'theme/css/bootstrap.min.css' %}" rel="stylesheet">
-<!-- Custom styles for this site -->
-<link href="{% static 'css/style.css' %}" rel="stylesheet">
-<link href="{% static 'css/custome.css' %}" rel="stylesheet">
 
-  </head>
-  <body>
-    <header class="p-3">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center me-md-auto mb-2 mb-lg-0 text-dark text-decoration-none">
-              <img src="{% static 'img/logo/logo_green.svg' %}" alt="logo_green.svg" width="120" height="38">
-            </a>
-    
-            <div class="dropdown text-end">
-              {% if user.id != None %}
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="/media/{{user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" style="">
-                  <li><a class="dropdown-item" href="#">New project...</a></li>
-                  <li><a class="dropdown-item" href="#">Settings</a></li>
-                  <li><a class="dropdown-item" href="{% url 'user_profile' %}">Profile</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
-                </ul>
-              {% else %}
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu text-small" style="">
-                  <li><a class="dropdown-item" href={% url 'rest_login' %}>Login</a></li>
-                </ul>
-              {% endif %}
-            </div>
-          </div>
+  <!-- Theme styles for this theme -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+  <link href="{% static 'theme/css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Custom styles for this site -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/custome.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+  <header class="p-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center me-md-auto mb-2 mb-lg-0 text-dark text-decoration-none">
+          <img src="{% static 'img/logo/logo_green.svg' %}" alt="logo_green.svg" width="120" height="38">
+        </a>
+
+        <div class="dropdown text-end">
+          {% if user.id != None %}
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="/media/{{user.user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" style="">
+            <li><a class="dropdown-item" href="#">New project...</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><a class="dropdown-item" href="{% url 'user_profile' %}">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
+          </ul>
+          {% else %}
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32"
+              class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small" style="">
+            <li><a class="dropdown-item" href={% url 'rest_login' %}>Login</a></li>
+          </ul>
+          {% endif %}
         </div>
-      </header>
-      <div class="top_banner">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col">
-                    <div class="top_location">
-                        <span class="dev_time_text">Delivery in 10 minutes</span>
-                        <span class="location_text">{{user.address}}
-                            <i class="bi bi-caret-down-fill"></i>
-                        </span>
-                        <form class="w-100 me-3" role="search">
-                            <input type="search" class="form-control" placeholder="Search for products" aria-label="Search for products"">
+      </div>
+    </div>
+  </header>
+  <div class="top_banner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col">
+          <div class="top_location">
+            <span class="dev_time_text">Delivery in 10 minutes</span>
+            <span class="location_text">{{user.user_address}}
+              <i class="bi bi-caret-down-fill"></i>
+            </span>
+            <form class="w-100 me-3" role="search">
+              <input type="search" class="form-control" placeholder="Search for products"
+                aria-label="Search for products"">
                           </form>   
  
                     </div>            
                 </div>
-                <div class="col">
-                    <div class="top_product_cat">
-                        <div class="product_cat_body">
-                            <div class="pproduct_cat_row">
-                                <div class="product_cat_name_1">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Comida</span>
-                                </div>
-                                <div class="product_cat_name_2">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Pan Corner</span>
-                                </div>
-                                <div class="product_cat_name_3">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Vegetable</span>
-                                </div>
-                            </div>
-                            <div class="product_cat_row">
-                                <div class="pproduct_cat_name_center">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Chocolates</span>
-                                </div>
-                            </div>
-                            <div class="product_cat_row">
-                                <div class="product_cat_name_4">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Breakfast & Dairy</span>
-                                </div>
-                                <div class="product_cat_name_5">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Bread & Milk</span>
-                                </div>
-                                <div class="product_cat_name_6">
-                                    <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                                    <span>Medicine</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class=" col">
+              <div class="top_product_cat">
+                <div class="product_cat_body">
+                  <div class="pproduct_cat_row">
+                    <div class="product_cat_name_1">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Comida</span>
                     </div>
+                    <div class="product_cat_name_2">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Pan Corner</span>
+                    </div>
+                    <div class="product_cat_name_3">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Vegetable</span>
+                    </div>
+                  </div>
+                  <div class="product_cat_row">
+                    <div class="pproduct_cat_name_center">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Chocolates</span>
+                    </div>
+                  </div>
+                  <div class="product_cat_row">
+                    <div class="product_cat_name_4">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Breakfast & Dairy</span>
+                    </div>
+                    <div class="product_cat_name_5">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Bread & Milk</span>
+                    </div>
+                    <div class="product_cat_name_6">
+                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      <span>Medicine</span>
+                    </div>
+                  </div>
                 </div>
-            </div>
+              </div>
+          </div>
         </div>
       </div>
-      <div class="prduct_slide_list">
-        <div class="container">
-          <div class="row">
-            <div class="product_heading">
-              <h2>Breakfast & Dairy</h2>
-              {% for cate in categories %}{% if cate.category_name == "Breakfast & Dairy" %}
-              <a href={% url 'seeallproductsincategory' cate.category_id %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
-              {% endif %}{% endfor %}
-              
-            </div>
-            <div class="slider">
-              
-                {% for prod in products %}
-                  {% if prod.category.category_name == "Breakfast & Dairy" %}
-                    <div class="product_grid">
-                      <div class="product_img" >
-                        <a href="{% url 'productdetail' prod.product.product_id%}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a>
-                      </div>
-                      <div class="product_name"><p>{{prod.product.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
-                      <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
-                        <a href={% url 'productdetail' prod.product.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+    </div>
+    {% comment %} {% for store in storeproducts %} {% endcomment %}
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Breakfast & Dairy</h2>
+            {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider">
+            {% for prod in products %}
+              {% if prod.category.category_name == "Breakfast & Dairy" %}
+              <div class="product_grid">
+                <div class="product_img">
+                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                </div>
+                <div class="product_name">
+                  <p>{{prod.products.product_name}}</p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Biscuits, Snacks & Chocolates</h2>
+            {% for category in categories %}{% if category.category_name == "Biscuits, Snacks & Chocolates" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider1">
+            {% for prod in products %}
+              {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" %}
+              <div class="product_grid">
+                <div class="product_img">
+                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                </div>
+                <div class="product_name">
+                  <p>{{prod.products.product_name}}</p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+              </div>
+              {% endif %}
+            {% endfor %}
 
-                      </div>
-                      <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-      <div class="prduct_slide_list">
-        <div class="container">
-          <div class="row">
-            <div class="product_heading">
-              <h2>Biscuits, Snacks & Chocolates</h2>
-              <a href={% url 'seeallproductsincategory' 2 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
-            </div>
-            <div class="slider1">
-              {% for prod in products %}
-                  {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" %}
-                    <div class="product_grid">
-                      <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
-                      <div class="product_name"><p>{{prod.product.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
-                      <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
-                        <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                      </div>
-                      <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
-                    </div>
-                  {% endif %}
+    </div>
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Vegetables</h2>
+            {% for category in categories %}{% if category.category_name == "Vegetables" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider2">
+            {% for prod in products %}
+              {% if prod.category.category_name == "Vegetables" %}
+              <div class="product_grid">
+                <div class="product_img">
+                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                </div>
+                <div class="product_name">
+                  <p>{{prod.products.product_name}}</p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+              </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="prmotion_banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pr_slide">
+              {% for banner in banners %}
+              {% if banner.banner_status == "Activate" and banner.position == "Home" %}
+              <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+              {% endif %}
               {% endfor %}
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="prduct_slide_list">
-        <div class="container">
-          <div class="row">
-            <div class="product_heading">
-              <h2>Vegetables</h2>
-              <a href={% url 'seeallproductsincategory' 9 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
-            </div>
-            <div class="slider2">
-              {% for prod in products %}
-                {% if prod.category.category_name == "Vegetables" %}
-                  <div class="product_grid">
-                    <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
-                    <div class="product_name"><p>{{prod.product.product_name}}</p></div>
-                    <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
-                    <div class="d-flex justify-content-between">
-                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
-                      <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                    </div>
-                    <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
-                  </div>
-                {% endif %}
-              {% endfor %}
+    </div>
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Bread & Milk</h2>
+            {% for category in categories %}{% if category.category_name == "Bread & Milk" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider3">
+            {% for prod in products %}
+              {% if prod.category.category_name == "Bread & Milk" %}
               <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+                <div class="product_img">
+                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
                 </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+                <div class="product_name">
+                  <p>{{prod.products.product_name}}</p>
                 </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
+                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>50% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-            </div>
+              {% endif %}
+            {% endfor %}
+
           </div>
         </div>
       </div>
-      <div class="prmotion_banner">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="pr_slide">
-                {% for banner in banners %}
-                  {% if banner.banner_status == "Activate" and banner.position == "Home" %}
-                    <img src=/media/{{banner.banner_images}} alt="" height ="264" width="1440" >
-                  {% endif %}
-                {% endfor %}
-              </div>
-            </div>
+    </div>
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Trending near You</h2>
+            {% for category in categories %}{% if category.category_name == "Trending" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
           </div>
-        </div>
-      </div>
-      <div class="prduct_slide_list">
-        <div class="container">
-          <div class="row">
-            <div class="product_heading">
-              <h2>Bread & Milk</h2>
-              <a href={% url 'seeallproductsincategory' 8 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
-            </div>
-            <div class="slider3">
-              {% for prod in products %}
-                {% if prod.category.category_name == "Bread & Milk" %}
-                  <div class="product_grid">
-                    <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
-                    <div class="product_name"><p>{{prod.product.product_name}}</p></div>
-                    <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
-                    <div class="d-flex justify-content-between">
-                      <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
-                      <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                    </div>
-                    <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
-                  </div>
-                {% endif %}
-              {% endfor %}
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="prduct_slide_list">
-        <div class="container">
-          <div class="row">
-            <div class="product_heading">
-              <h2>Trending near You</h2>
-              <a href={% url 'seeallproductsincategory' 15 %} class="see_all">See All <i class="bi bi-chevron-right"></i></a>
-            </div>
-            <div class="slider4">
-              {% for prod in products %}
+          <div class="slider4">
+            {% for prod in products %}
               {% if prod.category.category_name == "Trending" %}
-                    <div class="product_grid">
-                      <div class="product_img"><a href="{% url 'productdetail' prod.product.product_id %}"><img src=/media/{{prod.product.prod_mainimage}} alt=""></a></div>
-                      <div class="product_name"><p>{{prod.product.product_name}}</p></div>
-                      <div class="product_Quantity"><span>{{prod.product.net_content}}</span></div>
-                      <div class="d-flex justify-content-between">
-                        <div class="product_pirce"><span class="pro_mrp">₹{{prod.product.list_price}}</span><span class="pro_sell">₹{{prod.product.max_retail_price}}</span></div>
-                        <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                      </div>
-                      <div class="product_dicont"><span>{{prod.product.discount}}% off</span></div>
-                    </div>
-                  {% endif %}
-              {% endfor %}
               <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+                <div class="product_img">
+                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
                 </div>
-                <div class="product_dicont"><span>50% off</span></div>
+                <div class="product_name">
+                  <p>{{prod.products.product_name}}</p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Medicines</h2>
+            {% for category in categories %}{% if category.category_name == "Medicines" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider4">
+            {% for prod in products %}
+              {% if prod.category.category_name == "Medicines" %}
               <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+                <div class="product_img">
+                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
                 </div>
-                <div class="product_dicont"><span>50% off</span></div>
+                <div class="product_name">
+                  <p>{{prod.products.product_name}}</p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %} {% endfor %} {% endcomment %}
+    <div class="album py-5 bg-light">
+      <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+          <div class="col">
+            <div class="card shadow-sm align-items-center">
+              <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
+              <div class="card-body text-center">
+                <h3 class="fs-5">Superfast Delivery</h3>
+                <p class="card-text">Get your order delivered to your doorstep at the earliest from dark stores near
+                  you.</p>
               </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm align-items-center">
+              <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
+              <div class="card-body text-center">
+                <h3 class="fs-5">Best Prices & Offers</h3>
+                <p class="card-text">Cheaper prices than your local supermarket, great cashback offers to top it off. .
+                </p>
               </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm align-items-center">
+              <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
+              <div class="card-body text-center">
+                <h3 class="fs-5">Wide Assortment </h3>
+                <p class="card-text">Choose from 5000+ products across food, personal care, household & other categories
+                </p>
               </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
-              </div>
-              <div class="product_grid">
-                <div class="product_img"><img src="{% static 'img/product/1.jpg' %}" alt=""></div>
-                <div class="product_name"><p>Moov Instant Pain Relief Spray</p></div>
-                <div class="product_Quantity"><span>90G</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹200</span><span class="pro_sell">₹150</span></div>
-                  <a href="#" class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>50% off</span></div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card shadow-sm align-items-center">
+              <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
+              <div class="card-body text-center">
+                <h3 class="fs-5">Easy Returns/Refund</h3>
+                <p class="card-text">Not satisfied with a product? Return it at the doorstep & get a refund within
+                  hours.</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="album py-5 bg-light">
-        <div class="container">
-    
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
-            <div class="col">
-              <div class="card shadow-sm align-items-center">
-                <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
-                <div class="card-body text-center">
-                  <h3 class="fs-5">Superfast Delivery</h3>
-                  <p class="card-text">Get your order delivered to your doorstep at the earliest from dark stores near you.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card shadow-sm align-items-center">
-                <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
-                <div class="card-body text-center">
-                  <h3 class="fs-5">Best Prices & Offers</h3>
-                  <p class="card-text">Cheaper prices than your local supermarket, great cashback offers to top it off. .</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card shadow-sm align-items-center">
-                <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
-                <div class="card-body text-center">
-                  <h3 class="fs-5">Wide Assortment  </h3>
-                  <p class="card-text">Choose from 5000+ products across food, personal care, household & other categories</p>
-                </div>
-              </div>
-            </div>
-            <div class="col">
-              <div class="card shadow-sm align-items-center">
-                <img src="{% static 'img/icons/10_minute_delivery.avif' %}" alt="" width="100" height="100">
-                <div class="card-body text-center">
-                  <h3 class="fs-5">Easy Returns/Refund</h3>
-                  <p class="card-text">Not satisfied with a product? Return it at the doorstep & get a refund within hours.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer>
-        <div class="footer">
+    </div>
+    <footer>
+      <div class="footer">
         <div class="container">
           <div class="row">
             <div class="col-md-12 py-4">
-              <img src="{% static 'img/logo/glovo-white.svg' %}" with="115" height="35" class="footer_logo"alt="Glovo Logo">
+              <img src="{% static 'img/logo/glovo-white.svg' %}" with="115" height="35" class="footer_logo"
+                alt="Glovo Logo">
             </div>
           </div>
           <diiv class="row">
             <div class="col-md-3">
               <div class="footer-body">
-            
+
                 <h3 class="footer-title">Let’s do it together</h3>
                 <a href="#">Careers</a>
-                <a href="#">    Glovo for Partners</a>
+                <a href="#"> Glovo for Partners</a>
                 <a href="#">Couriers</a>
                 <a href="#">Glovo Business</a>
               </div>
@@ -917,7 +426,7 @@
               <div class="footer-body">
                 <h3 class="footer-title">Links of interest</h3>
                 <a href="#">Careers</a>
-                <a href="#">    Glovo for Partners</a>
+                <a href="#"> Glovo for Partners</a>
                 <a href="#">Couriers</a>
                 <a href="#">Glovo Business</a>
               </div>
@@ -950,91 +459,91 @@
         <div class="Copyright">
           &copy;
           <span id="copyright">
-              <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
           </span>
           Golovo Commerce Private Limited
+        </div>
       </div>
-    </div>
-      </footer>
-      </footer>
-      </footer>
+    </footer>
+    </footer>
+    </footer>
     <!-- Core javascript for this theme -->
-    <script src="{% static 'theme/js/bootstrap.bundle.min.js' %}" ></script>
+    <script src="{% static 'theme/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Custom JavaScript for this site -->
     <link href="{% static 'js/home.js' %}" rel="stylesheet">
-    <script
-  src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script>
-      $(document).ready(function(){
+      $(document).ready(function () {
         $('.slider').bxSlider({
-          slideWidth:179,
-          minSlides:2,
-          maxSlides:7,
-          slideMargin:15,
-          responsive:true,
-          pager:false,
-          hideControlOnEnd:true,
-          autoControls:true
+          slideWidth: 179,
+          minSlides: 2,
+          maxSlides: 7,
+          slideMargin: 15,
+          responsive: true,
+          pager: false,
+          hideControlOnEnd: true,
+          autoControls: true
         });
-      $('.slider1').bxSlider({
-          slideWidth:179,
-          minSlides:2,
-          maxSlides:7,
-          slideMargin:15,
-          responsive:true,
-          pager:false,
-          hideControlOnEnd:true,
-          autoControls:true
+        $('.slider1').bxSlider({
+          slideWidth: 179,
+          minSlides: 2,
+          maxSlides: 7,
+          slideMargin: 15,
+          responsive: true,
+          pager: false,
+          hideControlOnEnd: true,
+          autoControls: true
         });
-      
-      $('.slider2').bxSlider({
-          slideWidth:179,
-          minSlides:2,
-          maxSlides:7,
-          slideMargin:15,
-          responsive:true,
-          pager:false,
-          hideControlOnEnd:true,
-          autoControls:true
+
+        $('.slider2').bxSlider({
+          slideWidth: 179,
+          minSlides: 2,
+          maxSlides: 7,
+          slideMargin: 15,
+          responsive: true,
+          pager: false,
+          hideControlOnEnd: true,
+          autoControls: true
         });
         $('.pr_slide').bxSlider({
-          minSlides:1,
-          maxSlides:1,
-          responsive:true,
-          hideControlOnEnd:true,
-          autoControls:true,
-          controls:false
+          minSlides: 1,
+          maxSlides: 1,
+          responsive: true,
+          hideControlOnEnd: true,
+          autoControls: true,
+          controls: false
         });
         $('.slider3').bxSlider({
-          slideWidth:179,
-          minSlides:2,
-          maxSlides:7,
-          slideMargin:15,
-          responsive:true,
-          pager:false,
-          hideControlOnEnd:true,
-          autoControls:true
+          slideWidth: 179,
+          minSlides: 2,
+          maxSlides: 7,
+          slideMargin: 15,
+          responsive: true,
+          pager: false,
+          hideControlOnEnd: true,
+          autoControls: true
         });
         $('.slider4').bxSlider({
-          slideWidth:179,
-          minSlides:2,
-          maxSlides:7,
-          slideMargin:15,
-          responsive:true,
-          pager:false,
-          hideControlOnEnd:true,
-          autoControls:true
+          slideWidth: 179,
+          minSlides: 2,
+          maxSlides: 7,
+          slideMargin: 15,
+          responsive: true,
+          pager: false,
+          hideControlOnEnd: true,
+          autoControls: true
         });
         $('.pr_slide2').bxSlider({
-          minSlides:1,
-          maxSlides:1,
-          responsive:true,
-          hideControlOnEnd:true,
-          autoControls:true,
-          controls:false
+          minSlides: 1,
+          maxSlides: 1,
+          responsive: true,
+          hideControlOnEnd: true,
+          autoControls: true,
+          controls: false
         });
       });
     </script>
-  </body>
+</body>
+
 </html>
