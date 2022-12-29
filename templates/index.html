@@ -138,26 +138,29 @@
             {% endif %}{% endfor %}
           </div>
           <div class="slider">
-            {% for prod in products %}
-              {% if prod.category.category_name == "Breakfast & Dairy" %}
-              <div class="product_grid">
-                <div class="product_img">
-                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+              {% for prod in products %}
+                {% if prod.category.category_name == "Breakfast & Dairy" and prod|length > 0 and forloop.counter < 11 %}
+                <div class="product_grid">
+                  <div class="product_img">
+                    <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                        src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  </div>
+                  <div class="product_name">
+                    <p>{{prod.products.product_name}}</p>
+                  </div>
+                  <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                  <div class="d-flex justify-content-between">
+                    <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                        class="pro_sell">₹{{prod.max_retail_price}}</span></div>
+                    <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                  </div>
+                  <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
                 </div>
-                <div class="product_name">
-                  <p>{{prod.products.product_name}}</p>
-                </div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.max_retail_price}}</span></div>
-                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
-              </div>
-              {% endif %}
-            {% endfor %}
+                {% else %}
+              <p> No Products available</p>
+                {% endif %}
+              {% endfor %}
+      
           </div>
         </div>
       </div>
@@ -173,8 +176,9 @@
             {% endif %}{% endfor %}
           </div>
           <div class="slider1">
+            {% comment %} {% if products|length > 0 %} {% endcomment %}
             {% for prod in products %}
-              {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" %}
+              {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" and prod|length > 0 and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -191,9 +195,12 @@
                 </div>
                 <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
+              {% else %}
+              <p> No Products available</p>
               {% endif %}
             {% endfor %}
-
+            
+            {% comment %} {% endif %} {% endcomment %}
           </div>
         </div>
       </div>
@@ -210,7 +217,7 @@
           </div>
           <div class="slider2">
             {% for prod in products %}
-              {% if prod.category.category_name == "Vegetables" %}
+              {% if prod.category.category_name == "Vegetables" and prod|length > 0 and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -227,6 +234,8 @@
                 </div>
                 <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
+              {% else %}
+              <p> No Products available</p>
               {% endif %}
             {% endfor %}
           </div>
@@ -260,7 +269,7 @@
           </div>
           <div class="slider3">
             {% for prod in products %}
-              {% if prod.category.category_name == "Bread & Milk" %}
+              {% if prod.category.category_name == "Bread & Milk" and prod|length > 0 and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -277,6 +286,8 @@
                 </div>
                 <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
+              {% else %}
+              <p> No Products available</p>
               {% endif %}
             {% endfor %}
 
@@ -296,7 +307,7 @@
           </div>
           <div class="slider4">
             {% for prod in products %}
-              {% if prod.category.category_name == "Trending" %}
+              {% if prod.category.category_name == "Trending" and prod|length > 0 and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -313,6 +324,8 @@
                 </div>
                 <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
+              {% else %}
+              <p> No Products available</p>
               {% endif %}
             {% endfor %}
           </div>
@@ -331,7 +344,7 @@
           </div>
           <div class="slider4">
             {% for prod in products %}
-              {% if prod.category.category_name == "Medicines" %}
+              {% if prod.category.category_name == "Medicines" and prod|length > 0 and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -348,6 +361,8 @@
                 </div>
                 <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
               </div>
+              {% else %}
+              <p> No Products available</p>
               {% endif %}
             {% endfor %}
           </div>
