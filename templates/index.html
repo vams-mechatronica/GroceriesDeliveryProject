@@ -139,7 +139,7 @@
           </div>
           <div class="slider">
               {% for prod in products %}
-                {% if prod.category.category_name == "Breakfast & Dairy" and prod|length > 0 and forloop.counter < 11 %}
+                {% if prod.category.category_name == "Breakfast & Dairy" and forloop.counter < 11 %}
                 <div class="product_grid">
                   <div class="product_img">
                     <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -176,9 +176,9 @@
             {% endif %}{% endfor %}
           </div>
           <div class="slider1">
-            {% comment %} {% if products|length > 0 %} {% endcomment %}
+            {% comment %} {% if products|%} {% endcomment %}
             {% for prod in products %}
-              {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" and prod|length > 0 and forloop.counter < 11 %}
+              {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -217,7 +217,7 @@
           </div>
           <div class="slider2">
             {% for prod in products %}
-              {% if prod.category.category_name == "Vegetables" and prod|length > 0 and forloop.counter < 11 %}
+              {% if prod.category.category_name == "Vegetables" and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -269,7 +269,7 @@
           </div>
           <div class="slider3">
             {% for prod in products %}
-              {% if prod.category.category_name == "Bread & Milk" and prod|length > 0 and forloop.counter < 11 %}
+              {% if prod.category.category_name == "Bread & Milk" and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -307,7 +307,7 @@
           </div>
           <div class="slider4">
             {% for prod in products %}
-              {% if prod.category.category_name == "Trending" and prod|length > 0 and forloop.counter < 11 %}
+              {% if prod.category.category_name == "Trending" and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -344,7 +344,7 @@
           </div>
           <div class="slider4">
             {% for prod in products %}
-              {% if prod.category.category_name == "Medicines" and prod|length > 0 and forloop.counter < 11 %}
+              {% if prod.category.category_name == "Medicines" and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
