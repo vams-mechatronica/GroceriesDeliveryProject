@@ -21,7 +21,7 @@ from stores.models import *
 @login_required
 def addToCart(request, pk):
     
-    item = get_object_or_404(Products,pk = pk)
+    item = get_object_or_404(StoreProductsDetails,pk = pk)
     order_item, created = Cart.objects.get_or_create(
         item=item,
         user=request.user,
@@ -31,7 +31,7 @@ def addToCart(request, pk):
     if order_qs.exists():
         order = order_qs[0]
         # check if the order item is in the order
-        if order.items.filter(item__product_id=item.product_id).exists():
+        if order.items.filter(item__products__product_id=item.products.product_id).exists():
             order_item.quantity += 1
             order_item.save()
             messages.info(request, "This item quantity was updated.")

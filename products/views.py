@@ -51,9 +51,6 @@ def seeAllProductsInCategory(request,pk):
     return render(request,"list.html",context)
 
 def trendingAllItems(request):
-    a = 0
-    counter = 0
-
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
         productdetail = StoreProductsDetails.objects.filter(store__storeLocalityPinCode = user_details.pincode,trending = True)
@@ -62,14 +59,14 @@ def trendingAllItems(request):
         productdetail = StoreProductsDetails.objects.filter(trending = True)
     
     for i in cartitems:
-        counter =+ 1
-        a =+ i.get_total_item_price()
-
+        counter += i.quantity
+        a += i.get_total_item_price()
 
     context = {
                 'products':productdetail,
                 'totalcartitem':len(cartitems),
                 'totalamount':a,
+                'totalquantity':counter,
             }
     return render(request,"list_trending.html",context)
 
