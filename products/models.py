@@ -20,9 +20,13 @@ class Products(models.Model):
     flavour = models.CharField(max_length=250,default="",null=True,blank=True)
     max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2,null=True,blank=True)
     prod_mainimage = models.ImageField(_("Product Main Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
+    ingredients = models.CharField(_("Ingredients"), max_length=1050,null= True,blank=True)
+    manufactured_by = models.CharField(_("Manufactured By"), max_length=1050,null=True,blank= True)
+    marketed_by = models.CharField(_("Marketed By"), max_length=1050,null=True,blank=True)
+    created_at = models.DateTimeField(_("Created At"), auto_now=True)
     
     def __str__(self):
-        return "Product Name: {}".format(self.product_name)
+        return self.product_name
 
     def get_attrib_id(self):
         return self.product_id
@@ -59,7 +63,7 @@ class Categories(models.Model):               #----Catagory Details----#
     category_image = models.ImageField(_("category image"), upload_to=ProductFileStorage(name='category',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
     
     def __str__(self):
-        return "Categories ID: {}, category's Name: {}".format(self.category_id,self.category_name)
+        return self.category_name
     
     class Meta:
         db_table = "Categories"
