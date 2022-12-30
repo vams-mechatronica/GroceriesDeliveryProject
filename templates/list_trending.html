@@ -45,7 +45,7 @@
         <div class="row">
           <div class="col">
             <div class="list-page-header">
-              <h1>{{category.category_name}}</h1>
+              <h1>Trending</h1>
               <div class="position-relative">
                 <i class="bi bi-search serach_icons-list"></i>
                 <input type="text" placeholder="What can we get you?">
@@ -75,7 +75,7 @@
             <div class="d-flex justify-content-between">
               <div class="product_pirce"><span class="pro_mrp">₹{{categorypro.list_price}}</span><span
                   class="pro_sell">₹{{categorypro.products.max_retail_price}}</span></div>
-              <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+              <a href="{% url 'addtocartlist' categorypro.products.product_id%}" class="btn btn-style1 btn-padding">ADD</a>
             </div>
             <div class="product_dicont"><span>{{categorypro.discount}}% off</span></div>
             
@@ -93,7 +93,7 @@
       <div class="row">
         <div class="col-12">
           <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between">
-            <div><span>1 items</span> | <span> ₹304</span></div>
+            <div><span>{{totalcartitem}} items</span> | <span> ₹{{totalamount}}</span></div>
             <div><i class="bi bi-bag"></i> View cart</div>
           </a>
         </div>

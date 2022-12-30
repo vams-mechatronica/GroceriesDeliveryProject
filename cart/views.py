@@ -12,6 +12,7 @@ from .serializers import *
 from django.views.generic import *
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from stores.models import *
 
 
 
@@ -46,6 +47,36 @@ def addToCart(request, pk):
         order.items.add(order_item)
         messages.info(request, "This item was added to your cart.")
         return redirect("cartview")
+
+@login_required
+def addToCartListPage(request, pk):
+    
+    item = get_object_or_404(StoreProductsDetails,pk = pk)
+    order_item, created = Cart.objects.get_or_create(
+        item=item,
+        user=request.user,
+        ordered=False
+    )
+    order_qs = Order.objects.filter(user=request.user, ordered=False)
+    if order_qs.exists():
+        order = order_qs[0]
+        # check if the order item is in the order
+        if order.items.filter(item__products__product_id=item.products.product_id).exists():
+            order_item.quantity += 1
+            order_item.save()
+            messages.info(request, "This item quantity was updated.")
+            return redirect("trendingitems")
+        else:
+            order.items.add(order_item)
+            messages.info(request, "This item was added to your cart.")
+            return redirect("trendingitems")
+    else:
+        ordered_date = timezone.now()
+        order = Order.objects.create(
+            user=request.user, ordered_date=ordered_date)
+        order.items.add(order_item)
+        messages.info(request, "This item was added to your cart.")
+        return redirect("trendingitems")
 
 def cartCheckoutPageView(request):
     itemsForCartPage = Cart.objects.filter(ordered = False)

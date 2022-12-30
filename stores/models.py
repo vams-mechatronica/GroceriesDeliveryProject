@@ -35,6 +35,7 @@ class StoreProductsDetails(models.Model):
     expiry_date = models.DateField(_("Expiry Date"), auto_now=False, auto_now_add=False,blank=True,null=True)
     packing_date = models.DateField(_("Packing Date"), auto_now=False, auto_now_add=False,null=True)
     available_stock = models.IntegerField(_("available stock"),default=0)
+    trending = models.BooleanField(_("Item in Trending"),default = False )
 
     def __str__(self) -> str:
         return "StoreName: {} ProductName: {} AvailableStock: {}".format(self.store,self.products,self.available_stock)
