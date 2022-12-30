@@ -14,10 +14,11 @@ class Products(models.Model):
     product_name = models.CharField(max_length=150)
     display_name = models.CharField(max_length=150)
     long_desc = models.TextField(max_length=5000,null=True,blank=True)
-    unit = models.CharField(max_length=50)
+    unit = models.CharField(max_length=50,blank=True)
     material_feature = models.CharField(max_length=50, blank=True, choices=FEATURE)
-    brand = models.CharField(max_length=250,default="",null=True)
-    flavour = models.CharField(max_length=250,default="",null=True)
+    brand = models.CharField(max_length=250,default="",null=True,blank=True)
+    flavour = models.CharField(max_length=250,default="",null=True,blank=True)
+    max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2,null=True,blank=True)
     prod_mainimage = models.ImageField(_("Product Main Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
     
     def __str__(self):

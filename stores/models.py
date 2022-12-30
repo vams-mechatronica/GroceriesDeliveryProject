@@ -19,7 +19,6 @@ class StoreProductsDetails(models.Model):
     store = models.ForeignKey("stores.StoreDetail", verbose_name=_("Store Detail"), on_delete=models.CASCADE)
     category = models.ForeignKey(Categories, verbose_name=_("store product categories"), on_delete=models.CASCADE)
     products = models.ForeignKey(Products, verbose_name=_("store products"), on_delete=models.CASCADE)
-    max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2,null=True)
     discount = models.DecimalField(_("Discount"), max_digits=5, decimal_places=2,null=True,blank=True)
     list_price = models.DecimalField(_("Our Price"), max_digits=8, decimal_places=2,null=True)
     net_content = models.CharField(max_length=50,default="",null=True)
