@@ -3,8 +3,8 @@ from .models import *
 
 # Register your models here.
 class ProductsAdmin(admin.ModelAdmin):
-    list_display: list = ('product_name','brand','material_feature','unit','max_retail_price','created_at')
-    ordering: list = ['-created_at']
+    list_display: list = ('product_name','brand','material_feature','unit','max_retail_price','modified_at')
+    ordering: list = ['-modified_at']
     search_fields: list = ('product_name','brand','material_feature','max_retail_price')
 
 admin.site.register(Products,ProductsAdmin)

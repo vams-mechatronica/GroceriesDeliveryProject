@@ -3,12 +3,26 @@ from django.utils.translation import gettext_lazy as _
 from .storage import ProductFileStorage
 from django.contrib.auth import get_user_model
 from datetime import date
+from django import forms
+from django.contrib.postgres.fields import ArrayField
 
 user = get_user_model()
+#MultiArrayChoiceFields
+
+class ModifiedArrayField(ArrayField):
+    def formfield(self, **kwargs):
+        defaults = {
+            "form_class": forms.MultipleChoiceField,
+            "choices": self.base_field.choices,
+            "widget": forms.CheckboxSelectMultiple,
+            **kwargs
+        }
+        return super(ArrayField, self).formfield(**defaults)
 
 # Create your models here.
 class Products(models.Model):
     FEATURE = (('NON VEG','NON VEGETERIAN'),('VEG','VEGETERIAN'),)
+    CATEGORIES = (('Bread & Milk','BREAD & MILK'),('Vegetables','VEGETABLES'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Biscuits, Snacks & Chocolates','BISCUITS, SNACKS & CHOCOLATES'),('Medicines','MEDICINES'),('Pan Corner','PAN CORNER'),('Comida','COMIDA'),('Trending','TRENDING'),)
 
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=150)
@@ -16,6 +30,7 @@ class Products(models.Model):
     long_desc = models.TextField(max_length=5000,null=True,blank=True)
     unit = models.CharField(max_length=50,blank=True)
     material_feature = models.CharField(max_length=50, blank=True, choices=FEATURE)
+    pro_category = ModifiedArrayField(models.CharField(_("Product Category"),max_length=255,choices=CATEGORIES,null = True,blank=True),blank=True,null=True)
     brand = models.CharField(max_length=250,default="",null=True,blank=True)
     flavour = models.CharField(max_length=250,default="",null=True,blank=True)
     max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2,null=True,blank=True)
@@ -23,7 +38,11 @@ class Products(models.Model):
     ingredients = models.CharField(_("Ingredients"), max_length=1050,null= True,blank=True)
     manufactured_by = models.CharField(_("Manufactured By"), max_length=1050,null=True,blank= True)
     marketed_by = models.CharField(_("Marketed By"), max_length=1050,null=True,blank=True)
-    created_at = models.DateTimeField(_("Created At"), auto_now=True)
+    net_content = models.CharField(max_length=50,default="",null=True)
+    item_package_quantity = models.CharField(max_length=50,default="",null=True)
+    expiry_date = models.DateField(_("Expiry Date"), auto_now=False, auto_now_add=False,blank=True,null=True)
+    packing_date = models.DateField(_("Packing Date"), auto_now=False, auto_now_add=False,null=True)
+    modified_at = models.DateTimeField(_("Modified At"), auto_now=True)
     
     def __str__(self):
         return self.product_name
@@ -33,6 +52,7 @@ class Products(models.Model):
     
     class Meta:
         db_table = "Product"
+        verbose_name_plural = 'Products'
 
 class ProductReviewAndRatings(models.Model):
     RATINGS = (('1','1'),('2','2'),('3','3'),('4','4'),('5','5'),)
