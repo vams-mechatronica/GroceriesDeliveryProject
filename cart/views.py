@@ -76,7 +76,8 @@ def addToCartListPage(request, pk):
         return redirect("trendingitems")
 
 def cartCheckoutPageView(request):
-    itemsForCartPage = Cart.objects.filter(ordered = False)
+    if request.user:
+        itemsForCartPage = Cart.objects.filter(user=request.user.id,ordered = False)
     context = {
         'cartitems':itemsForCartPage
     }
