@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import *
 # Register your models here.
 class StoreProductsAdmin(admin.ModelAdmin):
-    list_display: list = ('products','category','net_content','mrp','discount','list_price','trending','store','storeAddress','expiry_date','packing_date','available_stock','item_package_quantity')
-    ordering: list = ['-available_stock','expiry_date']
-    search_fields: list = ('store','products','available_stock','expiry_date','packing_date','trending')
+    list_display: list = ('products','mrp','discount','list_price','available_stock')
+    ordering: list = ['-available_stock']
+    search_fields: list = ('store','products','available_stock')
 
     def storeAddress(self,obj):
         return obj.store.fullStoreAddress()
