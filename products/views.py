@@ -22,7 +22,7 @@ def index(request):
 
     else:
         user_details = "Please select user"
-        products = StoreProductsDetails.objects.all()
+        products = StoreProductsDetails.objects.filter(store__storeLocalityPinCode = 201301)
     banners = Banners.objects.all()
     categories = Categories.objects.all()
     context = ({'user':user_details,'banners':banners,'products':products,'categories':categories})

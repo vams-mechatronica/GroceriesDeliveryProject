@@ -78,9 +78,8 @@ class Categories(models.Model):               #----Catagory Details----#
     
     category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=255,null= False,default=None,unique=True)
-    short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
-    long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
-    category_image = models.ImageField(_("category image"), upload_to=ProductFileStorage(name='category',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
+    desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
+    category_image = models.ImageField(_("category image"), upload_to=ProductFileStorage(name='category',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,blank=True)
     
     def __str__(self):
         return self.category_name

@@ -139,7 +139,7 @@
           </div>
           <div class="slider">
               {% for prod in products %}
-                {% if prod.category.category_name == "Breakfast & Dairy" and forloop.counter < 11 %}
+                {% if "Breakfast & Dairy" in prod.products.pro_category and forloop.counter < 11 %}
                 <div class="product_grid">
                   <div class="product_img">
                     <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -148,11 +148,11 @@
                   <div class="product_name">
                     <p>{{prod.products.product_name}}</p>
                   </div>
-                  <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                  <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                   <div class="d-flex justify-content-between">
                     <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                         class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                    <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                    <a href={% url 'productdetail' prod.products.product_id %} class="btn btn-style1 btn-padding">ADD</a>
                   </div>
                   <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
                 </div>
@@ -178,7 +178,7 @@
           <div class="slider1">
             {% comment %} {% if products|%} {% endcomment %}
             {% for prod in products %}
-              {% if prod.category.category_name == "Biscuits, Snacks & Chocolates" and forloop.counter < 11 %}
+              {% if "Biscuits, Snacks & Chocolates" in prod.products.pro_category and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -187,7 +187,7 @@
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
                 </div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
@@ -217,7 +217,7 @@
           </div>
           <div class="slider2">
             {% for prod in products %}
-              {% if prod.category.category_name == "Vegetables" and forloop.counter < 11 %}
+              {% if "Vegetables" in prod.products.pro_category and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -226,7 +226,7 @@
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
                 </div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
@@ -269,7 +269,7 @@
           </div>
           <div class="slider3">
             {% for prod in products %}
-              {% if prod.category.category_name == "Bread & Milk" and forloop.counter < 11 %}
+              {% if "Bread & Milk" in prod.products.pro_category and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -278,7 +278,7 @@
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
                 </div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
@@ -309,7 +309,7 @@
           </div>
           <div class="slider4">
             {% for prod in products %}
-              {% if prod.trending == True and forloop.counter < 11 %}
+              {% if "Trending" in prod.products.pro_category and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -318,7 +318,7 @@
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
                 </div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
@@ -346,7 +346,7 @@
           </div>
           <div class="slider4">
             {% for prod in products %}
-              {% if prod.category.category_name == "Medicines" and forloop.counter < 11 %}
+              {% if "Medicines" in prod.products.pro_category and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
                   <a href="{% url 'productdetail' prod.products.product_id%}"><img
@@ -355,7 +355,7 @@
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
                 </div>
-                <div class="product_Quantity"><span>{{prod.net_content}}</span></div>
+                <div class="product_Quantity"><span>{{prod.products.net_content}}</span></div>
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
@@ -500,9 +500,9 @@
     </footer>
     </footer>
     <!-- Core javascript for this theme -->
-    <script src="{% static 'theme/js/bootstrap.bundle.min.js' %}"></script>
+    <script src={% static 'theme/js/bootstrap.bundle.min.js' %}></script>
     <!-- Custom JavaScript for this site -->
-    <link href="{% static 'js/home.js' %}" rel="stylesheet">
+    <link href={% static 'js/home.js' %} rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script>
