@@ -86,6 +86,7 @@ class Categories(models.Model):               #----Catagory Details----#
     
     class Meta:
         db_table = "Categories"
+        verbose_name_plural = 'Categories'
 
 class CategoriesProducts(models.Model):
     categoriesproduct_id = models.AutoField(primary_key=True)
@@ -97,16 +98,21 @@ class CategoriesProducts(models.Model):
     
     class Meta:
         db_table = "CategoriesProducts"
+        verbose_name_plural = 'CategoriesProducts'
 
 class Banners(models.Model):
     ChoiceStatus = (('Activate','ACTIVATE'),('Deactivate','DEACTIVATE'),)
-    position = models.CharField(_("position"), max_length=50,null=False)
-    banner_name = models.CharField(_("bannername"), max_length=50,null=False)
+    position = models.CharField(_("position"), max_length=50,null=True,blank=True)
+    banner_name = models.CharField(_("bannername"), max_length=50,null=True,blank=True)
     banner_images = models.ImageField(_("bannerimages"), upload_to=ProductFileStorage(name='banners',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
     banner_status = models.CharField(max_length=20,choices=ChoiceStatus,null=False,default=None)
 
     def __str__(self):
         return "Banner Name: {}, Banner Status: {}".format(self.banner_name,self.banner_status)
+    
+    class Meta:
+        db_table = "Banners"
+        verbose_name_plural = 'Banners'
 
 
 

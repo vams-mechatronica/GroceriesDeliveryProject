@@ -49,7 +49,7 @@
             </div>
         </div>
         <!-- End top Control -->
-        <!-- product info start -->
+        <!-- product.products.info start -->
         <section class=" pro-page">
             <div class="container">
                 <div class="row">
@@ -59,77 +59,77 @@
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="image-11">
                                         <a href="javascript:void(0)" class="long-img">
-                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(/media/{{product.prod_mainimage}})">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                            <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(/media/{{product.products.prod_mainimage}})">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-22">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/prro-page-image01.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-33">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image1-1.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-44">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image1.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-55">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image2.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-66">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image2-2.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-77">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image3.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                     <div class="tab-pane fade" id="image-88">
                                         <a href="javascript:void(0)" class="long-img">
                                             <figure class="zoom" onmousemove="zoom(event)" style="background-image: url(img/pro-page-image03.jpg)">
-                                                <img src="/media/{{product.prod_mainimage}}" class="img-fluid" alt="image">
+                                                <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid" alt="image">
                                             </figure>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 pro-info">
-                                <h4>{{product.product_name}}</h4>
-                                <span class="pro-size"><span class="size"></span>{{product.net_content}}</span>
+                                <h4>{{product.products.product_name}}</h4>
+                                <span class="pro-size"><span class="size"></span>{{product.products.net_content}}</span>
                                 <div class="pro-price justify-content-between">
                                     <div class="d-flex">
                                         <span class="new-price">₹{{product.list_price}}</span>
-                                    <span class="old-price"><del>₹{{product.max_retail_price}}</del></span>
+                                    <span class="old-price"><del>₹{{product.products.max_retail_price}}</del></span>
                                     <div class="Pro-lable">
                                         <span class="p-discount">{{product.discount}}% Off</span>
                                     </div>
                                     </div>
-                                     <a href="{% url 'addtocart' product.product_id%}" class="btn btn-style1">ADD</a>
+                                     <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1">ADD</a>
                                 </div>
                                 <span class="pro-details">About Product</span>
-                                <p>{{product.long_desc|safe}}</p>
+                                <p>{{product.products.long_desc|safe}}</p>
                                <div class="pro-btn">
                                     <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between"><div><span>1 items</span>  | <span> ₹304</span></div><div><i class="bi bi-bag"></i> View cart</div></a>
                                 </div>
@@ -139,7 +139,7 @@
                 </div>
             </div>
         </section>
-        <!-- product info end -->
+        <!-- product.products.info end -->
         
        
       

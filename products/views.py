@@ -73,9 +73,16 @@ def trendingAllItems(request):
 
 
 def productDetailsPageView(request,pk):
-    productdetail = Products.objects.get(pk=pk)
+    if request.user.id != None:
+        user_details = UserAddresses.objects.get(user = request.user.id)
+        products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
+
+    else:
+        user_details = "Please select user"
+        products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = 201301).get(products=pk)
+    # productdetail = Products.objects.get(pk=pk)
     context = {
-        'product':productdetail
+        'product':products
     }
     return render(request,"detail-page.html",context)
 
