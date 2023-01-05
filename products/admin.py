@@ -28,7 +28,7 @@ class ProductRARAdmin(admin.ModelAdmin):
 admin.site.register(ProductReviewAndRatings,ProductRARAdmin)
 
 class BannersAdmin(admin.ModelAdmin):
-    list_display: list = ('banner_name','banner_status','banner_images')
+    list_display: list = ('banner_name','banner_status','banner_images','position')
     search_fields: list = ('banner_status','banner_name')
 
 admin.site.register(Banners,BannersAdmin)

@@ -102,7 +102,8 @@ class CategoriesProducts(models.Model):
 
 class Banners(models.Model):
     ChoiceStatus = (('Activate','ACTIVATE'),('Deactivate','DEACTIVATE'),)
-    position = models.CharField(_("position"), max_length=50,null=True,blank=True)
+    BannerPosition = (("Home","HOME"),('Categories','CATEGORIES'),('Top','TOP'),('Middle','MIDDLE'),('Bottom','BOTTOM'),)
+    position = ModifiedArrayField(models.CharField(_("Banner Position"),max_length=255,choices=BannerPosition,null = True,blank=True),blank=True,null=True)
     banner_name = models.CharField(_("bannername"), max_length=50,null=True,blank=True)
     banner_images = models.ImageField(_("bannerimages"), upload_to=ProductFileStorage(name='banners',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None)
     banner_status = models.CharField(max_length=20,choices=ChoiceStatus,null=False,default=None)

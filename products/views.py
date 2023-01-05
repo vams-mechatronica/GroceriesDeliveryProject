@@ -39,14 +39,25 @@ class ProductDetails(APIView):
 
 
 def seeAllProductsInCategory(request,pk):
+    counter = 0
+    a = 0
     categorydetails = Categories.objects.get(pk = pk)
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
-        productdetail = StoreProductsDetails.objects.filter(category = categorydetails.category_id,store__storeLocalityPinCode = user_details.pincode)
+        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeLocalityPinCode = user_details.pincode)
+        cartitems = Cart.objects.filter(user = request.user.id)
     else:
-        productdetail = StoreProductsDetails.objects.filter(category = categorydetails.category_id)
+        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
+    
+    for i in cartitems:
+        counter += i.quantity
+        a += i.get_total_item_price()
+
     context = {'category':categorydetails,
-                'products':productdetail,
+                'catproducts':productdetail,
+                'totalcartitem':len(cartitems),
+                'totalamount':a,
+                'totalquantity':counter,
             }
     return render(request,"list.html",context)
 
