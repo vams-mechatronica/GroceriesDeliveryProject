@@ -21,7 +21,7 @@ from stores.models import *
 @login_required
 def addToCart(request, pk):
     
-    item = get_object_or_404(StoreProductsDetails,pk = pk)
+    item = get_object_or_404(StoreProductsDetails,products = pk)
     order_item, created = Cart.objects.get_or_create(
         item=item,
         user=request.user,
@@ -51,7 +51,7 @@ def addToCart(request, pk):
 @login_required
 def addToCartListPage(request, pk):
     
-    item = get_object_or_404(StoreProductsDetails,pk = pk)
+    item = get_object_or_404(StoreProductsDetails,products = pk)
     order_item, created = Cart.objects.get_or_create(
         item=item,
         user=request.user,
@@ -86,7 +86,7 @@ def cartCheckoutPageView(request):
 
 @login_required
 def removeSingleItemFromCart(request, pk):
-    item = get_object_or_404(Products, pk = pk)
+    item = get_object_or_404(StoreProductsDetails,products = pk)
     order_qs = Order.objects.filter(
         user=request.user,
         ordered=False
