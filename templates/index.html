@@ -181,7 +181,7 @@
               {% if "Biscuits, Snacks & Chocolates" in prod.products.pro_category and forloop.counter < 11 %}
               <div class="product_grid">
                 <div class="product_img">
-                  <a href="{% url 'productdetail' prod.products.product_id%}"><img
+                  <a href="{% url 'productdetail' prod.products.product_id %}"><img
                       src=/media/{{prod.products.prod_mainimage}} alt=""></a>
                 </div>
                 <div class="product_name">

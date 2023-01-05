@@ -18,7 +18,7 @@ User = get_user_model()
 def index(request):
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
-        products = StoreProductsDetails.objects.filter(store__storeLocalityPinCode = user_details.pincode)
+        products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode)
 
     else:
         user_details = "Please select user"
