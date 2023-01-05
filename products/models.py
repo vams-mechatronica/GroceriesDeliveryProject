@@ -75,9 +75,9 @@ class ProductImages(models.Model):
         return "Image URL: {}".format(self.images)
 
 class Categories(models.Model):               #----Catagory Details----#
-    CATEGORIES = (('Bread & Milk','BREAD & MILK'),('Vegetables','VEGETABLES'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Biscuits, Snacks & Chocolates','BISCUITS, SNACKS & CHOCOLATES'),('Medicines','MEDICINES'),('Pan Corner','PAN CORNER'),('Comida','COMIDA'),('Trending','TRENDING'),)
+    
     category_id = models.AutoField(primary_key=True)
-    category_name = models.CharField(max_length=255,choices=CATEGORIES,null= False,default=None,unique=True)
+    category_name = models.CharField(max_length=255,null= False,default=None,unique=True)
     short_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     long_desc = models.TextField(null = True, default = None,blank=True,max_length=1024)
     category_image = models.ImageField(_("category image"), upload_to=ProductFileStorage(name='category',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True)
