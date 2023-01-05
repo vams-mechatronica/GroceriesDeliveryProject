@@ -75,7 +75,7 @@
             <div class="d-flex justify-content-between">
               <div class="product_pirce"><span class="pro_mrp">₹{{categorypro.list_price}}</span><span
                   class="pro_sell">₹{{categorypro.products.max_retail_price}}</span></div>
-              <a href="#" class="btn btn-style1 btn-padding">ADD</a>
+              <a href="{% url 'addtocart' categorypro.products.product_id %}" class="btn btn-style1 btn-padding">ADD</a>
             </div>
             <div class="product_dicont"><span>{{categorypro.discount}}% off</span></div>
             

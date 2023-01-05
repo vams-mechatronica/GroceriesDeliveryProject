@@ -13,6 +13,7 @@ from django.views.generic import *
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from stores.models import *
+from user.models import UserAddresses
 
 
 
@@ -78,8 +79,10 @@ def addToCartListPage(request, pk):
 def cartCheckoutPageView(request):
     if request.user:
         itemsForCartPage = Cart.objects.filter(user=request.user.id,ordered = False)
+        useraddress = UserAddresses.objects.get(user = request.user.id)
     context = {
-        'cartitems':itemsForCartPage
+        'cartitems':itemsForCartPage,
+        'useraddress':useraddress,
     }
     return render(request,"cart.html",context)
 

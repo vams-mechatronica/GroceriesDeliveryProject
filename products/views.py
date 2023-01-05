@@ -84,16 +84,25 @@ def trendingAllItems(request):
 
 
 def productDetailsPageView(request,pk):
+    counter = 0
+    a = 0
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
         products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
-
+        cartitems = Cart.objects.filter(user = request.user.id)
     else:
         user_details = "Please select user"
         products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = 201301).get(products=pk)
     # productdetail = Products.objects.get(pk=pk)
+    for i in cartitems:
+        counter += i.quantity
+        a += i.get_total_item_price()
+
     context = {
-        'product':products
+        'product':products,
+        'totalcartitem':len(cartitems),
+        'totalamount':a,
+        'totalquantity':counter,
     }
     return render(request,"detail-page.html",context)
 

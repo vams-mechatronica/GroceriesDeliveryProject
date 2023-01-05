@@ -212,7 +212,7 @@
             <div class="pr_slide">
               {% for banner in banners %}
                 {% if banner.banner_status == "Activate" and "Home,Top" in banner.position %}
-                <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+                  <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
                 {% endif %}
               {% endfor %}
             </div>
@@ -302,9 +302,9 @@
           <div class="col-md-12">
             <div class="pr_slide">
               {% for banner in banners %}
-              {% if banner.banner_status == "Activate" and "Home,Middle" in banner.position %}
-              <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
-              {% endif %}
+                {% if banner.banner_status == "Activate" and "Home,Middle" in banner.position %}
+                <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+                {% endif %}
               {% endfor %}
             </div>
           </div>
