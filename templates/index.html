@@ -88,38 +88,56 @@
                 <div class="product_cat_body">
                   <div class="pproduct_cat_row">
                     <div class="product_cat_name_1">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      {% for category in categories %}
+                      {% if category.category_name == "Comida" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
                       <span>Comida</span>
+                      {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_2">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      {% for category in categories %}{% if category.category_name == "Pan Corner" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
                       <span>Pan Corner</span>
+                      {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_3">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                      <span>Vegetable</span>
+                      {% for category in categories %}{% if category.category_name == "Vegetables" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <span>Vegetables</span>
+                      {% endif %}{% endfor %}
                     </div>
                   </div>
                   <div class="product_cat_row">
                     <div class="pproduct_cat_name_center">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      {% for category in categories %}{% if category.category_name == "Biscuits, Snacks & Chocolates" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
                       <span>Chocolates</span>
+                      {% endif %}{% endfor %}
                     </div>
+                    
                   </div>
                   <div class="product_cat_row">
                     <div class="product_cat_name_4">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
                       <span>Breakfast & Dairy</span>
+                      {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_5">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
+                      {% for category in categories %}{% if category.category_name == "Bread & Milk" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
                       <span>Bread & Milk</span>
+                      {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_6">
-                      <img src="{% static 'img/icons/drink.png' %}" alt="drink">
-                      <span>Medicine</span>
+                      {% for category in categories %}{% if category.category_name == "Medicines" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <span>Medicines</span>
+                      {% endif %}{% endfor %}
                     </div>
+                    
                   </div>
+                  
                 </div>
               </div>
           </div>
@@ -316,12 +334,12 @@
         <div class="row">
           <div class="product_heading">
             <h2>Trending near You</h2>
-            {% comment %} {% for category in categories %}{% if category.category_name == "Trending" %}
+             {% for category in categories %}{% if category.category_name == "Trending" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
-            {% endif %}{% endfor %} {% endcomment %}
-            <a href={% url 'trendingitems' %} class="see_all">See All <i
-                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %} 
+            {% comment %} <a href={% url 'trendingitems' %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a> {% endcomment %}
           </div>
           <div class="slider4">
             {% for prod in products %}
