@@ -35,4 +35,7 @@ class StoreProductsDetails(models.Model):
     def __str__(self) -> str:
         return "StoreName: {} ProductName: {} AvailableStock: {}".format(self.store,self.products,self.available_stock)
     
+    def list_price(self):
+        listprice = self.products.max_retail_price - ((self.discount/100) * self.products.max_retail_price)
+        return round(listprice,2)
     
