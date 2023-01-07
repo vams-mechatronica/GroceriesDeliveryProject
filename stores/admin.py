@@ -2,16 +2,28 @@ from django.contrib import admin
 from .models import *
 # Register your models here.
 class StoreProductsAdmin(admin.ModelAdmin):
-    list_display: list = ('products','mrp','discount','list_price','available_stock')
+    list_display: list = ('pname','unit','discount','mrp','ourprice','storename','storeAddress','available_stock')
     ordering: list = ['-available_stock']
-    search_fields: list = ('store','products','available_stock')
+    search_fields: list = ('storeAddress','products','available_stock')
 
     def storeAddress(self,obj):
         return obj.store.fullStoreAddress()
     
     def mrp(self,obj):
         return obj.products.max_retail_price
+    
+    def unit(self,obj):
+        return obj.products.unit
+    
+    def pname(self,obj):
+        return obj.products.product_name
+    
+    def ourprice(self,obj):
+        list_price = obj.products.max_retail_price - ((obj.discount/100) * obj.products.max_retail_price)
+        return round(list_price,2)
 
+    def storename(self,obj):
+        return obj.store.storeName
 admin.site.register(StoreProductsDetails,StoreProductsAdmin)
 
 class StoreDetailsAdmin(admin.ModelAdmin):

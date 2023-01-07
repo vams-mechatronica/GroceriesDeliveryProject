@@ -21,31 +21,19 @@ class ModifiedArrayField(ArrayField):
 
 # Create your models here.
 class Products(models.Model):
-    FEATURE = (('NON VEG','NON VEGETERIAN'),('VEG','VEGETERIAN'),)
-    CATEGORIES = (('Bread & Milk','BREAD & MILK'),('Vegetables','VEGETABLES'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Biscuits, Snacks & Chocolates','BISCUITS, SNACKS & CHOCOLATES'),('Medicines','MEDICINES'),('Pan Corner','PAN CORNER'),('Comida','COMIDA'),('Trending','TRENDING'),)
+    CATEGORIES = (('Tea & Coffee','Tea & Coffee'),('Fruits & Vegetables','Fruits & Vegetables'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Snacks & Drinks','Snacks & Drinks'),('Puja Store','Puja Store'),('Dry Fruits','Dry Fruits'),('Trending','TRENDING'),('Home & Kitchen Appliances','Home & Kitchen Appliances'),('Cleaning Essentials','Cleaning Essentials'),('Personal Care','Personal Care'),('Cooking Essentials','Cooking Essentials'),('Health & Baby Care','Health & Baby Care'))
 
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=150)
-    display_name = models.CharField(max_length=150)
-    long_desc = models.TextField(max_length=5000,null=True,blank=True)
+    desc = models.TextField(max_length=5000,null=True,blank=True)
     unit = models.CharField(max_length=50,blank=True)
-    material_feature = models.CharField(max_length=50, blank=True, choices=FEATURE)
-    pro_category = ModifiedArrayField(models.CharField(_("Product Category"),max_length=255,choices=CATEGORIES,null = True,blank=True),blank=True,null=True)
-    brand = models.CharField(max_length=250,default="",null=True,blank=True)
-    flavour = models.CharField(max_length=250,default="",null=True,blank=True)
-    max_retail_price = models.DecimalField(_("MRP"), max_digits=8, decimal_places=2,null=True,blank=True)
+    pro_category = ModifiedArrayField(models.CharField(_("Product Category"),max_length=255,choices=CATEGORIES,null = True,blank=True),null=True)
+    max_retail_price = models.DecimalField(_("MRP (in Rs.)"), max_digits=8, decimal_places=2,null=True)
     prod_mainimage = models.ImageField(_("Product Main Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
-    ingredients = models.CharField(_("Ingredients"), max_length=1050,null= True,blank=True)
-    manufactured_by = models.CharField(_("Manufactured By"), max_length=1050,null=True,blank= True)
-    marketed_by = models.CharField(_("Marketed By"), max_length=1050,null=True,blank=True)
-    net_content = models.CharField(max_length=50,default="",null=True)
-    item_package_quantity = models.CharField(max_length=50,default="",null=True)
-    expiry_date = models.DateField(_("Expiry Date"), auto_now=False, auto_now_add=False,blank=True,null=True)
-    packing_date = models.DateField(_("Packing Date"), auto_now=False, auto_now_add=False,null=True)
     modified_at = models.DateTimeField(_("Modified At"), auto_now=True)
     
     def __str__(self):
-        return self.product_name
+        return "Name: {} \tUnit: {}\t MRP: {}".format(self.product_name,self.unit,self.max_retail_price)
 
     def get_attrib_id(self):
         return self.product_id
