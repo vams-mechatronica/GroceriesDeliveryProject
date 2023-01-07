@@ -29,6 +29,7 @@ class StoreProductsDetails(models.Model):
     products = models.ForeignKey(Products, verbose_name=_("store products"), on_delete=models.CASCADE)
     discount = models.DecimalField(_("Discount (in %)"), max_digits=5, decimal_places=2,null=True,blank=True)
     available_stock = models.IntegerField(_("available stock (in Nos.)"),default=0)
+    display_home = models.BooleanField(_("Display at home"),default=False)
     status = models.BooleanField(_("Product Status"),default=True)
     
     def __str__(self) -> str:
