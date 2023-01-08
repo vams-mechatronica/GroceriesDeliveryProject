@@ -67,7 +67,7 @@
         <div class="col-6 col-sm-6 col-md-3">
 
           <div class="product_grid mb-4 .mb-md-0">
-            <div class="product_img"><img src=/media/{{categorypro.products.prod_mainimage}} alt=""></div>
+            <div class="product_img"><a href="{% url 'productdetail' categorypro.products.product_id %}"><img src=/media/{{categorypro.products.prod_mainimage}} alt=""></a></div>
             <div class="product_name">
               <p>{{categorypro.products.product_name}}</p>
             </div>

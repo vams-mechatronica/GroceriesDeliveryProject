@@ -117,19 +117,19 @@
                             </div>
                             <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 pro-info">
                                 <h4>{{product.products.product_name}}</h4>
-                                <span class="pro-size"><span class="size"></span>{{product.products.net_content}}</span>
+                                <span class="pro-size"><span class="size"></span>{{product.products.unit}}</span>
                                 <div class="pro-price justify-content-between">
                                     <div class="d-flex">
                                         <span class="new-price">₹{{product.list_price}}</span>
                                     <span class="old-price"><del>₹{{product.products.max_retail_price}}</del></span>
                                     <div class="Pro-lable">
-                                        <span class="p-discount">{{product.discount}}% Off</span>
+                                        <span class="p-discount">{{product.discount|floatformat:0}}% Off</span>
                                     </div>
                                     </div>
                                      <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1">ADD</a>
                                 </div>
                                 <span class="pro-details">About Product</span>
-                                <p>{{product.products.long_desc|safe}}</p>
+                                <p>{{product.products.desc|safe}}</p>
                                <div class="pro-btn">
                                     <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between"><div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> | <span> ₹{{totalamount}}</span></div><div><i class="bi bi-bag"></i> View cart</div></a>
                                 </div>
