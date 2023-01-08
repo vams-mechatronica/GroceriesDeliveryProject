@@ -172,7 +172,7 @@
                         class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                     <a href={% url 'productdetail' prod.products.product_id %} class="btn btn-style1 btn-padding">ADD</a>
                   </div>
-                  <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                  <div class="product_dicont"><span>{{prod.discount|floatformat:0|floatformat:0}}% Off</span></div>
                 </div>
                 {% else %}
               <p> No Products available</p>
@@ -211,7 +211,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -251,7 +251,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -305,7 +305,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -343,7 +343,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -381,7 +381,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -436,7 +436,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -474,7 +474,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -511,7 +511,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -563,7 +563,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -601,7 +601,7 @@
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
                   <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
-                <div class="product_dicont"><span>{{prod.discount}}% off</span></div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
