@@ -44,7 +44,7 @@ def seeAllProductsInCategory(request,pk):
     categorydetails = Categories.objects.get(pk = pk)
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
-        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeLocalityPinCode = user_details.pincode)
+        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = user_details.pincode)
         cartitems = Cart.objects.filter(user = request.user.id)
     else:
         productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
