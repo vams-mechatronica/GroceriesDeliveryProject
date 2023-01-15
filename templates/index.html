@@ -45,9 +45,7 @@
             <img src="/media/{{user.user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small" style="">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="{% url 'user_profile' %}">Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'userprofilepage' %}">Profile</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -90,19 +88,19 @@
                     <div class="product_cat_name_1">
                       {% for category in categories %}
                       {% if category.category_name == "Fruits & Vegetables" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Fruits & Vegetables</span>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_2">
                       {% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Snacks & Drinks</span>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_3">
                       {% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Home & Kitchen Appliances</span>
                       {% endif %}{% endfor %}
                     </div>
@@ -110,7 +108,7 @@
                   <div class="product_cat_row">
                     <div class="pproduct_cat_name_center">
                       {% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Cooking Essentials</span>
                       {% endif %}{% endfor %}
                     </div>
@@ -119,19 +117,19 @@
                   <div class="product_cat_row">
                     <div class="product_cat_name_4">
                       {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Breakfast & Dairy</span>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_5">
                       {% for category in categories %}{% if category.category_name == "Personal Care" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Personal Care</span>
                       {% endif %}{% endfor %} 
                     </div>
                     <div class="product_cat_name_6">
                       {% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src="{% static 'img/icons/drink.png' %}" alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
                       <span>Cleaning Essentials</span>
                       {% endif %}{% endfor %}
                     </div>

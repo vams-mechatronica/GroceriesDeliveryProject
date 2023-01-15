@@ -46,42 +46,25 @@ def seeAllProductsInCategory(request,pk):
         user_details = UserAddresses.objects.get(user = request.user.id)
         productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = user_details.pincode)
         cartitems = Cart.objects.filter(user = request.user.id)
-    else:
-        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
-    
-    for i in cartitems:
-        counter += i.quantity
-        a += i.get_total_item_price()
-
-    context = {'category':categorydetails,
+        for i in cartitems:
+            counter += i.quantity
+            a += i.get_total_item_price()
+        context = {'category':categorydetails,
                 'catproducts':productdetail,
                 'totalcartitem':len(cartitems),
                 'totalamount':a,
                 'totalquantity':counter,
             }
-    return render(request,"list.html",context)
-
-def trendingAllItems(request):
-    if request.user.id != None:
-        user_details = UserAddresses.objects.get(user = request.user.id)
-        productdetail = StoreProductsDetails.objects.filter(store__storeLocalityPinCode = user_details.pincode,trending = True)
-        cartitems = Cart.objects.filter(user = request.user.id)
     else:
-        productdetail = StoreProductsDetails.objects.filter(trending = True)
-    
-    for i in cartitems:
-        counter += i.quantity
-        a += i.get_total_item_price()
-
-    context = {
-                'products':productdetail,
-                'totalcartitem':len(cartitems),
-                'totalamount':a,
-                'totalquantity':counter,
-            }
-    return render(request,"list_trending.html",context)
-
-
+        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
+        
+        context = {'category':categorydetails,
+                    'catproducts':productdetail,
+                    'totalcartitem':0,
+                    'totalamount':a,
+                    'totalquantity':counter,
+                }
+    return render(request,"list.html",context)
 
 def productDetailsPageView(request,pk):
     counter = 0
@@ -90,19 +73,26 @@ def productDetailsPageView(request,pk):
         user_details = UserAddresses.objects.get(user = request.user.id)
         products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
         cartitems = Cart.objects.filter(user = request.user.id)
+        for i in cartitems:
+            counter += i.quantity
+            a += i.get_total_item_price()
+
+        context = {
+            'product':products,
+            'totalcartitem':len(cartitems),
+            'totalamount':a,
+            'totalquantity':counter,
+        }
     else:
         user_details = "Please select user"
         products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = 201301).get(products=pk)
     # productdetail = Products.objects.get(pk=pk)
-    for i in cartitems:
-        counter += i.quantity
-        a += i.get_total_item_price()
-
-    context = {
-        'product':products,
-        'totalcartitem':len(cartitems),
-        'totalamount':a,
-        'totalquantity':counter,
-    }
+        context = {
+            'product':products,
+            'totalcartitem':0,
+            'totalamount':a,
+            'totalquantity':counter,
+        }
+    
     return render(request,"detail-page.html",context)
 

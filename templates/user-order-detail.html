@@ -1,0 +1,183 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="generator" content="">
+    <title>Login</title>
+    <style>
+        .order-top-header {
+    padding: 17px;
+    margin-bottom: 15px;
+}
+.order-top-header h1 {
+    font-size: 28px;
+    text-align: center;
+    line-height: 24px;
+}
+.order-top-header a {
+    position: absolute;
+    left: 12px;
+    font-size: 32px;
+    color: #000!important;
+    top: 0;
+    bottom: 0;
+    height: 41px;
+    margin: auto;
+}
+        .d-flex {
+    padding: 15px;
+    box-shadow: 0 0 2px rgb(0 0 0 / 50%);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+}
+.order_title {
+    font-size: 15px;
+    color: #000;
+    line-height: 24px;
+    margin-bottom: 12px;
+}
+.order_id{
+    color: #706969;
+}
+.order_date_time {
+    display: block;
+    margin-bottom: 15px;
+    color: #706969;
+}
+.reoder_btn {
+    border: 1px solid #ee4664;
+    background: #fff;
+    padding: 8px 48px;
+    border-radius: 5px;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    color: #ee4664;
+}
+.myorder_detailsaa span {
+    display: block;
+}
+.order_price{
+
+}
+.ord_status_cancel {
+    background: #ccc;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-top: 15px;
+    display: block;
+}
+.ord_status_delivered{
+    background: green;
+    padding: 1px 7px;
+    border-radius: 3px;
+    margin-top: 15px;
+    display: block;
+    color: #fff;
+}
+.myorder_details_right {
+    text-align: right;
+}
+
+    </style>
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+<meta name="theme-color" content="#712cf9">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+<!-- Theme styles for this theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+<!-- Custom styles for this site -->
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/custome.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div class="order-top-header">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-12 position-relative">
+                <a href="#"><i class="bi bi-arrow-left-short"></i></a>
+                <h1>Order</h1>
+            </div>
+        </div>
+      </div>
+    </div>          
+    <div class="Myorder_list">
+        <div class="container">
+            <div class="row">
+                {% for order in orders %}
+                <div class="col-md-12">
+                    <div class="d-flex">
+                    <div class="myorder_details">
+                        <h2 class="order_title"> </h2>
+                        <span class="order_id">Order <span>#HNK64655RED</span></span>
+                        <span class="order_date_time">29/05/22 at<span>8:5 am</span></span>
+                        <button class="reoder_btn"><i class="bi bi-bag"></i> Reorder</button>
+                    </div>
+                    <div class="myorder_details_right">
+                        <span class="order_price">₹45</span>
+                        <span class="ord_status_cancel">Cancelled</span> 
+                    </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="col-md-12">
+                    <div class="d-flex">
+                    <div class="myorder_details">
+                        <h1 class="order_title"> String Enerrgy Dring</h1>
+                        <span class="order_id">Order <span>#HNK64655RED</span></span>
+                        <span class="order_date_time">29/05/22 at<span>8:5 am</span></span>
+                        <button class="reoder_btn"><i class="bi bi-bag"></i> Reorder</button>
+                    </div>
+                    <div class="myorder_details_right">
+                        <span class="order_price">₹45</span>
+                        <span class="ord_status_delivered">Deliverd</span> 
+                    </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="d-flex">
+                    <div class="myorder_details">
+                        <h1 class="order_title"> String Enerrgy Dring</h1>
+                        <span class="order_id">Order <span>#HNK64655RED</span></span>
+                        <span class="order_date_time">29/05/22 at<span>8:5 am</span></span>
+                        <button class="reoder_btn"><i class="bi bi-bag"></i> Reorder</button>
+                    </div>
+                    <div class="myorder_details_right">
+                        <span class="order_price">₹45</span>
+                        <span class="ord_status_cancel">Cancelled</span> 
+                    </div>
+                    </div>
+                </div> 
+                <div class="col-md-12">
+                    <div class="d-flex">
+                    <div class="myorder_details">
+                        <h1 class="order_title"> String Enerrgy Dring</h1>
+                        <span class="order_id">Order <span>#HNK64655RED</span></span>
+                        <span class="order_date_time">29/05/22 at<span>8:5 am</span></span>
+                        <button class="reoder_btn"><i class="bi bi-bag"></i> Reorder</button>
+                    </div>
+                    <div class="myorder_details_right">
+                        <span class="order_price">₹45</span>
+                        <span class="ord_status_cancel">Cancelled</span> 
+                    </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+    </div>
+          <!-- Core javascript for this theme -->
+     <script src="js/bootstrap.min.js"></script>
+    <!-- Custom JavaScript for this site -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  </body>
+</html>

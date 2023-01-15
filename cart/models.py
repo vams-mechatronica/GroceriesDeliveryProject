@@ -12,6 +12,9 @@ class Cart(models.Model):
     ordered = models.BooleanField(default=False)
     item = models.ForeignKey(StoreProductsDetails, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    
+    class Meta:
+        verbose_name_plural = 'Cart'
 
     def __str__(self):
         return f"{self.quantity} of {self.item.products.product_name}"
@@ -29,6 +32,7 @@ class Cart(models.Model):
         if self.item.discount:
             return self.get_total_discount_item_price()
         return self.get_total_item_price()
+    
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -70,6 +74,12 @@ class Order(models.Model):
         if self.coupon:
             total -= self.coupon.amount
         return total
+    
+    def get_order_name(self):
+        for item in self.items.all():
+            first_item_name = item.item.products.product_name
+            order_name_string = first_item_name + " & " + len(self.items) - 1 + "others"
+        return order_name_string 
 
 class Payment(models.Model):
     stripe_charge_id = models.CharField(max_length=50)

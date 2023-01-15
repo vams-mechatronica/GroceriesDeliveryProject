@@ -17,3 +17,12 @@ class CartAdmin(admin.ModelAdmin):
         return obj.item.available_stock
 
 admin.site.register(Cart,CartAdmin)
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display: list = ('user','ref_code','items_get','ordered','ordered_date','shipping_address','payment','received','refund_requested')
+    ordering: list = ['user','ref_code','ordered','ordered_date','payment','refund_requested']
+    search_fields: list = ('user','red_code','ordered','ordered_date','payment','refund_requested','shipping_address')
+
+    def items_get (self,obj):
+        return [item.item.products.product_name for item in obj.items.all()]
+admin.site.register(Order,OrderAdmin)

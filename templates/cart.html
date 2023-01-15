@@ -93,29 +93,29 @@
                         <div class="cart-total">
                             <div class="cart-price">
                                 <span><b>Summary</b></span>
-                                <div class="d-flex">
+                                {% comment %} <div class="d-flex">
                                     <span class="sell_price">₹186</span>
                                 <span class="total">₹159</span>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                             <div class="cart-price">
                                 <span>Product</span>
                                 <div class="d-flex">
-                                    <span class="sell_price">₹15</span>
-                                <span class="total color_green">₹7</span>
+                                    <span class="sell_price">₹{{totalamount}}</span>
+                                <span class="total color_green">₹{{totaldiscount|floatformat:2}}</span>
                                 </div>
                             </div>
                              <div class="cart-price">
                                 <span>Delivery</span>
                                 <div class="d-flex">
-                                    <span class="sell_price">₹35</span>
-                                <span class="total color_green">₹15</span>
+                                    <span class="sell_price">₹20</span>
+                                <span class="total color_green">₹{{delivery}}</span>
                                 </div>
                             </div>
                             
                             <div class="shop-total">
                                 <span><b>Total</b></span>
-                                <span class="total-amount">₹181</span>
+                                <span class="total-amount">₹{{grandtotal|floatformat:2}}</span>
                             </div>
                             <a href="#" class="check-link btn btn-style1">Continue to payment</a>
                         </div>

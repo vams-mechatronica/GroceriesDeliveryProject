@@ -211,16 +211,16 @@
     width: 120px;
     border-radius: 50%;
     text-align: center;
-    margin: 10px;
+    margin: 5px;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
 }
 [class*="product_cat_name"] span {
-    font-size: 15px;
+    font-size: 12px;
     display: block;
-    line-height: 19px;
+    line-height: 10px;
     margin: 5px;
 }
 .product_cat_name_1{
@@ -240,7 +240,7 @@
     right: 60px;
 }
 [class*="product_cat_name"] img{
-    width: 50px;
+    width: 100px;
 }
 /* Product Heading */
 .prduct_slide_list {

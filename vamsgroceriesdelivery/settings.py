@@ -194,3 +194,8 @@ ACCOUNT_ADAPTER = 'user.adapters.CustomUserAccountAdapter'
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+#INSTAMOJO API DETAILS
+API_KEY = env('INSTAMOJO_API_KEY')
+AUTH_TOKEN = env('INSTAMOJO_AUTH_TOKEN')
+API_SALT = env('INSTAMOJO_API_SALT')

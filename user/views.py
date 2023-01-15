@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from products.serializer import userSerializer
-
+from cart.models import Order
 
 User = get_user_model()
 
@@ -83,3 +83,21 @@ class UserProfileView(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
 
 
+def profileUser(request):
+    if request.user:
+        userdetails = User.objects.get(pk = request.user.id)
+        context = {
+            'user':userdetails
+        }
+    return render(request,"profile.html",context)
+
+def userOrderDetail(request):
+    if request.user:
+        orders = Order.objects.filter(user = request.user.id)
+        for order in orders:
+            item_name = [item.item for item in order.items.all()]
+            print(item_name)
+        context = {
+            'orders':orders
+        }
+    return render(request,"user-order-detail.html",context)

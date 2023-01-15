@@ -218,7 +218,7 @@
     justify-content: center;
 }
 [class*="product_cat_name"] span {
-    font-size: 15px;
+    font-size: 10px;
     display: block;
     line-height: 19px;
     margin: 5px;
