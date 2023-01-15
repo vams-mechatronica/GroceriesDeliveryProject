@@ -16,15 +16,18 @@ from stores.models import *
 from user.models import UserAddresses
 from instamojo_wrapper import Instamojo
 api = Instamojo(api_key=settings.API_KEY,
-                auth_token=settings.AUTH_TOKEN)
+                auth_token=settings.AUTH_TOKEN,endpoint = 'https://test.instamojo.com/api/1.1/')
 
-
+User = get_user_model()
 
 
 @login_required
 def addToCart(request, pk):
-    
-    item = get_object_or_404(StoreProductsDetails,products = pk)
+
+    if request.user:
+        user_details = UserAddresses.objects.get(user = request.user.id)
+    item = get_object_or_404(StoreProductsDetails,products = pk,store__storeServicablePinCodes__contains=user_details.pincode)
+    print("\n\n\nAvailable Stock",item.available_stock)
     if item.available_stock > 0:
         order_item, created = Cart.objects.get_or_create(
             item=item,
@@ -32,13 +35,16 @@ def addToCart(request, pk):
             ordered=False
         )
         item.available_stock -= 1
+        item.save()
+    print("\n\n\nAvailable Stock New",item.available_stock)
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         # check if the order item is in the order
         if order.items.filter(item__products__product_id=item.products.product_id).exists() and item.available_stock > 0:
             order_item.quantity += 1
-            item.available_stock =  item.available_stock - 1
+            item.available_stock = item.available_stock - 1
+            item.save()
             order_item.save()
             messages.info(request, "This item quantity was updated.")
             return redirect("cartview")
@@ -59,6 +65,7 @@ def cartCheckoutPageView(request):
     a = 0
     b = 0
     if request.user:
+        user_details = User.objects.get(pk = request.user.id )
         itemsForCartPage = Cart.objects.filter(user=request.user.id,ordered = False)
         useraddress = UserAddresses.objects.get(user = request.user.id)
     
@@ -70,9 +77,10 @@ def cartCheckoutPageView(request):
     if a > 500:
         delivery_charges = 0
     else:
-        delivery_charges = 15
+        delivery_charges = 0
     
     grandtotal = b + delivery_charges
+    
     context = {
         'cartitems':itemsForCartPage,
         'useraddress':useraddress,
@@ -80,14 +88,16 @@ def cartCheckoutPageView(request):
         'totaldiscount':b,
         'totalquantity':counter,
         'grandtotal':grandtotal,
-        'delivery':delivery_charges,
+        'delivery':delivery_charges
     }
     return render(request,"cart.html",context)
 
 
 @login_required
 def removeSingleItemFromCart(request, pk):
-    item = get_object_or_404(StoreProductsDetails,products = pk)
+    if request.user:
+        user_details = UserAddresses.objects.get(user = request.user.id)
+    item = get_object_or_404(StoreProductsDetails,products = pk,store__storeServicablePinCodes__contains=user_details.pincode)
     order_qs = Order.objects.filter(
         user=request.user,
         ordered=False
@@ -95,7 +105,7 @@ def removeSingleItemFromCart(request, pk):
     if order_qs.exists():
         order = order_qs[0]
         # check if the order item is in the order
-        if order.items.filter(item__products__product_id=item.products.product_id).exists():
+        if order.items.filter(item__products__product_id=item.products.product_id).exists() and item.available_stock >= 0:
             order_item = Cart.objects.filter(
                 item=item,
                 user=request.user,
@@ -104,24 +114,37 @@ def removeSingleItemFromCart(request, pk):
             if order_item.quantity > 1:
                 order_item.quantity -= 1
                 order_item.save()
+                item.available_stock +=1
+                item.save()
             else:
                 order.items.remove(order_item)
-            messages.info(request, "This item quantity was updated.")
+            # messages.info(request, "This item quantity was updated.")
             return redirect("cartview")
         else:
-            messages.info(request, "This item was not in your cart")
+            # messages.info(request, "This item was not in your cart")
             return redirect("/")
     else:
-        messages.info(request, "You do not have an active order")
+        # messages.info(request, "You do not have an active order")
         return redirect("/")
 
-def orderPaymentRequest(request,item_id):
+def orderPaymentRequest(request,amount):
     if request.user:
-        order = Order.objects.get(user = request.user.id,items = item_id)
+        user = User.objects.get(pk = request.user.id)
+        order = Order.objects.get(user = request.user.id,ordered = False)
     response = api.payment_request_create(
-        amount='3499',
-        purpose='FIFA 16',
-        send_email=True,
-        email="foo@example.com",
-        redirect_url="http://www.example.com/handle_redirect.py"
+        amount=str(amount),
+        purpose='test_purchase',
+        buyer_name=user.user_full_name(), 
+        send_email=False,
+        email=user.email,
+        redirect_url=settings.PAYMENT_SUCCESS_REDIRECT_URL
     )
+    # print(response)
+    payment_redirect_url = response['payment_request']['longurl']
+    if payment_redirect_url:
+        context = {
+            'payment_url':payment_redirect_url
+        }
+        return render(request,"paymentredirect.html",context)
+    else:
+        return redirect("cartview")

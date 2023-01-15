@@ -93,10 +93,6 @@
                         <div class="cart-total">
                             <div class="cart-price">
                                 <span><b>Summary</b></span>
-                                {% comment %} <div class="d-flex">
-                                    <span class="sell_price">₹186</span>
-                                <span class="total">₹159</span>
-                                </div> {% endcomment %}
                             </div>
                             <div class="cart-price">
                                 <span>Product</span>
@@ -117,7 +113,7 @@
                                 <span><b>Total</b></span>
                                 <span class="total-amount">₹{{grandtotal|floatformat:2}}</span>
                             </div>
-                            <a href="#" class="check-link btn btn-style1">Continue to payment</a>
+                            <a href="{% url 'paymentcheckout' grandtotal%}" class="check-link btn btn-style1">Continue to payment</a>
                         </div>
                     </div>
                 </div>
@@ -125,17 +121,17 @@
         </section>
         <!-- cart end -->
         <!-- jquery -->
-        <script src="js/modernizr-2.8.3.min.js"></script>
-        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
         <!-- bootstrap -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <!-- popper -->
-        <script src="js/popper.min.js"></script>
+        <script src="{% static 'js/popper.min.js' %}"></script>
         <!-- fontawesome -->
-        <script src="js/fontawesome.min.js"></script>
+        <script src="{% static 'js/fontawesome.min.js' %}"></script>
         <!-- swiper -->
-        <script src="js/swiper.min.js"></script>
+        <script src="{% static 'js/swiper.min.js' %}"></script>
         <!-- custom -->
-        <script src="js/custom.js"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
     </body>
 </html>

@@ -21,6 +21,9 @@ class CustomUser(AbstractUser):
     
     def __str__(self) -> str:
         return self.mobileno
+    
+    def user_full_name(self):
+        return self.first_name + " " +self.last_name
 
 class UserAddresses(models.Model):
     user = models.ForeignKey("user.CustomUser", verbose_name=_("User Detail"), on_delete=models.CASCADE,null=True,blank=True)

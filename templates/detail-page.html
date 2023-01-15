@@ -13,7 +13,7 @@
         <!-- favicon -->
         <link rel="shortcut icon" type="image/favicon" href="image/fevicon.png">
         <!-- bootstrap -->
-                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
         <!-- simple-line icon -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/simple-line-icons.css' %}">
@@ -126,7 +126,7 @@
                                         <span class="p-discount">{{product.discount|floatformat:0}}% Off</span>
                                     </div>
                                     </div>
-                                     <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1">ADD</a>
+                                        <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1" role="button">ADD</a>
                                 </div>
                                 <span class="pro-details">About Product</span>
                                 <p>{{product.products.desc|safe}}</p>
