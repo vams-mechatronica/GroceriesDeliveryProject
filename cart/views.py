@@ -27,12 +27,11 @@ def addToCart(request, pk):
     if request.user:
         user_details = UserAddresses.objects.get(user = request.user.id)
     item = get_object_or_404(StoreProductsDetails,products = pk,store__storeServicablePinCodes__contains=user_details.pincode)
-    if item.available_stock > 0:
-        order_item, created = Cart.objects.get_or_create(
-            item=item,
-            user=request.user,
-            ordered=False
-        )
+    order_item, created = Cart.objects.get_or_create(
+        item=item,
+        user=request.user,
+        ordered=False
+    )
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
@@ -44,10 +43,15 @@ def addToCart(request, pk):
             order_item.save()
             messages.info(request, "This item quantity was updated.")
             return redirect("cartview")
-        else:
+        elif item.available_stock > 0:
             order.items.add(order_item)
+            item.available_stock = item.available_stock - 1
+            item.save()
             messages.info(request, "This item was added to your cart.")
             return redirect("cartview")
+        else:
+            messages.info(request,"Item Out of Stock")
+            return redirect("/")
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
