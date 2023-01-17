@@ -18,7 +18,11 @@
   <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#712cf9">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="{% static 'js/jquery.js' %}"></script>
+  <script src="{% static 'js/input-allow.js' %}"></script>
 
 
   <!-- Theme styles for this theme -->
@@ -31,6 +35,33 @@
 </head>
 
 <body>
+  <div class="login-sign-popup" id="login">
+    <div class="login col-xl-6 col-lg-6 col-md-6 col-12">
+      <div class="head-login">
+        <h3 class="text-center content">Phone Number Verification</h3>
+        <h3 class="times" onclick="hidePopLogin()">&times;</h3>
+      </div>
+      <div class="login-body">
+        <p>Enter your phone number to
+          Login/Sign up</p>
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="default-box">
+            <div class="phone-box col-xl-6 col-lg-6 col-md-6 col-12">
+              <div class="phone-icon">+91</div>
+              <input type="tel" class="inputfilter" allow="[0-9]" onkeyup="showGreenButton('button_submit',this)"
+                maxlength="10" minlength="10" name="mobile" id="mobile">
+            </div>
+          </div>
+          <div class="default-box">
+            <button type="button" class="col-xl-6 col-lg-6 col-md-6 col-12" id="button_submit" disabled>Next</button>
+          </div>
+        </form>
+        <p class="bellow-para">By continuing, you agree to our</p>
+        <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+      </div>
+    </div>
+  </div>
   <header class="p-3">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -54,12 +85,12 @@
           {% else %}
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32"
+            <img src="{% static 'img/icons/Unknown_person.jpg' %}" onclick="showPopLogin()" alt="mdo" width="32" height="32"
               class="rounded-circle">
           </a>
-          <ul class="dropdown-menu text-small" style="">
+          {% comment %} <ul class="dropdown-menu text-small" style="">
             <li><a class="dropdown-item" href={% url 'rest_login' %}>Login</a></li>
-          </ul>
+          </ul> {% endcomment %}
           {% endif %}
         </div>
       </div>
@@ -76,12 +107,12 @@
             </span>
             <form class="w-100 me-3" role="search">
               <input type="search" class="form-control" placeholder="Search for products"
-                aria-label="Search for products"">
-                          </form>   
+                aria-label="Search for products">
+            </form>   
  
-                    </div>            
-                </div>
-                <div class=" col">
+          </div>            
+        </div>
+            <div class=" col">
               <div class="top_product_cat">
                 <div class="product_cat_body">
                   <div class="pproduct_cat_row">
@@ -89,19 +120,16 @@
                       {% for category in categories %}
                       {% if category.category_name == "Fruits & Vegetables" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Fruits & Vegetables</span>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_2">
                       {% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Snacks & Drinks</span>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_3">
                       {% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Home & Kitchen Appliances</span>
                       {% endif %}{% endfor %}
                     </div>
                   </div>
@@ -109,7 +137,6 @@
                     <div class="pproduct_cat_name_center">
                       {% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Cooking Essentials</span>
                       {% endif %}{% endfor %}
                     </div>
                     
@@ -118,19 +145,16 @@
                     <div class="product_cat_name_4">
                       {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Breakfast & Dairy</span>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_5">
                       {% for category in categories %}{% if category.category_name == "Personal Care" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Personal Care</span>
                       {% endif %}{% endfor %} 
                     </div>
                     <div class="product_cat_name_6">
                       {% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
                       <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
-                      <span>Cleaning Essentials</span>
                       {% endif %}{% endfor %}
                     </div>
                     
@@ -798,6 +822,27 @@
           controls: false
         });
       });
+      function hidePopLogin() {
+        $('#login').hide()
+        $('body').css({ "overflow": "auto" })
+      }
+      function showPopLogin() {
+        $('#login').show()
+        $('body').css({ "overflow": "hidden" })
+      }
+      function showGreenButton(butn, el) {
+        value = $(el).val()
+        if (value.length == 10) {
+          $('#' + butn).removeAttr("disabled")
+          $('#' + butn).attr("type", "submit")
+          $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
+        }
+        else {
+          $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+          $('#' + butn).attr("disabled")
+          $('#' + butn).attr("type", "button")
+        }
+      }
     </script>
 </body>
 

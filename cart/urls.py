@@ -12,6 +12,7 @@ urlpatterns = [
     path("ordersummary/",cartCheckoutPageView,name="cartview"),
     path("removesingleitemfromcart/<int:pk>",removeSingleItemFromCart,name="removesingleitemfromcart"),
     path("payment/checkout/<float:amount>",orderPaymentRequest,name="paymentcheckout"),
+    path("paymentstatusupdate",paymentStatusAndOrderStatusUpdate,name="paymentstatusupdate"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

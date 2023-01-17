@@ -31,11 +31,13 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
-
+if DEBUG == True:
+    admin_volt = 'admin_volt.apps.AdminVoltConfig'
 
 # Application definition
 
 INSTALLED_APPS = [
+    # admin_volt,
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -153,7 +155,7 @@ TIME_ZONE = 'Asia/Calcutta'
 
 USE_I18N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -200,3 +202,6 @@ API_KEY = env('INSTAMOJO_API_KEY')
 AUTH_TOKEN = env('INSTAMOJO_AUTH_TOKEN')
 API_SALT = env('INSTAMOJO_API_SALT')
 PAYMENT_SUCCESS_REDIRECT_URL = env('PAYMENT_SUCCESS_REDIRECT_URL')
+SEND_SMS=env('INSTAMOJO_SEND_PAYMENT_RECEIVED_SMS')
+SEND_EMAIL=env('INSTAMOJO_SEND_PAYMENT_RECEIVED_EMAIL')
+ENDPOINT = env('INSTAMOJO_TEST_ENDPOINT')

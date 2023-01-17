@@ -72,7 +72,7 @@ def productDetailsPageView(request,pk):
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
         products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
-        cartitems = Cart.objects.filter(user = request.user.id)
+        cartitems = Cart.objects.filter(user = request.user.id,ordered = False)
         for i in cartitems:
             counter += i.quantity
             a += i.get_total_item_price()

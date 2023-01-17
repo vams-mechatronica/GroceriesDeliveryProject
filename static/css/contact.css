@@ -1,0 +1,105 @@
+
+    *{
+        padding: 0;
+        margin: 0;
+    }
+
+    
+    .contact-text{
+        padding-top: 50px;
+    }
+    .contact-text p{
+        margin: 0;
+    }
+    .contact-text h2{
+        font-weight: 500;
+        font-size: 38px;
+    }
+    a{
+        text-decoration: none !important;
+        color: black !important;
+    }
+    .back-img img{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+    .headt{
+        color: red;
+        font-size: 28px;
+    }
+    .quest-color{
+        color: orange;
+        font-size: 30px;
+    }
+    .main-form{
+        background-color: white;
+        padding: 20px;
+        border-radius: 15px;
+        position: relative;
+        transform: translate(0 , 10%);
+    }
+    .main-form input, textarea{
+        width: 100%;
+        padding: 8px 12px;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #929292;
+        margin: 10px 0;
+    }
+    .main-form button{
+        width: 100%;
+        padding: 10px 12px;
+        outline: none;
+        border: none;
+        background-color: rgb(219, 142, 0);
+        border-radius: 12px;
+        margin: 10px 0;
+        color: white;
+        transition: 0.3s;
+    }
+    .main-form button:hover{
+        background-color: orange;
+        transition: 0.3s;
+    }
+@media (max-width:900px) and (min-width:500px){
+
+}
+@media (max-width:500px) and (min-width:100px){
+    .mob-dlfex{
+        display: flex;
+    }
+    .mob-dlfex p{
+        margin-right: 10px;
+        font-size: 12px;
+    }
+    .contact-text{
+        padding-top: 20px !important;
+        color: white;
+    }
+    .contact-text h2 {
+        font-size: 16px;
+        font-weight: 700;
+    }
+    .contact-text a {
+        color: white !important;
+    }
+    .back-img img{
+        display: none;
+    }
+    .contact{
+        height: 100vh;
+        /* background-color: rgb(255, 243, 233); */
+        background-image: linear-gradient(to top, rgb(255, 243, 233),rgb(254, 220, 157), rgb(238, 175, 59), orange);
+
+        
+    }
+    .main-form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 15px;
+        position: relative;
+        transform: translate(0 , 2%);
+    }
+}

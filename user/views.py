@@ -93,10 +93,7 @@ def profileUser(request):
 
 def userOrderDetail(request):
     if request.user:
-        orders = Order.objects.filter(user = request.user.id)
-        for order in orders:
-            item_name = [item.item for item in order.items.all()]
-            print(item_name)
+        orders = Order.objects.filter(user = request.user.id,ordered = True)
         context = {
             'orders':orders
         }

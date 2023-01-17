@@ -1,7 +1,8 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -9,96 +10,113 @@
     <meta name="generator" content="">
     <title>Login</title>
     <!-- Favicons -->
-<link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-<!-- Theme styles for this theme -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
-<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-<!-- Custom styles for this site -->
-<link href="{% static 'css/style.css' %}" rel="stylesheet">
-<link href="{% static 'css/custome.css' %}" rel="stylesheet">
-<style>
-    .login-header {
-    background: #FFB928FF;
-    padding: 51px 31px;
-}
-    .user_mname{
-     display: block;
-    font-size: 30px;
-    font-weight: 700;
-    color: #000;
-    }
-    .user_mobile {
-    font-size: 20px;
-    font-weight: 600;
-    color: #000;
-}
-.login-user-action {
-    background: #fff;
-    border-radius: 30px 30px 0 0;
-    position: relative;
-    top: -24px;
-    padding: 20px;
-}
-ul.login-user-action li {
-    padding: 15px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-ul.login-user-action li a {
-    font-size: 20px;
-    line-height: 25px;
-    color: #000;
-}
-.down_load {
-    padding: 12px;
-    width: 320px;
-    text-align: center;
-    box-shadow: 0 0 2px rgb(0 0 0 / 50%);
-    border-radius: 15px;
-    margin: auto;
-}
-.down_load h2 {
-    font-size: 27px;
-    margin-bottom: 6px;
-    color: #000;
-}
-.down_load p {
-    font-size: 14px;
-    line-height: 19px;
-    margin-bottom: 12px;
-}
-ul.login-user-action li a i {
-    padding-right: 11px;
-    vertical-align:middle;
-}
-</style>
-  </head>
-  <body>
+    <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.2/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#712cf9">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+    <!-- Theme styles for this theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this site -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custome.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/logout.css' %}">
+    {% comment %}
+    <script src="{% static 'js/bootstrap.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/input-allow.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        .login-header {
+            background: #FFB928FF;
+            padding: 51px 31px;
+        }
+
+        .user_mname {
+            display: block;
+            font-size: 30px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .user_mobile {
+            font-size: 20px;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .login-user-action {
+            background: #fff;
+            border-radius: 30px 30px 0 0;
+            position: relative;
+            top: -24px;
+            padding: 20px;
+        }
+
+        ul.login-user-action li {
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        ul.login-user-action li a {
+            font-size: 20px;
+            line-height: 25px;
+            color: #000;
+        }
+
+        .down_load {
+            padding: 12px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 0 2px rgb(0 0 0 / 50%);
+            border-radius: 15px;
+            margin: auto;
+        }
+
+        .down_load h2 {
+            font-size: 27px;
+            margin-bottom: 6px;
+            color: #000;
+        }
+
+        .down_load p {
+            font-size: 14px;
+            line-height: 19px;
+            margin-bottom: 12px;
+        }
+
+        ul.login-user-action li a i {
+            padding-right: 11px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
     <div class="user_login">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="login-header">
-                     <span class="user_mname">Hello, {{user.username}}!</span>
-                      <span class="user_mobile">+91{{user.mobileno}}</span>
+                        <span class="user_mname">Hello, {{user.username}}!</span>
+                        <span class="user_mobile">+91{{user.mobileno}}</span>
                     </div>
                     <ul class="login-user-action">
-                        <li><a href="{% url 'orderhistoryuser' %}"><i class="bi bi-bag-check"></i>Orders</a><i class="bi bi-chevron-right"></i>
+                        <li><a href="{% url 'orderhistoryuser' %}"><i class="bi bi-bag-check"></i>Orders</a><i
+                                class="bi bi-chevron-right"></i>
                         </li>
                         <li><a href="#"><i class="bi bi-geo-alt"></i>Address</a><i class="bi bi-chevron-right"></i>
                         </li>
                         <li><a href="#"><i class="bi bi-headset"></i>Support</a><i class="bi bi-chevron-right"></i>
                         </li>
-                        <li><a href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i>
-                            Log out</a><i class="bi bi-chevron-right"></i>
+                        <li><a onclick="showLogout()"><i class="bi bi-box-arrow-right"></i>
+                                Log out</a><i class="bi bi-chevron-right"></i>
                         </li>
                     </ul>
                     <div class="down_load">
@@ -110,10 +128,41 @@ ul.login-user-action li a i {
             </div>
         </div>
     </div>
-
-          <!-- Core javascript for this theme -->
-     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <div class="logout-popup" id="logout-pop">
+        <div class="logout col-10">
+            <p class="text-center log-text">Are you sure do you want to logout?</p>
+            <hr class="log-hr">
+            <div class="d-flex decision-head">
+                <p class="decision col-6 text-center  br-1-log log-text-2" onclick="hidePopLogout()">No</p>
+                <p class="decision col-6 text-center yes log-text-2"><a href="{% url 'logout' %}">Yes</a></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function hidePopLogout() {
+            $('#logout-pop').hide()
+        }
+        function showLogout() {
+            $('#logout-pop').show()
+        }
+        function showGreenButton(butn, el) {
+            value = $(el).val()
+            if (value.length == 10) {
+                $('#' + butn).removeAttr("disabled")
+                $('#' + butn).attr("type", "submit")
+                $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
+            }
+            else {
+                $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+                $('#' + butn).attr("disabled")
+                $('#' + butn).attr("type", "button")
+            }
+        }
+    </script>
+    <!-- Core javascript for this theme -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- Custom JavaScript for this site -->
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-  </body>
+</body>
+
 </html>

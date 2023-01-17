@@ -27,17 +27,22 @@ class Cart(models.Model):
 
     def get_amount_saved(self):
         return self.get_total_item_price() - self.get_total_discount_item_price()
+    
+    def amount_after_applying_discount(self):
+        return self.get_total_item_price() - self.get_total_discount_item_price()
 
     def get_final_price(self):
         if self.item.discount:
-            return self.get_total_discount_item_price()
+            return self.amount_after_applying_discount()
         return self.get_total_item_price()
     
+    def get_product_name(self):
+        return self.item.products.product_name
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    ref_code = models.CharField(max_length=20, blank=True, null=True)
+    ref_code = models.CharField(max_length=200, blank=True, null=True)
     items = models.ManyToManyField(Cart)
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
@@ -75,14 +80,25 @@ class Order(models.Model):
             total -= self.coupon.amount
         return total
     
+    def get_max_total(self):
+        total = 0
+        for order_item in self.items.all():
+            total += order_item.get_total_item_price()
+        return total
+    
     def get_order_name(self):
-        for item in self.items.all():
-            first_item_name = item.item.products.product_name
-            order_name_string = first_item_name + " & " + len(self.items) - 1 + "others"
-        return order_name_string 
+        name = ''
+        for order_item in self.items.all():
+            name = order_item.get_product_name()
+        return name
+    
+    def get_total_items_in_order(self):
+        return len(self.items.all())
 
+
+    
 class Payment(models.Model):
-    stripe_charge_id = models.CharField(max_length=50)
+    instamojo_id = models.CharField(max_length=50)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.SET_NULL, blank=True, null=True)
     amount = models.FloatField()

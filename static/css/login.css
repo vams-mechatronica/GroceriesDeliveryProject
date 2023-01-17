@@ -1,0 +1,188 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.login-sign-popup{
+    display: none;
+position: absolute;
+height: 100%;
+width: 100%;
+background-size: 100%, 100%;
+}
+.login-sign-popup::before{
+position: absolute;
+content: "";
+height: 100%;
+width: 100%;
+background-color: black;
+opacity: 0.7;
+z-index: 1;
+}
+h3{
+color: black;
+}
+.login{
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: white;
+border-radius: 12px;
+z-index: 2;
+}
+.text-center{
+text-align: center;
+}
+.head-login{
+position: relative;
+color: black;
+}
+.head-login .content{
+font-weight: 100;
+padding: 25px;
+}
+.head-login .times{
+position: absolute;
+top: 15px ;
+color: #d4d4d4;
+font-weight: 200;
+right: 20px;
+font-size: 40px;
+cursor: pointer;
+}
+.login-body{
+padding: 20px;
+justify-content: center;
+justify-items : center;
+text-align: center;
+background-color: #f9f9f9;
+border-radius: 12px;
+}
+.login-body p{
+padding: 0 170px;
+}
+.default-box{
+width: 100%;
+padding: 10px;
+}
+.phone-box{
+padding: 0px 0;
+border: 1px solid #ccc;
+border-radius: 5px;
+margin: 0 auto;
+display: flex;
+}
+.phone-icon{
+width: 20%;
+padding: 10px 0;
+align-self: center;
+font-size: 14px;
+}
+.phone-box input{
+width: 80%;
+padding: 10px;
+border: none;
+outline: none;
+font-size: 14px;
+}
+.default-box button{
+margin: 0 auto;
+padding: 12px;
+border-radius: 5px;
+border: none;
+background-color: #ccc;
+color: white;
+font-weight: 600;
+}
+.bellow-para{
+color: #747474;
+font-size: 14px;
+font-weight: 200;
+}
+.extra-links a{
+color: green;
+font-size: 12px;
+margin: 0 10px;
+}
+@media (max-width:900px) and (min-width:500px){
+.login-sign-popup{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.login{
+    height: 100%;
+    border-radius:0 ;
+    background-color: #f9f9f9;
+}
+.head-login .times {
+    top: -200%;
+    right: 0%;
+}
+.head-login .content {
+    padding: 0;
+}
+.head-login{
+    width: 100%;
+    position: absolute;
+    background-color: #f9f9f9;
+    top: 10%;
+    transform: translate(0%, 0%);
+}
+.login-body{
+    border-radius:0 ;
+    position: relative;
+    top: 40%;
+    height: auto;
+    transform: translate(0, -50%);
+}
+.login-body p{
+    padding: 0 20px;
+}
+.login-body p:first-child{
+    padding: 0 80px;
+    font-weight: 500;
+    font-size: 16px;
+}
+}
+@media (max-width:500px) and (min-width:100px){
+.login-sign-popup{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.login{
+    height: 100%;
+    border-radius:0 ;
+    background-color: #f9f9f9;
+}
+.head-login .times {
+    top: -200%;
+    right: 0%;
+}
+.head-login .content {
+    padding: 0;
+}
+.head-login{
+    width: 100%;
+    position: absolute;
+    background-color: #f9f9f9;
+    top: 10%;
+    transform: translate(0%, 0%);
+}
+.login-body{
+    border-radius:0 ;
+    position: relative;
+    top: 40%;
+    height: auto;
+    transform: translate(0, -50%);
+}
+.login-body p{
+    padding: 0 20px;
+}
+.login-body p:first-child{
+    padding: 0 80px;
+    font-weight: 500;
+    font-size: 16px;
+}
+}

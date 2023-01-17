@@ -26,3 +26,8 @@ class OrderAdmin(admin.ModelAdmin):
     def items_get (self,obj):
         return [item.item.products.product_name for item in obj.items.all()]
 admin.site.register(Order,OrderAdmin)
+
+class PaymentAdmin(admin.ModelAdmin):
+    list_display: list =('instamojo_id','user','amount','timestamp')
+
+admin.site.register(Payment,PaymentAdmin)
