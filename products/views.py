@@ -125,3 +125,41 @@ def searchHomePageProducts(request):
             return render(request, "search.html", {'products': status})
     else:
         return render(request, 'search.html', {'products':status})
+
+def searchProductsInsideCategoryPage(request,pk):
+    if request.method == "GET":
+        product_name = request.GET.get('search')
+        categorydetails = Categories.objects.get(pk=pk)
+        try:
+            if request.user.id != None:
+                user_details = UserAddresses.objects.get(user=request.user.id)
+                productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains=[
+                                                                    categorydetails.category_name], products__product_name__contains = product_name,store__storeServicablePinCodes__contains=user_details.pincode)
+                cartitems = Order.objects.get(user=request.user.id, ordered=False)
+                context = {'category': categorydetails,
+                        'catproducts': productdetail,
+                        'totalcartitem': cartitems.get_total_items_in_order() + 1,
+                        'totalamount': round(cartitems.get_total(), 2),
+                        'totalquantity': cartitems.get_quantity(),
+                        }
+            else:
+                productdetail = StoreProductsDetails.objects.filter(
+                    products__pro_category__contains=[categorydetails.category_name],products__product_name__contains=product_name)
+
+                context = {'category': categorydetails,
+                        'catproducts': productdetail,
+                        'totalcartitem': 0,
+                        'totalamount': 0,
+                        'totalquantity': 0,
+                        }
+        except Order.DoesNotExist:
+            context = {
+                'category': categorydetails,
+                'catproducts': productdetail,
+                'totalcartitem': 0,
+                'totalamount': 0,
+                'totalquantity': 0,
+            }
+
+    return render(request, "list.html", context)
+

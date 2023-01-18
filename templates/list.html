@@ -48,7 +48,8 @@
               <h1>{{category.category_name}}</h1>
               <div class="position-relative">
                 <i class="bi bi-search serach_icons-list"></i>
-                <input type="text" placeholder="What can we get you?">
+                <form class="w-100 me-3" role="search" name="search-products" method="GET" action="{% url 'productsearchcategory' category.category_id %}">
+                <input type="text" name="search" id="search" placeholder="What can we get you?"></form>
               </div>
             </div>
           </div>
@@ -80,7 +81,10 @@
             <div class="product_dicont"><span>{{categorypro.discount|floatformat:0}}% Off</span></div>
             
           </div>
-
+          {% empty %}
+          <tr>
+              <td colspan='5'>No Matching Item</td>
+          </tr>
         </div>
         {% endfor %}
       </div>
