@@ -71,17 +71,10 @@
 
         <div class="dropdown text-end">
           {% if user.id != None %}
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+          <a href="{% url 'userprofilepage' %}" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
             <img src="/media/{{user.user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
-          <ul class="dropdown-menu text-small" style="">
-            <li><a class="dropdown-item" href="{% url 'userprofilepage' %}">Profile</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="{% url 'logout' %}">Sign out</a></li>
-          </ul>
           {% else %}
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
@@ -119,24 +112,24 @@
                     <div class="product_cat_name_1">
                       {% for category in categories %}
                       {% if category.category_name == "Fruits & Vegetables" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Fruits & Vegetables"></a>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_2">
                       {% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Snacks & Drinks"></a>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_3">
                       {% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Home & Kitchen Appliances"></a>
                       {% endif %}{% endfor %}
                     </div>
                   </div>
                   <div class="product_cat_row">
                     <div class="pproduct_cat_name_center">
                       {% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Cooking Essentials"></a>
                       {% endif %}{% endfor %}
                     </div>
                     
@@ -144,22 +137,20 @@
                   <div class="product_cat_row">
                     <div class="product_cat_name_4">
                       {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Breakfast & Dairy"></a>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_5">
                       {% for category in categories %}{% if category.category_name == "Personal Care" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Personal Care"></a>
                       {% endif %}{% endfor %} 
                     </div>
                     <div class="product_cat_name_6">
                       {% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="drink"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Cleaning Essentials"></a>
                       {% endif %}{% endfor %}
                     </div>
-                    
                   </div>
-                  
                 </div>
               </div>
           </div>
