@@ -60,32 +60,42 @@ def addToCart(request, pk):
         messages.info(request, "This item was added to your cart.")
         return redirect("cartview")
 
+@login_required
 def cartCheckoutPageView(request):
     counter = 0
     a = 0
     b = 0
-    if request.user:
-        user_details = User.objects.get(pk = request.user.id )
-        itemsForCartPage = Order.objects.get(user=request.user.id,ordered = False)
-        useraddress = UserAddresses.objects.get(user = request.user.id)
-    
-    a = round(itemsForCartPage.get_total(),2)
-    counter = len(itemsForCartPage.items.all())
+    useraddress = UserAddresses.objects.get(user=request.user.id)
+    try:
+        if request.user:
+            itemsForCartPage = Order.objects.get(user=request.user.id,ordered = False)
+            
+        
+        a = round(itemsForCartPage.get_total(),2)
+        counter = len(itemsForCartPage.items.all())
 
-    if a > 500:
-        delivery_charges = 0
-    else:
-        delivery_charges = 0
-    
-    grandtotal = a + delivery_charges
-    
-    context = {
-        'object':itemsForCartPage,
-        'delivery':delivery_charges,
-        'useraddress':useraddress,
-        'totalquantity':counter,
-        'grandtotal':grandtotal
-    }
+        if a > 500:
+            delivery_charges = 0
+        else:
+            delivery_charges = 0
+        
+        grandtotal = a + delivery_charges
+        
+        context = {
+            'object':itemsForCartPage,
+            'delivery':delivery_charges,
+            'useraddress':useraddress,
+            'totalquantity':counter,
+            'grandtotal':grandtotal
+        }
+    except Order.DoesNotExist:
+        context = {
+            'object': 0,
+            'delivery': 0,
+            'useraddress': useraddress,
+            'totalquantity': 0,
+            'grandtotal': 0
+        }
     return render(request,"cart.html",context)
 
 
@@ -124,6 +134,7 @@ def removeSingleItemFromCart(request, pk):
         # messages.info(request, "You do not have an active order")
         return redirect("/")
 
+@login_required
 def orderPaymentRequest(request,amount):
     if request.user:
         user = User.objects.get(pk = request.user.id)
@@ -151,6 +162,7 @@ def orderPaymentRequest(request,amount):
     else:
         return redirect("cartview")
 
+@login_required
 def paymentStatusAndOrderStatusUpdate(request):
     if request.user:
         user = User.objects.get(pk = request.user.id)

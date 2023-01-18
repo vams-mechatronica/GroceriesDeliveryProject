@@ -40,50 +40,76 @@ class ProductDetails(APIView):
 
 def seeAllProductsInCategory(request,pk):
     categorydetails = Categories.objects.get(pk = pk)
-    if request.user.id != None:
-        user_details = UserAddresses.objects.get(user = request.user.id)
-        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = user_details.pincode)
-        cartitems = Order.objects.get(user = request.user.id,ordered = False)
-        context = {'category':categorydetails,
-                'catproducts':productdetail,
-                'totalcartitem':cartitems.get_total_items_in_order() + 1,
-                'totalamount':round(cartitems.get_total(),2),
-                'totalquantity':cartitems.get_quantity(),
-            }
-    else:
-        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
-        
-        context = {'category':categorydetails,
-                    'catproducts':productdetail,
-                    'totalcartitem':0,
-                    'totalamount':0,
-                    'totalquantity':0,
-                }
+    try:
+        if request.user.id != None:
+            user_details = UserAddresses.objects.get(user = request.user.id)
+            productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = user_details.pincode)
+            cartitems = Order.objects.get(user = request.user.id,ordered = False)
+            if cartitems == None:
+                context = {'category':categorydetails,
+                        'catproducts':productdetail,
+                        'totalcartitem':0,
+                        'totalamount':0,
+                        'totalquantity':0,
+                    }
+            else:
+                context = {'category': categorydetails,
+                        'catproducts': productdetail,
+                        'totalcartitem': cartitems.get_total_items_in_order() + 1,
+                        'totalamount': round(cartitems.get_total(), 2),
+                        'totalquantity': cartitems.get_quantity(),
+                        }
+        else:
+            productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
+            
+            context = {'category':categorydetails,
+                        'catproducts':productdetail,
+                        'totalcartitem':0,
+                        'totalamount':0,
+                        'totalquantity':0,
+                    }
+    except Order.DoesNotExist:
+        context = {
+            'category': categorydetails,
+            'catproducts': productdetail,
+            'totalcartitem': 0,
+            'totalamount': 0,
+            'totalquantity': 0,
+        }
+
     return render(request,"list.html",context)
 
 def productDetailsPageView(request,pk):
     counter = 0
     a = 0
-    if request.user.id != None:
-        user_details = UserAddresses.objects.get(user = request.user.id)
-        products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
-        cartitems = Order.objects.get(user = request.user.id,ordered = False)
+    try:
+        if request.user.id != None:
+            user_details = UserAddresses.objects.get(user = request.user.id)
+            products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
+            cartitems = Order.objects.get(user = request.user.id,ordered = False)
+            context = {
+                'product':products,
+                'totalcartitem': cartitems.get_total_items_in_order() + 1,
+                'totalamount': round(cartitems.get_total(), 2),
+                'totalquantity': cartitems.get_quantity(),
+            }
+        else:
+            user_details = "Please select user"
+            products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = 201301).get(products=pk)
+        # productdetail = Products.objects.get(pk=pk)
+            context = {
+                'product':products,
+                'totalcartitem':0,
+                'totalamount':a,
+                'totalquantity':counter,
+            }
+    except Order.DoesNotExist:
         context = {
-            'product':products,
-            'totalcartitem': cartitems.get_total_items_in_order() + 1,
-            'totalamount': round(cartitems.get_total(), 2),
-            'totalquantity': cartitems.get_quantity(),
+            'product': products,
+            'totalcartitem': 0,
+            'totalamount': a,
+            'totalquantity': counter,
         }
-    else:
-        user_details = "Please select user"
-        products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = 201301).get(products=pk)
-    # productdetail = Products.objects.get(pk=pk)
-        context = {
-            'product':products,
-            'totalcartitem':0,
-            'totalamount':a,
-            'totalquantity':counter,
-        }
-    
+        
     return render(request,"detail-page.html",context)
 
