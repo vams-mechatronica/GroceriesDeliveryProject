@@ -114,7 +114,7 @@ def productDetailsPageView(request,pk):
     return render(request,"detail-page.html",context)
 
 
-def search(request):
+def searchHomePageProducts(request):
     if request.method == "GET":  # write your form name here
         product_name = request.GET.get('search')
         try:
