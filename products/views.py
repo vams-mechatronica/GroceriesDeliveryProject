@@ -113,3 +113,15 @@ def productDetailsPageView(request,pk):
         
     return render(request,"detail-page.html",context)
 
+
+def search(request):
+    if request.method == "GET":  # write your form name here
+        product_name = request.GET.get('search')
+        try:
+            status = StoreProductsDetails.objects.filter(
+                products__product_name__contains=product_name)
+            return render(request, "search.html", {"products": status})
+        except StoreProductsDetails.DoesNotExist:
+            return render(request, "search.html", {'products': status})
+    else:
+        return render(request, 'search.html', {'products':status})

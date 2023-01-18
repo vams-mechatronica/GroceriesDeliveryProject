@@ -98,8 +98,8 @@
             <span class="location_text">{{user.user_address}}
               <i class="bi bi-caret-down-fill"></i>
             </span>
-            <form class="w-100 me-3" role="search">
-              <input type="search" class="form-control" placeholder="Search for products"
+            <form class="w-100 me-3" role="search" name="search-products" method="GET" action="{% url 'productsearch' %}">
+              <input type="search" class="form-control" placeholder="Search for products" name="search" id="search"
                 aria-label="Search for products">
             </form>   
  
