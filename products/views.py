@@ -39,21 +39,16 @@ class ProductDetails(APIView):
 
 
 def seeAllProductsInCategory(request,pk):
-    counter = 0
-    a = 0
     categorydetails = Categories.objects.get(pk = pk)
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
         productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = user_details.pincode)
-        cartitems = Cart.objects.filter(user = request.user.id)
-        for i in cartitems:
-            counter += i.quantity
-            a += i.get_total_item_price()
+        cartitems = Order.objects.get(user = request.user.id,ordered = False)
         context = {'category':categorydetails,
                 'catproducts':productdetail,
-                'totalcartitem':len(cartitems),
-                'totalamount':a,
-                'totalquantity':counter,
+                'totalcartitem':cartitems.get_total_items_in_order() + 1,
+                'totalamount':round(cartitems.get_total(),2),
+                'totalquantity':cartitems.get_quantity(),
             }
     else:
         productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
@@ -61,8 +56,8 @@ def seeAllProductsInCategory(request,pk):
         context = {'category':categorydetails,
                     'catproducts':productdetail,
                     'totalcartitem':0,
-                    'totalamount':a,
-                    'totalquantity':counter,
+                    'totalamount':0,
+                    'totalquantity':0,
                 }
     return render(request,"list.html",context)
 
@@ -72,16 +67,12 @@ def productDetailsPageView(request,pk):
     if request.user.id != None:
         user_details = UserAddresses.objects.get(user = request.user.id)
         products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
-        cartitems = Cart.objects.filter(user = request.user.id,ordered = False)
-        for i in cartitems:
-            counter += i.quantity
-            a += i.get_total_item_price()
-
+        cartitems = Order.objects.get(user = request.user.id,ordered = False)
         context = {
             'product':products,
-            'totalcartitem':len(cartitems),
-            'totalamount':a,
-            'totalquantity':counter,
+            'totalcartitem': cartitems.get_total_items_in_order() + 1,
+            'totalamount': round(cartitems.get_total(), 2),
+            'totalquantity': cartitems.get_quantity(),
         }
     else:
         user_details = "Please select user"

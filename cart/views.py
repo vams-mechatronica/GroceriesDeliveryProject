@@ -69,7 +69,7 @@ def cartCheckoutPageView(request):
         itemsForCartPage = Order.objects.get(user=request.user.id,ordered = False)
         useraddress = UserAddresses.objects.get(user = request.user.id)
     
-    a = itemsForCartPage.get_total()
+    a = round(itemsForCartPage.get_total(),2)
     counter = len(itemsForCartPage.items.all())
 
     if a > 500:
@@ -177,4 +177,4 @@ def paymentStatusAndOrderStatusUpdate(request):
                 order.payment = payment
                 order.save()
             messages.success(request, "Your order was successful!")
-    return redirect("cartview")
+    return redirect("orderhistoryuser")

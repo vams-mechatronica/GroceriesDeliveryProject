@@ -93,7 +93,14 @@ class Order(models.Model):
         return name
     
     def get_total_items_in_order(self):
-        return len(self.items.all())
+        return len(self.items.all()) - 1
+    
+    def get_quantity(self):
+        qty = 0
+        for order_item in self.items.all():
+            qty += order_item.quantity
+
+        return qty
 
 
     

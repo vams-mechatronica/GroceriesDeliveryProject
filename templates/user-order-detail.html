@@ -118,7 +118,11 @@
                 <div class="col-md-12">
                     <div class="d-flex">
                     <div class="myorder_details">
+                        {% if order_item.get_total_items_in_order >= 1 %}
                         <h2 class="order_title">{{order_item.get_order_name}} & {{order_item.get_total_items_in_order}} Others </h2>
+                        {% else %}
+                        <h2 class="order_title">{{order_item.get_order_name}}</h2>
+                        {% endif %}
                         <span class="order_id">Order <span>#{{order_item.id}}</span></span>
                         <span class="order_date_time">{{order_item.ordered_date}}</span>
                         <button class="reoder_btn"><i class="bi bi-bag"></i> Reorder</button>
@@ -126,7 +130,9 @@
                     <div class="myorder_details_right">
                         <span class="order_price">₹{{order_item.get_total|floatformat:2}}</span>
                         {% if order_item.ordered %}
-                        <span class="ord_status_delivered">Confirmed</span> 
+                        <span class="ord_status_delivered">Confirmed</span>
+                        {% else %}
+                        <span class="ord_status_cancel">Pending</span> 
                         {% endif %}
                         {% if order_item.being_delivered %}
                         <span class="ord_status_delivered">Shipped</span> 
