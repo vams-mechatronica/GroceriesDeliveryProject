@@ -111,7 +111,7 @@ def removeSingleItemFromCart(request, pk):
     if order_qs.exists():
         order = order_qs[0]
         # check if the order item is in the order
-        if order.items.filter(item__products__product_id=item.products.product_id).exists() and item.available_stock >= 0:
+        if order.items.filter(item__products__product_id=item.products.product_id).exists():
             order_item = Cart.objects.filter(
                 item=item,
                 user=request.user,
@@ -125,6 +125,8 @@ def removeSingleItemFromCart(request, pk):
             else:
                 order.items.remove(order_item)
                 order_item.delete()
+                item.available_stock += 1
+                item.save()
             # messages.info(request, "This item quantity was updated.")
             return redirect("cartview")
         else:
