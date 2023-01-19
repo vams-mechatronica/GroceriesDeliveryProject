@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/contact.css">
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/input-allow.js"></script>
+
+    <title>Contact</title>
+</head>
+<body>
+    <div class="back-img col-12">
+        <img src="/img/contact.webp" alt="background">
+    </div>
+    <div class="contact" id="contact">
+        <div class="container">
+            <div class="container d-flex flex-wrap">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="contact-text col-xl-6 col-lg-6 col-md-6 col-12 m-auto">
+                        <h2 class="">We would <span class="headt">&#x1F493;</span>  to hear from you</h2>
+                        <div class="mob-dlfex">
+                            <p>Fill out the form or write to us at </p>
+                            <p>
+                                <strong>
+                                    <a href="mailto:info@blinkit.com">info@blinkit.com</a>
+                                </strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                    <form action="#" class="form" method="post">
+                        <!-- {% csrf_token %} -->
+                        <div class="main-form justify-content-center">
+                            <h3 class="title text-center">Tell us your query <span class="quest-color">&#63;</span></h3>
+                            <input type="text" name="name" id="name" placeholder="Name">
+                            <input type="email" name="email" id="email" placeholder="Email">
+                            <input type="tel" name="phone" id="phone" placeholder="Phone">
+                            <input type="text" name="subject" id="subject" placeholder="Subject">
+                            <textarea name="message" id="message" cols="30" rows="4" placeholder="Message"></textarea>
+                            <button type="button">Submit</button>
+                        </div>
+                    </form>
+    
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<script>
+    function hidePopLogin(){
+        $('#login').hide()
+    }
+    function showGreenButton(butn,el){
+        value = $(el).val()
+        if(value.length == 10){
+            $('#'+butn).removeAttr("disabled")
+            $('#'+butn).attr("type" , "submit")
+            $('#'+butn).css({"background-color" : "green", "transition" : "0.3s"})
+        }
+        else{
+            $('#'+butn).css({"background-color" : "#ccc", "transition" : "0.3s"})
+            $('#'+butn).attr("disabled")
+            $('#'+butn).attr("type" , "button")
+        }
+    }
+</script>
+</html>

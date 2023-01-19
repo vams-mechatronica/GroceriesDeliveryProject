@@ -98,3 +98,14 @@ def userOrderDetail(request):
             'orders':orders
         }
     return render(request,"user-order-detail.html",context)
+
+
+def userOrderDetailExpanded(request,pk):
+    if request.user:
+        order_detail = Order.objects.get(user = request.user.id,pk=pk)
+        print(order_detail)
+    context = {
+        'orders':order_detail
+    }
+    return render(request,"order_history.html",context)
+

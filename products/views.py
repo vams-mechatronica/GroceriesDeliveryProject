@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib import auth
-from rest_framework import generics,status
+from rest_framework import generics,status,authentication,permissions
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -162,4 +162,5 @@ def searchProductsInsideCategoryPage(request,pk):
             }
 
     return render(request, "list.html", context)
+
 

@@ -116,7 +116,7 @@
             <div class="row">
                 {% for order_item in orders %}
                 <div class="col-md-12">
-                    <div class="d-flex">
+                    <div class="d-flex" onclick="window.location.href='{% url 'orderhistorydetail' order_item.id %}'">
                     <div class="myorder_details">
                         {% if order_item.get_total_items_in_order >= 1 %}
                         <h2 class="order_title">{{order_item.get_order_name}} & {{order_item.get_total_items_in_order}} Others </h2>

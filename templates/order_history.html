@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- title -->
+        <title>order History</title>
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        <meta name="author" content="">
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/favicon" href="image/fevicon.png">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+        <!-- simple-line icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/simple-line-icons.css' %}">
+        <!-- font-awesome icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+        <!-- themify icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
+        <!-- ion icon -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+        <!-- owl slider -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
+        <!-- swiper -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+        <!-- animation -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+        <!-- style -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/productview.css' %}">
+    </head>
+    <body class="home-1">
+        <!-- delivery address starts  -->
+            <div class="delvivery-area container">
+                <div class="delivery-img-address col-12 d-flex">
+                    <div class="delivery-img col-xl-1 col-lg-1 col-md-1 col-2 py-2 text-cent">
+                        <img src="{% static '/img/location.png' %}" alt="">
+                    </div>
+                    <div class="delivery-contend col-xl-10 col-ld-10 col-md-10 col-8 align-self-center">
+                        <h3>Delivered To</h3>
+                        <p>Shipping Address: {{orders.shipping_address}}</p>
+                    </div>
+                </div>
+            </div>
+
+        <!-- delivery address Ends  -->
+        <hr class="container">
+        <!-- product history start from here  -->
+        <div class="product">
+            <div class="container d-flex flex-wrap">
+                <!-- start django loop here  -->
+                
+                <div class="products col-xl-7 col-lg-7 col-md-7 col-12 br-1">
+                    {% for order_item in orders.items.all %}
+                    <div class="product-card justify-content-between ">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">
+                                <div class="product-img col-3 col-xl-1 col-lg-1 col-md-2">
+                                    <img src="/media/{{order_item.item.products.prod_mainimage}}" alt="">
+                                </div>
+                                <div class="content">
+                                    <p class="fw-5">{{order_item.item.products.product_name}}</p>
+                                    <p><small>{{order_item.item.products.unit}} Qty:{{order_item.quantity}}</small></p>
+                                </div>
+                            </div>
+                            <div class="product-price">
+                                <p>&#8377;{{order_item.get_amount_saved|floatformat:2}}</p> 
+                                <strike>&#8377;{{order_item.get_total_item_price|floatformat:2}}</strike>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                    
+                    
+                    <!-- end django loop here  -->
+                    
+                    <!-- duplicate products  -->
+                </div>
+                <div class="total-price col-xl-5 col-lg-5 col-md-5 col-12">
+                    <div class="container">
+                        <div class="pricing">
+                            <div class="d-flex justify-content-between py-1">
+                                <p>Products</p>
+                                 <p><strike>&#8377;{{orders.get_max_total}}</strike> &#8377;{{orders.get_total|floatformat:2}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between py-1">
+                                <p class="text-success">Discount</p>
+                                 <p class="text-success">&#8377;{{orders.get_total_discount|floatformat:2}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between py-1">
+                                <p>Delivery Charge</p>
+                                 <p><strike>&#8377;35</strike> <span class="text-success">&#8377;0</span> </p>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <p><strong>Total</strong></p>
+                                 <p> <strike>&#8377;{{orders.get_max_total|floatformat:2}}</strike> &#8377;{{orders.payment.amount}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- product history end here  -->
+        <script>
+            function zoom(e){
+              var zoomer = e.currentTarget;
+              e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+              e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+              x = offsetX/zoomer.offsetWidth*100
+              y = offsetY/zoomer.offsetHeight*100
+              zoomer.style.backgroundPosition = x + '% ' + y + '%';
+            }
+        </script>
+        <div class="mm-fullscreen-bg"></div>
+        <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+       
+        <script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        <!-- bootstrap -->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!-- popper -->
+        <script src="{% static 'js/popper.min.js' %}"></script>
+        <!-- fontawesome -->
+        <script src="{% static 'js/fontawesome.min.js' %}"></script>
+        <!-- swiper -->
+        <script src="{% static 'js/swiper.min.js' %}"></script>
+        <!-- custom -->
+        <script src="{% static 'js/custom.js' %}"></script>
+        
+    </body>
+</html>

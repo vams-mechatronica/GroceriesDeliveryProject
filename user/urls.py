@@ -9,5 +9,8 @@ urlpatterns = [
     path('accounts/update/user/profile/', views.UpdateProfileView.as_view(), name='auth_update_profile'),
     path('accounts/userprofile/',views.UserProfileView.as_view(),name="user_profile"),
     path('accounts/profilepage',views.profileUser,name="userprofilepage"),
-    path('accounts/user/ordershistory',views.userOrderDetail,name="orderhistoryuser"),
+    path('accounts/user/ordershistory',
+         views.userOrderDetail, name="orderhistoryuser"),
+    path('accounts/user/ordershistory/order-detail/<int:pk>/',
+         views.userOrderDetailExpanded, name="orderhistorydetail"),
 ]

@@ -36,6 +36,7 @@ urlpatterns = [
         PasswordResetConfirmView.as_view(), name='password_reset_confirm'
     ),
     path('api/v1/',include('products.urls')),
+    path('api/v1/', include('stores.urls')),
     path('',include('products.urls')),
     path('buy/',include('cart.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

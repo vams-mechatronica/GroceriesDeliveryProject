@@ -101,6 +101,9 @@ class Order(models.Model):
             qty += order_item.quantity
 
         return qty
+    
+    def get_total_discount(self):
+        return self.get_max_total() - self.get_total()
 
 
     

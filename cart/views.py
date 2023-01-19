@@ -191,4 +191,4 @@ def paymentStatusAndOrderStatusUpdate(request):
                 order.payment = payment
                 order.save()
             messages.success(request, "Your order was successful!")
-    return redirect("orderhistoryuser")
+    return redirect("orderhistorydetail",pk=order.id)

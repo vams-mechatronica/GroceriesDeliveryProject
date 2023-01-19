@@ -171,10 +171,10 @@
           <div class="slider">
               {% for prod in products %}
                 {% if "Trending" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-                <div class="product_grid">
+                <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                   <div class="product_img">
-                    <a href={% url 'productdetail' prod.products.product_id%}><img
-                        src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                    <img
+                        src=/media/{{prod.products.prod_mainimage}} alt="">
                   </div>
                   <div class="product_name">
                     <p>{{prod.products.product_name}}</p>
@@ -210,9 +210,9 @@
             {% comment %} {% if products|%} {% endcomment %}
             {% for prod in products %}
               {% if "Breakfast & Dairy" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id %}><img
+                  <a href="#"><img
                       src=/media/{{prod.products.prod_mainimage}} alt=""></a>
                 </div>
                 <div class="product_name">
@@ -250,7 +250,7 @@
             {% comment %} {% if products|%} {% endcomment %}
             {% for prod in products %}
               {% if "Cooking Essentials" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
                   <a href={% url 'productdetail' prod.products.product_id %}><img
                       src=/media/{{prod.products.prod_mainimage}} alt=""></a>
@@ -304,10 +304,10 @@
           <div class="slider2">
             {% for prod in products %}
               {% if "Personal Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -342,10 +342,10 @@
           <div class="slider3">
             {% for prod in products %}
               {% if "Cleaning Essentials" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -380,10 +380,10 @@
           <div class="slider3">
             {% for prod in products %}
               {% if "Health & Baby Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -435,10 +435,10 @@
           <div class="slider4">
             {% for prod in products %}
               {% if "Snacks & Drinks" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -473,10 +473,10 @@
           <div class="slider4">
             {% for prod in products %}
               {% if "Dry Fruits" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -510,10 +510,10 @@
           <div class="slider4">
             {% for prod in products %}
               {% if "Tea & Coffee" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -562,10 +562,10 @@
           <div class="slider4">
             {% for prod in products %}
               {% if "Puja Store" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
@@ -600,10 +600,10 @@
           <div class="slider4">
             {% for prod in products %}
               {% if "Home & Kitchen Appliances" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid">
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id%}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p>{{prod.products.product_name}}</p>
