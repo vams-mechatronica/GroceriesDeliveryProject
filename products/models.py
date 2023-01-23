@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from datetime import date
 from django import forms
 from django.contrib.postgres.fields import ArrayField
+from django_quill.fields import QuillField
 
 user = get_user_model()
 #MultiArrayChoiceFields
@@ -25,7 +26,7 @@ class Products(models.Model):
 
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=150)
-    desc = models.TextField(max_length=5000,null=True,blank=True)
+    desc = QuillField(null=True,blank=True)
     unit = models.CharField(max_length=50,blank=True)
     pro_category = ModifiedArrayField(models.CharField(_("Product Category"),max_length=255,choices=CATEGORIES,null = True,blank=True),null=True)
     max_retail_price = models.DecimalField(_("MRP (in Rs.)"), max_digits=8, decimal_places=2,null=True)

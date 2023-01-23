@@ -123,13 +123,13 @@
                                         <span class="new-price">₹{{product.list_price}}</span>
                                     <span class="old-price"><del>₹{{product.products.max_retail_price}}</del></span>
                                     <div class="Pro-lable">
-                                        <span class="p-discount">{{product.discount|floatformat:0}}% Off</span>
+                                        <span class="p-discount">Rs.{{product.discount|floatformat:0}} Off</span>
                                     </div>
                                     </div>
                                         <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1" role="button">ADD</a>
                                 </div>
                                 <span class="pro-details">About Product</span>
-                                <p>{{product.products.desc|safe}}</p>
+                                <p>{{product.products.desc.html|safe}}</p>
                                 <div class="pro-btn">
                                     <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between"><div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> | <span> ₹{{totalamount}}</span></div><div><i class="bi bi-bag"></i> View cart</div></a>
                                 </div>

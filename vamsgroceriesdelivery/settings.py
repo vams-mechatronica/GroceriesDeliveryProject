@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'allauth.account',  # new
     'allauth.socialaccount',  # new
     'dj_rest_auth.registration',
+    'django_quill',
     # 'django-filter',
 ]
 

@@ -45,7 +45,7 @@ Typography
 body{
     color: #222;
     font-size: 14px;
-   font-family: 'Rubik', sans-serif;m
+   font-family: 'Rubik', sans-serif;
     line-height: normal;
     font-weight: 400;
     letter-spacing: 0.5px;
@@ -2650,6 +2650,16 @@ a.scroll:hover span{
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100px;
+}
+.current-add:hover {
+    overflow: visible;
+}
+.current-add-index {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 150px;
 }
 /* cart page css */
 .cart-details {
@@ -13033,5 +13043,3 @@ a.responsive-collapse span{
     padding-bottom: 30px;
 }
 /*------------------------------------------------------- New Added end -------------------------------------------------------*/
-
-ss

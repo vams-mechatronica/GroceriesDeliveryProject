@@ -27,7 +27,7 @@ class StoreDetail(models.Model):
 class StoreProductsDetails(models.Model):
     store = models.ForeignKey("stores.StoreDetail", verbose_name=_("Store Detail"), on_delete=models.CASCADE)
     products = models.ForeignKey(Products, verbose_name=_("store products"), on_delete=models.CASCADE)
-    discount = models.DecimalField(_("Discount (in %)"), max_digits=5, decimal_places=2,null=True,blank=True)
+    discount = models.DecimalField(_("Discount (in Rs.)"), max_digits=5, decimal_places=2,null=True,blank=True)
     available_stock = models.IntegerField(_("available stock (in Nos.)"),default=0)
     display_home = models.BooleanField(_("Display at home"),default=False)
     status = models.BooleanField(_("Product Status"),default=True)
@@ -36,6 +36,6 @@ class StoreProductsDetails(models.Model):
         return "StoreName: {} ProductName: {} AvailableStock: {}".format(self.store,self.products,self.available_stock)
     
     def list_price(self):
-        listprice = self.products.max_retail_price - ((self.discount/100) * self.products.max_retail_price)
+        listprice = self.products.max_retail_price - self.discount
         return round(listprice,2)
     

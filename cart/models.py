@@ -23,7 +23,7 @@ class Cart(models.Model):
         return self.quantity * self.item.products.max_retail_price
 
     def get_total_discount_item_price(self):
-        return self.quantity * ((self.item.discount/100)*self.item.products.max_retail_price)
+        return self.quantity * self.item.discount
 
     def get_amount_saved(self):
         return self.get_total_item_price() - self.get_total_discount_item_price()

@@ -78,7 +78,7 @@
                   class="pro_sell">₹{{categorypro.products.max_retail_price}}</span></div>
               <a href="{% url 'addtocart' categorypro.products.product_id %}" class="btn btn-style1 btn-padding">ADD</a>
             </div>
-            <div class="product_dicont"><span>{{categorypro.discount|floatformat:0}}% Off</span></div>
+            <div class="product_dicont"><span>Rs.{{categorypro.discount|floatformat:0}} Off</span></div>
             
           </div>
           {% empty %}
