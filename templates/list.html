@@ -61,12 +61,9 @@
   <!-- product list start -->
   <div class="prod_list-page">
     <div class="container">
-
       <div class="row">
         {% for categorypro in catproducts %}
-
         <div class="col-6 col-sm-6 col-md-3">
-
           <div class="product_grid mb-4 .mb-md-0" onclick="window.location.href='{% url 'productdetail' categorypro.products.product_id %}'">
             <div class="product_img"><img src=/media/{{categorypro.products.prod_mainimage}} alt=""></div>
             <div class="product_name">
@@ -79,14 +76,15 @@
               <a href="{% url 'addtocart' categorypro.products.product_id %}" class="btn btn-style1 btn-padding">ADD</a>
             </div>
             <div class="product_dicont"><span>Rs.{{categorypro.discount|floatformat:0}} Off</span></div>
-            
+          
           </div>
           {% empty %}
           <tr>
               <td colspan='5'>No Matching Item</td>
           </tr>
+          {% endfor %}
         </div>
-        {% endfor %}
+        
       </div>
     </div>
   </div>
