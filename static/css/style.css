@@ -112,6 +112,7 @@ button:focus {
 p{
     line-height: 25px;
     margin-bottom: 0px;
+    color: black;
 }
 ul {
     list-style: none;
@@ -6163,7 +6164,7 @@ a.scroll:hover span{
 }
 .pro-page .pro-image .pro-info p{
     margin-top: 9px;
-    color: #999;
+    color: #000;
 }
 .pro-page .pro-image .pro-info .pro-items{
     display: flex;

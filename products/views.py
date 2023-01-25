@@ -12,6 +12,7 @@ from django.views.generic import *
 from user.models import *
 from stores.models import *
 from cart.models import *
+from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -22,7 +23,8 @@ def index(request):
 
     else:
         user_details = "Please select user"
-        products = StoreProductsDetails.objects.all()
+        products = StoreProductsDetails.objects.filter(
+            store__storeServicablePinCodes__contains=201301)
     banners = Banners.objects.all()
     categories = Categories.objects.all()
     context = ({'user':user_details,'banners':banners,'products':products,'categories':categories})
@@ -163,4 +165,17 @@ def searchProductsInsideCategoryPage(request,pk):
 
     return render(request, "list.html", context)
 
-
+import json
+def autocompleteModel(request):
+    if request.method == 'GET':
+        q = request.GET.get('term', '').capitalize()
+        search_qs = Products.objects.filter(product_name__startswith=q)
+        results = []
+        # printq
+        for r in search_qs:
+            results.append(r.product_name)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return JsonResponse({'data':data,'application':mimetype})

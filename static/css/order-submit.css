@@ -1,0 +1,158 @@
+.tick-img img{
+    width: 5%;
+}
+.home-1{
+    height: max-content;
+}
+.background-color-1{
+    background-color: #f3f6ed;
+}
+
+.order-summary{
+    height: 400px;
+    background-color: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.visit-store{
+    position: relative;
+    height: 400px;
+    background-color: white;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.button-btn{
+    padding: 12px;
+    background-color: rgb(0, 120, 0);
+    color: white;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.button-btn:hover{
+    background-color: green;
+    transition: 0.3s;
+    color: white;
+}
+
+.delivery-img img{
+    width: 50%;
+}
+.product-img img{
+    width: 100%;
+}
+
+.fw-7{
+    font-weight: 700;
+}
+.fw-6{
+    font-weight: 600;
+}
+.fw-3{
+    font-weight: 300;
+}
+.fw-5{
+    font-weight: 500;
+}
+.fw-4{
+    font-weight: 400;
+}
+
+.products{
+    padding-right: 20px;
+}
+.product-card{
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0px 0px 5px #aaa9a9;
+}
+.product-card:hover{
+    padding: 10px;
+    box-shadow: 0px 0px 10px #aaa9a9;
+}
+.br-1{
+    border-right: 1px solid #e5e5e5;
+}
+
+strike{
+    color: #aaa9a9;
+}
+
+.go-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.order-item{
+    height: 150px;
+    overflow: hidden;
+    overflow-y: auto;
+    width: 100%;
+    padding: 0 10px ;
+}
+
+.order-item .product-card{
+    width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 8px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: rgb(255, 246, 234);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(213, 122, 3);
+}
+.triagle-deisgn{
+    width: 0; 
+    height: 0; 
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+        
+    border-bottom: 250px solid orange;
+    transform: rotate(-45deg);
+    position: absolute;
+    left: -210px;
+    top: -40px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(255, 145, 0);
+  }
+  @media(max-width:500px) and (min-width:100px){
+    .tick-img img{
+        width: 10%;
+    }
+    .order-summary {
+        width: 90%;
+
+    }
+    .visit-store {
+        width: 90%;
+        height: 200px;
+    }
+    .triagle-deisgn{
+        width: 0; 
+        height: 0; 
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+            
+        border-bottom: 150px solid orange;
+        transform: rotate(-45deg);
+        position: absolute;
+        left: -110px;
+        top: -50px;
+    }
+  }

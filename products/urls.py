@@ -8,7 +8,8 @@ urlpatterns = [
     path('',index,name="index"),
     path("seeallproducts/<int:pk>",seeAllProductsInCategory,name="seeallproductsincategory"),
     path("productdetail/<int:pk>",productDetailsPageView,name="productdetail"),
-    path("products/search/",searchHomePageProducts,name="productsearch"),
+    # path("products/search/", searchHomePageProducts, name="productsearch"),
+    path("products/search/", autocompleteModel, name="productsearch"),
     path("products/search/categories/<int:pk>",searchProductsInsideCategoryPage,name="productsearchcategory")
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
