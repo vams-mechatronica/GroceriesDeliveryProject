@@ -164,13 +164,14 @@ USE_I18N = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 if DEBUG:
     STATIC_URL = 'static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-else:
-    STATIC_URL = 'static/'
-    STATIC_ROOT =  os.path.join(BASE_DIR ,'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = [
         BASE_DIR / "static"
     ]
+else:
+    STATIC_URL = 'static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

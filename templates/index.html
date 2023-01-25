@@ -200,6 +200,46 @@
       <div class="container">
         <div class="row">
           <div class="product_heading">
+            <h2>Fruits & Vegetables</h2>
+            {% for category in categories %}{% if category.category_name == "Fruits & Vegetables" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider1">
+            {% comment %} {% if products|%} {% endcomment %}
+            {% for prod in products %}
+              {% if "Fruits & Vegetables" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                <div class="product_img">
+                  <a href="#"><img
+                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                </div>
+                <div class="product_name">
+                  <p><b>{{prod.products.product_name}}</b></p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
+              </div>
+              {% else %}
+              <p> No Products available</p>
+              {% endif %}
+            {% endfor %}
+            
+            {% comment %} {% endif %} {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
             <h2>Breakfast & Dairy</h2>
             {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
@@ -291,43 +331,7 @@
         </div>
       </div>
     </div>
-    <div class="prduct_slide_list">
-      <div class="container">
-        <div class="row">
-          <div class="product_heading">
-            <h2>Personal Care</h2>
-            {% for category in categories %}{% if category.category_name == "Personal Care" %}
-            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
-                class="bi bi-chevron-right"></i></a>
-            {% endif %}{% endfor %}
-          </div>
-          <div class="slider2">
-            {% for prod in products %}
-              {% if "Personal Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
-                <div class="product_img">
-                  <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="">
-                </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
-                </div>
-                <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
-              </div>
-              {% else %}
-              <p> No Products available</p>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
+    
     
     <div class="prduct_slide_list">
       <div class="container">
@@ -371,15 +375,15 @@
       <div class="container">
         <div class="row">
           <div class="product_heading">
-            <h2>Health & Baby Care</h2>
-            {% for category in categories %}{% if category.category_name == "Health & Baby Care" %}
+            <h2>Personal Care</h2>
+            {% for category in categories %}{% if category.category_name == "Personal Care" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
           </div>
-          <div class="slider3">
+          <div class="slider2">
             {% for prod in products %}
-              {% if "Health & Baby Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
+              {% if "Personal Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
               <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
                   <img
@@ -400,22 +404,6 @@
               <p> No Products available</p>
               {% endif %}
             {% endfor %}
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="prmotion_banner">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="pr_slide">
-              {% for banner in banners %}
-                {% if banner.banner_status == "Activate" and "Home" in banner.position and "Middle" in banner.position%}
-                <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
-                {% endif %}
-              {% endfor %}
-            </div>
           </div>
         </div>
       </div>
@@ -455,6 +443,61 @@
               <p> No Products available</p>
               {% endif %}
             {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="prmotion_banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pr_slide">
+              {% for banner in banners %}
+                {% if banner.banner_status == "Activate" and "Home" in banner.position and "Middle" in banner.position%}
+                <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="prduct_slide_list">
+      <div class="container">
+        <div class="row">
+          <div class="product_heading">
+            <h2>Health & Baby Care</h2>
+            {% for category in categories %}{% if category.category_name == "Health & Baby Care" %}
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+                class="bi bi-chevron-right"></i></a>
+            {% endif %}{% endfor %}
+          </div>
+          <div class="slider3">
+            {% for prod in products %}
+              {% if "Health & Baby Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
+              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                <div class="product_img">
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
+                </div>
+                <div class="product_name">
+                  <p><b>{{prod.products.product_name}}</b></p>
+                </div>
+                <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
+                <div class="d-flex justify-content-between">
+                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
+                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
+                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                </div>
+                <div class="product_dicont"><span>{{prod.discount|floatformat:0}}% Off</span></div>
+              </div>
+              {% else %}
+              <p> No Products available</p>
+              {% endif %}
+            {% endfor %}
+
           </div>
         </div>
       </div>
