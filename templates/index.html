@@ -19,7 +19,7 @@
   <link rel="mask-icon" href="/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
   <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
   <meta name="theme-color" content="#712cf9">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  {% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"> {% endcomment %}
   <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
   <link rel="stylesheet" href="{% static 'css/searchpop.css' %}">
@@ -288,8 +288,8 @@
               {% if "Breakfast & Dairy" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
               <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 <div class="product_img">
-                  <a href="#"><img
-                      src=/media/{{prod.products.prod_mainimage}} alt=""></a>
+                  <img
+                      src=/media/{{prod.products.prod_mainimage}} alt="">
                 </div>
                 <div class="product_name">
                   <p><b>{{prod.products.product_name}}</b></p>
