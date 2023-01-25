@@ -13,4 +13,6 @@ urlpatterns = [
          views.userOrderDetail, name="orderhistoryuser"),
     path('accounts/user/ordershistory/order-detail/<int:pk>/',
          views.userOrderDetailExpanded, name="orderhistorydetail"),
+    path('accounts/register/get_otp/', views.get_otp, name='get_otp'),
+    path('accounts/register/verify/', views.verify_otp, name='verify_otp'),
 ]
