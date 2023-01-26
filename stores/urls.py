@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("stores/store-detail/",StoreDetailsView.as_view()),
     path("stores/products/",StoreProductDetailsView.as_view()),
+    path("stores/availability/", StoreVerifyAtLocation.as_view()),
+
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

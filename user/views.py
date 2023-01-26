@@ -10,7 +10,7 @@ from products.serializer import userSerializer
 from cart.models import Order
 from rest_framework.decorators import api_view, permission_classes
 from .models import *
-import datetime
+from datetime import datetime,timezone
 from django.http import JsonResponse
 from django.utils.timezone import utc
 from .utils import OTPManager
@@ -120,19 +120,20 @@ def userOrderDetailExpanded(request,pk):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def get_otp(request):
-    print(' wroking')
     try:
         # device = Device.objects.get(auth_token=request.data.get('auth_token'))
         country_code = request.data.get('country_code')
+        print(type(country_code))
         phone_number = request.data.get('phone_number')
+        print(type(phone_number))
         fake_otp = bool(request.data.get('fake_otp'))
+        print(type(fake_otp))
 
         try:
             last_sms = DeviceOtp.objects.filter(
                 number=phone_number).latest('created_date')
             if last_sms:
-                timediff = datetime.datetime.utcnow().replace(tzinfo=utc) - \
-                    last_sms.created_date
+                timediff = datetime.now(timezone.utc) - last_sms.created_date
                 if timediff.total_seconds() < 15:
                     return JsonResponse({'Status': "Sent"})
         except Exception as e:

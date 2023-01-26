@@ -96,6 +96,25 @@ cursor: pointer;
     padding: 5px 20px;
     color: green;
 }
+.current-location{
+    border: 2px solid rgb(255, 145, 0);
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 5px;
+    position: absolute;
+    border-radius: 50%;
+    line-height: 0;
+}
+.current-location::before{
+    content: "+";
+    top: 9px;
+    left: 2px;
+    font-size: 20px;
+    color: red;
+    position: absolute;
+    color: red;
+}
 @media (max-width:900px) and (min-width:500px){
 }
 @media (max-width:500px) and (min-width:100px){

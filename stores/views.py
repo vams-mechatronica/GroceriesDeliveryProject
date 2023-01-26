@@ -51,3 +51,17 @@ class StoreProductDetailsView(APIView):
             return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
 
 
+class StoreVerifyAtLocation(APIView):
+    permission_classes = (AllowAny,)
+    authentication_classes = [authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication]
+
+    def get(self,request,format=None):
+        pincode = request.GET.get('pincode')
+        storeAtLocationPincode = StoreDetail.objects.filter(storeServicablePinCodes = pincode)
+        try:
+            if len(storeAtLocationPincode) > 0:
+                return Response({'available':True},status=status.HTTP_200_OK)
+            else:
+                return Response({'available': False}, status=status.HTTP_200_OK)
+        except StoreDetail.DoesNotExist:
+            pass
