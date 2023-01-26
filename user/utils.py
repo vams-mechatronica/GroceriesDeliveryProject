@@ -52,7 +52,7 @@ class OTPManager:
         device_otp = DeviceOtp.objects.get(
             number=phone_number, status=True, country=country)
         if int(otp) != device_otp.otp:
-            return JsonResponse({'Error': "OTP Didn't matched!"}, status=status.HTTP_200_OK)
+            return JsonResponse({'Error': "OTP Didn't matched!"}, status=status.HTTP_401_UNAUTHORIZED)
         user = user_model.objects.filter(mobileno=phone_number)
         if user.count() == 0:
             new_user = user_model.objects.create(mobileno=phone_number)
@@ -62,7 +62,7 @@ class OTPManager:
             token = Token.objects.get(user=user[0])
         device_otp.status = False
         device_otp.save()
-        return JsonResponse({'user': UserSerializer(user[0]).data, 'token': token.key})
+        return JsonResponse({'user': UserSerializer(user[0]).data, 'token': token.key},status=status.HTTP_201_CREATED)
 
     # @staticmethod
     # def verify_otp_new(otp, country_code, phone_number):

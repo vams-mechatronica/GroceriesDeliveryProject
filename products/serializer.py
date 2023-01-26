@@ -26,9 +26,6 @@ class ProductReviewAndRatingsSerializer(serializers.ModelSerializer):
         fields = ['review','ratings','upload_image','author']
     
 class ProductsSerializer(serializers.ModelSerializer):
-    prodImages = ProductImagesSerializer(many = True)
-    prodReviews = ProductReviewAndRatingsSerializer(many = True)
-    prodCategories = CategoriesSerializer(many = True)
     class Meta:
         model = Products
-        fields = '__all__'
+        exclude = ('desc',)

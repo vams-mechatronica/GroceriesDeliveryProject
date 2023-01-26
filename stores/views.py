@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from .serializer import *
+from user.models import *
 
 # Create your views here.
 
@@ -20,3 +21,33 @@ class StoreDetailsView(APIView):
         storeSerializer = StoreDetailSerializer(
             instance=stores_details, many=True)
         return Response(storeSerializer.data)
+
+
+class StoreProductDetailsView(APIView):
+    authentication_classes = [authentication.SessionAuthentication]
+    permission_classes = (AllowAny,)
+
+    def get(self,request,format = None):
+        try:
+            if request.user:
+                user_details = UserAddresses.objects.get(user = request.user.id)
+                product_details = StoreProductsDetails.objects.filter(
+                    store__storeServicablePinCodes__contains=user_details.pincode)
+                productDetailSerializer = StoreProductsDetailsSerializer(instance=product_details,many = True)
+                return Response(productDetailSerializer.data,status=status.HTTP_200_OK)
+            elif request.user == None:
+                product_details = StoreProductsDetails.objects.filter(
+                    store__storeServicablePinCodes__contains=201301)
+                productDetailSerializer = StoreProductsDetailsSerializer(
+                    instance=product_details, many=True)
+                return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except UserAddresses.DoesNotExist:
+            product_details = StoreProductsDetails.objects.filter(
+                store__storeServicablePinCodes__contains=201301)
+            productDetailSerializer = StoreProductsDetailsSerializer(
+                instance=product_details, many=True)
+            return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
+
+

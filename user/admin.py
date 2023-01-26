@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser,UserAddresses
+from .models import *
 # Register your models here.
 
 class CustomUserAdmin(admin.ModelAdmin):
@@ -10,3 +10,5 @@ class CustomUserAdmin(admin.ModelAdmin):
 admin.site.register(CustomUser,CustomUserAdmin)
 
 admin.site.register(UserAddresses)
+admin.site.register(Country)
+admin.site.register(DeviceOtp)
