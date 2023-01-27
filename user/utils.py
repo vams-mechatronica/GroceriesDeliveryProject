@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from .models import DeviceOtp, Country
 from django.http import JsonResponse
 from datetime import date
+from django.contrib import auth
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -47,23 +48,23 @@ class OTPManager:
         return True
 
     @staticmethod
-    def verify_otp(otp, country_code, phone_number):
+    def verify_otp(otp, country_code, phone_number,web):
         country = Country.objects.get(country_code=country_code)
         device_otp = DeviceOtp.objects.get(
             number=phone_number, status=True, country=country)
         if int(otp) != device_otp.otp:
             return JsonResponse({'Error': "OTP Didn't matched!"}, status=status.HTTP_401_UNAUTHORIZED)
-        user = user_model.objects.filter(mobileno=phone_number)
-        if user.count() == 0:
-            new_user = user_model.objects.create(mobileno=phone_number)
-            new_user.save()
-            token = Token.objects.create(user=new_user)
+        user, created = user_model.objects.get_or_create(mobileno=phone_number)
+        print("token")
+        token, created = Token.objects.get_or_create(user=user)
+        if not web:
+            device_otp.status = False
+            device_otp.save()
+            return JsonResponse({'user': UserSerializer(user).data, 'token': token.key},status=status.HTTP_201_CREATED)
         else:
-            token = Token.objects.get(user=user[0])
-        device_otp.status = False
-        device_otp.save()
-        return JsonResponse({'user': UserSerializer(user[0]).data, 'token': token.key},status=status.HTTP_201_CREATED)
-
+            device_otp.status = False
+            device_otp.save()
+            return user
     # @staticmethod
     # def verify_otp_new(otp, country_code, phone_number):
     #     country = Country.objects.get(country_code=country_code)

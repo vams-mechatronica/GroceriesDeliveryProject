@@ -123,11 +123,8 @@ def get_otp(request):
     try:
         # device = Device.objects.get(auth_token=request.data.get('auth_token'))
         country_code = request.data.get('country_code')
-        print(type(country_code))
         phone_number = request.data.get('phone_number')
-        print(type(phone_number))
         fake_otp = bool(request.data.get('fake_otp'))
-        print(type(fake_otp))
 
         try:
             last_sms = DeviceOtp.objects.filter(
@@ -160,9 +157,17 @@ def verify_otp(request):
         # Device.objects.get(auth_token=request.data.get('auth_token'))
         phone_number = request.data.get('phone_number')
         country_code = request.data.get('country_code')
+        web = bool(request.data.get('web'))
         otp = request.data.get('otp')
         print('otp is - ', otp)
-        return OTPManager.verify_otp(otp, country_code, phone_number)
+        if not web:
+            return OTPManager.verify_otp(otp, country_code, phone_number,web)
+        else:
+            user_r = OTPManager.verify_otp(otp, country_code, phone_number, web)
+            # print(user_r.id)
+            # user_i = User.objects.get(user = user_r['id'])
+            auth.login(request,user_r)
+            return redirect("index")
 
     except Exception as e:
         print(e)

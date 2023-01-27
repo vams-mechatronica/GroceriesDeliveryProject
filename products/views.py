@@ -17,18 +17,29 @@ from django.http import JsonResponse
 User = get_user_model()
 
 def index(request):
-    if request.user.id != None:
-        user_details = UserAddresses.objects.get(user = request.user.id)
-        products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode)
+    try:
+        if request.user.id != None:
+            user_details = UserAddresses.objects.get(user = request.user.id)
+            products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode)
 
-    else:
-        user_details = "Please select user"
+        else:
+            user_details = "Please select user"
+            products = StoreProductsDetails.objects.filter(
+                store__storeServicablePinCodes__contains=201301)
+        banners = Banners.objects.all()
+        categories = Categories.objects.all()
+        context = ({'user':user_details,'banners':banners,'products':products,'categories':categories})
+        return render(request,"index.html",context=context)
+    except UserAddresses.DoesNotExist:
+        user_details = request.user
         products = StoreProductsDetails.objects.filter(
             store__storeServicablePinCodes__contains=201301)
-    banners = Banners.objects.all()
-    categories = Categories.objects.all()
-    context = ({'user':user_details,'banners':banners,'products':products,'categories':categories})
-    return render(request,"index.html",context=context)
+        banners = Banners.objects.all()
+        categories = Categories.objects.all()
+        context = ({'user': user_details, 'banners': banners,
+                    'products': products, 'categories': categories})
+        return render(request, "index.html", context=context)
+
 
 
 # Create your views here.
