@@ -2,6 +2,7 @@ from django.db import models
 from products.models import * 
 from django.utils.translation import gettext_lazy as _
 from datetime import datetime
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 RATINGS = ((1,1),(2,2),(3,3),(4,4),(5,5),)
@@ -11,7 +12,7 @@ class StoreDetail(models.Model):
     storeAddress = models.CharField(_("Store Address"), max_length=250,null=False,default="",blank=False)
     storeLocality = models.CharField(_("Store Locality"), max_length=50,null=False,default= "",blank=False)
     storeLocalityPinCode = models.IntegerField(_("Store Locality Pincode"),null=True,blank=True)
-    storeServicablePinCodes = models.CharField(_("Store Servicable Pincodes"), max_length=2048,default="",null=True,blank=True)
+    storeServicablePinCodes = ArrayField(models.CharField(_("Store Servicable Pincodes"), max_length=2048,default="",null=True,blank=True),null=True,blank=True)
     storePhoneNo = models.CharField(_("Store Phone No."),max_length=15,null=True,blank=True)
     storeEmail = models.EmailField(_("Store Email ID"), max_length=254,null= True,blank=True)
     storeRating = models.IntegerField(_("Store Rating"),choices=RATINGS,null=True,blank=True)

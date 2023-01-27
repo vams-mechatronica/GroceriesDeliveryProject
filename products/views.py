@@ -20,12 +20,12 @@ def index(request):
     try:
         if request.user.id != None:
             user_details = UserAddresses.objects.get(user = request.user.id)
-            products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode)
+            products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = [user_details.pincode])
 
         else:
             user_details = "Please select user"
             products = StoreProductsDetails.objects.filter(
-                store__storeServicablePinCodes__contains=201301)
+                store__storeServicablePinCodes__contains=[201301])
         banners = Banners.objects.all()
         categories = Categories.objects.all()
         context = ({'user':user_details,'banners':banners,'products':products,'categories':categories})
@@ -33,7 +33,7 @@ def index(request):
     except UserAddresses.DoesNotExist:
         user_details = request.user
         products = StoreProductsDetails.objects.filter(
-            store__storeServicablePinCodes__contains=201301)
+            store__storeServicablePinCodes__contains=[201301])
         banners = Banners.objects.all()
         categories = Categories.objects.all()
         context = ({'user': user_details, 'banners': banners,
@@ -56,7 +56,7 @@ def seeAllProductsInCategory(request,pk):
     try:
         if request.user.id != None:
             user_details = UserAddresses.objects.get(user = request.user.id)
-            productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = user_details.pincode)
+            productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = [user_details.pincode])
             cartitems = Order.objects.get(user = request.user.id,ordered = False)
             if cartitems == None:
                 context = {'category':categorydetails,
@@ -98,7 +98,7 @@ def productDetailsPageView(request,pk):
     try:
         if request.user.id != None:
             user_details = UserAddresses.objects.get(user = request.user.id)
-            products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = user_details.pincode).get(products=pk)
+            products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = [user_details.pincode]).get(products=pk)
             cartitems = Order.objects.get(user = request.user.id,ordered = False)
             context = {
                 'product':products,
@@ -147,7 +147,7 @@ def searchProductsInsideCategoryPage(request,pk):
             if request.user.id != None:
                 user_details = UserAddresses.objects.get(user=request.user.id)
                 productdetail = StoreProductsDetails.objects.filter(products__pro_category__icontains=[
-                                                                    categorydetails.category_name], products__product_name__icontains = product_name,store__storeServicablePinCodes__contains=user_details.pincode)
+                                                                    categorydetails.category_name], products__product_name__icontains = product_name,store__storeServicablePinCodes__contains=[user_details.pincode])
                 cartitems = Order.objects.get(user=request.user.id, ordered=False)
                 context = {'category': categorydetails,
                         'catproducts': productdetail,
