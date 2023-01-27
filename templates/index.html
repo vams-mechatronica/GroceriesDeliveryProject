@@ -1510,7 +1510,7 @@
         $('.suggestProduct').hide()
       }
       $.ajax({
-          type: 'POST',
+          type: 'GET',
           url: domain+path_name,
           data: {
               "csrfmiddlewaretoken":g_csrftoken,
@@ -1518,21 +1518,24 @@
               
           },
           success: function(response) {
-              if (response['product']){
+              if (response){
+                console.log(response)
                 $('.suggestProduct').empty()
                 $('.suggestProduct').show()
-                if (response['product'].length > 0){
-                  response['product'].each(function(index){
+                if (response.length > 0){
+                  
+                  $.each(response,function(index, item){
+                    console.log(response[index].products.prod_mainimage)
                     $('.suggestProduct').append(`
                     <div class="suggest-product d-flex col-12" >
                       <div class="col-2 ">
-                        <img src="`+response['product'][index]['img']+`" alt="">
+                        <img src="`+response[index].products.prod_mainimage+`" alt="" >
                       </div>
                       <div class="product_name col-8 align-self-center">
-                        <p>`+response['product'][index]['name']+`</p>
+                        <p>`+response[index].products.product_name+`</p>
                       </div>
                       <div class="align-self-center">
-                        <div class="product_pirce "><span class="pro_mrp">`+response['product'][index]['mrp']+`</span><span class="pro_sell">`+response['product'][index]['actual_price']+`</span></div>
+                        <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
                         <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
                       </div>
                     </div>

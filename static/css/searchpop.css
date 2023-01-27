@@ -115,6 +115,31 @@ cursor: pointer;
     position: absolute;
     color: red;
 }
+.top_location{
+    position: relative;
+}
+.suggestProduct{
+    position: absolute;
+    background-color: rgb(236, 235, 231);
+    padding: 5px;
+    height: max-content;
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 2;
+}
+.suggest-product{
+    box-shadow: 0px 0px 2px #e2cba3;
+    border-radius: 8px;
+    margin: 8px 0;
+
+}   
+.suggest-product:hover{
+    box-shadow: 0px 0px 5px #0b1308;
+}   
+.suggest-product img{
+    width: 100%;
+}
 @media (max-width:900px) and (min-width:500px){
 }
 @media (max-width:500px) and (min-width:100px){

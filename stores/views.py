@@ -10,7 +10,7 @@ from .serializer import *
 from user.models import *
 
 # Create your views here.
-
+defaultLocationpincode = 201301
 
 class StoreDetailsView(APIView):
     authentication_classes = [
@@ -28,16 +28,17 @@ class StoreProductDetailsView(APIView):
     permission_classes = (AllowAny,)
 
     def get(self,request,format = None):
+        product_name = request.GET.get('products')
         try:
             if request.user:
                 user_details = UserAddresses.objects.get(user = request.user.id)
                 product_details = StoreProductsDetails.objects.filter(
-                    store__storeServicablePinCodes__contains=user_details.pincode)
+                    store__storeServicablePinCodes__contains=user_details.pincode, products__product_name__icontains=product_name)
                 productDetailSerializer = StoreProductsDetailsSerializer(instance=product_details,many = True)
                 return Response(productDetailSerializer.data,status=status.HTTP_200_OK)
             elif request.user == None:
                 product_details = StoreProductsDetails.objects.filter(
-                    store__storeServicablePinCodes__contains=201301)
+                    store__storeServicablePinCodes__contains=defaultLocationpincode, products__product_name__icontains=product_name)
                 productDetailSerializer = StoreProductsDetailsSerializer(
                     instance=product_details, many=True)
                 return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
@@ -45,7 +46,7 @@ class StoreProductDetailsView(APIView):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
         except UserAddresses.DoesNotExist:
             product_details = StoreProductsDetails.objects.filter(
-                store__storeServicablePinCodes__contains=201301)
+                store__storeServicablePinCodes__contains=defaultLocationpincode, products__product_name__icontains=product_name)
             productDetailSerializer = StoreProductsDetailsSerializer(
                 instance=product_details, many=True)
             return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
@@ -56,10 +57,12 @@ class StoreVerifyAtLocation(APIView):
     authentication_classes = [authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication]
 
     def get(self,request,format=None):
+        global defaultLocationpincode
         pincode = request.GET.get('pincode')
         storeAtLocationPincode = StoreDetail.objects.filter(storeServicablePinCodes = pincode)
         try:
             if len(storeAtLocationPincode) > 0:
+                defaultLocationpincode = pincode
                 return Response({'available':True},status=status.HTTP_200_OK)
             else:
                 return Response({'available': False}, status=status.HTTP_200_OK)
