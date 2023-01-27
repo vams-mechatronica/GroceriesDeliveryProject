@@ -1,4 +1,4 @@
-`{% load static %}
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -1382,8 +1382,7 @@
 
               // Save zipcode to sessionStorage
               sessionStorage.setItem("pincode", zipcode);
-              var status = checkStoreAvailabilty();
-              console.log(status)
+              checkStoreAvailabilty(address.results[0].formatted_address);
               /* var pincode = sessionStorage.getItem("pincode");
               console.log(pincode); 
               */
@@ -1391,16 +1390,15 @@
               document.getElementById("current-location").value = "Use My Current Location";
               document.getElementById("user_input_autocomplete_address").disabled = false;
               document.getElementById("user_input_autocomplete_address").value = address.results[0].formatted_address;
+              
 
-              if (status){
-                document.getElementById("location-text").innerHTML = address.results[0].formatted_address;
-              }
           }
       };
       xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyBYSvhqF-DYy0C78aP35lME_p7esEqCbCo", true);
       xhttp.send();
       // alert("Latitude : " + latitude + " Longitude: " + longitude);
-  }
+  };
+  
   var getCookie = function (name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -1417,7 +1415,8 @@
       return cookieValue;
     };
   const g_csrftoken = getCookie('csrftoken');
-  function checkStoreAvailabilty(){
+  var checkStoreAvailabilty = function (Fformatted_address){
+    var availablility = null;
     domain = window.location.origin
     path_name = '/api/v1/stores/availability/'
     $.ajax({
@@ -1428,23 +1427,22 @@
           "pincode":sessionStorage.getItem('pincode')
       },
       success: function(response) {
-        
-          if (response['available']){
-            //console.log(response['available'])
-              $('#success-loc').show()
-              $('#error-loc').hide()
-              
-          }
-          else{
-              $('#success-loc').hide()
-              $('#error-loc').show()
-              
-          }
-          
+        if (response['available']){
+          //console.log(response['available'])
+            $('#success-loc').show()
+            $('#error-loc').hide()
+            document.getElementById("location-text").innerHTML = Fformatted_address;
+        }
+        else{
+            $('#success-loc').hide()
+            $('#error-loc').show()
+        }
       }  
     });
    
   }
+  
+  console.log(status)
   
   function errorHandler(err) {
       if (err.code == 1) {
@@ -1500,5 +1498,4 @@
   
   </script>
 </body>
-
 </html>
