@@ -132,7 +132,7 @@ def searchHomePageProducts(request):
         product_name = request.GET.get('search')
         try:
             status = StoreProductsDetails.objects.filter(
-                products__product_name__contains=product_name)
+                products__product_name__icontains=product_name)
             return render(request, "search.html", {"products": status})
         except StoreProductsDetails.DoesNotExist:
             return render(request, "search.html", {'products': status})
@@ -146,8 +146,8 @@ def searchProductsInsideCategoryPage(request,pk):
         try:
             if request.user.id != None:
                 user_details = UserAddresses.objects.get(user=request.user.id)
-                productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains=[
-                                                                    categorydetails.category_name], products__product_name__contains = product_name,store__storeServicablePinCodes__contains=user_details.pincode)
+                productdetail = StoreProductsDetails.objects.filter(products__pro_category__icontains=[
+                                                                    categorydetails.category_name], products__product_name__icontains = product_name,store__storeServicablePinCodes__contains=user_details.pincode)
                 cartitems = Order.objects.get(user=request.user.id, ordered=False)
                 context = {'category': categorydetails,
                         'catproducts': productdetail,
@@ -157,7 +157,7 @@ def searchProductsInsideCategoryPage(request,pk):
                         }
             else:
                 productdetail = StoreProductsDetails.objects.filter(
-                    products__pro_category__contains=[categorydetails.category_name],products__product_name__contains=product_name)
+                    products__pro_category__icontains=[categorydetails.category_name],products__product_name__icontains=product_name)
 
                 context = {'category': categorydetails,
                         'catproducts': productdetail,
