@@ -49,15 +49,15 @@ class OTPManager:
 
     @staticmethod
     def verify_otp(otp, country_code, phone_number,web):
+        country_code = country_code.replace('+', '')
         country = Country.objects.get(country_code=country_code)
         device_otp = DeviceOtp.objects.get(
             number=phone_number, status=True, country=country)
         if int(otp) != device_otp.otp:
             return JsonResponse({'Error': "OTP Didn't matched!"}, status=status.HTTP_401_UNAUTHORIZED)
         user, created = user_model.objects.get_or_create(mobileno=phone_number)
-        print("token")
         token, created = Token.objects.get_or_create(user=user)
-        if not web:
+        if web == False:
             device_otp.status = False
             device_otp.save()
             return JsonResponse({'user': UserSerializer(user).data, 'token': token.key},status=status.HTTP_201_CREATED)

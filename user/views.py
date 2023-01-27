@@ -164,10 +164,8 @@ def verify_otp(request):
             return OTPManager.verify_otp(otp, country_code, phone_number,web)
         else:
             user_r = OTPManager.verify_otp(otp, country_code, phone_number, web)
-            # print(user_r.id)
-            # user_i = User.objects.get(user = user_r['id'])
             auth.login(request,user_r)
-            return redirect("index")
+            return Response({"status":"OK"},status=status.HTTP_200_OK)
 
     except Exception as e:
         print(e)
