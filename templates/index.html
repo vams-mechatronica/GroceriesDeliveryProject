@@ -1398,7 +1398,7 @@
               document.getElementById("user_input_autocomplete_address").disabled = false;
               document.getElementById("user_input_autocomplete_address").value = address.results[0].formatted_address;
               
-
+              sessionStorage.setItem("Address",address.results[0].formatted_address);
           }
       };
       xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyBYSvhqF-DYy0C78aP35lME_p7esEqCbCo", true);

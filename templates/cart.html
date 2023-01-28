@@ -41,8 +41,11 @@
                     <div class="col">
                         <h1>Cart</h1>
                         <div class="change-address">
-                            <ul>
-                                <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add">{{useraddress.user_address}}</span></li>
+                            <ul> {% if useraddress.user_address is None %}
+                                    <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address-1" onl></span></li>
+                                {% else %}
+                                    <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address">{{useraddress.user_address}}</span></li>
+                                {% endif %}
                             </ul>
                             <a href="{% url 'auth_update_profile' %}" class="chng-add"><i class="ion-ios-location"></i> Change Address</a>
                         </div>
@@ -220,7 +223,10 @@
         }
     });
 });
-
+        window.onload = function (){
+            var addr = sessionStorage.getItem("Address");
+            document.getElementById("c-address-1").innerHTML = addr
+        }
         </script>
     </body>
 </html>
