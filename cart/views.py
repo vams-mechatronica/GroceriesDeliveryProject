@@ -27,7 +27,7 @@ def addToCart(request, pk):
     if request.user:
         user_details = UserAddresses.objects.get(user=request.user.id)
     item = get_object_or_404(StoreProductsDetails, products=pk,
-                             store__storeServicablePinCodes__contains=user_details.pincode)
+                             store__storeServicablePinCodes__contains=[user_details.pincode])
     order_item, created = Cart.objects.get_or_create(
         item=item,
         user=request.user,
@@ -106,7 +106,7 @@ def removeSingleItemFromCart(request, pk):
     if request.user:
         user_details = UserAddresses.objects.get(user=request.user.id)
     item = get_object_or_404(StoreProductsDetails, products=pk,
-                             store__storeServicablePinCodes__contains=user_details.pincode)
+                             store__storeServicablePinCodes__contains=[user_details.pincode])
     order_qs = Order.objects.filter(
         user=request.user,
         ordered=False

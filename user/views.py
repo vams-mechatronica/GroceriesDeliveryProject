@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib import auth
-from .serializers import UpdateUserSerializer
-from rest_framework import generics,status,permissions
+from .serializers import *
+from rest_framework import generics,status,permissions,authentication
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -170,3 +170,13 @@ def verify_otp(request):
     except Exception as e:
         print(e)
         return Response({'Error': "Invalid Data"}, status=status.HTTP_200_OK)
+
+
+class UserAddressUpdateView(APIView):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication)
+
+    def get(self,request,format = None):
+        address = UserAddresses.objects.filter(user = request.user)
+        serializer = UserAddressesSerializer(instance=address,many = True)
+        return Response(serializer.data,status=status.HTTP_200_OK)

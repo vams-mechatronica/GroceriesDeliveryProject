@@ -116,15 +116,18 @@ def productDetailsPageView(request,pk):
                 'totalamount':a,
                 'totalquantity':counter,
             }
-    except Order.DoesNotExist:
+    
+    except (Order.DoesNotExist,UserAddresses.DoesNotExist):
+        products = StoreProductsDetails.objects.filter(
+            store__storeServicablePinCodes__contains=[201301]).get(products=pk)
         context = {
             'product': products,
             'totalcartitem': 0,
             'totalamount': a,
             'totalquantity': counter,
         }
-        
-    return render(request,"detail-page.html",context)
+    return render(request, "detail-page.html", context)
+
 
 
 def searchHomePageProducts(request):

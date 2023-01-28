@@ -59,7 +59,7 @@ class StoreVerifyAtLocation(APIView):
     def get(self,request,format=None):
         global defaultLocationpincode
         pincode = request.GET.get('pincode')
-        storeAtLocationPincode = StoreDetail.objects.filter(storeServicablePinCodes = pincode)
+        storeAtLocationPincode = StoreDetail.objects.filter(storeServicablePinCodes__contains = [pincode])
         try:
             if len(storeAtLocationPincode) > 0:
                 defaultLocationpincode = pincode

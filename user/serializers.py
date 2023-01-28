@@ -184,3 +184,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         exclude = ('password',)
+
+
+class UserAddressesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserAddresses
+        fields = '__all__'

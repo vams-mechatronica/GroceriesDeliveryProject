@@ -32,7 +32,7 @@ class CustomUser(AbstractUser):
 
 
 class UserAddresses(models.Model):
-    user = models.ForeignKey("user.CustomUser", verbose_name=_(
+    user = models.OneToOneField("user.CustomUser", verbose_name=_(
         "User Detail"), on_delete=models.CASCADE, null=True, blank=True)
     addressLine1 = models.CharField(
         _("address line 1"), max_length=200, blank=True, null=True)
