@@ -25,9 +25,13 @@ User = get_user_model()
 def addToCart(request, pk):
 
     if request.user:
-        user_details = UserAddresses.objects.get(user=request.user.id)
-    item = get_object_or_404(StoreProductsDetails, products=pk,
+        try:
+            user_details = UserAddresses.objects.get(user=request.user.id)
+            item = get_object_or_404(StoreProductsDetails, products=pk,
                              store__storeServicablePinCodes__contains=[user_details.pincode])
+        except UserAddresses.DoesNotExist:
+            item = get_object_or_404(StoreProductsDetails, products=pk,
+                                     store__storeServicablePinCodes__contains=[201301])
     order_item, created = Cart.objects.get_or_create(
         item=item,
         user=request.user,
@@ -90,11 +94,11 @@ def cartCheckoutPageView(request):
             'totalquantity': counter,
             'grandtotal': grandtotal
         }
-    except Order.DoesNotExist:
+    except (Order.DoesNotExist,UserAddresses.DoesNotExist):
         context = {
             'object': 0,
             'delivery': 0,
-            'useraddress': useraddress,
+            'useraddress': "",
             'totalquantity': 0,
             'grandtotal': 0
         }
@@ -104,9 +108,14 @@ def cartCheckoutPageView(request):
 @login_required
 def removeSingleItemFromCart(request, pk):
     if request.user:
-        user_details = UserAddresses.objects.get(user=request.user.id)
-    item = get_object_or_404(StoreProductsDetails, products=pk,
-                             store__storeServicablePinCodes__contains=[user_details.pincode])
+        try:
+            user_details = UserAddresses.objects.get(user=request.user.id)
+            item = get_object_or_404(StoreProductsDetails, products=pk,
+                                store__storeServicablePinCodes__contains=[user_details.pincode])
+        except UserAddresses.DoesNotExist:
+            item = get_object_or_404(StoreProductsDetails, products=pk,
+                                     store__storeServicablePinCodes__contains=[201301])
+
     order_qs = Order.objects.filter(
         user=request.user,
         ordered=False
