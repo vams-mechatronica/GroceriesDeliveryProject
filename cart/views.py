@@ -71,9 +71,10 @@ def cartCheckoutPageView(request):
     counter = 0
     a = 0
     b = 0
-    useraddress = UserAddresses.objects.get(user=request.user.id)
+    
     try:
         if request.user:
+            useraddress = UserAddresses.objects.get(user=request.user.id)
             itemsForCartPage = Order.objects.get(
                 user=request.user.id, ordered=False)
 
