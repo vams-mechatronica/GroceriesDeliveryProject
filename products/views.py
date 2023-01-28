@@ -108,7 +108,7 @@ def productDetailsPageView(request,pk):
             }
         else:
             user_details = "Please select user"
-            products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = 201301).get(products=pk)
+            products = StoreProductsDetails.objects.filter(products=pk,store__storeLocalityPinCode = [201301]).get(products=pk)
         # productdetail = Products.objects.get(pk=pk)
             context = {
                 'product':products,
