@@ -32,8 +32,42 @@
         <!-- style -->
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
     </head>
     <body class="home-1">
+        <!-- login popup start here  -->
+        <div class="login-sign-popup" id="login">
+            <div class="login col-xl-6 col-lg-6 col-md-6 col-12">
+            <div class="head-login">
+                <h3 class="text-center content">Phone Number Verification</h3>
+                <h3 class="times" onclick="hidePopLogin()">&times;</h3>
+            </div>
+            <div class="login-body">
+                <p id="hide-num-text" >Enter your phone number to
+                Login/Sign up</p>
+                <p id="hide-otp-text" style="display: none;">Enter the OTP</p>
+                <!-- <form action="" method="post"> -->
+                <div class="default-box">
+                    <div class="phone-box col-xl-6 col-lg-6 col-md-6 col-12">
+                    <div class="phone-icon" id="hide-91">+91</div>
+                    <input type="tel" class="inputfilter" allow="[0-9]" onkeyup="showGreenButton('button_submit',this,10)" 
+                        maxlength="10" minlength="10" name="mobile" id="mobile" placeholder="Enter Number">
+                    <input type="tel" class="inputfilter" style="display: none;" allow="[0-9]" onkeyup="showGreenButton('button_otp',this,6)"
+                        maxlength="6" minlength="6" name="otp" id="otp" placeholder="Please Enter OTP">
+                    </div>
+                </div>
+                <p class="error-loction" id="error_login"></p>
+                <div class="default-box">
+                    <button onclick="get_otp('mobile')" class="col-xl-6 col-lg-6 col-md-6 col-12" id="button_submit" disabled>Next</button>
+                    <button onclick="verify_otp('otp')" style="display: none;" class="col-xl-6 col-lg-6 col-md-6 col-12" id="button_otp" disabled>Enter OTP</button>
+                </div>
+                <!-- </form> -->
+                <p class="bellow-para">By continuing, you agree to our</p>
+                <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+            </div>
+            </div>
+        </div>
+  <!-- login popup end here  -->
         <!-- cart header -->
         <div class="cart-header">
             <div class="container">
@@ -42,7 +76,7 @@
                         <h1>Cart</h1>
                         <div class="change-address">
                             <ul> {% if useraddress.user_address is None %}
-                                    <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address-1" onl></span></li>
+                                    <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address-1"></span></li>
                                 {% else %}
                                     <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address">{{useraddress.user_address}}</span></li>
                                 {% endif %}
@@ -228,5 +262,40 @@
             document.getElementById("c-address-1").innerHTML = addr
         }
         </script>
+            <script>
+      function hidePopLogin() {
+        $('#login').hide()
+        $('body').css({ "overflow": "auto" })
+      }
+      function showPopLogin() {
+        $('#login').show()
+        $('body').css({ "overflow": "hidden" })
+      }
+      function showPopsearch(em_id) {
+    $('#' + em_id).show()
+    $('body').css({ "overflow": "hidden" })
+  }
+  function hidePopsearch(em_id) {
+    $('#' + em_id).hide()
+    $('body').css({ "overflow": "auto" })
+  }
+      function showGreenButton(butn, el,len) {
+        value = $(el).val()
+        if (value.length == len) {
+          $('#' + butn).removeAttr("disabled")
+          $('#' + butn).attr("type", "submit")
+          $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
+        }
+        else {
+          $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+          $('#' + butn).attr("disabled")
+          $('#' + butn).attr("type", "button")
+        }
+      }
+      function showPopsearch(em_id) {
+      $('#' + em_id).show()
+      $('body').css({ "overflow": "hidden" })
+    }
+    </script>
     </body>
 </html>
