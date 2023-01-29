@@ -186,7 +186,7 @@ def orderPaymentRequest(request, amount):
         send_sms=settings.SEND_SMS,
         send_email=settings.SEND_EMAIL,
         email=user.email,
-        phone=user.mobile,
+        phone=user.mobileno,
         redirect_url=settings.PAYMENT_SUCCESS_REDIRECT_URL,
         allow_repeated_payments=False
     )
@@ -230,4 +230,15 @@ def paymentStatusAndOrderStatusUpdate(request):
                 order.payment = payment
                 order.save()
             messages.success(request, "Your order was successful!")
-    return redirect("orderhistorydetail", pk=order.id)
+    return redirect("ordersummary", pk=order.id)
+
+@login_required
+def order_summary(request,pk):
+    if request.user:
+        order = Order.objects.get(user=request.user.id, pk=pk)
+       
+    context = {
+        'order': order
+    }
+    return render(request, "ordersummary.html", context)
+
