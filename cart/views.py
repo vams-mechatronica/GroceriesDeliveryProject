@@ -74,7 +74,6 @@ def cartCheckoutPageView(request):
     
     try:
         if request.user:
-            useraddress = UserAddresses.objects.get(user=request.user.id)
             itemsForCartPage = Order.objects.get(
                 user=request.user.id, ordered=False)
 
@@ -91,26 +90,11 @@ def cartCheckoutPageView(request):
         context = {
             'object': itemsForCartPage,
             'delivery': delivery_charges,
-            'useraddress': useraddress,
             'totalquantity': counter,
             'grandtotal': grandtotal
         }
+    
     except Order.DoesNotExist:
-        context = {
-            'object': 0,
-            'delivery': 0,
-            'useraddress': useraddress,
-            'totalquantity': 0,
-            'grandtotal': 0
-        }
-
-    except UserAddresses.DoesNotExist:
-        if request.user:
-            itemsForCartPage = Order.objects.get(
-                user=request.user.id, ordered=False)
-
-        a = round(itemsForCartPage.get_total(), 2)
-        counter = len(itemsForCartPage.items.all())
 
         if a > 500:
             delivery_charges = 0
@@ -120,7 +104,7 @@ def cartCheckoutPageView(request):
         grandtotal = a + delivery_charges
 
         context = {
-            'object': itemsForCartPage,
+            'object': [],
             'delivery': delivery_charges,
             'useraddress': "",
             'totalquantity': counter,
