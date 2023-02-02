@@ -187,24 +187,34 @@
                                 <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1"
                                     role="button">ADD</a>
                                 {% else %}
-                                <a href="#" class="btn btn-style1" id="add-btn" role="button">ADD</a>
+                                <a onclick="showPopLogin()" class="btn btn-style1" id="add-btn" role="button">ADD</a>
                                 {% endif %}
                             </div>
                             <span class="pro-details">About Product</span>
                             <p>{{product.products.desc.html|safe}}</p>
-                            <div class="pro-btn">
+                            {% if request.user.is_authenticated %}
+                            <div class="pro-btn"  onclick="window.location.href='{% url 'cartview' %}'">
                                 <a class="btn btn-style1 d-flex justify-content-between">
                                     <div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> |
                                         <span> ₹{{totalamount}}</span>
                                     </div>
-                                    {% if request.user.is_authenticated %}
-                                    <div onclick="window.location.href='{% url 'cartview' %}'"><i class="bi bi-bag"></i>
+                                    
+                                    <div><i class="bi bi-bag"></i>
                                         View cart</div>
-                                    {% else %}
-                                    <div onclick="showPopLogin()"><i class="bi bi-bag"></i> View Cart</div>
-                                    {% endif %}
                                 </a>
                             </div>
+                            {% else %}
+                            <div class="pro-btn" onclick="showPopLogin()">
+                                <a class="btn btn-style1 d-flex justify-content-between">
+                                    <div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> |
+                                        <span> ₹{{totalamount}}</span>
+                                    </div>
+                                    
+                                    <div><i class="bi bi-bag"></i>
+                                        View cart</div>
+                                </a>
+                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
