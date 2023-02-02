@@ -367,7 +367,8 @@
                         $('#error_login').empty()
                         $('#error_login').hide()
 
-                        window.location.href = '{% url 'cartview' %}';
+                        //window.location.href = '{% url 'cartview' %}';
+                        location.reload(true);
                     }
                     else {
                         $('#error_login').show().append('error') //change this to backend response error.
