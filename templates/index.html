@@ -100,6 +100,14 @@
     </div>
   </div>
   <!-- login popup end here  -->
+  <style>
+    header{
+      position: fixed;
+      width: 100%;
+      z-index: 5;
+      top: 0;
+    }
+  </style>
   <header class="p-3">
     <div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
@@ -108,7 +116,7 @@
         </a>
 
         <div class="dropdown text-end">
-          {% if user.id != None %}
+          {% if request.user.is_authenticated %}
           {% comment %} <a href={% url 'userprofilepage' %} class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"> {% endcomment %}
           <a href={% url 'userprofilepage' %}><img src="/media/{{user.user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
@@ -116,8 +124,10 @@
           {% else %}
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
+            
             <img src="{% static 'img/icons/Unknown_person.jpg' %}" onclick="showPopLogin()" alt="mdo" width="32" height="32"
               class="rounded-circle">
+              
           </a>
           {% comment %} <ul class="dropdown-menu text-small" style="">
             <li><a class="dropdown-item" href={% url 'rest_login' %}>Login</a></li>
@@ -127,15 +137,17 @@
       </div>
     </div>
   </header>
-  <div class="top_banner">
+  <div class="top_banner mt-5">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col">
+        <div class="col search-fixed">
           <div class="top_location">
-            <span class="dev_time_text">Delivery in 10 minutes</span>
+            <span class="dev_time_text mt-5">Delivery in 10 minutes</span>
+            <p class="my-2">
             <span class="location_text my-2" onclick="showPopsearch('search-popup')" id="location-text">{{user.user_address|slice:40}}
               <i class="bi bi-caret-down-fill"></i>
             </span>
+            </p>
             <form class="w-100 me-3" role="search">
               <input type="search" class="form-control"
                 placeholder="Search for products" onkeyup="showProducts(this.value)" aria-label="Search for products">
@@ -145,7 +157,7 @@
  
           </div>            
         </div>
-            <div class=" col">
+            <div class=" col mt-2">
               <div class="top_product_cat">
                 <div class="product_cat_body">
                   <div class="pproduct_cat_row">

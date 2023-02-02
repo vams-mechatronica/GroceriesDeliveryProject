@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,26 +14,27 @@
     <link rel="shortcut icon" type="image/favicon" href="image/fevicon.png">
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <!-- simple-line icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/simple-line-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/simple-line-icons.css">
     <!-- font-awesome icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <!-- themify icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/themify-icons.css">
     <!-- ion icon -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/ionicons.min.css">
     <!-- owl slider -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="css/owl.theme.default.min.css">
     <!-- swiper -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/swiper.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/swiper.min.css">
     <!-- animation -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
     <!-- style -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" href="/css/login.css">
+
 </head>
 
 <body class="home-1">
@@ -81,7 +81,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-between">
-                        <i class="bi bi-x-circle-fill" onclick="javascript:history.go(-1);"></i>
+                        <i class="bi bi-x-circle-fill"></i>
                         <i class="bi bi-search"></i>
                     </div>
                 </div>
@@ -89,7 +89,8 @@
         </div>
     </div>
     <!-- End top Control -->
-    <!-- product.products.info start -->
+
+    <!-- product info start -->
     <section class=" pro-page">
         <div class="container">
             <div class="row">
@@ -100,9 +101,8 @@
                                 <div class="tab-pane fade show active" id="image-11">
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
-                                            style="background-image: url(/media/{{product.products.prod_mainimage}})">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            style="background-image: url(img/pro-page-image.jpg)">
+                                            <img src="img/pro-page-image.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -110,8 +110,7 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/prro-page-image01.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/prro-page-image01.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -119,8 +118,7 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/pro-page-image1-1.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/pro-page-image1-1.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -128,8 +126,7 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/pro-page-image1.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/pro-page-image1.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -137,8 +134,7 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/pro-page-image2.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/pro-page-image2.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -146,8 +142,7 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/pro-page-image2-2.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/pro-page-image2-2.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -155,8 +150,7 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/pro-page-image3.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/pro-page-image3.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
@@ -164,39 +158,32 @@
                                     <a href="javascript:void(0)" class="long-img">
                                         <figure class="zoom" onmousemove="zoom(event)"
                                             style="background-image: url(img/pro-page-image03.jpg)">
-                                            <img src="/media/{{product.products.prod_mainimage}}" class="img-fluid"
-                                                alt="image">
+                                            <img src="img/pro-page-image03.jpg" class="img-fluid" alt="image">
                                         </figure>
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-6 col-md-6 col-12 col-xs-12 pro-info">
-                            <h4>{{product.products.product_name}}</h4>
-                            <span class="pro-size"><span class="size"></span>{{product.products.unit}}</span>
+                            <h4>Health Feast Califonia Almonds Badam Dry Fruit Natural Premium Almonds</h4>
+                            <span class="pro-size"><span class="size"></span> 500g</span>
                             <div class="pro-price justify-content-between">
                                 <div class="d-flex">
-                                    <span class="new-price">₹{{product.list_price}}</span>
-                                    <span class="old-price"><del>₹{{product.products.max_retail_price}}</del></span>
+                                    <span class="new-price">₹415</span>
+                                    <span class="old-price"><del>₹699</del></span>
                                     <div class="Pro-lable">
-                                        <span class="p-discount">Rs.{{product.discount|floatformat:0}} Off</span>
+                                        <span class="p-discount">40% Off</span>
                                     </div>
                                 </div>
-                                {% if request.user.is_authenticated %}
-                                <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1"
-                                    role="button" >ADD</a>
-                                {% else %}
-                                <a href="#" class="btn btn-style1" id="add-btn"
-                                    role="button" >ADD</a>
-                                {% endif %}
+                                <a href="#" class="btn btn-style1">ADD</a>
                             </div>
                             <span class="pro-details">About Product</span>
-                            <p>{{product.products.desc.html|safe}}</p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and</p>
                             <div class="pro-btn">
-                                <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between">
-                                    <div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> |
-                                        <span> ₹{{totalamount}}</span>
-                                    </div>
+                                <a href="#" class="btn btn-style1 d-flex justify-content-between">
+                                    <div><span>1 items</span> | <span> ₹304</span></div>
                                     <div onclick="showPopLogin()"><i class="bi bi-bag"></i> View cart</div>
                                 </a>
                             </div>
@@ -206,12 +193,7 @@
             </div>
         </div>
     </section>
-    <!-- product.products.info end -->
-
-
-
-
-
+    <!-- product info end -->
     <script>
         function zoom(e) {
             var zoomer = e.currentTarget;
@@ -224,24 +206,22 @@
     </script>
     <div class="mm-fullscreen-bg"></div>
     <!-- jquery -->
-    <script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="js/modernizr-2.8.3.min.js"></script>
+    <script src="js/jquery-3.6.0.min.js"></script>
     <!-- bootstrap -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="js/bootstrap.min.js"></script>
     <!-- popper -->
-    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="js/popper.min.js"></script>
     <!-- fontawesome -->
-    <script src="{% static 'js/fontawesome.min.js' %}"></script>
+    <script src="js/fontawesome.min.js"></script>
     <!-- owl carousal -->
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="js/owl.carousel.min.js"></script>
     <!-- swiper -->
-    <script src="{% static 'js/swiper.min.js' %}"></script>
+    <script src="js/swiper.min.js"></script>
     <!-- custom -->
-    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="js/custom.js"></script>
+
     <script>
-        function test_call(){
-            console.log("index-call");
-        };
         function hidePopLogin() {
             $('#login').hide()
             $('body').css({ "overflow": "auto" })
@@ -251,48 +231,33 @@
             $('body').css({ "overflow": "hidden" })
         }
         function showGreenButton(butn, el) {
-                value = $(el).val()
-                if (butn == 'button_otp') {
-                    if (value.length == 6) {
-                        $('#' + butn).removeAttr("disabled")
-                        $('#' + butn).attr("type", "submit")
-                        $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
-                    }
-                    else {
-                        $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
-                        $('#' + butn).attr("disabled")
-                        $('#' + butn).attr("type", "button")
-                    }
+            value = $(el).val()
+            if (butn == 'button_otp') {
+                if (value.length == 6) {
+                    $('#' + butn).removeAttr("disabled")
+                    $('#' + butn).attr("type", "submit")
+                    $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
                 }
                 else {
-                    if (value.length == 10) {
-                        $('#' + butn).removeAttr("disabled")
-                        $('#' + butn).attr("type", "submit")
-                        $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
-                    }
-                    else {
-                        $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
-                        $('#' + butn).attr("disabled")
-                        $('#' + butn).attr("type", "button")
-                    }
+                    $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+                    $('#' + butn).attr("disabled")
+                    $('#' + butn).attr("type", "button")
                 }
             }
-        var getCookie = function (name) {
-            var cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                var cookies = document.cookie.split(';');
-                for (var i = 0; i < cookies.length; i++) {
-                    var cookie = jQuery.trim(cookies[i]);
-                    // Does this cookie string begin with the name we want?
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    } ̰
+            else {
+                if (value.length == 10) {
+                    $('#' + butn).removeAttr("disabled")
+                    $('#' + butn).attr("type", "submit")
+                    $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
+                }
+                else {
+                    $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+                    $('#' + butn).attr("disabled")
+                    $('#' + butn).attr("type", "button")
                 }
             }
-            return cookieValue;
-        };
-        const g_csrftoken = getCookie('csrftoken');
+        }
+
         function get_otp(elm) {
             input = $('#' + elm).val()
             domain = window.location.origin
@@ -304,11 +269,11 @@
                 type: 'POST',
                 url: domain + path_name,
                 data: {
-                    "csrfmiddlewaretoken": g_csrftoken,
+                    "csrfmiddlewaretoken": csrf_token_data,
                     "country_code": "+91",
                     "phone_number": input,
-                    "fake_otp": "True",
-                    "otp": "123456",
+                    "fake_otp": false
+
                 },
                 success: function (response) {
                     if (response['Status'] == "Sent") {
@@ -346,7 +311,6 @@
         }
 
         function verify_otp(input_id) {
-            console.log("verify otp call")
             input = $('#' + input_id).val()
             phone_number = $('#mobile').val()
             if (input.length == 6) {
@@ -357,18 +321,15 @@
                     type: 'POST',
                     url: domain + path_name,
                     data: {
-                        "csrfmiddlewaretoken": g_csrftoken,
-                        "country_code": "+91",
-                        "otp": input,
+                        "csrfmiddlewaretoken": csrf_token_data,
+                        "otp_number": input,
                         "phone_number": phone_number,
-                        "web": "True",
+
                     },
                     success: function (response) {
-                        if (response) {
-                            console.log(response)
+                        if (response['status']['user']['id']) {
                             $('#error_login').empty()
                             $('#error_login').hide()
-
                             location.reload(true);
                         }
                         else {
