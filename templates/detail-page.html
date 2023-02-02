@@ -193,11 +193,15 @@
                             <span class="pro-details">About Product</span>
                             <p>{{product.products.desc.html|safe}}</p>
                             <div class="pro-btn">
-                                <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between">
+                                <a class="btn btn-style1 d-flex justify-content-between">
                                     <div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> |
                                         <span> ₹{{totalamount}}</span>
                                     </div>
-                                    <div onclick="showPopLogin()"><i class="bi bi-bag"></i> View cart</div>
+                                    {% if request.user.is_authenticated %}
+                                        <div onclick="window.location.href='/cartview'"><i class="bi bi-bag"></i> View cart</div>
+                                    {% else %}
+                                        <div onclick="showPopLogin()"><i class="bi bi-bag"></i> View Cart</div>
+                                    {% endif %}
                                 </a>
                             </div>
                         </div>
