@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, get_user_model
 from django.utils.translation import gettext_lazy as _
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from rest_framework.fields import CurrentUserDefault
 from .models import *
 try:
     from allauth.account import app_settings as allauth_settings
@@ -190,3 +191,8 @@ class UserAddressesSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAddresses
         fields = '__all__'
+    
+    def get_or_create(self):
+        user = CurrentUserDefault()
+        defaults = self.validated_data.copy()
+        return UserAddresses.objects.get_or_create(user=user, defaults=defaults)

@@ -18,7 +18,7 @@ User = get_user_model()
 
 def index(request):
     try:
-        if request.user.id != None:
+        if request.user.is_authenticated:
             user_details = UserAddresses.objects.get(user = request.user.id)
             products = StoreProductsDetails.objects.filter(store__storeServicablePinCodes__contains = [user_details.pincode])
 

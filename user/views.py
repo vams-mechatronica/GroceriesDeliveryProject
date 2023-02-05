@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib import auth
 from .serializers import *
@@ -177,6 +177,49 @@ class UserAddressUpdateView(APIView):
     authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication)
 
     def get(self,request,format = None):
-        address = UserAddresses.objects.filter(user = request.user)
+        address = UserAddresses.objects.get(user = request.user)
         serializer = UserAddressesSerializer(instance=address,many = True)
         return Response(serializer.data,status=status.HTTP_200_OK)
+    
+    def post(self,request,format = None):
+        try:
+            if request.user:
+                pincode = request.data.get('pincode')
+                user_address,created = UserAddresses.objects.get_or_create(user=request.user,pincode=pincode)
+                print(created)
+                serializer = UserAddressesSerializer(instance=user_address)
+                # if serializer.is_valid():
+                #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+                return Response({'data':serializer.data,'created':created}, status=status.HTTP_400_BAD_REQUEST)
+            # serializer = UserAddressesSerializer(data=request.data)
+            # if serializer.is_valid():
+            #     instance, created = serializer.get_or_create()
+            #     if not created:
+            #         serializer.update(instance, serializer.validated_data)
+            #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+            # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(e)
+            return Response({'data': 'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
+    #user,addressLine1,addressLine2,state,city,pincode
+
+    def put(self,request,format = None):
+        # address1 = request.POST.get('address1') or 'None'
+        # address2 = request.POST.get('address2') or 'None'
+        # state = request.POST.get('state') or 'None'
+        # city = request.POST.get('city') or 'None'
+        # pincode = request.data.get('pincode')
+        # print(pincode)
+        # alternatePhoneNumber = request.POST.get('phone_number') or 'None'
+        try:
+            if request.user:
+                user_address = get_object_or_404(UserAddresses,user = request.user)
+            serializer = UserAddressesSerializer(user_address,data = request.data,partial= True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(e)
+            return Response({'data':'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
+            
