@@ -59,7 +59,7 @@
                             name="mobile" id="mobile" placeholder="Enter Number">
                         <input type="tel" class="inputfilter" style="display: none;" allow="[0-9]"
                             onkeyup="showGreenButton('button_otp',this,6)" maxlength="6" minlength="6" name="otp"
-                            id="otp" placeholder="Please Enter OTP">
+                            id="otp" placeholder="Please Enter OTP: 123456">
                     </div>
                 </div>
                 <p class="error-loction" id="error_login"></p>
@@ -368,7 +368,7 @@
                         $('#error_login').hide()
 
                         //window.location.href = '{% url 'cartview' %}';
-                        location.reload(true);
+                        return window.location.replace("{% url 'cartview' %}")
                     }
                     else {
                         $('#error_login').show().append('error') //change this to backend response error.
@@ -376,6 +376,7 @@
                 }
 
             });
+            
         }
         else if (input.length == 0) {
             $('#error_otp').css("color", "red").text("enter otp")

@@ -66,7 +66,7 @@ def addToCart(request, pk):
         return redirect("cartview")
 
 
-@login_required
+# @login_required
 def cartCheckoutPageView(request):
     counter = 0
     a = 0

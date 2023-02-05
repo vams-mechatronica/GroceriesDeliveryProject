@@ -223,10 +223,10 @@
           <div class="slider">
               {% for prod in products %}
                 {% if "Trending" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-                <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                <div class="product_grid">
                   <div class="product_img">
                     <img
-                        src=/media/{{prod.products.prod_mainimage}} alt="">
+                        src=/media/{{prod.products.prod_mainimage}} alt=""  onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                   </div>
                   <div class="product_name">
                     <p><b>{{prod.products.product_name}}</b></p>
@@ -235,7 +235,8 @@
                   <div class="d-flex justify-content-between">
                     <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                         class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                    <a href={% url 'productdetail' prod.products.product_id %} class="btn btn-style1 btn-padding">ADD</a>
+                    <a onclick="item_add('id',this)" id="add_item" class="btn btn-style1 btn-padding">ADD</a>
+                    <a style="display:none" class="btn btn-style1 btn-padding" id="in-dec"><span id="decrease">-</span>&nbsp;&nbsp; <span id="qunt_val">1</span>&nbsp;&nbsp;<span id="increas">+</span></a>
                   </div>
                   <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
@@ -767,6 +768,14 @@
         </div>
       </div>
     </div>
+    <!-- lavitate cart view  -->
+
+<div class="pro-btn fix-in-area">
+  <a href="#" class="btn btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span> ₹304</span></div><div onclick="showPopLogin()"><i class="bi bi-bag"></i> View cart</div></a>
+</div>
+
+<!-- lavitate cart view  -->
+
     <footer>
       <div class="footer">
         <div class="container">
@@ -776,26 +785,24 @@
                 alt="Glovo Logo">
             </div>
           </div>
-          <diiv class="row">
-            <div class="col-md-3">
-              <div class="footer-body">
+          <div class="row pb-4">
+          <div class="col-md-3">
+            <div class="footer-body">
 
-                <h3 class="footer-title">Let’s do it together</h3>
-                <a href="#">Careers</a>
-                <a href="#"> Glovo for Partners</a>
-                <a href="#">Couriers</a>
-                <a href="#">Glovo Business</a>
-              </div>
+              <!-- <h3 class="footer-title"></h3> -->
+              <p>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat ratione aut voluptate veniam. Exercitationem eligendi quasi"</p>
             </div>
-            <div class="col-md-3">
-              <div class="footer-body">
-                <h3 class="footer-title">Links of interest</h3>
-                <a href="#">Careers</a>
-                <a href="#"> Glovo for Partners</a>
-                <a href="#">Couriers</a>
-                <a href="#">Glovo Business</a>
-              </div>
+          </div>
+          <div class="col-md-3">
+            <div class="footer-body">
+              <h3 class="footer-title">Important Links</h3>
+              <a href="#">Home</a>
+              <!-- <a href="#">Orders</a> -->
+              <a href="#">About us</a>
+              <a href="#">Contact us</a>
+              <a href="#">Blog</a>
             </div>
+          </div>
             <div class="col-md-3">
               <div class="footer-body">
                 <h3 class="footer-title">Follow us</h3>
@@ -828,7 +835,10 @@
           </span>
           Golovo Commerce Private Limited
         </div>
-      </div>
+</div>
+    <div class="bottom-fotter text-center">
+      &#169; 2023 Golovo Private Limited
+          </div>
     </footer>
     </footer>
     </footer>
@@ -842,6 +852,36 @@
     <script src="{% static 'css/slick/slick.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script>
+    function item_add(id_product,self){
+      $(self).hide()
+      $('#in-dec').show()
+      $('.fix-in-area').show()
+    }
+    $('#decrease').click(function(){
+      text = parseInt($('#quantity').text())
+      val = text - 1
+      if (val > 0){
+        $('#quantity').empty(val)
+        $('#quantity').append(val)
+        $('#qunt_val').empty(val)
+        $('#qunt_val').append(val)
+      }
+      else if (val == 0){
+        $('.fix-in-area').hide()
+        $('#in-dec').hide()
+        $('#add_item').show()
+      }
+    })
+    $('#increas').click(function(elm){
+      text = parseInt($('#quantity').text())
+      val = text + 1
+      if (val > 0){
+        $('#quantity').empty(val)
+        $('#quantity').append(val)
+        $('#qunt_val').empty(val)
+        $('#qunt_val').append(val)
+      }
+      })
       function hidePopLogin() {
         $('#login').hide()
         $('body').css({ "overflow": "auto" })
