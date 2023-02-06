@@ -1558,7 +1558,7 @@
       console.log(value)
       domain = window.location.origin
       path_name = '/api/v1/stores/products/' //change-this url
-      if(value.length == 0){
+      if(value.length < 3){
         $('.suggestProduct').hide()
       }
       $.ajax({

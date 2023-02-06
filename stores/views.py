@@ -29,27 +29,30 @@ class StoreProductDetailsView(APIView):
 
     def get(self,request,format = None):
         product_name = request.GET.get('products')
-        try:
-            if request.user:
-                user_details = UserAddresses.objects.get(user = request.user.id)
-                product_details = StoreProductsDetails.objects.filter(
-                    store__storeServicablePinCodes__contains=[user_details.pincode], products__product_name__icontains=product_name)
-                productDetailSerializer = StoreProductsDetailsSerializer(instance=product_details,many = True)
-                return Response(productDetailSerializer.data,status=status.HTTP_200_OK)
-            elif request.user == None:
+        if len(product_name) > 2:
+            try:
+                if request.user:
+                    user_details = UserAddresses.objects.get(user = request.user.id)
+                    product_details = StoreProductsDetails.objects.filter(
+                        store__storeServicablePinCodes__contains=[user_details.pincode], products__product_name__icontains=product_name)
+                    productDetailSerializer = StoreProductsDetailsSerializer(instance=product_details,many = True)
+                    return Response(productDetailSerializer.data,status=status.HTTP_200_OK)
+                elif request.user == None:
+                    product_details = StoreProductsDetails.objects.filter(
+                        store__storeServicablePinCodes__contains=[defaultLocationpincode], products__product_name__icontains=product_name)
+                    productDetailSerializer = StoreProductsDetailsSerializer(
+                        instance=product_details, many=True)
+                    return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
+                else:
+                    return Response(status=status.HTTP_400_BAD_REQUEST)
+            except UserAddresses.DoesNotExist:
                 product_details = StoreProductsDetails.objects.filter(
                     store__storeServicablePinCodes__contains=[defaultLocationpincode], products__product_name__icontains=product_name)
                 productDetailSerializer = StoreProductsDetailsSerializer(
                     instance=product_details, many=True)
                 return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
-            else:
-                return Response(status=status.HTTP_400_BAD_REQUEST)
-        except UserAddresses.DoesNotExist:
-            product_details = StoreProductsDetails.objects.filter(
-                store__storeServicablePinCodes__contains=[defaultLocationpincode], products__product_name__icontains=product_name)
-            productDetailSerializer = StoreProductsDetailsSerializer(
-                instance=product_details, many=True)
-            return Response(productDetailSerializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({'data':'No product found'},status=status.HTTP_200_OK)
 
 
 class StoreVerifyAtLocation(APIView):
