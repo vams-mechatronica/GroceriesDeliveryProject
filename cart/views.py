@@ -281,4 +281,4 @@ class CartAddView(APIView):
                 user=request.user, ordered_date=ordered_date)
             order.items.add(order_item)
         serializer = OrderSerializer(instance=order_qs, many=True)
-        return Response({'cart': serializer.data}, status=status.HTTP_200_OK)
+        return Response({'cart': serializer.data,'amount':order.get_total()}, status=status.HTTP_200_OK)
