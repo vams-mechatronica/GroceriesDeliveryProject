@@ -34,6 +34,7 @@
   <link href="{% static 'css/custome.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/slick/slick.css' %}">
   <link rel="stylesheet" href="{% static 'css/slick/slick-theme.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
   
 
 </head>
@@ -226,7 +227,7 @@
                 <div class="product_grid">
                   <div class="product_img">
                     <img
-                        src=/media/{{prod.products.prod_mainimage}} alt=""  onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                        src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                   </div>
                   <div class="product_name">
                     <p><b>{{prod.products.product_name}}</b></p>
@@ -235,8 +236,16 @@
                   <div class="d-flex justify-content-between">
                     <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                         class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                    <a onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item" class="btn btn-style1 btn-padding">ADD</a>
-                    <a style="display:none" class="btn btn-style1 btn-padding" id="in-dec"><span class="plus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;&nbsp; <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;&nbsp;<span class="minus-bttn" id="{{prod.products.product_id}}-increas">+</span></a>
+                    {% if request.user.is_authenticated %}
+                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item">ADD</a>
+                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec">
+                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
+                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                    </div>
+                    {% else %}
+                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                    {% endif %}
                   </div>
                   <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
@@ -384,8 +393,6 @@
         </div>
       </div>
     </div>
-    
-    
     <div class="prduct_slide_list">
       <div class="container">
         <div class="row">
@@ -515,8 +522,6 @@
         </div>
       </div>
     </div>
-    
-    
     <div class="prduct_slide_list">
       <div class="container">
         <div class="row">
@@ -555,7 +560,6 @@
         </div>
       </div>
     </div>
-    
     <div class="prduct_slide_list">
       <div class="container">
         <div class="row">
@@ -593,43 +597,6 @@
         </div>
       </div>
     </div>
-    {% comment %} <div class="prduct_slide_list">
-      <div class="container">
-        <div class="row">
-          <div class="product_heading">
-            <h2>Tea & Coffee</h2>
-            {% for category in categories %}{% if category.category_name == "Tea & Coffee" %}
-            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
-                class="bi bi-chevron-right"></i></a>
-            {% endif %}{% endfor %}
-          </div>
-          <div class="slider4">
-            {% for prod in products %}
-              {% if "Tea & Coffee" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
-              <div class="product_grid" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
-                <div class="product_img">
-                  <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="">
-                </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
-                </div>
-                <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
-                </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
-              </div>
-              {% else %}
-              <p> No Products available</p>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div> {% endcomment %}
     <div class="prmotion_banner">
       <div class="container">
         <div class="row">
@@ -682,7 +649,6 @@
         </div>
       </div>
     </div>
-    
     <div class="prduct_slide_list">
       <div class="container">
         <div class="row">
@@ -769,13 +735,10 @@
       </div>
     </div>
     <!-- lavitate cart view  -->
-
-<div class="pro-btn fix-in-area">
-  <a href="#" class="btn btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span> ₹304</span></div><div onclick="showPopLogin()"><i class="bi bi-bag"></i> View cart</div></a>
-</div>
-
-<!-- lavitate cart view  -->
-
+    <div class="pro-btn fix-in-area">
+      <a href="#" class="btn btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"> ₹304</span></div><div onclick="showPopLogin()"><i class="bi bi-bag"></i> View cart</div></a>
+    </div>
+    <!-- lavitate cart view  -->
     <footer>
       <div class="footer">
         <div class="container">
@@ -835,13 +798,12 @@
           </span>
           Golovo Commerce Private Limited
         </div>
-</div>
-    <div class="bottom-fotter text-center">
-      &#169; 2023 Golovo Private Limited
-          </div>
+      </div>
+      <div class="bottom-fotter text-center">
+        &#169; 2023 Golovo Private Limited
+            </div>
     </footer>
-    </footer>
-    </footer>
+    
     <!-- Core javascript for this theme -->
     <script src="{% static 'theme/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
@@ -851,53 +813,17 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="{% static 'css/slick/slick.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+    <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+    <!-- You can alternatively load the minified version -->
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
     <script>
-    function item_add(id_product,self){
-      $(self).hide()
-      $('#in-dec').show()
-      $('.fix-in-area').show()
-    }
-    $('#decrease').click(function(){
-      text = parseInt($('#quantity').text())
-      val = text - 1
-      if (val > 0){
-        $('#quantity').empty(val)
-        $('#quantity').append(val)
-        $('#qunt_val').empty(val)
-        $('#qunt_val').append(val)
-      }
-      else if (val == 0){
-        $('.fix-in-area').hide()
-        $('#in-dec').hide()
-        $('#add_item').show()
-      }
-    })
-    $('#increas').click(function(elm){
-      text = parseInt($('#quantity').text())
-      val = text + 1
-      if (val > 0){
-        $('#quantity').empty(val)
-        $('#quantity').append(val)
-        $('#qunt_val').empty(val)
-        $('#qunt_val').append(val)
-      }
-      })
-      function hidePopLogin() {
-        $('#login').hide()
+    
+      function hidePopsearch(em_id) {
+        $('#' + em_id).hide()
         $('body').css({ "overflow": "auto" })
       }
-      function showPopLogin() {
-        $('#login').show()
-        $('body').css({ "overflow": "hidden" })
-      }
-      function showPopsearch(em_id) {
-    $('#' + em_id).show()
-    $('body').css({ "overflow": "hidden" })
-  }
-  function hidePopsearch(em_id) {
-    $('#' + em_id).hide()
-    $('body').css({ "overflow": "auto" })
-  }
       function showGreenButton(butn, el,len) {
         value = $(el).val()
         if (value.length == len) {
@@ -1698,6 +1624,106 @@ function get_otp(elm){
         $('#error_otp').css("color","red").text("Length exceed")
     }
 }
+  </script>
+  <script>
+  
+    function item_add(id_product,self){
+      $(self).hide()
+      var element_id = self.id.split("-")[0]
+      $("#"+element_id+"-in-dec").show();
+      //document.getElementById("#"+element_id+"in-dec").style.display = "block";
+      $('.fix-in-area').show()
+    }
+    jQuery(document).ready(function(){
+    $('.plus-bttn').click(function(e){
+      e.preventDefault();
+      //fieldName = $(this).attr('field');
+      const elementId = $(this).attr('id').split('-')[0]
+      console.log(elementId);
+      domain = window.location.origin
+      path_name = '/buy/api/v1/customer/order/add/' //change-this url
+      $.ajax({
+          type: 'POST',
+          url: domain+path_name,
+          data: {
+              "csrfmiddlewaretoken":g_csrftoken,
+              "product" : elementId.toString(),
+              "quantity": "1"
+          },
+          success: function(response) {
+              if (response){
+                document.getElementById("cart-amount").innerHTML = response['amount'];
+                document.getElementById("quantity").innerHTML = response['qty'];
+                document.getElementById("qunt_val").innerHTML = response['cart']['items']['quantity'];
+                //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                }
+              }
+            })
+          });
+    $('.add-to-cart').click(function(e){
+      e.preventDefault();
+      //fieldName = $(this).attr('field');
+      const elementId = $(this).attr('id').split('-')[0]
+      console.log(elementId);
+      domain = window.location.origin
+      path_name = '/buy/api/v1/customer/order/add/' //change-this url
+      $.ajax({
+        type: 'POST',
+        url: domain+path_name,
+        data: {
+            "csrfmiddlewaretoken":g_csrftoken,
+            "product" : elementId.toString(),
+            "quantity": "1"
+        },
+          success: function(response) {
+              if (response){
+                console.log(response);
+                document.getElementById("cart-amount").innerHTML = response['amount'];
+                document.getElementById("quantity").innerHTML = response['qty'];
+                //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity']);
+                }
+              }
+            })
+          });
+    $('.minus-bttn').click(function(e){
+      e.preventDefault();
+      //fieldName = $(this).attr('field');
+      const elementId = $(this).attr('id').split('-')[0]
+      console.log(elementId);
+      domain = window.location.origin
+      path_name = '/buy/api/v1/customer/order/remove/' //change-this url
+      $.ajax({
+          type: 'POST',
+          url: domain+path_name,
+          data: {
+              "csrfmiddlewaretoken":g_csrftoken,
+              "product" : elementId.toString(),
+              "quantity": "1"
+          },
+          success: function(response) {
+              if (response){
+                console.log(response);
+                document.getElementById("cart-amount").innerHTML = response['amount'];
+                document.getElementById("quantity").innerHTML = response['qty'];
+                $("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                }
+              }
+            })
+              });
+
+            });
+      function hidePopLogin() {
+        $('#login').hide()
+        $('body').css({ "overflow": "auto" })
+      }
+      function showPopLogin() {
+        $('#login').show()
+        $('body').css({ "overflow": "hidden" })
+      }
+      function showPopsearch(em_id) {
+    $('#' + em_id).show()
+    $('body').css({ "overflow": "hidden" })
+  }
   </script>
 </body>
 </html>

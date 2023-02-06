@@ -33,6 +33,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
         <link rel="stylesheet" href="{% static 'css/login.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     </head>
     <body class="home-1">
         <!-- login popup start here  -->
@@ -178,6 +179,11 @@
         <script src="{% static 'js/swiper.min.js' %}"></script>
         <!-- custom -->
         <script src="{% static 'js/custom.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.js' %}"></script>
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+        <!-- You can alternatively load the minified version -->
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
         <script>
             {% comment %} $("#plus-btn").click (function () {
             var v = parseInt($('#name-value').text(value));
@@ -213,28 +219,28 @@
                 }
             }); {% endcomment %}
             jQuery(document).ready(function(){
-    // This button will increment the value
-    $('.plus-btn').click(function(e){
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
-        const elementId = $(this).attr('id').split('-')[0]
-        //console.log(elementId);
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
-        // If is not undefined
-        if (!isNaN(currentVal)) {
-            // Increment
-            $('input[name='+fieldName+']').val(currentVal + 1);
-            window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
-            window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
-        }
-    });
+            // This button will increment the value
+            $('.plus-btn').click(function(e){
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                const elementId = $(this).attr('id').split('-')[0]
+                //console.log(elementId);
+                // Get its current value
+                var currentVal = parseInt($('input[name='+fieldName+']').val());
+                window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
+                // If is not undefined
+                if (!isNaN(currentVal)) {
+                    // Increment
+                    $('input[name='+fieldName+']').val(currentVal + 1);
+                    window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name='+fieldName+']').val(0);
+                    window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
+                }
+            });
     // This button will decrement the value till 0
     $(".minus-btn").click(function(e) {
         // Stop acting like a button

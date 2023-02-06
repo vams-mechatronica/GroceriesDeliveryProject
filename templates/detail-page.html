@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 
 </head>
 
@@ -184,7 +185,7 @@
                                     </div>
                                 </div>
                                 {% if request.user.is_authenticated %}
-                                <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1"
+                                <a href="{% url 'addtocart' product.products.product_id %}"class="btn btn-style1"
                                     role="button">ADD</a>
                                 {% else %}
                                 <a onclick="showPopLogin()" class="btn btn-style1" id="add-btn" role="button">ADD</a>
@@ -224,6 +225,11 @@
     <!-- product.products.info end -->
 
     <script>
+        function popitup(url) {
+            newwindow=window.open(url,'/buy/ordersummary/','height=200,width=150');
+            if (window.focus) {newwindow.focus()}
+            return false;
+        }
         function hidePopLogin() {
             $('#login').hide()
             $('.home-1').css({ "overflow": "auto" })
@@ -402,6 +408,11 @@
     <script src="{% static 'js/swiper.min.js' %}"></script>
     <!-- custom -->
     <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+    <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+    <!-- You can alternatively load the minified version -->
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
 </body>
 
 </html>
