@@ -160,7 +160,7 @@
             <div class=" col mt-2">
               <div class="top_product_cat">
                 <div class="product_cat_body">
-                  <div class="pproduct_cat_row">
+                  <div class="product_cat_row">
                     <div class="product_cat_name_1">
                       {% for category in categories %}
                       {% if category.category_name == "Fruits & Vegetables" %}
@@ -235,8 +235,8 @@
                   <div class="d-flex justify-content-between">
                     <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                         class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                    <a onclick="item_add('id',this)" id="add_item" class="btn btn-style1 btn-padding">ADD</a>
-                    <a style="display:none" class="btn btn-style1 btn-padding" id="in-dec"><span id="decrease">-</span>&nbsp;&nbsp; <span id="qunt_val">1</span>&nbsp;&nbsp;<span id="increas">+</span></a>
+                    <a onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item" class="btn btn-style1 btn-padding">ADD</a>
+                    <a style="display:none" class="btn btn-style1 btn-padding" id="in-dec"><span class="plus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;&nbsp; <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;&nbsp;<span class="minus-bttn" id="{{prod.products.product_id}}-increas">+</span></a>
                   </div>
                   <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
@@ -275,7 +275,7 @@
                 <div class="d-flex justify-content-between">
                   <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
                       class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  <a href={% url 'productdetail' prod.products.product_id%} class="btn btn-style1 btn-padding">ADD</a>
+                  <a href={% url 'productdetail' prod.products.product_id %} class="btn btn-style1 btn-padding">ADD</a>
                 </div>
                 <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
               </div>
@@ -843,10 +843,10 @@
     </footer>
     </footer>
     <!-- Core javascript for this theme -->
-    <script src={% static 'theme/js/bootstrap.bundle.min.js' %}></script>
+    <script src="{% static 'theme/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/jquery.js' %}"></script>
     <!-- Custom JavaScript for this site -->
-    <link href={% static 'js/home.js' %} rel="stylesheet">
+    <link href="{% static 'js/home.js' %}" rel="stylesheet">
     <link href="{% static 'css/home.css' %}" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="{% static 'css/slick/slick.min.js' %}"></script>

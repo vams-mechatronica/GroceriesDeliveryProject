@@ -12,10 +12,11 @@ width: 100%;
 position: absolute;
 content: "";
 height: 100%;
+top: -50px;
 width: 100%;
 background-color: black;
 opacity: 0.7;
-z-index: 1;
+z-index: 6;
 }
 h3{
 color: black;
@@ -26,10 +27,10 @@ width: 60%;
 height: 50%;
 top: 50%;
 left: 50%;
-transform: translate(-50%, -60%);
+transform: translate(-50%, -75%);
 background-color: white;
 border-radius: 12px;
-z-index: 2;
+z-index: 7;
 }
 .head-search{
     position: relative;
@@ -120,8 +121,8 @@ cursor: pointer;
 }
 .suggestProduct{
     position: absolute;
-    background-color: rgb(255, 255, 255);
-    padding: 5px;
+    background-color: white;
+    padding: 10px;
     height: max-content;
     max-height: 300px;
     overflow: hidden;
@@ -129,17 +130,28 @@ cursor: pointer;
     z-index: 2;
 }
 .suggest-product{
-    box-shadow: 0px 0px 2px #e2cba3;
-    border-radius: 8px;
-    margin: 8px 0;
+    box-shadow: 0px 0px 2px #ffd182;
+    border-radius: 12px;
+    margin: 10px 0;
 
 }   
 .suggest-product:hover{
-    box-shadow: 0px 0px 5px #0b1308;
+    box-shadow: 0px 0px 5px #ffd182;
 }   
 .suggest-product img{
-    width: 40%;
+    width: 100%;
 }
+
+.fix-in-area{
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    width: 80%;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+
 @media (max-width:900px) and (min-width:500px){
 }
 @media (max-width:500px) and (min-width:100px){
@@ -157,4 +169,8 @@ cursor: pointer;
 .head-search .content {
 font-size: 22px;
 }
+.fix-in-area{
+    width: 90%;
+}
+
 }

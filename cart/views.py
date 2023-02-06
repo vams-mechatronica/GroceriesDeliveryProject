@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, HttpResponse, get_list_or_404, get_object_or_404
 from django.contrib.auth import authenticate, get_user_model
 from django.contrib import auth, messages
-from rest_framework import generics, status
+from rest_framework import generics, status,authentication
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -166,10 +166,10 @@ def orderPaymentRequest(request, amount):
     response = api.payment_request_create(
         amount=str(amount),
         purpose='test_purchase',
-        buyer_name=user.user_full_name(),
+        buyer_name=user.username or None,
         send_sms=settings.SEND_SMS,
         send_email=settings.SEND_EMAIL,
-        email=user.email,
+        email=user.email or None,
         phone=user.mobileno,
         redirect_url=settings.PAYMENT_SUCCESS_REDIRECT_URL,
         allow_repeated_payments=False
@@ -226,3 +226,59 @@ def order_summary(request,pk):
     }
     return render(request, "ordersummary.html", context)
 
+
+class CartAddView(APIView):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (authentication.BasicAuthentication,
+                              authentication.SessionAuthentication, authentication.TokenAuthentication)
+
+    def get(self, request, format=None):
+        try:
+            itemsForCartPage = Order.objects.get(
+                user=request.user.id, ordered=False)
+            serializer = OrderSerializer(instance=itemsForCartPage, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Order.DoesNotExist:
+            return Response({'cart': 'No items in cart'}, status=status.HTTP_204_NO_CONTENT)
+
+    def post(self, request, format=None):
+        data = request.data
+        product_pk = data.get('product')
+        quantity = int(data.get('quantity'))
+        
+        try:
+            user_details = UserAddresses.objects.get(user=request.user.id)
+            item = get_object_or_404(StoreProductsDetails, products=product_pk,
+                                     store__storeServicablePinCodes__contains=[user_details.pincode])
+        except UserAddresses.DoesNotExist:
+            item = get_object_or_404(StoreProductsDetails, products=product_pk,
+                                     store__storeServicablePinCodes__contains=[201301])
+
+        order_item, created = Cart.objects.get_or_create(
+            item=item,
+            user=request.user,
+            ordered=False
+        )
+        order_qs = Order.objects.filter(user=request.user, ordered=False)
+        if order_qs.exists():
+            order = order_qs[0]
+            # check if the order item is in the order
+            if order.items.filter(item__id=item.id).exists() and item.available_stock > 0:
+                order_item.quantity += quantity
+                item.available_stock = item.available_stock - quantity
+                item.save()
+                order_item.save()
+
+            elif item.available_stock > 0:
+                order.items.add(order_item)
+                item.available_stock = item.available_stock - quantity
+                item.save()
+            else:
+                return Response({'cart': 'Item out of Stock'}, status=status.HTTP_200_OK)
+        else:
+            ordered_date = timezone.now()
+            order = Order.objects.create(
+                user=request.user, ordered_date=ordered_date)
+            order.items.add(order_item)
+        serializer = OrderSerializer(instance=order_qs, many=True)
+        return Response({'cart': serializer.data}, status=status.HTTP_200_OK)
