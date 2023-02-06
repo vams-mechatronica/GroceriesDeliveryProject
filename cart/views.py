@@ -233,11 +233,13 @@ class CartAddView(APIView):
                               authentication.SessionAuthentication, authentication.TokenAuthentication)
 
     def get(self, request, format=None):
+        data = request.data
+        product_pk = data.get('product')
         try:
             itemsForCartPage = Order.objects.get(
                 user=request.user.id, ordered=False)
-            serializer = OrderSerializer(instance=itemsForCartPage, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer = OrderSerializer(instance=itemsForCartPage)
+            return Response({'cart':serializer.data,'amount':itemsForCartPage.get_total(),'qty':itemsForCartPage.get_quantity()}, status=status.HTTP_200_OK)
         except Order.DoesNotExist:
             return Response({'cart': 'No items in cart'}, status=status.HTTP_204_NO_CONTENT)
 
@@ -282,3 +284,52 @@ class CartAddView(APIView):
             order.items.add(order_item)
         serializer = OrderSerializer(instance=order_qs, many=True)
         return Response({'cart': serializer.data,'amount':order.get_total()}, status=status.HTTP_200_OK)
+
+
+
+
+class CartRemoveView(APIView):
+    permission_classes = (IsAuthenticated,)
+    authentication_classes = (authentication.BasicAuthentication,
+                              authentication.SessionAuthentication, authentication.TokenAuthentication)
+
+    def post(self, request, format=None):
+        data = request.data
+        product_pk = data.get('product')
+        quantity = int(data.get('quantity'))
+        
+        try:
+            user_details = UserAddresses.objects.get(user=request.user.id)
+            item = get_object_or_404(StoreProductsDetails, products=product_pk,
+                                     store__storeServicablePinCodes__contains=[user_details.pincode])
+        except UserAddresses.DoesNotExist:
+            item = get_object_or_404(StoreProductsDetails, products=product_pk,
+                                     store__storeServicablePinCodes__contains=[201301])
+        order_qs = Order.objects.filter(
+        user=request.user,
+        ordered=False
+        )
+        if order_qs.exists():
+            order = order_qs[0]
+            if order.items.filter(item__products__product_id=item.products.product_id).exists():
+                order_item = Cart.objects.filter(
+                    item=item,
+                    user=request.user,
+                    ordered=False
+                )[0]
+                if order_item.quantity > 1:
+                    order_item.quantity -= 1
+                    order_item.save()
+                    item.available_stock += 1
+                    item.save()
+                else:
+                    order.items.remove(order_item)
+                    order_item.delete()
+                    item.available_stock += 1
+                    item.save()
+                
+                return Response({'cart': 'Item updated','amount':order.get_total()}, status=status.HTTP_200_OK)
+            else:
+                return Response({'cart': 'Item not available in cart','amount':order.get_total()}, status=status.HTTP_200_OK)
+        else:    
+            return Response({'cart':'No Active Orders'}, status=status.HTTP_201_OK)

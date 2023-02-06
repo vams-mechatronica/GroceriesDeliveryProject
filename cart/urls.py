@@ -16,6 +16,8 @@ urlpatterns = [
     path("order-summary/<int:pk>",order_summary,name="ordersummary"),
     path("api/v1/customer/order/add/",
          CartAddView.as_view(), name="addtocartapi"),
+    path("api/v1/customer/order/remove/",
+         CartRemoveView.as_view(), name="removetocartapi"),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

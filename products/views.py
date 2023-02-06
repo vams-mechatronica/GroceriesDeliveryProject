@@ -54,33 +54,15 @@ class ProductDetails(APIView):
 def seeAllProductsInCategory(request,pk):
     categorydetails = Categories.objects.get(pk = pk)
     try:
-        if request.user.id != None:
-            user_details = UserAddresses.objects.get(user = request.user.id)
-            productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = [user_details.pincode])
-            cartitems = Order.objects.get(user = request.user.id,ordered = False)
-            if cartitems == None:
-                context = {'category':categorydetails,
-                        'catproducts':productdetail,
-                        'totalcartitem':0,
-                        'totalamount':0,
-                        'totalquantity':0,
-                    }
-            else:
-                context = {'category': categorydetails,
-                        'catproducts': productdetail,
-                        'totalcartitem': cartitems.get_total_items_in_order() + 1,
-                        'totalamount': round(cartitems.get_total(), 2),
-                        'totalquantity': cartitems.get_quantity(),
-                        }
-        else:
-            productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name])
-            
-            context = {'category':categorydetails,
-                        'catproducts':productdetail,
-                        'totalcartitem':0,
-                        'totalamount':0,
-                        'totalquantity':0,
-                    }
+    
+        productdetail = StoreProductsDetails.objects.filter(products__pro_category__contains = [categorydetails.category_name],store__storeServicablePinCodes__contains = [201301])
+        cartitems = Order.objects.get(user = request.user.id,ordered = False)
+        context = {'category': categorydetails,
+                'catproducts': productdetail,
+                'totalcartitem': cartitems.get_total_items_in_order() + 1,
+                'totalamount': round(cartitems.get_total(), 2),
+                'totalquantity': cartitems.get_quantity(),
+                }
     except Order.DoesNotExist:
         context = {
             'category': categorydetails,
