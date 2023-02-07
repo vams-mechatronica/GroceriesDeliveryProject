@@ -1578,6 +1578,7 @@
       domain = window.location.origin
       path_name = '/api/v1/stores/products/' //change-this url
       if(value.length < 3){
+        $('.suggestProduct').empty()
         $('.suggestProduct').hide()
       }
       $.ajax({
@@ -1590,15 +1591,15 @@
           },
           success: function(response) {
               if (response){
-                console.log(response)
+                //console.log(response)
                 $('.suggestProduct').empty()
-                $('.suggestProduct').show()
+                
                 if (response.length > 0){
-                  
+                  $('.suggestProduct').show()
                   $.each(response,function(index, item){
-                    console.log(response[index].products.prod_mainimage)
+                    //console.log(response[index].products.product_id)
                     $('.suggestProduct').append(`
-                    <div class="suggest-product d-flex col-12" >
+                    <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
                       <div class="col-2 ">
                         <img src="`+response[index].products.prod_mainimage+`" alt=""  >
                       </div>
