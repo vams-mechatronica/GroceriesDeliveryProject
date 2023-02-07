@@ -66,51 +66,35 @@ def addToCart(request, pk):
         return redirect("cartview")
 
 
-# @login_required
+@login_required
 def cartCheckoutPageView(request):
     counter = 0
     a = 0
     b = 0
-    
-    try:
-        if request.user:
-            itemsForCartPage = Order.objects.get(
-                user=request.user.id, ordered=False)
 
-        a = round(itemsForCartPage.get_total(), 2)
-        counter = len(itemsForCartPage.items.all())
+    itemsForCartPage, created = Order.objects.get_or_create(
+        user=request.user.id, ordered=False)
+    # try:
+    #    address = UserAddresses.objects.get(user=request.user.id)
+    # except UserAddresses.DoesNotExist:
+    pincode = request.COOKIES['pincode']
+    address, created = UserAddresses.objects.get_or_create(user=request.user,pincode=pincode)
+    a = round(itemsForCartPage.get_total(), 2)
+    counter = len(itemsForCartPage.items.all())
 
-        if a > 500:
-            delivery_charges = 0
-        else:
-            delivery_charges = 0
+    if a > 500:
+        delivery_charges = 0
+    else:
+        delivery_charges = 0
 
-        grandtotal = a + delivery_charges
+    grandtotal = a + delivery_charges
 
-        context = {
-            'object': itemsForCartPage,
-            'delivery': delivery_charges,
-            'totalquantity': counter,
-            'grandtotal': grandtotal
-        }
-    
-    except Order.DoesNotExist:
-
-        if a > 500:
-            delivery_charges = 0
-        else:
-            delivery_charges = 0
-
-        grandtotal = a + delivery_charges
-
-        context = {
-            'object': [],
-            'delivery': delivery_charges,
-            'useraddress': "",
-            'totalquantity': counter,
-            'grandtotal': grandtotal
-        }
-    
+    context = {
+        'object': itemsForCartPage,
+        'delivery': delivery_charges,
+        'totalquantity': counter,
+        'grandtotal': grandtotal
+    }
     return render(request, "cart.html", context)
 
 

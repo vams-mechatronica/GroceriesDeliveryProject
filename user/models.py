@@ -35,23 +35,20 @@ class UserAddresses(models.Model):
     user = models.OneToOneField("user.CustomUser", verbose_name=_(
         "User Detail"), on_delete=models.CASCADE, null=True, blank=True)
     addressLine1 = models.CharField(
-        _("address line 1"), max_length=200, blank=True, null=True)
-    addressLine2 = models.CharField(
-        _("address line 2"), max_length=150, blank=True, null=True)
+        _("address line 1"), max_length=2000, blank=True, null=True,default="")
     state = models.CharField(
-        _("select state"), max_length=200, blank=True, null=True)
+        _("select state"), max_length=200, blank=True, null=True,default="")
     city = models.CharField(
-        _("select city"), max_length=200, blank=True, null=True)
+        _("select city"), max_length=200, blank=True, null=True,default="")
     pincode = models.IntegerField(_("address pincode"))
     addPhoneNumber = models.CharField(
-        _("address phone number"), max_length=13, null=True, blank=True)
+        _("address phone number"), max_length=13, null=True, blank=True,default="")
 
     def __str__(self) -> str:
         return "user:{} city: {} pincode: {} phoneno. {}".format(self.user, self.city, self.pincode, self.addPhoneNumber)
 
     def user_address(self):
-        address = self.addressLine1+", "+self.addressLine2 + \
-            ", "+self.city+", " + str(self.pincode)
+        address = self.addressLine1+", "+self.city+", " + str(self.pincode)
         return address
 
 
