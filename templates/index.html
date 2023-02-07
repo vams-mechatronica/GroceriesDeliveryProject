@@ -239,9 +239,9 @@
                     {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Trending">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Trending">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Trending')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-Trending">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Trending')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -287,9 +287,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:FruitVeg">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-FruitVeg">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'FruitVeg')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-FruitVeg">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'FruitVeg')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -336,9 +336,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:BreakfastDairy">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-BreakfastDairy">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'BreakfastDairy')"id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-BreakfastDairy">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'BreakfastDairy')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -385,9 +385,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:CookingEss">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-CookingEss">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-CookingEss">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -448,9 +448,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:CleaningEss">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-CleaningEss">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-CleaningEss">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -495,9 +495,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:PersonalCare">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-PersonalCare">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-PersonalCare">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -543,9 +543,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:SnacksDrinks">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-SnacksDrinks">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'SnacksDrinks')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-SnacksDrinks">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'SnacksDrinks')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -604,9 +604,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:HealthBabyCare">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-HealthBabyCare">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'HealthBabyCare')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-HealthBabyCare">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'HealthBabyCare')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -651,9 +651,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:DryFruits">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-DryFruits">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'DryFruits')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-DryFruits">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'DryFruits')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -712,9 +712,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Puja">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Puja">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-Puja">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -758,9 +758,9 @@
                   {% if request.user.is_authenticated %}
                     <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:HomeKitchenAppliance">ADD</a>
                     <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-HomeKitchenAppliance">
-                      <span class="minus-bttn" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val">1</span>&nbsp;
-                      <span class="plus-bttn" id="{{prod.products.product_id}}-increas">+</span>
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'HomeKitchenAppliance')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-HomeKitchenAppliance">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'HomeKitchenAppliance')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
                     {% else %}
                     <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
@@ -826,7 +826,7 @@
     </div>
     <!-- lavitate cart view  -->
     <div class="pro-btn fix-in-area" onclick="window.location.href='{% url 'cartview' %}'">
-      <a href="#" class="btn btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
+      <a class="btn btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
     </div>
     <!-- lavitate cart view  -->
     <footer>
@@ -1816,6 +1816,22 @@ function get_otp(elm){
     $('#' + em_id).show()
     $('body').css({ "overflow": "hidden" })
   }
+  function plusBtnClick(element_id,cat_name){
+      text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
+      val = text + 1
+      if (val > 0){
+        $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
+        $("#"+element_id+"-qunt_val-"+cat_name).append(val)
+      }
+    }
+    function minusBtnClick(element_id,cat_name){
+      text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
+      val = text - 1
+      if (val > 0){
+        $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
+        $("#"+element_id+"-qunt_val-"+cat_name).append(val)
+      }
+    }
   </script>
 </body>
 </html>
