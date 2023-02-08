@@ -34,7 +34,7 @@
   <link href="{% static 'css/custome.css' %}" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/slick/slick.css' %}">
   <link rel="stylesheet" href="{% static 'css/slick/slick-theme.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
   
 
 </head>
@@ -932,7 +932,7 @@
       $('body').css({ "overflow": "hidden" })
     }
     </script>
-    <script>
+    {% comment %} <script>
         $(document).ready(function(){ 
             $("#search").autocomplete({
                 source: "/ajax_calls/search/",
@@ -944,7 +944,7 @@
                 }
               });
         });
-</script>
+</script> {% endcomment %}
 <script>
     
 
@@ -1455,13 +1455,13 @@
               var comp = address.results[0].address_components;
               //console.log(comp[comp.length - 1].long_name); print( zipcode)
               var zipcode = comp[comp.length - 1].long_name;
-
-              // Save zipcode to sessionStorage
-              sessionStorage.setItem("pincode", zipcode);
+   sessionStorage.setItem("pincode", zipcode);
               checkStoreAvailabilty(address.results[0].formatted_address);
               /* var pincode = sessionStorage.getItem("pincode");
               console.log(pincode); 
               */
+              // Save zipcode to sessionStorage
+           
               document.cookie ='pincode=' + zipcode + ";domain=;path=/";
               document.cookie ='address='+address.results[0].formatted_address+";domain=;path=/";
 
@@ -1509,7 +1509,9 @@
           //console.log(response['available'])
             $('#success-loc').show()
             $('#error-loc').hide()
-            document.getElementById("location-text").innerHTML = Fformatted_address;
+            //document.getElementById("location-text").innerHTML = Fformatted_address;
+            //console.log(Fformatted_address);
+            document.getElementById("location-text").innerHTML = jQuery.trim(Fformatted_address).substring(0, 40).split(" ").slice(0, -1).join(" ") + "...";
         }
         else{
             $('#success-loc').hide()
