@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- title -->
-  <title>Detail Page</title>
+  <title>Product List</title>
   <meta name="description" content="" />
   <meta name="keywords" content="" />
   <meta name="author" content="">
@@ -36,12 +36,16 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
   <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/searchpop.css' %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+
 </head>
 
 <body class="home-1">
   <!-- product header start -->
   <div class="about-breadcrumb">
-    <div class="about-back section-tb-padding" style="background-image: url({% static 'img/list-page-1.jpg' %})">
+    <div class="about-back section-tb-padding" >
       <div class="container">
         <div class="row">
           <div class="col">
@@ -49,8 +53,11 @@
               <h1>{{category.category_name}}</h1>
               <div class="position-relative">
                 <i class="bi bi-search serach_icons-list"></i>
-                <form class="w-100 me-3" role="search" name="search-products" method="GET" action="{% url 'productsearchcategory' category.category_id %}">
-                <input type="text" name="search" id="search" placeholder="What can we get you?"></form>
+                {% comment %}
+                <!-- {% url 'productsearchcategory' category.category_id %} -->
+                {% endcomment %}
+                <form class="w-100 me-3" role="search" name="search-products" method="GET" action="">
+                  <input type="text" name="search" id="search" placeholder="What can we get you?"></form>
               </div>
             </div>
           </div>
@@ -58,33 +65,114 @@
       </div>
     </div>
   </div>
+  <style>
+    .about-back{
+      background-image: url(/static/img/list-page-1.jpg);
+      height: 35vh;
+  }
+  .product_grid{
+    width: unset;
+    width: 100%;
+    margin: 0;
+  }.prod_list-page {
+    margin-top: 170px;
+}.list-page-header {
+  max-width: 450px;
+  top: 130px;
+}
+    @media(max-width:500px){
+      .prod_list-page {
+        margin-top: 120px;
+    }
+    .prod_list-page {
+      margin-top: 120px;
+  }
+  .list-page-header {
+    max-width: 300px;
+    top: 110px;
+  }
+    .about-back{
+        background-image: url(/static/img/list-page-1.jpg);
+        height: 25vh;
+    }
+    }
+  </style>
+  <!-- login popup start here  -->
+  <div class="login-sign-popup" id="login">
+    <div class="login col-xl-6 col-lg-6 col-md-6 col-12">
+      <div class="head-login">
+        <h3 class="text-center content">Phone Number Verification</h3>
+        <h3 class="times" onclick="hidePopLogin()">&times;</h3>
+      </div>
+      <div class="login-body">
+        <p id="hide-num-text" >Enter your phone number to
+          Login/Sign up</p>
+        <p id="hide-otp-text" style="display: none;">Enter the OTP</p>
+        <!-- <form action="" method="post"> -->
+          <div class="default-box">
+            <div class="phone-box col-xl-6 col-lg-6 col-md-6 col-12">
+              <div class="phone-icon" id="hide-91">+91</div>
+              <input type="tel" class="inputfilter" allow="[0-9]" onkeyup="showGreenButton('button_submit',this,10)" 
+                maxlength="10" minlength="10" name="mobile" id="mobile" placeholder="Enter Number">
+              <input type="tel" class="inputfilter" style="display: none;" allow="[0-9]" onkeyup="showGreenButton('button_otp',this,6)"
+                maxlength="6" minlength="6" name="otp" id="otp" placeholder="Please Enter OTP: 123456">
+            </div>
+          </div>
+          <p class="error-loction" id="error_login"></p>
+          <div class="default-box">
+            <button onclick="get_otp('mobile')" class="col-xl-6 col-lg-6 col-md-6 col-12" id="button_submit" disabled>Next</button>
+            <button onclick="verify_otp('otp')" style="display: none;" class="col-xl-6 col-lg-6 col-md-6 col-12" id="button_otp" disabled>Enter OTP</button>
+          </div>
+        <!-- </form> -->
+        <p class="bellow-para">By continuing, you agree to our</p>
+        <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+      </div>
+    </div>
+  </div>
+  <!-- login popup end here  -->
   <!-- product header end -->
   <!-- product list start -->
   <div class="prod_list-page">
     <div class="container">
-      <div class="row">
+      <div class="row ">
+        <div class="col-12  d-flex flex-wrap justify-content-center p-0">
         {% for categorypro in catproducts %}
-        <div class="col-6 col-sm-6 col-md-3">
-          <div class="product_grid mb-4 .mb-md-0" onclick="window.location.href='{% url 'productdetail' categorypro.products.product_id %}'">
-            <div class="product_img"><img src=/media/{{categorypro.products.prod_mainimage}} alt=""></div>
+        <div class="col-6 col-md-6 col-xl-2 col-lg-2 p-1">
+          <div class=" product_grid mb-4 .mb-md-0">
+            <div class="product_img"><img src=http://ashekhar.pythonanywhere.com/media/{{categorypro.products.prod_mainimage}} alt=""></div>
             <div class="product_name">
-              <p>{{categorypro.products.product_name}}</p>
+              <p>{% if categorypro.products.product_name|length > 20 %} {{categorypro.products.product_name|slice:":40"}}{% elif categorypro.products.product_name|length > 35 %}{{categorypro.products.product_name|slice:":40"}}...{% else %}{{categorypro.products.product_name}}<br> &nbsp;{% endif %}</p>
             </div>
             <div class="product_Quantity"><span>{{categorypro.products.unit}}</span></div>
             <div class="d-flex justify-content-between">
-              <div class="product_pirce"><span class="pro_mrp">₹{{categorypro.list_price}}</span><span
-                  class="pro_sell">₹{{categorypro.products.max_retail_price}}</span></div>
-              <a href="{% url 'addtocart' categorypro.products.product_id %}" class="btn btn-style1 btn-padding">ADD</a>
+              <div class="product_pirce"><span class="pro_mrp">₹{{categorypro.list_price}}</span>
+                <span class="pro_sell">₹{{categorypro.products.max_retail_price}}</span>
+              </div>
+              {% if request.user.is_authenticated%}
+                <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{categorypro.products.product_id}}-add_item:category"> ADD
+                  </a>
+              {% else %}
+                <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{categorypro.products.product_id}}-add_item:category">
+                ADD
+                </a>
+              {% endif %}
+              <div style="display:none" class="btn-style1 btn-padding" id="{{categorypro.products.product_id}}-in-dec-category">
+                <span class="minus-bttn" onclick="minusBtnClick({{categorypro.products.product_id}},'category')" id="{{categorypro.products.product_id}}-decrease">-</span>&nbsp;
+                <span id="{{categorypro.products.product_id}}-qunt_val-category">1</span>&nbsp;
+                <span class="plus-bttn" onclick="plusBtnClick({{categorypro.products.product_id}},'category')" id="{{categorypro.products.product_id}}-increas">+</span>
+              </div>
             </div>
+
             <div class="product_dicont"><span>Rs.{{categorypro.discount|floatformat:0}} Off</span></div>
           
           </div>
+        </div>
           {% empty %}
           <tr>
               <td colspan='5'>No Matching Item</td>
           </tr>
-          {% endfor %}
         </div>
+        {% endfor %}
         
       </div>
     </div>
@@ -94,12 +182,11 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-12">
-          <a href="{% url 'cartview' %}" class="btn btn-style1 d-flex justify-content-between">
-            <div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> | <span> ₹{{totalamount}}</span></div>
-            <div><i class="bi bi-bag"></i> View cart</div>
-          </a>
-        </div>
+            <!-- lavitate cart view  -->
+    <div class="pro-btn fix-in-area"  onclick="{% if request.user.is_authenticated %}window.location.href='{% url 'cartview' %}'{% else %} showPopLogin() {% endif %}" >
+      <a class="btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
+    </div>
+    <!-- lavitate cart view  -->
       </div>
     </div>
   </div>
@@ -117,6 +204,132 @@
       y = offsetY / zoomer.offsetHeight * 100
       zoomer.style.backgroundPosition = x + '% ' + y + '%';
     }
+    function hidePopLogin() {
+        $('#login').hide()
+        $('body').css({ "overflow": "auto" })
+      }
+      function showPopLogin() {
+        history.scrollRestoration = "manual";
+        scrollToTop(0);
+        $('#login').show()
+        $('body').css({ "overflow": "hidden" })
+      }
+      function scrollToTop(hei) {
+    window.scrollTo({top: hei,
+    left: 0,
+    behavior: 'smooth'});
+    }
+    function item_add(id_product,self){
+      $(self).hide()
+      var element_id = self.id.split("-")[0]
+      var cate = self.id.split(":")[1]
+      //console.log(element_id+"-in-dec:"+cate);
+      $("#"+element_id+"-in-dec-"+cate).show();
+      //document.getElementById("#"+element_id+"in-dec").style.display = "block";
+      $('.fix-in-area').show()
+    }
+    jQuery(document).ready(function(){
+      $('.plus-bttn').click(function(e){
+        e.preventDefault();
+        //fieldName = $(this).attr('field');
+        const elementId = $(this).attr('id').split('-')[0]
+        console.log(elementId);
+        domain = 'https://ashekhar.pythonanywhere.com'
+        path_name = '/buy/api/v1/customer/order/add/' //change-this url
+        $.ajax({
+            type: 'POST',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken":g_csrftoken,
+                "product" : elementId.toString(),
+                "quantity": "1"
+            },
+            success: function(response) {
+                if (response){
+                  document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                  document.getElementById("quantity").innerHTML = response['qty'];
+                  document.getElementById("qunt_val").innerHTML = response['cart']['items']['quantity'];
+                  //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                  }
+                }
+              })
+            });
+      $('.add-to-cart').click(function(e){
+        e.preventDefault();
+        //fieldName = $(this).attr('field');
+        const elementId = $(this).attr('id').split('-')[0]
+        console.log(elementId);
+        domain = window.location.origin
+        path_name = '/buy/api/v1/customer/order/add/' //change-this url
+        $.ajax({
+          type: 'POST',
+          url: domain+path_name,
+          data: {
+              "csrfmiddlewaretoken":g_csrftoken,
+              "product" : elementId.toString(),
+              "quantity": "1"
+          },
+            success: function(response) {
+                if (response){
+                  console.log(response);
+                  document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                  document.getElementById("quantity").innerHTML = response['qty'];
+                  //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity']);
+                  }
+                }
+              })
+            });
+      $('.minus-bttn').click(function(e){
+        e.preventDefault();
+        //fieldName = $(this).attr('field');
+        const elementId = $(this).attr('id').split('-')[0]
+        //console.log(elementId);
+        domain = window.location.origin
+        path_name = '/buy/api/v1/customer/order/remove/' //change-this url
+        $.ajax({
+            type: 'POST',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken":g_csrftoken,
+                "product" : elementId.toString(),
+                "quantity": "1"
+            },
+            success: function(response) {
+                if (response){
+                  console.log(response);
+                  document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                  document.getElementById("quantity").innerHTML = response['qty'];
+                  $("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                  }
+                }
+              })
+                });
+  
+              });
+
+              function plusBtnClick(element_id,cat_name){
+                text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
+                val = text + 1
+                if (val > 0){
+                  $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
+                  $("#"+element_id+"-qunt_val-"+cat_name).append(val)
+                }
+                
+              }
+              function minusBtnClick(element_id,cat_name){
+                text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
+                val = text - 1
+                if (val > 0){
+                  $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
+                  $("#"+element_id+"-qunt_val-"+cat_name).append(val)
+                }
+                else if(val == 0){
+                  $("#"+element_id+"-in-dec-"+cat_name).hide()
+                  $("#"+element_id+"-add_item:"+cat_name).show()
+                  $('.fix-in-area').hide()
+
+                }
+              }
   </script>
   <div class="mm-fullscreen-bg"></div>
   <!-- jquery -->
