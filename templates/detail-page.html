@@ -185,7 +185,7 @@
                                     </div>
                                 </div>
                                 {% if request.user.is_authenticated %}
-                                <a href="{% url 'addtocart' product.products.product_id %}"class="btn btn-style1"
+                                <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1"
                                     role="button">ADD</a>
                                 {% else %}
                                 <a onclick="showPopLogin()" class="btn btn-style1" id="add-btn" role="button">ADD</a>

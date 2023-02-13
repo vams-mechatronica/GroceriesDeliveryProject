@@ -15,6 +15,7 @@ from django.utils import timezone
 from stores.models import *
 from user.models import UserAddresses
 from instamojo_wrapper import Instamojo
+import time
 api = Instamojo(api_key=settings.API_KEY,
                 auth_token=settings.AUTH_TOKEN, endpoint='https://test.instamojo.com/api/1.1/')
 
@@ -72,11 +73,14 @@ def cartCheckoutPageView(request):
     a = 0
     b = 0
 
-    itemsForCartPage, created = Order.objects.get_or_create(
-        user=request.user.id, ordered=False)
-    # try:
-    #    address = UserAddresses.objects.get(user=request.user.id)
-    # except UserAddresses.DoesNotExist:
+    order_qs = Order.objects.filter(
+        user=request.user, ordered=False)
+    if order_qs.exists():
+        itemsForCartPage = order_qs[0]
+    else:
+        itemsForCartPage = Order.objects.create(
+            user=request.user, ordered_date=timezone.now())
+    
     pincode = request.COOKIES['pincode']
     address, created = UserAddresses.objects.get_or_create(user=request.user,pincode=pincode)
     a = round(itemsForCartPage.get_total(), 2)
