@@ -271,8 +271,8 @@
         e.preventDefault();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
-        console.log(elementId);
-        domain = 'https://ashekhar.pythonanywhere.com'
+        //console.log(elementId);
+        domain = window.location.origin
         path_name = '/buy/api/v1/customer/order/add/' //change-this url
         $.ajax({
             type: 'POST',
@@ -284,9 +284,10 @@
             },
             success: function(response) {
                 if (response){
+                  console.log(response['cart']['items'][0]['quantity']);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
-                  document.getElementById("qunt_val").innerHTML = response['cart']['items']['quantity'];
+                  document.getElementById("qunt_val").innerHTML = response['cart']['items'][0];
                   //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
                   }
                 }
@@ -296,7 +297,7 @@
         e.preventDefault();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
-        console.log(elementId);
+        //console.log(elementId);
         domain = window.location.origin
         path_name = '/buy/api/v1/customer/order/add/' //change-this url
         $.ajax({
