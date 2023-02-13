@@ -1131,11 +1131,11 @@
     <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
     <script src="{% static 'assets/js/bootstrap.js' %}"></script>
     <script src="{% static 'assets/js/jquery.js' %}"></script>
+    <script type="module" src="/path/to/js.cookie.mjs"></script>
     <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
     <script>
-    
       function hidePopsearch(em_id) {
         $('#' + em_id).hide()
         $('body').css({ "overflow": "auto" })
@@ -1158,557 +1158,542 @@
       valu = $('#location-text').text()
       $('#user_input_autocomplete_address').val(valu)
       $('body').css({ "overflow": "hidden" })
-    }
+      }
     </script>
-    {% comment %} <script>
-        $(document).ready(function(){ 
-            $("#search").autocomplete({
-                source: "/ajax_calls/search/",
-                minLength: 2,
-                open: function(){
-                    setTimeout(function () {
-                        $('.ui-autocomplete').css('z-index', 99);
-                    }, 0);
+    <script>
+        $(document).ready(function () {
+          $('.slider').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            cssEase: 'linear',
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
                 }
-              });
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.3,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider1').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider2').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.pr_slide').slick({
+            dots: false,
+            infinite: true,
+            speed: 300,
+            arrows:false,
+            autoplay: true,
+            slidesToShow: 1.02,
+            slidesToScroll: 1
+          }); 
+          $('.slider3').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider4').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider5').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider6').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider7').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider8').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider9').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          $('.slider10').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          }); 
+          
+          $('.pr_slide2').slick({
+            dots: false,
+            infinite: false,
+            speed: 300,
+            arrows:true,
+            autoplay: true,
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            responsive: [
+              {
+                breakpoint: 1024,
+                settings: {
+                  slidesToShow: 5,
+                  slidesToScroll: 1,
+                  infinite: true,
+                  dots: true
+                }
+              },
+              {
+                breakpoint: 600,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                  arrows:false
+                }
+              },
+              {
+                breakpoint: 480,
+                settings: {
+                  slidesToShow: 2.5,
+                  slidesToScroll: 1,
+                  arrows:false
+        
+                }
+              }
+              // You can unslick at a given breakpoint now by adding:
+              // settings: "unslick"
+              // instead of a settings object
+            ]
+          });
         });
-</script> {% endcomment %}
-<script>
+    </script>
+    <script>
+      //locationDetect();
+      function showLocation(position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        document.getElementById("user_input_autocomplete_address").disabled = true;
+        document.getElementById("current-location").value = "Please Wait...";
     
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var address = JSON.parse(this.responseText)
+                var comp = address.results[0].address_components;
+                //console.log(comp[comp.length - 1].long_name); print( zipcode)
+                var zipcode = comp[comp.length - 1].long_name;
+                sessionStorage.setItem("pincode", zipcode);
+                checkStoreAvailabilty(address.results[0].formatted_address);
+                /* var pincode = sessionStorage.getItem("pincode");
+                console.log(pincode); 
+                */
+                // Save zipcode to sessionStorage
+            
+                document.cookie ='pincode=' + zipcode + ";domain=;path=/";
+                document.cookie ='address='+address.results[0].formatted_address+";domain=;path=/";
 
-    $(document).ready(function () {
-      $('.slider').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        cssEase: 'linear',
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
+                document.getElementById("current-location").value = "Use My Current Location";
+                document.getElementById("user_input_autocomplete_address").disabled = false;
+                document.getElementById("user_input_autocomplete_address").value = address.results[0].formatted_address;
+                $('#location-text').empty()
+                $('#location-text').text(String(address.results[0].formatted_address).slice(0,35) + '... ')
+                $('#location-text').append(`<i class="bi bi-caret-down-fill"></i>`)
+                
+                sessionStorage.setItem("Address",address.results[0].formatted_address);
             }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.3,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider1').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider2').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.pr_slide').slick({
-        dots: false,
-        infinite: true,
-        speed: 300,
-        arrows:false,
-        autoplay: true,
-        slidesToShow: 1.02,
-        slidesToScroll: 1
-      }); 
-      $('.slider3').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider4').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider5').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider6').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider7').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider8').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider9').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      $('.slider10').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      }); 
-      
-      $('.pr_slide2').slick({
-        dots: false,
-        infinite: false,
-        speed: 300,
-        arrows:true,
-        autoplay: true,
-        slidesToShow: 6,
-        slidesToScroll: 1,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: true,
-              dots: true
-            }
-          },
-          {
-            breakpoint: 600,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              arrows:false
-            }
-          },
-          {
-            breakpoint: 480,
-            settings: {
-              slidesToShow: 2.5,
-              slidesToScroll: 1,
-              arrows:false
-    
-            }
-          }
-          // You can unslick at a given breakpoint now by adding:
-          // settings: "unslick"
-          // instead of a settings object
-        ]
-      });
-    });
-</script>
-  <script>
-    locationDetect();
-    function showLocation(position) {
-      var lat = position.coords.latitude;
-      var long = position.coords.longitude;
-      document.getElementById("user_input_autocomplete_address").disabled = true;
-      document.getElementById("current-location").value = "Please Wait...";
-  
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-              var address = JSON.parse(this.responseText)
-              var comp = address.results[0].address_components;
-              //console.log(comp[comp.length - 1].long_name); print( zipcode)
-              var zipcode = comp[comp.length - 1].long_name;
-              sessionStorage.setItem("pincode", zipcode);
-              checkStoreAvailabilty(address.results[0].formatted_address);
-              /* var pincode = sessionStorage.getItem("pincode");
-              console.log(pincode); 
-              */
-              // Save zipcode to sessionStorage
-           
-              document.cookie ='pincode=' + zipcode + ";domain=;path=/";
-              document.cookie ='address='+address.results[0].formatted_address+";domain=;path=/";
-
-              document.getElementById("current-location").value = "Use My Current Location";
-              document.getElementById("user_input_autocomplete_address").disabled = false;
-              document.getElementById("user_input_autocomplete_address").value = address.results[0].formatted_address;
-              $('#location-text').empty()
-              $('#location-text').text(String(address.results[0].formatted_address).slice(0,35) + '... ')
-              $('#location-text').append(`<i class="bi bi-caret-down-fill"></i>`)
-              
-              sessionStorage.setItem("Address",address.results[0].formatted_address);
-          }
-      };
-      xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyBYSvhqF-DYy0C78aP35lME_p7esEqCbCo", true);
-      xhttp.send();
-      // alert("Latitude : " + latitude + " Longitude: " + longitude);
-  };
+        };
+        xhttp.open("GET", "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + long + "&key=AIzaSyBYSvhqF-DYy0C78aP35lME_p7esEqCbCo", true);
+        xhttp.send();
+        // alert("Latitude : " + latitude + " Longitude: " + longitude);
+    };
   
   var getCookie = function (name) {
       var cookieValue = null;
@@ -1725,103 +1710,64 @@
       }
       return cookieValue;
     };
-  const g_csrftoken = getCookie('csrftoken');
-  var checkStoreAvailabilty = function (Fformatted_address){
-    var availablility = null;
-    domain = 'https://ashekhar.pythonanywhere.com'
-    path_name = '/api/v1/stores/availability/'
-    $.ajax({
-      type: 'GET',
-      url: domain+path_name,
-      data: {
-          "csrfmiddlewaretoken": g_csrftoken,
-          "pincode":sessionStorage.getItem('pincode')
-      },
-      success: function(response) {
-        if (response['available']){
-          //console.log(response['available'])
-            $('#success-loc').show()
-            $('#error-loc').hide()
-            //document.getElementById("location-text").innerHTML = Fformatted_address;
-            //console.log(Fformatted_address);
-            document.getElementById("location-text").innerHTML = jQuery.trim(Fformatted_address).substring(0, 40).split(" ").slice(0, -1).join(" ") + "...";
-        }
-        else{
-            $('#success-loc').hide()
-            $('#error-loc').show()
-        }
-      }  
-    });
-   
-  }
   
-  //console.log(status)
-  
-  function errorHandler(err) {
-      if (err.code == 1) {
-          alert("Error: Access is denied!");
-      } else if (err.code == 2) {
-          alert("Error: Position is unavailable!");
+    const g_csrftoken = getCookie('csrftoken');
+    function showProducts(value){
+      console.log(value)
+      domain = window.location.origin
+      path_name = '/api/v1/stores/products/' //change-this url
+      if(value.length < 3){
+        $('.suggestProduct').empty()
+        $('.suggestProduct').hide()
       }
-  }
-  //locationDetect();
-    function ok_address(id_address){
-      if (id_address.length > 0){
-        document.getElementById("user_input_autocomplete_address").value
-        $('#location-text').empty()
-        $('#location-text').text(String(document.getElementById("user_input_autocomplete_address").value).slice(0,35) + '... ')
-        $('#location-text').append(`<i class="bi bi-caret-down-fill"></i>`)
-        $('#search-popup').hide()
-        $('body').css({ "overflow": "auto" })
-      }
-      else{
-        $('#'+id_address).focus()
-      }
-    }
-  //function locationDetect() {
-  //
-  //    if (navigator.geolocation) {
-  //
-  //        // timeout at 60000 milliseconds (60 seconds)
-  //        var options = {
-  //            timeout: 60000
-  //        };
-  //        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-  //    } else {
-  //        alert("Sorry, browser does not support geolocation!");
-  //    }
-  //}
-  
-  function initializeAutocomplete(id) {
-      var element = document.getElementById(id);
-      if (element) {
-          var autocomplete = new google.maps.places.Autocomplete(element, {
-              types: ['geocode']
-          });
-          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
-      }
-  }
-  
-  function onPlaceChanged() {
-      var place = this.getPlace();
-  
-      // console.log(place);  // Uncomment this line to view the full object returned by Google API.
-  
-      for (var i in place.address_components) {
-          var component = place.address_components[i];
-          for (var j in component.types) { // Some types are ["country", "political"]
-              var type_element = document.getElementById(component.types[j]);
-              if (type_element) {
-                  type_element.value = component.long_name;
+      $.ajax({
+          type: 'GET',
+          url: domain+path_name,
+          data: {
+              "csrfmiddlewaretoken":g_csrftoken,
+              "products" : value,
+              
+          },
+          success: function(response) {
+              if (response){
+                //console.log(response)
+                $('.suggestProduct').empty()
+                
+                if (response.length > 0){
+                  $('.suggestProduct').show()
+                  $.each(response,function(index, item){
+                    //console.log(response[index].products.product_id)
+                    $('.suggestProduct').append(`
+                    <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
+                      <div class="col-2 ">
+                        <img src="`+response[index].products.prod_mainimage+`" alt=""  >
+                      </div>
+                      <div class="product_name col-8 align-self-center">
+                        <p>`+response[index].products.product_name+`</p>
+                      </div>
+                      <div class="align-self-center">
+                        <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
+                        <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
+                      </div>
+                    </div>
+                    `)
+                  })
+                }
+              }
+              else{
+                $('.suggestProduct').empty()
+                $('.suggestProduct').show()
+                $('.suggestProduct').append(`
+                <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
+                `)
               }
           }
-      }
-  }
-  
-  google.maps.event.addDomListener(window, 'load', function() {
-      initializeAutocomplete('user_input_autocomplete_address');
-  });
-  function showProducts(value){
+          
+      });
+}
+    function showProducts(value){
+      //var g_csrftoken_p = getCookie('csrftoken')//
+      //var csrftoken = Cookies.get('csrftoken');
       console.log(value)
       domain = 'https://ashekhar.pythonanywhere.com'
       path_name = '/api/v1/stores/products/' //change-this url
@@ -1875,7 +1821,102 @@
             
         });
       }
-}
+    }
+    var checkStoreAvailabilty = function (Fformatted_address){
+    var availablility = null;
+    domain = 'https://ashekhar.pythonanywhere.com'
+    path_name = '/api/v1/stores/availability/'
+    $.ajax({
+      type: 'GET',
+      url: domain+path_name,
+      data: {
+          "csrfmiddlewaretoken": g_csrftoken,
+          "pincode":sessionStorage.getItem('pincode')
+      },
+      success: function(response) {
+        if (response['available']){
+          //console.log(response['available'])
+            $('#success-loc').show()
+            $('#error-loc').hide()
+            //document.getElementById("location-text").innerHTML = Fformatted_address;
+            //console.log(Fformatted_address);
+            document.getElementById("location-text").innerHTML = jQuery.trim(Fformatted_address).substring(0, 40).split(" ").slice(0, -1).join(" ") + "...";
+        }
+        else{
+            $('#success-loc').hide()
+            $('#error-loc').show()
+        }
+      }  
+    });
+   
+  }
+  
+  //console.log(status)
+  
+  function errorHandler(err) {
+      if (err.code == 1) {
+          alert("Error: Access is denied!");
+      } else if (err.code == 2) {
+          alert("Error: Position is unavailable!");
+      }
+  }
+  //locationDetect();
+  function ok_address(id_address){
+    if (id_address.length > 0){
+      document.getElementById("user_input_autocomplete_address").value
+      $('#location-text').empty()
+      $('#location-text').text(String(document.getElementById("user_input_autocomplete_address").value).slice(0,35) + '... ')
+      $('#location-text').append(`<i class="bi bi-caret-down-fill"></i>`)
+      $('#search-popup').hide()
+      $('body').css({ "overflow": "auto" })
+    }
+    else{
+      $('#'+id_address).focus()
+    }
+  }
+  //function locationDetect() {
+  //
+  //    if (navigator.geolocation) {
+  //
+  //        // timeout at 60000 milliseconds (60 seconds)
+  //        var options = {
+  //            timeout: 60000
+  //        };
+  //        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+  //    } else {
+  //        alert("Sorry, browser does not support geolocation!");
+  //    }
+  //}
+  
+  function initializeAutocomplete(id) {
+      var element = document.getElementById(id);
+      if (element) {
+          var autocomplete = new google.maps.places.Autocomplete(element, {
+              types: ['geocode']
+          });
+          google.maps.event.addListener(autocomplete, 'place_changed', onPlaceChanged);
+      }
+  }
+  
+  function onPlaceChanged() {
+      var place = this.getPlace();
+  
+      // console.log(place);  // Uncomment this line to view the full object returned by Google API.
+  
+      for (var i in place.address_components) {
+          var component = place.address_components[i];
+          for (var j in component.types) { // Some types are ["country", "political"]
+              var type_element = document.getElementById(component.types[j]);
+              if (type_element) {
+                  type_element.value = component.long_name;
+              }
+          }
+      }
+  }
+  
+  {% comment %} google.maps.event.addDomListener(window, 'load', function() {
+      initializeAutocomplete('user_input_autocomplete_address');
+  }); {% endcomment %}
 function get_otp(elm){
     input = $('#'+elm).val()
     domain = window.location.origin
