@@ -81,7 +81,7 @@ def cartCheckoutPageView(request):
         itemsForCartPage = Order.objects.create(
             user=request.user, ordered_date=timezone.now())
     
-    pincode = request.COOKIES['pincode']
+    pincode = request.COOKIES['pincode'] or 201301
     address, created = UserAddresses.objects.get_or_create(user=request.user,pincode=pincode)
     a = round(itemsForCartPage.get_total(), 2)
     counter = len(itemsForCartPage.items.all())
