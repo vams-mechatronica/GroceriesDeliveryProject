@@ -156,9 +156,9 @@
         <div class="d-flex input">
           <div class="col-1 mag-lens">⌕</div>
           <div class="col-11">
-            <input type="text" class="pe-5" id="user_input_autocomplete_address" name="address"
+            <input type="text" class="pe-5" id="user_input_autocomplete_address" onmousehover="locationDetect()" name="address"
               class="form-control" placeholder="Enter your City or Area or Pincode" required>
-            <label for="current-location" class="current-location" onclick="locationDetect()" title="Your Current Location">
+            <label for="current-location" class="current-location" onmousehover="locationDetect()" title="Your Current Location">
               <input type="hidden" id="current-location" value="Use My Current Location" required>
             </label>
             
@@ -261,6 +261,9 @@
               {% else %}
               <span class="bi bi-geo-alt"></span> 201301, Noida <span class="bi bi-pencil-square"></span>
               {% endif %}
+              <script>
+                document.cookie ="pincode=201301;domain=;path=/";
+              </script>
               
             </span>
             </p>
@@ -1769,7 +1772,7 @@
       //var g_csrftoken_p = getCookie('csrftoken')//
       //var csrftoken = Cookies.get('csrftoken');
       console.log(value)
-      domain = 'https://ashekhar.pythonanywhere.com'
+      domain = window.location.origin
       path_name = '/api/v1/stores/products/' //change-this url
       if(value.length < 3){
         $('.suggestProduct').empty()
@@ -1824,7 +1827,7 @@
     }
     var checkStoreAvailabilty = function (Fformatted_address){
     var availablility = null;
-    domain = 'https://ashekhar.pythonanywhere.com'
+    domain =       domain = window.location.origin
     path_name = '/api/v1/stores/availability/'
     $.ajax({
       type: 'GET',
@@ -1874,19 +1877,19 @@
       $('#'+id_address).focus()
     }
   }
-  //function locationDetect() {
-  //
-  //    if (navigator.geolocation) {
-  //
-  //        // timeout at 60000 milliseconds (60 seconds)
-  //        var options = {
-  //            timeout: 60000
-  //        };
-  //        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-  //    } else {
-  //        alert("Sorry, browser does not support geolocation!");
-  //    }
-  //}
+  function locationDetect() {
+  
+      if (navigator.geolocation) {
+  
+          // timeout at 60000 milliseconds (60 seconds)
+        var options = {
+              timeout: 60000
+          };
+          navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+      } else {
+          alert("Sorry, browser does not support geolocation!");
+      }
+  }
   
   function initializeAutocomplete(id) {
       var element = document.getElementById(id);
@@ -2028,7 +2031,7 @@ function get_otp(elm){
       //fieldName = $(this).attr('field');
       const elementId = $(this).attr('id').split('-')[0]
       console.log(elementId);
-      domain = 'https://ashekhar.pythonanywhere.com'
+      domain = window.location.origin
       path_name = '/buy/api/v1/customer/order/add/' //change-this url
       $.ajax({
           type: 'POST',
