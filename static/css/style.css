@@ -139,7 +139,7 @@ textarea:focus {
     box-shadow: none;
 }
 .color_green{
-    color: green;
+    color: #00a082;
 }
 /* body hidden class */
 body.hidden {
@@ -149,17 +149,19 @@ body.hidden {
 /* btn style 1 css */
 .btn-style1 {
    color: #fff;
-    font-size: 14px;
-    padding: 10px 30px;
-    background-color: green;
+    font-size: 12px;
+    padding: 8px 15px;
+    background-color: #00a082;
     font-weight: 500;
-    border: 2px solid green;
+    border: 2px solid #00a082;
     border-radius: 10px;
     text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
 }
 .btn-style1:hover {
     color: #fff;
-    background-color: green;
+    background-color: #00a082;
 }
 /* btn style 2 css */
 .btn-style2 {
@@ -2729,7 +2731,7 @@ a.scroll:hover span{
 .cart-area .cart-details .cart-all-pro .qty-item .plus-minus{
     display: flex;
     align-items: center;
-    background-color: green;
+    background-color: #00a082;
     border-radius: 7px;
 }
 .cart-area .cart-details .cart-all-pro .qty-item .plus-minus span{
@@ -2751,7 +2753,7 @@ a.scroll:hover span{
     text-align: center;
     border-top: none;
     border-bottom: none;
-    background: green;
+    background: #00a082;
     border: 0;
     border-radius: 0;
     color: #fff;

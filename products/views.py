@@ -176,3 +176,28 @@ def autocompleteModel(request):
         data = 'fail'
     mimetype = 'application/json'
     return JsonResponse({'data':data,'application':mimetype})
+
+
+def about(request):
+    context = ({'user': 0})
+    return render(request, "about.html", context=context)
+
+
+# def not_found(request):
+#     context = ({'user': 0})
+#     return render(request, "404.html", context=context)
+
+
+def term(request):
+    context = ({'user': 0})
+    return render(request, "term.html", context=context)
+
+
+def privacy(request):
+    context = ({'user': 0})
+    return render(request, "privacy.html", context=context)
+
+
+def cookie(request):
+    context = ({'user': 0})
+    return render(request, "cooki.html", context=context)

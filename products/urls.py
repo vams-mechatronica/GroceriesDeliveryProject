@@ -10,7 +10,11 @@ urlpatterns = [
     path("productdetail/<int:pk>",productDetailsPageView,name="productdetail"),
     # path("products/search/", searchHomePageProducts, name="productsearch"),
     path("products/search/", autocompleteModel, name="productsearch"),
-    path("products/search/categories/<int:pk>",searchProductsInsideCategoryPage,name="productsearchcategory")
+    path("products/search/categories/<int:pk>",searchProductsInsideCategoryPage,name="productsearchcategory"),
+    path('about-us', about, name="about"),
+    path('terms-conditions', term, name="terms_conditions"),
+    path('privacy-policy', privacy, name="privacy_policy"),
+    path('cookies-policy', cookie, name="cookies_policy"),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

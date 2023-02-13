@@ -68,7 +68,7 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'django_quill',
     # 'django-filter',
-    'bootstrap_modal_forms',
+    # 'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [

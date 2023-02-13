@@ -40,6 +40,111 @@
 </head>
 
 <body>
+  <style>
+    .top_location {
+      position: relative;
+      top: 70px;
+    }
+    .product_cat_body{
+      position: relative;
+    }
+  .selector {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    margin-top: 60px;
+    margin-left: -70px;
+  }
+  
+  .selector,
+  .selector button {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+  }
+  
+  .selector button {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    background: white;
+    border-radius: 50%;
+    border: 0;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    transition: all .1s;
+  }
+  .selector button img{
+    width: 100%;
+  }
+    
+  .selector button:focus { outline: none; }
+  
+  .selector ul {
+    position: absolute;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top: -20px;
+    right: -20px;
+    bottom: -20px;
+    left: -20px;
+  }
+  
+  .selector li {
+    position: absolute;
+    width: 0;
+    height: 100%;
+    margin: 0 50%;
+    -webkit-transform: rotate(-360deg);
+    transition: all 0.8s ease-in-out;
+  }
+  
+  .selector li input { display: none; }
+  
+  .selector li input + label {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 0;
+    height: 0;
+    line-height: 1px;
+    margin-left: 0;
+    background: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: none;
+    transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+  }
+  
+  
+  .selector li input:checked + label {
+    background: #5cb85c;
+    color: white;
+  }
+  
+  .selector li input:checked + label:hover { background: #449d44; }
+  
+  .selector.open li input + label {
+    width: 90px;
+    height: 90px;
+    line-height: 80px;
+    margin-left: -40px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+  }
+  .selector.open li input + label img{
+    width: 100%;
+    z-index: 1;
+  }
+  </style>
       <!-- search popup start here -->
   <div class="search-popup" id="search-popup">
     <div class="search-pop">
@@ -52,18 +157,22 @@
           <div class="col-1 mag-lens">⌕</div>
           <div class="col-11">
             <input type="text" class="pe-5" id="user_input_autocomplete_address" name="address"
-              class="form-control" placeholder="Enter your city, area, pincode" onmouseover="locationDetect()" required>
+              class="form-control" placeholder="Enter your City or Area or Pincode" required>
             <label for="current-location" class="current-location" onclick="locationDetect()" title="Your Current Location">
               <input type="hidden" id="current-location" value="Use My Current Location" required>
             </label>
+            
+            <!-- <input type="text" list="location-list" name="location" id="user_input_autocomplete_address"
+              placeholder="Enter your city, area, pincode" onclick="locationDetect()"> -->
           </div>
         </div>
         <datalist id="location-list">
           
         </datalist>
         
-        <p class="error-loction" id="error-loc" name="error-loc">we currently not serving at this location</p>
-        <p class="success-loction" id="success-loc" name="success-loc">Cogratulation your order outside your door in 15min's</p>
+        <p class="error-loction">we currently not serving at this location</p>
+        <p class="success-loction">Cogratulation your order outside your door in 15min's</p>
+        <button onclick="ok_address('user_input_autocomplete_address')" class="col-xl-6 col-lg-6 col-md-6 col-12 btn-style1 btn-padding" >Save Address</button>
       </div>
     </div>
   </div>
@@ -120,7 +229,7 @@
           {% if request.user.is_authenticated %}
           {% comment %} <a href={% url 'userprofilepage' %} class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"> {% endcomment %}
-          <a href={% url 'userprofilepage' %}><img src="/media/{{user.user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
+          <a href={% url 'userprofilepage' %}><img src="https://ashekhar.pythonanywhere.com/media/{{user.user.avatar}}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           {% else %}
           <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
@@ -145,8 +254,14 @@
           <div class="top_location">
             <span class="dev_time_text mt-5">Delivery in 10 minutes</span>
             <p class="my-2">
-            <span class="location_text my-2" onclick="showPopsearch('search-popup')" id="location-text">{{user.user_address|slice:40}}
+            <span class="location_text my-2" onclick="showPopsearch('search-popup')" id="location-text">
+              {% if request.user.is_authenticated %}
+              {{user.user_address|slice:40}}
               <i class="bi bi-caret-down-fill"></i>
+              {% else %}
+              <span class="bi bi-geo-alt"></span> 201301, Noida <span class="bi bi-pencil-square"></span>
+              {% endif %}
+              
             </span>
             </p>
             <form class="w-100 me-3" role="search">
@@ -161,28 +276,28 @@
             <div class=" col mt-2">
               <div class="top_product_cat">
                 <div class="product_cat_body">
-                  <div class="product_cat_row">
+                  <!-- <div class="product_cat_row">
                     <div class="product_cat_name_1">
                       {% for category in categories %}
                       {% if category.category_name == "Fruits & Vegetables" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Fruits & Vegetables"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Fruits & Vegetables"></a>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_2">
                       {% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Snacks & Drinks"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Snacks & Drinks"></a>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_3">
                       {% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Home & Kitchen Appliances"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Home & Kitchen Appliances"></a>
                       {% endif %}{% endfor %}
                     </div>
                   </div>
                   <div class="product_cat_row">
                     <div class="pproduct_cat_name_center">
                       {% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Cooking Essentials"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cooking Essentials"></a>
                       {% endif %}{% endfor %}
                     </div>
                     
@@ -190,19 +305,69 @@
                   <div class="product_cat_row">
                     <div class="product_cat_name_4">
                       {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Breakfast & Dairy"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Breakfast & Dairy"></a>
                       {% endif %}{% endfor %}
                     </div>
                     <div class="product_cat_name_5">
                       {% for category in categories %}{% if category.category_name == "Personal Care" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Personal Care"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Personal Care"></a>
                       {% endif %}{% endfor %} 
                     </div>
                     <div class="product_cat_name_6">
                       {% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=/media/{{category.category_image}} alt="Cleaning Essentials"></a>
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
                       {% endif %}{% endfor %}
                     </div>
+                  </div> -->
+                  <div class='selector'>
+                    <ul>
+                      <li>
+                        <input id='c1' type='checkbox'>
+                        <label for='c1'>{% for category in categories %}
+                          {% if category.category_name == "Fruits & Vegetables" %}
+                          <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Fruits & Vegetables"></a>
+                          {% endif %}{% endfor %}</label>
+                      </li>
+                      <li>
+                        <input id='c2' type='checkbox'>
+                        <label for='c2'>{% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Snacks & Drinks"></a>
+                      {% endif %}{% endfor %}</label>
+                      </li>
+                      <li>
+                        <input id='c3' type='checkbox'>
+                        <label for='c3'>{% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Home & Kitchen Appliances"></a>
+                      {% endif %}{% endfor %}</label>
+                      </li>
+                      <li>
+                        <input id='c4' type='checkbox'>
+                        <label for='c4'>{% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cooking Essentials"></a>
+                      {% endif %}{% endfor %}</label>
+                      </li>
+                      <li>
+                        <input id='c5' type='checkbox'>
+                        <label for='c5'>{% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Breakfast & Dairy"></a>
+                      {% endif %}{% endfor %}</label>
+                      </li>
+                      <li>
+                        <input id='c6' type='checkbox'>
+                        <label for='c6'>{% for category in categories %}{% if category.category_name == "Personal Care" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Personal Care"></a>
+                      {% endif %}{% endfor %} </label>
+                      </li>
+                      <li>
+                        <input id='c7' type='checkbox'>
+                        <label for='c7'>{% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
+                      {% endif %}{% endfor %}</label>
+                      </li>
+                    </ul>
+                    <button>{% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
+                      {% endif %}{% endfor %}</button>
                   </div>
                 </div>
               </div>
@@ -212,7 +377,7 @@
     </div>
     {% comment %} {% for store in storeproducts %} {% endcomment %}
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Trending Now</h2>
@@ -227,25 +392,31 @@
                 <div class="product_grid">
                   <div class="product_img">
                     <img
-                        src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                        src=https://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                   </div>
-                  <div class="product_name">
-                    <p><b>{{prod.products.product_name}}</b></p>
+                  <div class="product_name" title="{{prod.products.product_name}}">
+                    <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                   </div>
                   <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                   <div class="d-flex justify-content-between">
-                    <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                        class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                    {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Trending">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Trending">
+                    <div class="product_pirce">
+                      <span class="pro_mrp">₹{{prod.list_price}}</span>
+                      <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                    </div>
+                    {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Trending">
+                      ADD
+                      </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:Trending">
+                      ADD
+                      </a>
+                    {% endif %}
+                    <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Trending">
                       <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Trending')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
                       <span id="{{prod.products.product_id}}-qunt_val-Trending">1</span>&nbsp;
                       <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Trending')" id="{{prod.products.product_id}}-increas">+</span>
                     </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
-                    {% endif %}
                   </div>
                   <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
@@ -259,7 +430,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Fruits & Vegetables</h2>
@@ -274,28 +445,35 @@
               {% if "Fruits & Vegetables" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
               <div class="product_grid">
                 <div class="product_img">
-                  <a href="#"><img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'"></a>
+                  <img
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:FruitVeg">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-FruitVeg">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'FruitVeg')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-FruitVeg">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'FruitVeg')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:FruitVeg">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:FruitVeg">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-FruitVeg">
+                    <span class="minus-bttn" onclick="minusBtnClick('{{prod.products.product_id}}','FruitVeg')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-FruitVeg">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick('{{prod.products.product_id}}','FruitVeg')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -308,7 +486,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Breakfast & Dairy</h2>
@@ -324,27 +502,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:BreakfastDairy">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-BreakfastDairy">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'BreakfastDairy')"id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-BreakfastDairy">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'BreakfastDairy')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:BreakfastDairy">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:BreakfastDairy">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-BreakfastDairy">
+                    <span class="minus-bttn" onclick="minusBtnClick('{{prod.products.product_id}}','BreakfastDairy')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-BreakfastDairy">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick('{{prod.products.product_id}}','BreakfastDairy')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -357,7 +541,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Cooking Essentials</h2>
@@ -372,28 +556,34 @@
               {% if "Cooking Essentials" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
               <div class="product_grid">
                 <div class="product_img">
-                  <a href={% url 'productdetail' prod.products.product_id %}><img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'"></a>
+                  <img
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:CookingEss">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-CookingEss">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-CookingEss">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:CookingEss">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:CookingEss">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-CookingEss">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-CookingEss">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -406,13 +596,13 @@
       </div>
     </div>
     <div class="prmotion_banner">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="col-md-12">
             <div class="pr_slide">
               {% for banner in banners %}
                 {% if banner.banner_status == "Activate" and "Home" in banner.position and "Top" in banner.position %}
-                  <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+                  <img src=http://ashekhar.pythonanywhere.com/media/{{banner.banner_images}} alt="" height="264" width="1440">
                 {% endif %}
               {% endfor %}
             </div>
@@ -421,7 +611,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Cleaning Essentials</h2>
@@ -436,27 +626,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:CleaningEss">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-CleaningEss">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-CleaningEss">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:CleaningEss">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:CleaningEss">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-CleaningEss">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-CleaningEss">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -468,7 +664,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Personal Care</h2>
@@ -483,27 +679,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:PersonalCare">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-PersonalCare">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-PersonalCare">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:PersonalCare">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:PersonalCare">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-PersonalCare">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-PersonalCare">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -514,7 +716,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Snacks & Drinks</h2>
@@ -531,27 +733,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:SnacksDrinks">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-SnacksDrinks">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'SnacksDrinks')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-SnacksDrinks">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'SnacksDrinks')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Snacks">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:Snacks">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Snacks">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Snacks')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-Snacks">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Snacks')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -562,13 +770,13 @@
       </div>
     </div>
     <div class="prmotion_banner">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="col-md-12">
             <div class="pr_slide">
               {% for banner in banners %}
                 {% if banner.banner_status == "Activate" and "Home" in banner.position and "Middle" in banner.position%}
-                <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+                <img src=http://ashekhar.pythonanywhere.com/media/{{banner.banner_images}} alt="" height="264" width="1440">
                 {% endif %}
               {% endfor %}
             </div>
@@ -577,7 +785,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Health & Baby Care</h2>
@@ -590,30 +798,36 @@
             {% for prod in products %}
               {% if "Health & Baby Care" in prod.products.pro_category and prod.display_home is True and prod.status is True %}
               <div class="product_grid">
-                <div class="product_img">
-                  <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
-                </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
-                </div>
-                <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
-                <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:HealthBabyCare">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-HealthBabyCare">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'HealthBabyCare')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-HealthBabyCare">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'HealthBabyCare')" id="{{prod.products.product_id}}-increas">+</span>
+                  <div class="product_img">
+                    <img
+                        src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                  </div>
+                  <div class="product_name" title="{{prod.products.product_name}}">
+                    <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
+                  </div>
+                  <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
+                  <div class="d-flex justify-content-between">
+                    <div class="product_pirce">
+                      <span class="pro_mrp">₹{{prod.list_price}}</span>
+                      <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
                     </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                    {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Health">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:Health">
+                    ADD
+                  </a>
                     {% endif %}
+                    <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Health">
+                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Health')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                      <span id="{{prod.products.product_id}}-qunt_val-Health">1</span>&nbsp;
+                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Health')" id="{{prod.products.product_id}}-increas">+</span>
+                    </div>
+                  </div>
+                  <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
-              </div>
               {% else %}
               <p> No Products available</p>
               {% endif %}
@@ -624,7 +838,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Dry Fruits</h2>
@@ -639,27 +853,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:DryFruits">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-DryFruits">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'DryFruits')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-DryFruits">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'DryFruits')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Dry">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:Dry">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Dry">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Dry')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-Dry">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Dry')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -670,13 +890,13 @@
       </div>
     </div>
     <div class="prmotion_banner">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="col-md-12">
             <div class="pr_slide">
               {% for banner in banners %}
                 {% if banner.banner_status == "Activate" and "Home" in banner.position and "Bottom" in banner.position %}
-                <img src=/media/{{banner.banner_images}} alt="" height="264" width="1440">
+                <img src=http://ashekhar.pythonanywhere.com/media/{{banner.banner_images}} alt="" height="264" width="1440">
                 {% endif %}
               {% endfor %}
             </div>
@@ -685,7 +905,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Puja Store</h2>
@@ -700,27 +920,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Puja">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Puja">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-Puja">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Puja">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:Puja">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Puja">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-Puja">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -731,7 +957,7 @@
       </div>
     </div>
     <div class="prduct_slide_list">
-      <div class="container">
+      <div class="container-xl">
         <div class="row">
           <div class="product_heading">
             <h2>Home & Kitchen Appliances</h2>
@@ -746,27 +972,33 @@
               <div class="product_grid">
                 <div class="product_img">
                   <img
-                      src=/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
+                      src=http://ashekhar.pythonanywhere.com/media/{{prod.products.prod_mainimage}} alt="" onclick="window.location.href='{% url 'productdetail' prod.products.product_id %}'">
                 </div>
-                <div class="product_name">
-                  <p><b>{{prod.products.product_name}}</b></p>
+                <div class="product_name" title="{{prod.products.product_name}}">
+                  <p>{% if prod.products.product_name|length > 20 %} {{prod.products.product_name|slice:":40"}}{% elif prod.products.product_name|length > 35 %}{{prod.products.product_name|slice:":40"}}...{% else %}{{prod.products.product_name}}<br> &nbsp;{% endif %}</p>
                 </div>
                 <div class="product_Quantity"><span>{{prod.products.unit}}</span></div>
                 <div class="d-flex justify-content-between">
-                  <div class="product_pirce"><span class="pro_mrp">₹{{prod.list_price}}</span><span
-                      class="pro_sell">₹{{prod.products.max_retail_price}}</span></div>
-                  {% if request.user.is_authenticated %}
-                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:HomeKitchenAppliance">ADD</a>
-                    <div style="display:none" class="btn btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-HomeKitchenAppliance">
-                      <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'HomeKitchenAppliance')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
-                      <span id="{{prod.products.product_id}}-qunt_val-HomeKitchenAppliance">1</span>&nbsp;
-                      <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'HomeKitchenAppliance')" id="{{prod.products.product_id}}-increas">+</span>
-                    </div>
-                    {% else %}
-                    <a class="btn btn-style1 btn-padding" onclick="showPopLogin()" id="add_item" >ADD</a>
+                  <div class="product_pirce">
+                    <span class="pro_mrp">₹{{prod.list_price}}</span>
+                    <span class="pro_sell">₹{{prod.products.max_retail_price}}</span>
+                  </div>
+                  {% if request.user.is_authenticated%}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{prod.products.product_id}}-add_item:Home">
+                    ADD
+                  </a>
+                      {% else %}
+                      <a class="btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{prod.products.product_id}}-add_item:Home">
+                    ADD
+                  </a>
                     {% endif %}
+                  <div style="display:none" class="btn-style1 btn-padding" id="{{prod.products.product_id}}-in-dec-Home">
+                    <span class="minus-bttn" onclick="minusBtnClick({{prod.products.product_id}},'Home')" id="{{prod.products.product_id}}-decrease">-</span>&nbsp;
+                    <span id="{{prod.products.product_id}}-qunt_val-Home">1</span>&nbsp;
+                    <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Home')" id="{{prod.products.product_id}}-increas">+</span>
+                  </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -825,8 +1057,8 @@
       </div>
     </div>
     <!-- lavitate cart view  -->
-    <div class="pro-btn fix-in-area" onclick="window.location.href='{% url 'cartview' %}'">
-      <a class="btn btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
+    <div class="pro-btn fix-in-area"  onclick="{% if request.user.is_authenticated %}window.location.href='{% url 'cartview' %}'{% else %} showPopLogin() {% endif %}" >
+      <a class="btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
     </div>
     <!-- lavitate cart view  -->
     <footer>
@@ -849,11 +1081,11 @@
           <div class="col-md-3">
             <div class="footer-body">
               <h3 class="footer-title">Important Links</h3>
-              <a href="#">Home</a>
+              <a href="{% url 'index' %}">Home</a>
               <!-- <a href="#">Orders</a> -->
-              <a href="#">About us</a>
+              <a href="{% url 'about' %}">About us</a>
               <a href="#">Contact us</a>
-              <a href="#">Blog</a>
+              <!-- <a href="#">Blog</a> -->
             </div>
           </div>
             <div class="col-md-3">
@@ -869,29 +1101,23 @@
               <div class="footer-body">
                 <img src="{% static 'img/logo/Gplay.svg' %}" alt="Play Store">
                 <img src="{% static 'img/logo/Astore.svg' %}" alt="Apple Store">
-                <a href="#">Terms & Conditions
+                <a href="{% url 'terms_conditions' %}">Terms & Conditions
                 </a>
-                <a href="#">
+                <a href="{% url 'privacy_policy' %}">
                   Privacy Policy
                 </a>
-                <a href="#">
+                <a href="{% url 'cookies_policy' %}">
                   Cookies Policy
                 </a>
               </div>
             </div>
-          </diiv>
+          </div>
         </div>
-        <div class="Copyright">
-          &copy;
-          <span id="copyright">
-            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
-          </span>
-          Golovo Commerce Private Limited
+      <div class="bottom-fotter text-center Copyright">
+        &#169; <span id="copyright">
+          <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        </span> Golovo Private Limited
         </div>
-      </div>
-      <div class="bottom-fotter text-center">
-        &#169; 2023 Golovo Private Limited
-            </div>
     </footer>
     
     <!-- Core javascript for this theme -->
@@ -929,6 +1155,8 @@
       }
       function showPopsearch(em_id) {
       $('#' + em_id).show()
+      valu = $('#location-text').text()
+      $('#user_input_autocomplete_address').val(valu)
       $('body').css({ "overflow": "hidden" })
     }
     </script>
@@ -957,6 +1185,7 @@
         autoplay: true,
         slidesToShow: 6,
         slidesToScroll: 1,
+        cssEase: 'linear',
         responsive: [
           {
             breakpoint: 1024,
@@ -978,10 +1207,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.3,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1018,10 +1247,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1058,10 +1287,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1071,11 +1300,11 @@
       }); 
       $('.pr_slide').slick({
         dots: false,
-        infinite: false,
+        infinite: true,
         speed: 300,
         arrows:false,
         autoplay: true,
-        slidesToShow: 1,
+        slidesToShow: 1.02,
         slidesToScroll: 1
       }); 
       $('.slider3').slick({
@@ -1107,10 +1336,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1147,10 +1376,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1187,10 +1416,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1227,10 +1456,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1267,10 +1496,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1307,10 +1536,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1347,10 +1576,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1387,10 +1616,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1398,6 +1627,7 @@
           // instead of a settings object
         ]
       }); 
+      
       $('.pr_slide2').slick({
         dots: false,
         infinite: false,
@@ -1427,10 +1657,10 @@
           {
             breakpoint: 480,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 2.5,
               slidesToScroll: 1,
               arrows:false
-
+    
             }
           }
           // You can unslick at a given breakpoint now by adding:
@@ -1455,7 +1685,7 @@
               var comp = address.results[0].address_components;
               //console.log(comp[comp.length - 1].long_name); print( zipcode)
               var zipcode = comp[comp.length - 1].long_name;
-   sessionStorage.setItem("pincode", zipcode);
+              sessionStorage.setItem("pincode", zipcode);
               checkStoreAvailabilty(address.results[0].formatted_address);
               /* var pincode = sessionStorage.getItem("pincode");
               console.log(pincode); 
@@ -1468,6 +1698,9 @@
               document.getElementById("current-location").value = "Use My Current Location";
               document.getElementById("user_input_autocomplete_address").disabled = false;
               document.getElementById("user_input_autocomplete_address").value = address.results[0].formatted_address;
+              $('#location-text').empty()
+              $('#location-text').text(String(address.results[0].formatted_address).slice(0,35) + '... ')
+              $('#location-text').append(`<i class="bi bi-caret-down-fill"></i>`)
               
               sessionStorage.setItem("Address",address.results[0].formatted_address);
           }
@@ -1495,7 +1728,7 @@
   const g_csrftoken = getCookie('csrftoken');
   var checkStoreAvailabilty = function (Fformatted_address){
     var availablility = null;
-    domain = window.location.origin
+    domain = 'https://ashekhar.pythonanywhere.com'
     path_name = '/api/v1/stores/availability/'
     $.ajax({
       type: 'GET',
@@ -1522,7 +1755,7 @@
    
   }
   
-  console.log(status)
+  //console.log(status)
   
   function errorHandler(err) {
       if (err.code == 1) {
@@ -1531,20 +1764,33 @@
           alert("Error: Position is unavailable!");
       }
   }
-  
-  function locationDetect() {
-  
-      if (navigator.geolocation) {
-  
-          // timeout at 60000 milliseconds (60 seconds)
-          var options = {
-              timeout: 60000
-          };
-          navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
-      } else {
-          alert("Sorry, browser does not support geolocation!");
+  //locationDetect();
+    function ok_address(id_address){
+      if (id_address.length > 0){
+        document.getElementById("user_input_autocomplete_address").value
+        $('#location-text').empty()
+        $('#location-text').text(String(document.getElementById("user_input_autocomplete_address").value).slice(0,35) + '... ')
+        $('#location-text').append(`<i class="bi bi-caret-down-fill"></i>`)
+        $('#search-popup').hide()
+        $('body').css({ "overflow": "auto" })
       }
-  }
+      else{
+        $('#'+id_address).focus()
+      }
+    }
+  //function locationDetect() {
+  //
+  //    if (navigator.geolocation) {
+  //
+  //        // timeout at 60000 milliseconds (60 seconds)
+  //        var options = {
+  //            timeout: 60000
+  //        };
+  //        navigator.geolocation.getCurrentPosition(showLocation, errorHandler, options);
+  //    } else {
+  //        alert("Sorry, browser does not support geolocation!");
+  //    }
+  //}
   
   function initializeAutocomplete(id) {
       var element = document.getElementById(id);
@@ -1577,56 +1823,58 @@
   });
   function showProducts(value){
       console.log(value)
-      domain = window.location.origin
+      domain = 'https://ashekhar.pythonanywhere.com'
       path_name = '/api/v1/stores/products/' //change-this url
       if(value.length < 3){
         $('.suggestProduct').empty()
         $('.suggestProduct').hide()
       }
-      $.ajax({
-          type: 'GET',
-          url: domain+path_name,
-          data: {
-              "csrfmiddlewaretoken":g_csrftoken,
-              "products" : value,
-              
-          },
-          success: function(response) {
-              if (response){
-                //console.log(response)
-                $('.suggestProduct').empty()
+      else{
+        $.ajax({
+            type: 'GET',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken":g_csrftoken,
+                "products" : value,
                 
-                if (response.length > 0){
-                  $('.suggestProduct').show()
-                  $.each(response,function(index, item){
-                    //console.log(response[index].products.product_id)
-                    $('.suggestProduct').append(`
-                    <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
-                      <div class="col-2 ">
-                        <img src="`+response[index].products.prod_mainimage+`" alt=""  >
+            },
+            success: function(response) {
+                if (response){
+                  //console.log(response)
+                  $('.suggestProduct').empty()
+                  
+                  if (response.length > 0){
+                    $('.suggestProduct').show()
+                    $.each(response,function(index, item){
+                      //console.log(response[index].products.product_id)
+                      $('.suggestProduct').append(`
+                      <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
+                        <div class="col-2 ">
+                          <img src="`+response[index].products.prod_mainimage+`" alt=""  >
+                        </div>
+                        <div class="product_name col-8 align-self-center">
+                          <p>`+response[index].products.product_name+`</p>
+                        </div>
+                        <div class="align-self-center">
+                          <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
+                          <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
+                        </div>
                       </div>
-                      <div class="product_name col-8 align-self-center">
-                        <p>`+response[index].products.product_name+`</p>
-                      </div>
-                      <div class="align-self-center">
-                        <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
-                        <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
-                      </div>
-                    </div>
-                    `)
-                  })
+                      `)
+                    })
+                  }
                 }
-              }
-              else{
-                $('.suggestProduct').empty()
-                $('.suggestProduct').show()
-                $('.suggestProduct').append(`
-                <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
-                `)
-              }
-          }
-          
-      });
+                else{
+                  $('.suggestProduct').empty()
+                  $('.suggestProduct').show()
+                  $('.suggestProduct').append(`
+                  <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
+                  `)
+                }
+            }
+            
+        });
+      }
 }
 function get_otp(elm){
     input = $('#'+elm).val()
@@ -1687,6 +1935,7 @@ function get_otp(elm){
     if (input.length == 6){
         $('#error_otp').hide()
         domain = window.location.origin
+        //domain = 'https://ashekhar.pythonanywhere.com'
         path_name = '/api/v1/accounts/register/verify/'
         $.ajax({
             type: 'POST',
@@ -1738,7 +1987,7 @@ function get_otp(elm){
       //fieldName = $(this).attr('field');
       const elementId = $(this).attr('id').split('-')[0]
       console.log(elementId);
-      domain = window.location.origin
+      domain = 'https://ashekhar.pythonanywhere.com'
       path_name = '/buy/api/v1/customer/order/add/' //change-this url
       $.ajax({
           type: 'POST',
@@ -1787,7 +2036,7 @@ function get_otp(elm){
       e.preventDefault();
       //fieldName = $(this).attr('field');
       const elementId = $(this).attr('id').split('-')[0]
-      console.log(elementId);
+      //console.log(elementId);
       domain = window.location.origin
       path_name = '/buy/api/v1/customer/order/remove/' //change-this url
       $.ajax({
@@ -1815,6 +2064,8 @@ function get_otp(elm){
         $('body').css({ "overflow": "auto" })
       }
       function showPopLogin() {
+        history.scrollRestoration = "manual";
+        scrollToTop(0);
         $('#login').show()
         $('body').css({ "overflow": "hidden" })
       }
@@ -1822,6 +2073,11 @@ function get_otp(elm){
     $('#' + em_id).show()
     $('body').css({ "overflow": "hidden" })
   }
+  function scrollToTop(hei) {
+    window.scrollTo({top: hei,
+    left: 0,
+    behavior: 'smooth'});
+}
   function plusBtnClick(element_id,cat_name){
       text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
       val = text + 1
@@ -1838,6 +2094,62 @@ function get_otp(elm){
         $("#"+element_id+"-qunt_val-"+cat_name).append(val)
       }
     }
+    window.onscroll = function (){
+      if (document.body.offsetWidth < 500){
+        if (window.pageYOffset>70){
+          $('.top_location .dev_time_text').hide()
+          $('.top_location form').css({"margin-top" : "20px", "transition" : "0.3s"})
+        }
+        else if(window.pageYOffset<70){
+          $('.top_location .dev_time_text').show()
+          $('.top_location form').show().css({"margin-top" : "0px", "transition" : "0.3s"})
+        }
+      }
+    }
   </script>
+
+  <!-- category circel js  -->
+  <script>var nbOptions = 8;
+    var angleStart = -360;
+    
+    // jquery rotate animation
+    function rotate(li,d) {
+        $({d:angleStart}).animate({d:d}, {
+            step: function(now) {
+                $(li)
+                   .css({ transform: 'rotate('+now+'deg)' })
+                   .find('label')
+                      .css({ transform: 'rotate('+(-now)+'deg)' });
+            }, duration: 0
+        });
+    }
+    
+    // show / hide the options
+    function toggleOptions(s) {
+        $(s).toggleClass('open');
+        var li = $(s).find('li');
+        var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
+        for(var i=0; i<li.length; i++) {
+            var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
+            $(s).hasClass('open') ? rotate(li[i],d) : rotate(li[i],angleStart);
+        }
+    }
+    
+    setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
+    </script>
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-36251023-1']);
+      _gaq.push(['_setDomainName', 'jqueryscript.net']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
 </body>
 </html>

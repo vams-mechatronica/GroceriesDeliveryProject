@@ -33,7 +33,7 @@
     transition: 0.3s;
 }
 .button-btn:hover{
-    background-color: green;
+    background-color: #00a082;
     transition: 0.3s;
     color: white;
 }

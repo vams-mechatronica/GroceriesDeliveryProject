@@ -12,7 +12,7 @@ width: 100%;
 position: absolute;
 content: "";
 height: 100%;
-top: -50px;
+top: -18px;
 width: 100%;
 background-color: black;
 opacity: 0.7;
@@ -77,7 +77,7 @@ cursor: pointer;
 .mag-lens{
     align-self: center;
     font-size: 30px;
-    color: green;
+    color: #00a082;
     transform: rotate(-90deg);
     position: absolute;
     top: -2px;
@@ -95,9 +95,9 @@ cursor: pointer;
 .success-loction{
     text-align: left;
     padding: 5px 20px;
-    color: green;
+    color: #00a082;
 }
-.current-location{
+/* .current-location{
     border: 2px solid rgb(255, 145, 0);
     width: 20px;
     height: 20px;
@@ -106,8 +106,8 @@ cursor: pointer;
     position: absolute;
     border-radius: 50%;
     line-height: 0;
-}
-.current-location::before{
+} */
+/* .current-location::before{
     content: "+";
     top: 9px;
     left: 2px;
@@ -115,7 +115,7 @@ cursor: pointer;
     color: red;
     position: absolute;
     color: red;
-}
+} */
 .top_location{
     position: relative;
 }
