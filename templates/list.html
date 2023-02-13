@@ -57,7 +57,7 @@
                 <!-- {% url 'productsearchcategory' category.category_id %} -->
                 {% endcomment %}
                 <form class="w-100 me-3" role="search" name="search-products" method="GET" action="">
-                  <input type="text" name="search" id="search" placeholder="What can we get you?"></form>
+                  <input type="text" name="search" id="search" onkeyup="showProducts(this.value)" placeholder="What can we get you?"></form>
               </div>
             </div>
           </div>
@@ -195,7 +195,44 @@
 
 
 
+  
+    <div class="mm-fullscreen-bg"></div>
+  <!-- jquery -->
+  <script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  <!-- bootstrap -->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- popper -->
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <!-- fontawesome -->
+  <script src="{% static 'js/fontawesome.min.js' %}"></script>
+  <!-- owl carousal -->
+  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+  <!-- swiper -->
+  <script src="{% static 'js/swiper.min.js' %}"></script>
+  <!-- custom -->
+  <script src="{% static 'js/custom.js' %}"></script>
+  <script src="{% static 'assets/js/bootstrap.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.js' %}"></script>
+  <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+  <!-- You can alternatively load the minified version -->
+  <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
   <script>
+    var getCookie = function (name) {
+      var cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = jQuery.trim(cookies[i]);
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    };
     function zoom(e) {
       var zoomer = e.currentTarget;
       e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
@@ -203,22 +240,22 @@
       x = offsetX / zoomer.offsetWidth * 100
       y = offsetY / zoomer.offsetHeight * 100
       zoomer.style.backgroundPosition = x + '% ' + y + '%';
-    }
+    };
     function hidePopLogin() {
         $('#login').hide()
         $('body').css({ "overflow": "auto" })
-      }
+      };
       function showPopLogin() {
         history.scrollRestoration = "manual";
         scrollToTop(0);
         $('#login').show()
         $('body').css({ "overflow": "hidden" })
-      }
+      };
       function scrollToTop(hei) {
     window.scrollTo({top: hei,
     left: 0,
     behavior: 'smooth'});
-    }
+    };
     function item_add(id_product,self){
       $(self).hide()
       var element_id = self.id.split("-")[0]
@@ -227,7 +264,7 @@
       $("#"+element_id+"-in-dec-"+cate).show();
       //document.getElementById("#"+element_id+"in-dec").style.display = "block";
       $('.fix-in-area').show()
-    }
+    };
     jQuery(document).ready(function(){
       $('.plus-bttn').click(function(e){
         e.preventDefault();
@@ -330,28 +367,182 @@
 
                 }
               }
+    function get_otp(elm){
+    input = $('#'+elm).val()
+    domain = window.location.origin
+    //domain = 'https://ashekhar.pythonanywhere.com'
+    path_name = '/api/v1/accounts/register/get_otp/'
+    $('#error_login').empty()
+    $('#button_submit').attr('disabled')
+    $.ajax({
+      type: 'POST',
+      url: domain+path_name,
+      data: {
+          "csrfmiddlewaretoken": g_csrftoken,
+          "country_code" : "+91",
+          "phone_number" : input,
+          "fake_otp" : "True",
+          "otp":"123456",
+      },
+      success: function(response) {
+          if (response['Status'] == "Sent"){
+              $('#'+elm).hide()
+              $("#hide-num-text").hide()
+              $("#hide-91").hide()
+              $("#mobile").hide()
+              $('#button_submit').hide()
+              $("#hide-otp-text").show()
+              $("#otp").show()
+              $("#button_otp").show()
+          }
+          else{
+              $("#hide-num-text").hide()
+              $("#hide-91").hide()
+              $("#mobile").hide()
+              $('#button_submit').hide()
+              $("#hide-otp-text").show()
+              $("#otp").show()
+              $("#button_otp").show()
+              $('#error_login').css("color","red").text("Limit exceeded").show()
+              
+          }
+      },
+      error: function(){
+        $("#hide-num-text").show()
+        $("#hide-91").show()
+        $("#mobile").show()
+        $('#button_submit').show()
+        $("#hide-otp-text").hide()
+        $("#otp").hide()
+        $("#button_otp").hide()
+      }
+    });
+  }
+
+  function verify_otp(input_id){
+    console.log("verify otp call")
+    input  = $('#'+input_id).val()
+    phone_number = $('#mobile').val()
+    if (input.length == 6){
+        $('#error_otp').hide()
+        domain = window.location.origin
+        //domain = 'https://ashekhar.pythonanywhere.com'
+        path_name = '/api/v1/accounts/register/verify/'
+        $.ajax({
+            type: 'POST',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken": g_csrftoken,
+                "country_code":"+91",
+                "otp" : input,
+                "phone_number" : phone_number,
+                "web":"True",
+            },
+            success: function(response) {
+                if (response){
+                  console.log(response)
+                  $('#error_login').empty()
+                  $('#error_login').hide()
+                  
+                  location.reload(true);
+                }
+                else{
+                  $('#error_login').show().append('error') //change this to backend response error.
+                }
+            }
+            
+        });
+    }
+    else if(input.length == 0){
+        $('#error_otp').css("color","red").text("enter otp")
+    }
+    else{
+        $('#error_otp').css("color","red").text("Length exceed")
+    }
+}
+    function hidePopsearch(em_id) {
+          $('#' + em_id).hide()
+          $('body').css({ "overflow": "auto" })
+        }
+      function showGreenButton(butn, el,len) {
+        value = $(el).val()
+        if (value.length == len) {
+          $('#' + butn).removeAttr("disabled")
+          $('#' + butn).attr("type", "submit")
+          $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
+        }
+        else {
+          $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+          $('#' + butn).attr("disabled")
+          $('#' + butn).attr("type", "button")
+        }
+      }
+    const g_csrftoken = getCookie('csrftoken');
+    function showPopsearch(em_id) {
+      $('#' + em_id).show()
+      valu = $('#location-text').text()
+      $('#user_input_autocomplete_address').val(valu)
+      $('body').css({ "overflow": "hidden" })
+      }
+      function showProducts(value){
+      //var g_csrftoken_p = getCookie('csrftoken')//
+      //var csrftoken = Cookies.get('csrftoken');
+      console.log(value)
+      domain = 'https://ashekhar.pythonanywhere.com'
+      path_name = '/api/v1/stores/products/' //change-this url
+      if(value.length < 3){
+        $('.suggestProduct').empty()
+        $('.suggestProduct').hide()
+      }
+      else{
+        $.ajax({
+            type: 'GET',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken":g_csrftoken,
+                "products" : value,
+                
+            },
+            success: function(response) {
+                if (response){
+                  //console.log(response)
+                  $('.suggestProduct').empty()
+                  
+                  if (response.length > 0){
+                    $('.suggestProduct').show()
+                    $.each(response,function(index, item){
+                      //console.log(response[index].products.product_id)
+                      $('.suggestProduct').append(`
+                      <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
+                        <div class="col-2 ">
+                          <img src="`+response[index].products.prod_mainimage+`" alt=""  >
+                        </div>
+                        <div class="product_name col-8 align-self-center">
+                          <p>`+response[index].products.product_name+`</p>
+                        </div>
+                        <div class="align-self-center">
+                          <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
+                          <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
+                        </div>
+                      </div>
+                      `)
+                    })
+                  }
+                }
+                else{
+                  $('.suggestProduct').empty()
+                  $('.suggestProduct').show()
+                  $('.suggestProduct').append(`
+                  <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
+                  `)
+                }
+            }
+            
+        });
+      }
+    }
   </script>
-  <div class="mm-fullscreen-bg"></div>
-  <!-- jquery -->
-  <script src="{% static 'js/modernizr-2.8.3.min.js' %}"></script>
-  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-  <!-- bootstrap -->
-  <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  <!-- popper -->
-  <script src="{% static 'js/popper.min.js' %}"></script>
-  <!-- fontawesome -->
-  <script src="{% static 'js/fontawesome.min.js' %}"></script>
-  <!-- owl carousal -->
-  <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-  <!-- swiper -->
-  <script src="{% static 'js/swiper.min.js' %}"></script>
-  <!-- custom -->
-  <script src="{% static 'js/custom.js' %}"></script>
-  <script src="{% static 'assets/js/bootstrap.js' %}"></script>
-  <script src="{% static 'assets/js/jquery.js' %}"></script>
-  <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
-  <!-- You can alternatively load the minified version -->
-  <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+  
 </body>
 
 </html>
