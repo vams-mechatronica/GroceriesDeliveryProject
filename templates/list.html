@@ -58,6 +58,7 @@
                 {% endcomment %}
                 <form class="w-100 me-3" role="search" name="search-products" method="GET" action="">
                   <input type="text" name="search" id="search" onkeyup="showProducts(this.value)" placeholder="What can we get you?"></form>
+                  <div class="suggestProduct" style="display: none;"></div> 
               </div>
             </div>
           </div>
@@ -488,7 +489,7 @@
       //var g_csrftoken_p = getCookie('csrftoken')//
       //var csrftoken = Cookies.get('csrftoken');
       console.log(value)
-      domain = 'https://ashekhar.pythonanywhere.com'
+      domain = window.location.origin
       path_name = '/api/v1/stores/products/' //change-this url
       if(value.length < 3){
         $('.suggestProduct').empty()
@@ -505,7 +506,7 @@
             },
             success: function(response) {
                 if (response){
-                  //console.log(response)
+                  console.log(response)
                   $('.suggestProduct').empty()
                   
                   if (response.length > 0){
@@ -515,7 +516,7 @@
                       $('.suggestProduct').append(`
                       <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
                         <div class="col-2 ">
-                          <img src="`+response[index].products.prod_mainimage+`" alt=""  >
+                          <img src="https://ashekhar.pythonanywhere.com`+response[index].products.prod_mainimage+`" alt=""  >
                         </div>
                         <div class="product_name col-8 align-self-center">
                           <p>`+response[index].products.product_name+`</p>
