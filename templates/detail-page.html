@@ -184,16 +184,23 @@
                                         <span class="p-discount">Rs.{{product.discount|floatformat:0}} Off</span>
                                     </div>
                                 </div>
-                                {% if request.user.is_authenticated %}
-                                <a href="{% url 'addtocart' product.products.product_id %}" class="btn btn-style1"
-                                    role="button">ADD</a>
+                                {% if request.user.is_authenticated%}
+                                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="item_add('id',this)" id="{{product.products.product_id}}-add_item:category"> ADD
+                                    </a>
                                 {% else %}
-                                <a onclick="showPopLogin()" class="btn btn-style1" id="add-btn" role="button">ADD</a>
+                                    <a class="btn btn-style1 btn-padding add-to-cart" onclick="showPopLogin()" id="{{product.products.product_id}}-add_item:category">
+                                    ADD
+                                    </a>
                                 {% endif %}
+                                <div style="display:none" class="btn-style1 btn-padding" id="{{product.products.product_id}}-in-dec-category">
+                                    <span class="minus-bttn" onclick="minusBtnClick({{product.products.product_id}},'category')" id="{{product.products.product_id}}-decrease">-</span>&nbsp;
+                                    <span id="{{product.products.product_id}}-qunt_val-category">1</span>&nbsp;
+                                    <span class="plus-bttn" onclick="plusBtnClick({{product.products.product_id}},'category')" id="{{product.products.product_id}}-increas">+</span>
+                                </div>
                             </div>
                             <span class="pro-details">About Product</span>
                             <p>{{product.products.desc.html|safe}}</p>
-                            {% if request.user.is_authenticated %}
+                            {% comment %} {% if request.user.is_authenticated %}
                             <div class="pro-btn"  onclick="window.location.href='{% url 'cartview' %}'">
                                 <a class="btn btn-style1 d-flex justify-content-between">
                                     <div><span>{{totalcartitem}} items</span> | <span> {{totalquantity}} Qty</span> |
@@ -215,7 +222,12 @@
                                         View cart</div>
                                 </a>
                             </div>
-                            {% endif %}
+                            {% endif %} {% endcomment %}
+                            <!-- lavitate cart view  -->
+                            <div class="pro-btn fix-in-area"  onclick="{% if request.user.is_authenticated %} window.location.href='{% url 'cartview' %}'{% else %} showPopLogin() {% endif %}" >
+                            <a class="btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
+                            </div>
+                            <!-- lavitate cart view  -->
                         </div>
                     </div>
                 </div>
@@ -413,6 +425,341 @@
     <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    <script>
+
+        var getCookie = function (name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+                }
+            }
+            return cookieValue;
+        };
+
+        function zoom(e) {
+            var zoomer = e.currentTarget;
+            e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
+            e.offsetY ? offsetY = e.offsetY : offsetX = e.touches[0].pageX
+            x = offsetX / zoomer.offsetWidth * 100
+            y = offsetY / zoomer.offsetHeight * 100
+            zoomer.style.backgroundPosition = x + '% ' + y + '%';
+        };
+
+        function hidePopLogin() {
+            $('#login').hide()
+            $('body').css({ "overflow": "auto" })
+        };
+
+        function showPopLogin() {
+            history.scrollRestoration = "manual";
+            scrollToTop(0);
+            $('#login').show()
+            $('body').css({ "overflow": "hidden" })
+        };
+
+        function scrollToTop(hei) {
+            window.scrollTo({top: hei,
+            left: 0,
+            behavior: 'smooth'});
+        };
+        function item_add(id_product,self){
+            $(self).hide()
+            var element_id = self.id.split("-")[0]
+            var cate = self.id.split(":")[1]
+            //console.log(element_id+"-in-dec:"+cate);
+            $("#"+element_id+"-in-dec-"+cate).show();
+            //document.getElementById("#"+element_id+"in-dec").style.display = "block";
+            $('.fix-in-area').show()
+        };
+
+        jQuery(document).ready(function(){
+            $('.plus-bttn').click(function(e){
+                e.preventDefault();
+                //fieldName = $(this).attr('field');
+                const elementId = $(this).attr('id').split('-')[0]
+                console.log(elementId);
+                domain = window.location.origin
+                path_name = '/buy/api/v1/customer/order/add/' //change-this url
+                $.ajax({
+                    type: 'POST',
+                    url: domain+path_name,
+                    data: {
+                        "csrfmiddlewaretoken":g_csrftoken,
+                        "product" : elementId.toString(),
+                        "quantity": "1"
+                    },
+                    success: function(response) {
+                        if (response){
+                        console.log(response);
+                        document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                        document.getElementById("quantity").innerHTML = response['qty'];
+                        document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
+                        //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                        }
+                    }
+                })
+            });
+            $('.add-to-cart').click(function(e){
+                e.preventDefault();
+                //fieldName = $(this).attr('field');
+                const elementId = $(this).attr('id').split('-')[0]
+                console.log(elementId);
+                domain = window.location.origin
+                path_name = '/buy/api/v1/customer/order/add/' //change-this url
+                $.ajax({
+                type: 'POST',
+                url: domain+path_name,
+                data: {
+                    "csrfmiddlewaretoken":g_csrftoken,
+                    "product" : elementId.toString(),
+                    "quantity": "1"
+                },
+                    success: function(response) {
+                        if (response){
+                        console.log(response);
+                        document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                        document.getElementById("quantity").innerHTML = response['qty'];
+                        document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
+                        }
+                    }
+                })
+            });
+
+            $('.minus-bttn').click(function(e){
+                e.preventDefault();
+                //fieldName = $(this).attr('field');
+                const elementId = $(this).attr('id').split('-')[0]
+                console.log(elementId);
+                domain = window.location.origin
+                path_name = '/buy/api/v1/customer/order/remove/' //change-this url
+                $.ajax({
+                    type: 'POST',
+                    url: domain+path_name,
+                    data: {
+                        "csrfmiddlewaretoken":g_csrftoken,
+                        "product" : elementId.toString(),
+                        "quantity": "1"
+                    },
+                    success: function(response) {
+                        if (response){
+                        console.log(response);
+                        document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                        document.getElementById("quantity").innerHTML = response['qty'];
+                        document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
+                        }
+                    }
+                })
+            });
+        });
+
+        function plusBtnClick(element_id,cat_name){
+            text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
+            val = text + 1
+            if (val > 0){
+                $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
+                $("#"+element_id+"-qunt_val-"+cat_name).append(val)
+            }  
+        }
+
+        function minusBtnClick(element_id,cat_name){
+            text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
+            val = text - 1
+            if (val > 0){
+                $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
+                $("#"+element_id+"-qunt_val-"+cat_name).append(val)
+            }
+            else if(val == 0){
+                $("#"+element_id+"-in-dec-"+cat_name).hide()
+                $("#"+element_id+"-add_item:"+cat_name).show()
+                $('.fix-in-area').hide()
+            }
+        }
+
+        function get_otp(elm){
+            input = $('#'+elm).val()
+            domain = window.location.origin
+            //domain = 'https://ashekhar.pythonanywhere.com'
+            path_name = '/api/v1/accounts/register/get_otp/'
+            $('#error_login').empty()
+            $('#button_submit').attr('disabled')
+            $.ajax({
+            type: 'POST',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken": g_csrftoken,
+                "country_code" : "+91",
+                "phone_number" : input,
+                "fake_otp" : "True",
+                "otp":"123456",
+            },
+            success: function(response) {
+                if (response['Status'] == "Sent"){
+                    $('#'+elm).hide()
+                    $("#hide-num-text").hide()
+                    $("#hide-91").hide()
+                    $("#mobile").hide()
+                    $('#button_submit').hide()
+                    $("#hide-otp-text").show()
+                    $("#otp").show()
+                    $("#button_otp").show()
+                }
+                else{
+                    $("#hide-num-text").hide()
+                    $("#hide-91").hide()
+                    $("#mobile").hide()
+                    $('#button_submit').hide()
+                    $("#hide-otp-text").show()
+                    $("#otp").show()
+                    $("#button_otp").show()
+                    $('#error_login').css("color","red").text("Limit exceeded").show()
+                    
+                }
+            },
+                error: function(){
+                    $("#hide-num-text").show()
+                    $("#hide-91").show()
+                    $("#mobile").show()
+                    $('#button_submit').show()
+                    $("#hide-otp-text").hide()
+                    $("#otp").hide()
+                    $("#button_otp").hide()
+                }
+            });
+        }
+
+        function verify_otp(input_id){
+            console.log("verify otp call")
+            input  = $('#'+input_id).val()
+            phone_number = $('#mobile').val()
+            if (input.length == 6){
+                $('#error_otp').hide()
+                domain = window.location.origin
+                //domain = 'https://ashekhar.pythonanywhere.com'
+                path_name = '/api/v1/accounts/register/verify/'
+                $.ajax({
+                    type: 'POST',
+                    url: domain+path_name,
+                    data: {
+                        "csrfmiddlewaretoken": g_csrftoken,
+                        "country_code":"+91",
+                        "otp" : input,
+                        "phone_number" : phone_number,
+                        "web":"True",
+                    },
+                    success: function(response) {
+                        if (response){
+                        console.log(response)
+                        $('#error_login').empty()
+                        $('#error_login').hide()
+                        
+                        location.reload(true);
+                        }
+                        else{
+                        $('#error_login').show().append('error') //change this to backend response error.
+                        }
+                    }
+                    
+                });
+            }
+            else if(input.length == 0){
+                $('#error_otp').css("color","red").text("enter otp")
+            }
+            else{
+                $('#error_otp').css("color","red").text("Length exceed")
+            }
+        }
+        function hidePopsearch(em_id) {
+            $('#' + em_id).hide()
+            $('body').css({ "overflow": "auto" })
+        }
+
+        function showGreenButton(butn, el,len) {
+            value = $(el).val()
+            if (value.length == len) {
+            $('#' + butn).removeAttr("disabled")
+            $('#' + butn).attr("type", "submit")
+            $('#' + butn).css({ "background-color": "green", "transition": "0.3s" })
+            }
+            else {
+            $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
+            $('#' + butn).attr("disabled")
+            $('#' + butn).attr("type", "button")
+            }
+        }
+        
+        const g_csrftoken = getCookie('csrftoken');
+
+        function showPopsearch(em_id) {
+            $('#' + em_id).show()
+            valu = $('#location-text').text()
+            $('#user_input_autocomplete_address').val(valu)
+            $('body').css({ "overflow": "hidden" })
+            }
+            function showProducts(value){
+            //var g_csrftoken_p = getCookie('csrftoken')//
+            //var csrftoken = Cookies.get('csrftoken');
+            console.log(value)
+            domain = window.location.origin
+            path_name = '/api/v1/stores/products/' //change-this url
+            if(value.length < 3){
+                $('.suggestProduct').empty()
+                $('.suggestProduct').hide()
+            }
+            else{
+                $.ajax({
+                    type: 'GET',
+                    url: domain+path_name,
+                    data: {
+                        "csrfmiddlewaretoken":g_csrftoken,
+                        "products" : value,
+                        
+                    },
+                    success: function(response) {
+                        if (response){
+                        console.log(response)
+                        $('.suggestProduct').empty()
+                        
+                        if (response.length > 0){
+                            $('.suggestProduct').show()
+                            $.each(response,function(index, item){
+                            //console.log(response[index].products.product_id)
+                            $('.suggestProduct').append(`
+                            <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
+                                <div class="col-2 ">
+                                <img src="https://ashekhar.pythonanywhere.com`+response[index].products.prod_mainimage+`" alt=""  >
+                                </div>
+                                <div class="product_name col-8 align-self-center">
+                                <p>`+response[index].products.product_name+`</p>
+                                </div>
+                                <div class="align-self-center">
+                                <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
+                                <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
+                                </div>
+                            </div>
+                            `)
+                            })
+                        }
+                        }
+                        else{
+                        $('.suggestProduct').empty()
+                        $('.suggestProduct').show()
+                        $('.suggestProduct').append(`
+                        <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
+                        `)
+                        }
+                    }
+                    
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>

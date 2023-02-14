@@ -419,9 +419,9 @@
         $("#button_otp").hide()
       }
     });
-  }
+    }
 
-  function verify_otp(input_id){
+    function verify_otp(input_id){
     console.log("verify otp call")
     input  = $('#'+input_id).val()
     phone_number = $('#mobile').val()
@@ -461,7 +461,7 @@
     else{
         $('#error_otp').css("color","red").text("Length exceed")
     }
-}
+    }
     function hidePopsearch(em_id) {
           $('#' + em_id).hide()
           $('body').css({ "overflow": "auto" })
