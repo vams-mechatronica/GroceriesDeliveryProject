@@ -284,10 +284,10 @@
             },
             success: function(response) {
                 if (response){
-                  console.log(response['cart']['items'][0]['quantity']);
+                  //console.log(response['cart']['items'][0]['quantity']);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
-                  document.getElementById("qunt_val").innerHTML = response['cart']['items'][0];
+                  document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
                   //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
                   }
                 }
@@ -310,10 +310,10 @@
           },
             success: function(response) {
                 if (response){
-                  console.log(response);
+                  //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
-                  //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity']);
+                  document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
                   }
                 }
               })
@@ -335,10 +335,10 @@
             },
             success: function(response) {
                 if (response){
-                  console.log(response);
+                  //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
-                  $("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                  document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
                   }
                 }
               })
