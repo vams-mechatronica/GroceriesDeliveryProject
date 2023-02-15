@@ -36,6 +36,18 @@
         <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
     </head>
     <body class="home-1">
+        <style>
+            .loader{
+                position: fixed;
+                left: 50%;
+                top: 35%;
+                display: visible;
+                background: transparent url("../css/slick/ajax-loader.gif");
+                z-index: 1000;
+                height: 31px;
+                width: 31px;
+                }
+        </style>
         <!-- login popup start here  -->
         <div class="login-sign-popup" id="login">
             <div class="login col-xl-6 col-lg-6 col-md-6 col-12">
@@ -185,6 +197,13 @@
         <!-- You can alternatively load the minified version -->
         <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
         <script>
+            function showLoader(){
+                    $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/ajax-loader.gif' %}"></div></div>');
+                }
+            function hideLoader(){
+                $('#loadingDiv').hide();
+            }
+
             var getCookie = function (name) {
             var cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -205,6 +224,7 @@
 
         jQuery(document).ready(function(){
             $('.plus-btn').click(function(e){
+                showLoader();
                 e.preventDefault();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
@@ -222,6 +242,7 @@
                     success: function(response) {
                         if (response){
                         //console.log(response);
+                        hideLoader();
                         document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
                         document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
                         document.getElementById("grand-total").innerHTML = "₹"+response['amount'];
@@ -261,6 +282,7 @@
             });
 
             $('.minus-btn').click(function(e){
+                showLoader();
                 e.preventDefault();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
@@ -277,6 +299,7 @@
                     },
                     success: function(response) {
                         if (response){
+                        hideLoader();
                         //console.log(response);
                         document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
                         document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
@@ -299,6 +322,7 @@
                 var addr = sessionStorage.getItem("Address");
                 document.getElementById("c-address-1").innerHTML = addr
             }
+            
         </script>
         <script>
       function hidePopLogin() {
