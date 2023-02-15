@@ -272,7 +272,7 @@ class CartAddView(APIView):
                 user=request.user, ordered_date=ordered_date)
             order.items.add(order_item)
         serializer = OrderSerializer(instance=order_qs, many=True)
-        return Response({'cart': serializer.data, 'amount': order.get_total(), 'qty': order.get_quantity(), 'item_qty': order_item.quantity}, status=status.HTTP_200_OK)
+        return Response({'cart': serializer.data, 'amount': order.get_total(),'tmax_amount':order.get_max_total(), 'qty': order.get_quantity(), 'item_qty': order_item.quantity,"item_tprice":order_item.get_total_item_price(),"item_dprice":order_item.get_amount_saved()}, status=status.HTTP_200_OK)
 
 
 
@@ -312,14 +312,14 @@ class CartRemoveView(APIView):
                     item.available_stock += 1
                     item.save()
 
-                    return Response({'cart': 'Item updated', 'amount': order.get_total(), 'qty': order.get_quantity(), 'item_qty': order_item.quantity}, status=status.HTTP_200_OK)
+                    return Response({'cart': 'Item updated', 'amount': order.get_total(), 'tmax_amount': order.get_max_total(), 'qty': order.get_quantity(), 'item_qty': order_item.quantity, "item_tprice": order_item.get_total_item_price(), "item_dprice": order_item.get_amount_saved()}, status=status.HTTP_200_OK)
                 else:
                     order.items.remove(order_item)
                     order_item.delete()
                     item.available_stock += 1
                     item.save()
-                    return Response({'cart': 'Item updated', 'amount': order.get_total(), 'qty': order.get_quantity(),'item_qty':0}, status=status.HTTP_200_OK)
+                    return Response({'cart': 'Item updated', 'amount': order.get_total(), 'tmax_amount': order.get_max_total(), 'qty': order.get_quantity(), 'item_qty': 0, "item_tprice": 0, "item_dprice": 0}, status=status.HTTP_200_OK)
             else:
-                return Response({'cart': 'Item not available in cart', 'amount': order.get_total(), 'qty': order.get_quantity(), 'item_qty': 0}, status=status.HTTP_200_OK)
+                return Response({'cart': 'Item not available in cart', 'amount': order.get_total(), 'tmax_amount': order.get_max_total(), 'qty': order.get_quantity(), 'item_qty': 0, "item_tprice": 0, "item_dprice": 0}, status=status.HTTP_200_OK)
         else:    
             return Response({'cart':'No Active Orders'}, status=status.HTTP_201_OK)

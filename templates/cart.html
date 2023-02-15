@@ -112,19 +112,19 @@
                                             <div class="plus-minus">
                                                 <span>
                                                     {% comment %} <a href="{% url 'removesingleitemfromcart' item.item.products.product_id %}" class="minus-btn text-black">-</a> {% endcomment %}
-                                                    <a href="#" class="minus-btn text-black" id="{{item.item.products.product_id}}-minus-btn" field="{{item.item.products.product_id}}-name">-</a>
-                                                    <input type="hidden" id="{{item.item.products.product_id}}-url-minus" data-url="{% url 'removesingleitemfromcart' item.item.products.product_id %}">
+                                                    <a class="minus-btn text-black" id="{{item.item.products.product_id}}-minus-btn" field="{{item.item.products.product_id}}-name">-</a>
+                                                    {% comment %} <input type="hidden" id="{{item.item.products.product_id}}-url-minus" data-url="{% url 'removesingleitemfromcart' item.item.products.product_id %}"> {% endcomment %}
                                                     <input type="text" name="{{item.item.products.product_id}}-name" id="{{item.item.products.product_id}}-name-value" value="{{item.quantity}}">
                                                     {% comment %} <a href="{% url 'addtocart' item.item.products.product_id %}" class="plus-btn text-black">+</a> {% endcomment %}
-                                                    <a href="#" class="plus-btn text-black" id="{{item.item.products.product_id}}-plus-btn" field="{{item.item.products.product_id}}-name">+</a>
-                                                    <input type="hidden" id="{{item.item.products.product_id}}-url-plus" data-url="{% url 'addtocart' item.item.products.product_id %}">
+                                                    <a class="plus-btn text-black" id="{{item.item.products.product_id}}-plus-btn" field="{{item.item.products.product_id}}-name">+</a>
+                                                    {% comment %} <input type="hidden" id="{{item.item.products.product_id}}-url-plus" data-url="{% url 'addtocart' item.item.products.product_id %}"> {% endcomment %}
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="all-pro-price">
-                                        <span>₹{{item.get_amount_saved|floatformat:2}}</span>
-                                        <span class="sell_price">₹{{item.get_total_item_price|floatformat:2}}</span>
+                                        <span id="item-dis-price">₹{{item.get_amount_saved|floatformat:2}}</span>
+                                        <span class="sell_price" id="item-sell-price">₹{{item.get_total_item_price|floatformat:2}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -143,8 +143,8 @@
                             <div class="cart-price">
                                 <span>Product</span>
                                 <div class="d-flex">
-                                    <span class="sell_price">₹{{object.get_max_total|floatformat:2}}</span>
-                                <span class="total color_green">₹{{object.get_total|floatformat:2}}</span>
+                                    <span class="sell_price" id="sell_price">₹{{object.get_max_total|floatformat:2}}</span>
+                                <span class="total color_green" id="dis_price">₹{{object.get_total|floatformat:2}}</span>
                                 </div>
                             </div>
                              <div class="cart-price">
@@ -157,7 +157,7 @@
                             
                             <div class="shop-total">
                                 <span><b>Total</b></span>
-                                <span class="total-amount">₹{{grandtotal|floatformat:2}}</span>
+                                <span class="total-amount" id="grand-total">₹{{grandtotal|floatformat:2}}</span>
                             </div>
                             <a href="{% url 'paymentcheckout' grandtotal%}" class="check-link btn btn-style1">Continue to payment</a>
                         </div>
@@ -185,90 +185,122 @@
         <!-- You can alternatively load the minified version -->
         <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
         <script>
-            {% comment %} $("#plus-btn").click (function () {
-            var v = parseInt($('#name-value').text(value));
-            console.log(v);
-            $('#name-value').html(++v);
-            }); {% endcomment %}
-            //if ($button.class() == "plus-btn") {
-            //var newVal = parseFloat(oldValue) + 1;});
-            //window.location.href = $("#Url").attr("data-url")   
-            {% comment %} } else {
-            // Don't allow decrementing below zero
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
-            }
-            }
-            $button.parent().find("input").val(newVal);
-            }); {% endcomment %}
-            {% comment %} $(function() {
-                var value = parseInt($('#name-value').text(value));
-
-                $('#minus-btn').click(function() {
-                    if (value == 0) return;
-                    value--;
-                    $('#name-value').text(value);
-                    console.log(value);
+            var getCookie = function (name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
                 }
+            }
+        }
+        return cookieValue;
+    };
 
-                $('#plus-btn').click(function() {
-                    value++;
-                    $('#name-value').text(value);
-                }
-            }); {% endcomment %}
-            jQuery(document).ready(function(){
-            // This button will increment the value
+        const g_csrftoken = getCookie('csrftoken');
+
+        jQuery(document).ready(function(){
             $('.plus-btn').click(function(e){
-                // Stop acting like a button
                 e.preventDefault();
-                // Get the field name
-                fieldName = $(this).attr('field');
+                //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
-                //console.log(elementId);
-                // Get its current value
-                var currentVal = parseInt($('input[name='+fieldName+']').val());
-                window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
-                // If is not undefined
-                if (!isNaN(currentVal)) {
-                    // Increment
-                    $('input[name='+fieldName+']').val(currentVal + 1);
-                    window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
-                } else {
-                    // Otherwise put a 0 there
-                    $('input[name='+fieldName+']').val(0);
-                    window.location.href = $("#"+elementId+"-url-plus").attr("data-url");
-                }
+                console.log(elementId);
+                domain = window.location.origin
+                path_name = '/buy/api/v1/customer/order/add/' //change-this url
+                $.ajax({
+                    type: 'POST',
+                    url: domain+path_name,
+                    data: {
+                        "csrfmiddlewaretoken":g_csrftoken,
+                        "product" : elementId.toString(),
+                        "quantity": "1"
+                    },
+                    success: function(response) {
+                        if (response){
+                        //console.log(response);
+                        document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
+                        document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
+                        document.getElementById("grand-total").innerHTML = "₹"+response['amount'];
+                        document.getElementById("item-sell-price").innerHTML = "₹"+response['item_tprice'];
+                        document.getElementById("item-dis-price").innerHTML = "₹"+response['item_dprice'];
+                        //document.getElementById("quantity").innerHTML = response['qty'];
+                        document.getElementById(elementId+"-name-value").value = response['item_qty'];
+                        //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
+                        }
+                    }
+                })
             });
-    // This button will decrement the value till 0
-    $(".minus-btn").click(function(e) {
-        // Stop acting like a button
-        e.preventDefault();
-        // Get the field name
-        fieldName = $(this).attr('field');
-        const elementId = $(this).attr('id').split('-')[0]
-        // Get its current value
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        // If it isn't undefined or its greater than 0
-        window.location.href = $("#"+elementId+"-url-minus").attr("data-url");
-        if (!isNaN(currentVal) && currentVal > 0) {
-            // Decrement one
-            $('input[name='+fieldName+']').val(currentVal - 1);
-            window.location.href = $("#"+elementId+"-url-minus").attr("data-url");
-        } else {
-            // Otherwise put a 0 there
-            $('input[name='+fieldName+']').val(0);
-            window.location.href = $("#"+elementId+"-url-minus").attr("data-url");
-        }
-    });
-});
-        window.onload = function (){
-            var addr = sessionStorage.getItem("Address");
-            document.getElementById("c-address-1").innerHTML = addr
-        }
+            $('.add-to-cart').click(function(e){
+                e.preventDefault();
+                //fieldName = $(this).attr('field');
+                const elementId = $(this).attr('id').split('-')[0]
+                console.log(elementId);
+                domain = window.location.origin
+                path_name = '/buy/api/v1/customer/order/add/' //change-this url
+                $.ajax({
+                type: 'POST',
+                url: domain+path_name,
+                data: {
+                    "csrfmiddlewaretoken":g_csrftoken,
+                    "product" : elementId.toString(),
+                    "quantity": "1"
+                },
+                    success: function(response) {
+                        if (response){
+                        //console.log(response);
+                        document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+                        document.getElementById("quantity").innerHTML = response['qty'];
+                        document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
+                        }
+                    }
+                })
+            });
+
+            $('.minus-btn').click(function(e){
+                e.preventDefault();
+                //fieldName = $(this).attr('field');
+                const elementId = $(this).attr('id').split('-')[0]
+                console.log(elementId);
+                domain = window.location.origin
+                path_name = '/buy/api/v1/customer/order/remove/' //change-this url
+                $.ajax({
+                    type: 'POST',
+                    url: domain+path_name,
+                    data: {
+                        "csrfmiddlewaretoken":g_csrftoken,
+                        "product" : elementId.toString(),
+                        "quantity": "1" 
+                    },
+                    success: function(response) {
+                        if (response){
+                        //console.log(response);
+                        document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
+                        document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
+                        document.getElementById("grand-total").innerHTML = "₹"+response['amount'];
+                        document.getElementById("item-sell-price").innerHTML = "₹"+response['item_tprice'];
+                        document.getElementById("item-dis-price").innerHTML = "₹"+response['item_dprice'];
+                        //document.getElementById("quantity").innerHTML = response['qty'];
+                        document.getElementById(elementId+"-name-value").value = response['item_qty'];
+                        if (response['item_qty'] == 0){
+                                location.reload(true);
+                            }
+                        }
+                    }
+                })
+            });
+        });
+
+
+            window.onload = function (){
+                var addr = sessionStorage.getItem("Address");
+                document.getElementById("c-address-1").innerHTML = addr
+            }
         </script>
-            <script>
+        <script>
       function hidePopLogin() {
         $('#login').hide()
         $('body').css({ "overflow": "auto" })
