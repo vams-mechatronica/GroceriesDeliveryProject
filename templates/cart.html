@@ -123,8 +123,8 @@
                                         </div>
                                     </div>
                                     <div class="all-pro-price">
-                                        <span id="item-dis-price">₹{{item.get_amount_saved|floatformat:2}}</span>
-                                        <span class="sell_price" id="item-sell-price">₹{{item.get_total_item_price|floatformat:2}}</span>
+                                        <span id="{{item.item.products.product_id}}-item-dis-price">₹{{item.get_amount_saved|floatformat:2}}</span>
+                                        <span class="sell_price" id="{{item.item.products.product_id}}-item-sell-price">₹{{item.get_total_item_price|floatformat:2}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +225,8 @@
                         document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
                         document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
                         document.getElementById("grand-total").innerHTML = "₹"+response['amount'];
-                        document.getElementById("item-sell-price").innerHTML = "₹"+response['item_tprice'];
-                        document.getElementById("item-dis-price").innerHTML = "₹"+response['item_dprice'];
+                        document.getElementById(elementId+"-item-sell-price").innerHTML = "₹"+response['item_tprice'];
+                        document.getElementById(elementId+"-item-dis-price").innerHTML = "₹"+response['item_dprice'];
                         //document.getElementById("quantity").innerHTML = response['qty'];
                         document.getElementById(elementId+"-name-value").value = response['item_qty'];
                         //$("#"+element_id+"-qunt_val").append(response['cart']['items']['quantity'])
@@ -281,8 +281,8 @@
                         document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
                         document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
                         document.getElementById("grand-total").innerHTML = "₹"+response['amount'];
-                        document.getElementById("item-sell-price").innerHTML = "₹"+response['item_tprice'];
-                        document.getElementById("item-dis-price").innerHTML = "₹"+response['item_dprice'];
+                        document.getElementById(elementId+"-item-sell-price").innerHTML = "₹"+response['item_tprice'];
+                        document.getElementById(elementId+"-item-dis-price").innerHTML = "₹"+response['item_dprice'];
                         //document.getElementById("quantity").innerHTML = response['qty'];
                         document.getElementById(elementId+"-name-value").value = response['item_qty'];
                         if (response['item_qty'] == 0){
