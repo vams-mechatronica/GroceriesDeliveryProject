@@ -97,7 +97,8 @@ def cartCheckoutPageView(request):
         'object': itemsForCartPage,
         'delivery': delivery_charges,
         'totalquantity': counter,
-        'grandtotal': grandtotal
+        'grandtotal': grandtotal,
+        'useraddress':address,
     }
     return render(request, "cart.html", context)
 
