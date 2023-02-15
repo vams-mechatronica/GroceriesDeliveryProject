@@ -326,20 +326,19 @@
     <div class="col-xl-6 col-lg-6  col-12 px-xl-4 px-lg-4 px-md-4 mt-4">
         <div class="address-form p-xl-2 p-lg-2 p-md-2">
             <h4>Saved Address</h4>
+            {% for addr in addresses %}
             <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
-                <h6><span class="default-address">default-address</span> : Home</h6>
-                <p>Ravi Singh</p>
-                <p>A-679, Sector 19, Noida, 201301, Noida Ghaziabad - 201301</p>
-                <p>pho no. 8130037071</p>
+                {% if addr.default_address is True %}
+                <h6><span class="default-address">default-address</span> : {{addr.address_name}}</h6>
+                {% else %}
+                <h6>{{addr.address_name}}</h6>
+                {% endif %}
+                <p>Contact Name: {{addr.contact_name}}</p>
+                <p>Address: {{addr.user_address}}</p>
+                <p>M. no.: {{addr.mobileno}}</p>
                 <a class="deliver here">Deliver Here</a>
             </div>
-            <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
-                <h6><span class="default-address">default-address</span> : Home</h6>
-                <p>Ravi Singh</p>
-                <p>A-679, Sector 19, Noida, 201301, Noida Ghaziabad - 201301</p>
-                <p>pho no. 8130037071</p>
-                <a class="deliver here">Deliver Here</a>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

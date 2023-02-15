@@ -16,5 +16,5 @@ urlpatterns = [
     path('accounts/register/get_otp/', views.get_otp, name='get_otp'),
     path('accounts/register/verify/', views.verify_otp, name='verify_otp'),
     path('accounts/api/v1/user-address/',views.UserAddressUpdateView.as_view()),
-    path('accounts/user-address',views.address_page,name="user-address-page"),
+    path('accounts/user-address/',views.address_page,name="user-address-page"),
 ]

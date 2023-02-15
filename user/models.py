@@ -5,7 +5,7 @@ from products.storage import ProductFileStorage
 from datetime import date
 from django.utils.translation import gettext_lazy as _
 import uuid
-
+from django.db.models import Q
 # Create your models here.
 
 
@@ -32,24 +32,44 @@ class CustomUser(AbstractUser):
 
 
 class UserAddresses(models.Model):
-    user = models.OneToOneField("user.CustomUser", verbose_name=_(
+    ADDRESS = (('Home','Home'),('Office','Office'),('Others','Others'))
+    user = models.ForeignKey("user.CustomUser", verbose_name=_(
         "User Detail"), on_delete=models.CASCADE, null=True, blank=True)
+    default_address = models.BooleanField(_("Default Address"),null=True,blank=True,default=True)
+    contact_name = models.CharField(
+        _("Contact Name"), max_length=50, default='', null=True, blank=True)
+    address_name = models.CharField(_("Address Name"), max_length=50,choices=ADDRESS,default='Home',null=True,blank=True)
     addressLine1 = models.CharField(
-        _("address line 1"), max_length=2000, blank=True, null=True,default="")
+        _("address line 1"), max_length=2000, blank=True, null=True,default=" ")
     state = models.CharField(
-        _("select state"), max_length=200, blank=True, null=True,default="")
+        _("select state"), max_length=200, blank=True, null=True,default=" ")
     city = models.CharField(
-        _("select city"), max_length=200, blank=True, null=True,default="")
+        _("select city"), max_length=200, blank=True, null=True,default=" ")
     pincode = models.IntegerField(_("address pincode"))
-    addPhoneNumber = models.CharField(
-        _("address phone number"), max_length=13, null=True, blank=True,default="")
+    mobileno = models.CharField(
+        _("address phone number"), max_length=13, null=True, blank=True,default=" ")
 
     def __str__(self) -> str:
-        return "user:{} city: {} pincode: {} phoneno. {}".format(self.user, self.city, self.pincode, self.addPhoneNumber)
+        return "user:{} city: {} pincode: {} phoneno. {}".format(self.user, self.city, self.pincode, self.mobileno)
 
     def user_address(self):
-        address = self.addressLine1+", "+self.city+", " + str(self.pincode)
+        address = str(self.addressLine1)+", "+str(self.city)+", " + str(self.pincode)
         return address
+    
+    def save(self, *args, **kwargs):
+        if self.default_address:
+            self.__class__._default_manager.filter(
+                user=self.user, default_address=True ).update(default_address=False)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user'],
+                condition=Q(default_address=True),
+                name='unique_primary_per_customer'
+            )
+        ]
 
 
 class Country(models.Model):

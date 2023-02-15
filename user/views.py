@@ -224,6 +224,8 @@ class UserAddressUpdateView(APIView):
             return Response({'data':'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
 
 def address_page(request):
-    return render(request,"address.html")
+    addresses = UserAddresses.objects.filter(user = request.user)
+    context = {'addresses':addresses}
+    return render(request,"address.html",context)
 
             
