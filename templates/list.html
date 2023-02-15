@@ -67,6 +67,16 @@
     </div>
   </div>
   <style>
+        .loader{
+            position: fixed;
+            left: 50%;
+            top: 35%;
+            display: visible;
+            background: transparent url("../css/slick/ajax-loader.gif");
+            z-index: 1000;
+            height: 31px;
+            width: 31px;
+            }
     .about-back{
       background-image: url(/static/img/list-page-1.jpg);
       height: 35vh;
@@ -219,6 +229,12 @@
   <!-- You can alternatively load the minified version -->
   <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
   <script>
+    function showLoader(){
+                    $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/ajax-loader.gif' %}"></div></div>');
+                }
+      function hideLoader(){
+          $('#loadingDiv').hide();
+      }
     var getCookie = function (name) {
       var cookieValue = null;
       if (document.cookie && document.cookie !== '') {
@@ -269,6 +285,7 @@
     jQuery(document).ready(function(){
       $('.plus-bttn').click(function(e){
         e.preventDefault();
+        showLoader()
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -284,6 +301,7 @@
             },
             success: function(response) {
                 if (response){
+                  hideLoader();
                   //console.log(response['cart']['items'][0]['quantity']);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
@@ -295,6 +313,7 @@
             });
       $('.add-to-cart').click(function(e){
         e.preventDefault();
+        showLoader();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -310,6 +329,7 @@
           },
             success: function(response) {
                 if (response){
+                  hideLoader();
                   //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
@@ -320,6 +340,7 @@
             });
       $('.minus-bttn').click(function(e){
         e.preventDefault();
+        showLoader();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -335,6 +356,7 @@
             },
             success: function(response) {
                 if (response){
+                  hideLoader();
                   //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];

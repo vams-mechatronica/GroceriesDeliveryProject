@@ -41,6 +41,16 @@
 
 <body>
   <style>
+      .loader{
+          position: fixed;
+          left: 50%;
+          top: 35%;
+          display: visible;
+          background: transparent url("../css/slick/ajax-loader.gif");
+          z-index: 1000;
+          height: 31px;
+          width: 31px;
+          }
     .top_location {
       position: relative;
       top: 70px;
@@ -1660,6 +1670,12 @@
     </script>
     <script>
       //locationDetect();
+      function showLoader(){
+                    $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/ajax-loader.gif' %}"></div></div>');
+                }
+      function hideLoader(){
+          $('#loadingDiv').hide();
+      }
       function showLocation(position) {
         var lat = position.coords.latitude;
         var long = position.coords.longitude;
@@ -2027,6 +2043,7 @@ function get_otp(elm){
     }
     jQuery(document).ready(function(){
     $('.plus-bttn').click(function(e){
+      showLoader();
       e.preventDefault();
       //fieldName = $(this).attr('field');
       const elementId = $(this).attr('id').split('-')[0]
@@ -2044,6 +2061,7 @@ function get_otp(elm){
           },
           success: function(response) {
               if (response){
+                hideLoader();
                 //console.log(response['item_qty'])
                 document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                 document.getElementById("quantity").innerHTML = response['qty'];
@@ -2055,6 +2073,7 @@ function get_otp(elm){
           });
     $('.add-to-cart').click(function(e){
       e.preventDefault();
+      showLoader();
       //fieldName = $(this).attr('field');
       const elementId = $(this).attr('id').split('-')[0]
       const cate = $(this).attr('id').split(":")[1]
@@ -2071,6 +2090,7 @@ function get_otp(elm){
         },
           success: function(response) {
               if (response){
+                hideLoader();
                 //console.log(response);
                 document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                 document.getElementById("quantity").innerHTML = response['qty'];
@@ -2081,6 +2101,7 @@ function get_otp(elm){
           });
     $('.minus-bttn').click(function(e){
       e.preventDefault();
+      showLoader();
       //fieldName = $(this).attr('field');
       const elementId = $(this).attr('id').split('-')[0]
       const cate = $(this).attr('id').split(":")[1]
@@ -2097,6 +2118,7 @@ function get_otp(elm){
           },
           success: function(response) {
               if (response){
+                hideLoader();
                 //console.log(response);
                 document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                 document.getElementById("quantity").innerHTML = response['qty'];

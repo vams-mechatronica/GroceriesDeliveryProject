@@ -40,6 +40,18 @@
 </head>
 
 <body>
+    <style>
+        .loader{
+            position: fixed;
+            left: 50%;
+            top: 35%;
+            display: visible;
+            background: transparent url("../css/slick/ajax-loader.gif");
+            z-index: 1000;
+            height: 31px;
+            width: 31px;
+            }
+    </style>
     <!-- login popup start here  -->
     <div class="login-sign-popup" id="login">
         <div class="login col-xl-6 col-lg-6 col-md-6 col-12">
@@ -296,6 +308,12 @@
     
     </script>
     <script>
+        function showLoader(){
+            $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/ajax-loader.gif' %}"></div></div>');
+        }
+        function hideLoader(){
+            $('#loadingDiv').hide();
+        }
         function zoom(e) {
             var zoomer = e.currentTarget;
             e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX
@@ -481,6 +499,7 @@
 
         jQuery(document).ready(function(){
             $('.plus-bttn').click(function(e){
+                showLoader();
                 e.preventDefault();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
@@ -498,6 +517,7 @@
                     success: function(response) {
                         if (response){
                         console.log(response);
+                        hideLoader();
                         document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                         document.getElementById("quantity").innerHTML = response['qty'];
                         document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
@@ -508,6 +528,7 @@
             });
             $('.add-to-cart').click(function(e){
                 e.preventDefault();
+                showLoader();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
                 console.log(elementId);
@@ -523,6 +544,7 @@
                 },
                     success: function(response) {
                         if (response){
+                        hideLoader();
                         console.log(response);
                         document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                         document.getElementById("quantity").innerHTML = response['qty'];
@@ -534,6 +556,7 @@
 
             $('.minus-bttn').click(function(e){
                 e.preventDefault();
+                showLoader();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
                 console.log(elementId);
@@ -549,6 +572,7 @@
                     },
                     success: function(response) {
                         if (response){
+                        hideLoader();
                         console.log(response);
                         document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                         document.getElementById("quantity").innerHTML = response['qty'];
