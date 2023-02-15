@@ -43,13 +43,82 @@
     <style>
         .address-form {
             border: 1px solid #e5e5e5;
-            padding: 20px;
             padding-top: 0  ;
+            position: relative;
         }
         .header-goback{
             position: relative;
             padding: 10px;
-            background-color: rgb(2, 169, 2);
+            background-color: #00a082;
+        }
+        .deliver-card{
+            border: 1px solid #00a082;
+            padding: 20px;
+            margin-bottom: 10px;
+        }
+        .deliver-card p{
+            margin-bottom: 5px;
+        }
+        .default-address{
+            color: #00a082;
+        }
+        .deliver-card a{
+            width: max-content;
+            padding: 5px 15px;
+            border: 1px solid #00a082;
+            border-radius: 8px;
+            text-decoration: none;
+            color: black;
+            cursor: pointer;
+            transition:0.3s;
+            margin-top: 10px;
+        }
+        .deliver-card a:hover{
+            background: #00a082;
+            border: 1px solid #00a082;
+            color: white;
+            transition:0.3s;
+        }
+        .add_form{
+            height: 30vh;
+            width: 80%;
+            margin: auto;
+            background-color: #f7faff;
+            position: absolute;
+            border: 1px solid #d6d6d6;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+        }
+        .center_data{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .center_data p{
+           margin-top: 30px;
+           color: #00a082;
+        }
+        .center_data span{
+            position: absolute;
+            left: 50%;
+            top: 20%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #a5a5a5;
+            background-color: white;
+            transform: translate(-50%, -50%);
+        }
+        .center_data span::after{
+            position: absolute;
+            content: "+";
+            left: 50%;
+            top: 40%;
+            color: #00a082;
+            transform: translate(-50%, -50%);
         }
         .header-goback button{
             position: absolute;
@@ -91,7 +160,7 @@
             top: 5px;
             display: none;
             font-size: 12px;
-            color: #ffac06;
+            color: #f7cb07ee;
             margin-left: 15px;
             transition: all 1s ease-out;
         }
@@ -126,8 +195,17 @@
             text-decoration: none;
         }
         .btn-address a.active{
-            background-color: green;
+            background-color: #00a082;
             color: white;
+        }
+        .btn-outline-warning{
+            color: #00a082;
+            border: 1px solid #00a082;
+        }
+        .btn-outline-warning:hover{
+            color: #00a082;
+            border: 1px solid #00a082;
+
         }
         @keyframes slideUp {
             0%,
@@ -144,9 +222,26 @@
             }
           }
         @media(max-width:500px) and (min-width:300px){
+            .add_form {
+                position: relative;
+                height: 10vh;
+                width: 100%;
+                top: 50px;
+            }
+            .center_data span {
+                top: 30px;
+            }
+            .center_data span::after {
+                left: 55%;
+                top: 40%;
+            }
+            .center_data p {
+                margin-top: 35px;
+            }
             .address-form {
                 border-bottom: none;
                 padding-bottom: 0;
+                border: none;
             }
             .header-goback{
             position: relative;
@@ -154,19 +249,18 @@
             }
             .header-goback button{
             position: absolute;
-            top: 10px;
+            top: 13px;
             left: 10px;
             border-radius: 8px;
-            font-size: 12px;
-            padding: 15px 25px;
+            padding: 12px 25px;
             }
             .header-goback button::before{
             position: absolute;
             content: "";
-            top: 10px;
+            top: 8px;
             left: 10px;
-            height: 10px;
-            width: 10px;
+            height: 8px;
+            width: 8px;
             left: 15px;
             border: none;
             border-left: 2px solid black;
@@ -176,10 +270,10 @@
             .header-goback button::after{
             position: absolute;
             content: "";
-            top: 6px;
+            top: 7.9px;
             left: 10px;
-            height: 10px;
-            width: 20px;
+            height: 5px;
+            width: 15px;
             left: 15px;
             border: none;
             border-bottom: 2px solid black;
@@ -205,7 +299,7 @@
                 text-decoration: none;
             }
             .btn-address a.active{
-                background-color: green;
+                background-color: #00a082;
                 color: white;
             }
             .choose_address_type p{
@@ -220,87 +314,115 @@
         Add New Address
     </h3>
 </div>
-<div class="body container">
-    <div class="address-form col-xl-6 col-lg-6 col-md-8 col-12 m-auto my-xl-4">
-        <form action="" method="post" id="user_address_form">
-            {% csrf_token %}
-            <h4>Personal Details</h4>
-            <div class="personal-details">
-                <div class="d-flex">
-                    <div class="col-6 default-box">
-                        <label for="first_name"><span class="danger">*</span>First Name</label>
-                        <input type="text" onkeyup="change_lable(this)" name="firstname" id="first_name" placeholder="*First Name">
-                        
-                    </div>
-                    <div class="col-6 default-box">
-                        <label for="last_name"><span class="danger">*</span> Last Name</label>
-                        <input type="text" onkeyup="change_lable(this)" name="lastname" id="last_name" placeholder="*Last Name">
-                    </div>
-                </div>
-                <div class="number default-box col-12">
-                    <label for="phone"><span class="danger">*</span> Contact number to say Namaste!</label>
-                    <input type="text" onkeyup="change_lable(this)" name="phone_number" id="phone" placeholder="*Contact number to say Namaste!">
-                </div>
+<div class="body container d-flex flex-wrap">
+    <div class="address-form p-xl-2 p-lg-2 p-md-2 col-xl-6 col-lg-6 col-md-8 col-12 my-xl-4" id="form_add">
+        <div class="add_form" onclick="add_form_here()">
+            <div class="center_data">
+                <span></span>
+                <p>Add New Address</p>
             </div>
-            <div class="address-details">
-                <h4>Address Details</h4>
-                <div class="d-flex">
-                    <div class="default-box col-6">
-                        <label for="house_no"><span class="danger">*</span>House no</label>
-                        <input type="text" onkeyup="change_lable(this)" name="house_no" id="house_no" placeholder="*House no">
-                    </div>
-                    <div class="default-box col-6">
-                        <label for="appart_name"><span class="danger">*</span>Apparment name</label>
-                        <input type="text" onkeyup="change_lable(this)" name="appart_name" id="appart_name" placeholder="*Apparment name">
-                    </div>
-                </div>
-                <div class="default-box col-12">
-                    <label for="street_address">Street details to locate you</label>
-                    <textarea type="text" rows="1" onkeyup="change_lable(this)" name="street_address" id="street_address" placeholder="Street details to locate you"></textarea>
-                </div>
-                <div class="default-box col-12">
-                    <label for="landmark_detail">Landmark for easy reach out</label>
-                    <textarea type="text" rows="1" onkeyup="change_lable(this)" name="landmark_detail" id="landmark_detail" placeholder="Landmark for easy reach out"></textarea>
-                </div>
-                <div class="default-box col-12">
-                    <label for="area_detail"><span class="danger">*</span> Area details</label>
-                    <textarea type="text" rows="1" onkeyup="change_lable(this)" name="area_detail" id="area_detail" placeholder="*Area details"></textarea>
-                </div>
-                <div class="d-flex">
-                    <div class="default-box col-6">
-                        <label for="city_district">City/District</label>
-                        <input type="text" onkeyup="change_lable(this)" name="city_district" id="city_district" placeholder="City/District">
-                    </div>
-                    <div class="default-box col-6">
-                        <label for="Pincode"><span class="danger">*</span>Pincode</label>
-                        <input type="text" onkeyup="change_lable(this)" name="Pincode" id="Pincode" placeholder="*Pincode">
-                    </div>
-                </div>
-                <div class=" choose_address_type col-12">
-                    <p>Choose nick name for this address</p>
-                    <input type="radio" class="btn-check " name="address_nick" id="address_mark_Home" value="Home" autocomplete="off">
-                    <label class="btn btn-outline-warning" for="address_mark_Home">Home</label>
-
-                    <input type="radio" class="btn-check" name="address_nick" id="address_mark_Office" value="office" autocomplete="off">
-                    <label class="btn btn-outline-warning ms-3" for="address_mark_Office"> Office </label>
-
-                    <input type="radio" class="btn-check" name="address_nick" id="address_mark_Other" value="other" autocomplete="off">
-                    <label class="btn btn-outline-warning ms-3" for="address_mark_Other">Other</label>
-                    
-                </div>
-                <div class="default-box col-12">
-                    <label for="nickname">nickname</label>
-                    <input type="text" onkeyup="change_lable(this)" name="nickname" id="nickname" placeholder="nickname">
-                </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6  col-12 px-xl-4 px-lg-4 px-md-4 mt-4">
+        <div class="address-form p-xl-2 p-lg-2 p-md-2">
+            <h4>Saved Address</h4>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
+                <h6><span class="default-address">default-address</span> : Home</h6>
+                <p>Ravi Singh</p>
+                <p>A-679, Sector 19, Noida, 201301, Noida Ghaziabad - 201301</p>
+                <p>pho no. 8130037071</p>
+                <a class="deliver here">Deliver Here</a>
             </div>
-            <div class="btn-address">
-                <a onclick="checkForm('user_address_form')" class="address-btn active" id="form-button">Add Address</a>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
+                <h6><span class="default-address">default-address</span> : Home</h6>
+                <p>Ravi Singh</p>
+                <p>A-679, Sector 19, Noida, 201301, Noida Ghaziabad - 201301</p>
+                <p>pho no. 8130037071</p>
+                <a class="deliver here">Deliver Here</a>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
     <script>
+        function add_form_here(){
+            $('#form_add').empty()
+            $('#form_add').append(`<form action="" method="post" id="user_address_form">
+                {% csrf_token %}
+                <h4>Personal Details</h4>
+                <div class="personal-details">
+                    <div class="d-flex">
+                        <div class="col-6 default-box">
+                            <label for="first_name"><span class="danger">*</span>First Name</label>
+                            <input type="text" onkeyup="change_lable(this)" name="firstname" id="first_name" placeholder="*First Name">
+                            
+                        </div>
+                        <div class="col-6 default-box">
+                            <label for="last_name"><span class="danger">*</span> Last Name</label>
+                            <input type="text" onkeyup="change_lable(this)" name="lastname" id="last_name" placeholder="*Last Name">
+                        </div>
+                    </div>
+                    <div class="number default-box col-12">
+                        <label for="phone"><span class="danger">*</span> Contact number to say Namaste!</label>
+                        <input type="text" onkeyup="change_lable(this)" name="phone_number" id="phone" placeholder="*Contact number to say Namaste!">
+                    </div>
+                </div>
+                <div class="address-details">
+                    <h4>Address Details</h4>
+                    <div class="d-flex">
+                        <div class="default-box col-6">
+                            <label for="house_no"><span class="danger">*</span>House no</label>
+                            <input type="text" onkeyup="change_lable(this)" name="house_no" id="house_no" placeholder="*House no">
+                        </div>
+                        <div class="default-box col-6">
+                            <label for="appart_name"><span class="danger">*</span>Apparment name</label>
+                            <input type="text" onkeyup="change_lable(this)" name="appart_name" id="appart_name" placeholder="*Apparment name">
+                        </div>
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="street_address">Street details to locate you</label>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="street_address" id="street_address" placeholder="Street details to locate you"></textarea>
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="landmark_detail">Landmark for easy reach out</label>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="landmark_detail" id="landmark_detail" placeholder="Landmark for easy reach out"></textarea>
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="area_detail"><span class="danger">*</span> Area details</label>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="area_detail" id="area_detail" placeholder="*Area details"></textarea>
+                    </div>
+                    <div class="d-flex">
+                        <div class="default-box col-6">
+                            <label for="city_district">City/District</label>
+                            <input type="text" onkeyup="change_lable(this)" name="city_district" id="city_district" placeholder="City/District">
+                        </div>
+                        <div class="default-box col-6">
+                            <label for="Pincode"><span class="danger">*</span>Pincode</label>
+                            <input type="text" onkeyup="change_lable(this)" name="Pincode" id="Pincode" placeholder="*Pincode">
+                        </div>
+                    </div>
+                    <div class=" choose_address_type col-12">
+                        <p>Choose nick name for this address</p>
+                        <input type="radio" class="btn-check " name="address_nick" id="address_mark_Home" value="Home" autocomplete="off">
+                        <label class="btn btn-outline-warning" for="address_mark_Home">Home</label>
+    
+                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Office" value="office" autocomplete="off">
+                        <label class="btn btn-outline-warning ms-3" for="address_mark_Office"> Office </label>
+    
+                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Other" value="other" autocomplete="off">
+                        <label class="btn btn-outline-warning ms-3" for="address_mark_Other">Other</label>
+                        
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="nickname">nickname</label>
+                        <input type="text" onkeyup="change_lable(this)" name="nickname" id="nickname" placeholder="nickname">
+                    </div>
+                </div>
+                <div class="btn-address">
+                    <a onclick="checkForm('user_address_form')" class="address-btn active" id="form-button">Add Address</a>
+                </div>
+            </form>`)
+        }
         function change_lable(el){
             $(el).removeAttr('placeholder')
             console.log()

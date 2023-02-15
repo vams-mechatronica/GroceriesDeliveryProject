@@ -222,4 +222,8 @@ class UserAddressUpdateView(APIView):
         except Exception as e:
             print(e)
             return Response({'data':'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
+
+def address_page(request):
+    return render(request,"address.html")
+
             
