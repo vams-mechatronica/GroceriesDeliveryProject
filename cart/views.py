@@ -310,13 +310,14 @@ class CartRemoveView(APIView):
                     order_item.save()
                     item.available_stock += 1
                     item.save()
+
+                    return Response({'cart': 'Item updated', 'amount': order.get_total(), 'qty': order.get_quantity(), 'item_qty': order_item.quantity}, status=status.HTTP_200_OK)
                 else:
                     order.items.remove(order_item)
                     order_item.delete()
                     item.available_stock += 1
                     item.save()
-                
-                return Response({'cart': 'Item updated', 'amount': order.get_total(), 'qty': order.get_quantity(),'item_qty':order_item.quantity}, status=status.HTTP_200_OK)
+                    return Response({'cart': 'Item updated', 'amount': order.get_total(), 'qty': order.get_quantity(),'item_qty':0}, status=status.HTTP_200_OK)
             else:
                 return Response({'cart': 'Item not available in cart', 'amount': order.get_total(), 'qty': order.get_quantity(), 'item_qty': 0}, status=status.HTTP_200_OK)
         else:    
