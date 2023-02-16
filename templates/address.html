@@ -329,11 +329,11 @@
             {% for addr in addresses %}
             <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
                 {% if addr.default_address is True %}
-                <h6><span class="default-address">default-address</span> : {{addr.address_name}}</h6>
+                <h6><span class="default-address">default-address</span> : {{addr.address_nick_name}}</h6>
                 {% else %}
-                <h6>{{addr.address_name}}</h6>
+                <h6>{{addr.address_nick_name}}</h6>
                 {% endif %}
-                <p>Contact Name: {{addr.contact_name}}</p>
+                <p>Contact Name: {{addr.nick_name}}</p>
                 <p>Address: {{addr.user_address}}</p>
                 <p>M. no.: {{addr.mobileno}}</p>
                 <a class="deliver here">Deliver Here</a>
@@ -346,7 +346,7 @@
     <script>
         function add_form_here(){
             $('#form_add').empty()
-            $('#form_add').append(`<form action="" method="post" id="user_address_form">
+            $('#form_add').append(`<form action="" method="post" id="user_address_form" action="{% url 'user-address-page' %}">
                 {% csrf_token %}
                 <h4>Personal Details</h4>
                 <div class="personal-details">
@@ -400,15 +400,15 @@
                             <input type="text" onkeyup="change_lable(this)" name="Pincode" id="Pincode" placeholder="*Pincode">
                         </div>
                     </div>
-                    <div class=" choose_address_type col-12">
+                    <div class="choose_address_type col-12" name="nick_name_address">
                         <p>Choose nick name for this address</p>
                         <input type="radio" class="btn-check " name="address_nick" id="address_mark_Home" value="Home" autocomplete="off">
                         <label class="btn btn-outline-warning" for="address_mark_Home">Home</label>
     
-                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Office" value="office" autocomplete="off">
+                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Office" value="Office" autocomplete="off">
                         <label class="btn btn-outline-warning ms-3" for="address_mark_Office"> Office </label>
     
-                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Other" value="other" autocomplete="off">
+                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Other" value="Others" autocomplete="off">
                         <label class="btn btn-outline-warning ms-3" for="address_mark_Other">Other</label>
                         
                     </div>

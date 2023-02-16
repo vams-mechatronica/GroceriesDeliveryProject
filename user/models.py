@@ -35,16 +35,28 @@ class UserAddresses(models.Model):
     ADDRESS = (('Home','Home'),('Office','Office'),('Others','Others'))
     user = models.ForeignKey("user.CustomUser", verbose_name=_(
         "User Detail"), on_delete=models.CASCADE, null=True, blank=True)
+    first_name = models.CharField(
+        _("Address First Name"), max_length=50, null=True, blank=True, default="")
+    last_name = models.CharField(
+        _("Address Last Name"), max_length=50, null=True, blank=True, default="")
+    house_no = models.CharField(
+        _("House No"), max_length=50, null=True, blank=True, default="")
+    apartment_name = models.CharField(
+        _("Apartment Name"), max_length=50, null=True, blank=True, default="")
+    street_detail = models.CharField(
+        _("Street Detail"), max_length=50, null=True, blank=True, default="")
+    landmark = models.CharField(
+        _("Landmark"), max_length=50, null=True, blank=True, default="")
     default_address = models.BooleanField(_("Default Address"),null=True,blank=True,default=True)
-    contact_name = models.CharField(
-        _("Contact Name"), max_length=50, default='', null=True, blank=True)
-    address_name = models.CharField(_("Address Name"), max_length=50,choices=ADDRESS,default='Home',null=True,blank=True)
-    addressLine1 = models.CharField(
-        _("address line 1"), max_length=2000, blank=True, null=True,default=" ")
+    nick_name = models.CharField(
+        _("Contact Nick Name"), max_length=50, default='', null=True, blank=True)
+    address_nick_name = models.CharField(_("Address Nick Name"), max_length=50,choices=ADDRESS,default='Home',null=True,blank=True)
     state = models.CharField(
         _("select state"), max_length=200, blank=True, null=True,default=" ")
     city = models.CharField(
         _("select city"), max_length=200, blank=True, null=True,default=" ")
+    area = models.CharField(
+        _("Area"), max_length=200, blank=True, null=True, default=" ")
     pincode = models.IntegerField(_("address pincode"))
     mobileno = models.CharField(
         _("address phone number"), max_length=13, null=True, blank=True,default=" ")
@@ -53,7 +65,8 @@ class UserAddresses(models.Model):
         return "user:{} city: {} pincode: {} phoneno. {}".format(self.user, self.city, self.pincode, self.mobileno)
 
     def user_address(self):
-        address = str(self.addressLine1)+", "+str(self.city)+", " + str(self.pincode)
+        address = str(self.house_no)+", "+str(self.street_detail) + \
+            ", "+str(self.city)+", " + str(self.pincode)
         return address
     
     def save(self, *args, **kwargs):

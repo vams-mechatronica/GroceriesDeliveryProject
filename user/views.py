@@ -224,8 +224,33 @@ class UserAddressUpdateView(APIView):
             return Response({'data':'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
 
 def address_page(request):
-    addresses = UserAddresses.objects.filter(user = request.user)
-    context = {'addresses':addresses}
-    return render(request,"address.html",context)
+    if request.method == 'POST':
+        firstname = request.POST.get('first_name')
+        lastname = request.POST.get('last_name')
+        mobileno = request.POST.get('phone')
+        houseno = request.POST.get('house_no')
+        apartment = request.POST.get('appart_name')
+        street = request.POST.get('street_address')
+        landmark = request.POST.get('landmark_detail')
+        area = request.POST.get('area_detail')
+        city = request.POST.get('city_district')
+        pincode = request.POST.get('Pincode')
+        nicknameaddress = request.POST.get('nick_name_address')
+        nickname = request.POST.get('nickname')
+        addr = UserAddresses(user = request.user,\
+            first_name = firstname,last_name = lastname,\
+                mobileno=mobileno,house_no = houseno,\
+                    apartment_name = apartment,street_detail = street,\
+                        landmark=landmark,area = area,city = city,\
+                            pincode =pincode,address_nick_name = nicknameaddress,nick_name = nickname,default_address = True)
+        addr.save()
+    addresses = UserAddresses.objects.filter(user=request.user)
+    context = {'addresses': addresses}
+    return render(request, "address.html", context)
+
+
+    
+
+
 
             
