@@ -1671,10 +1671,10 @@
     <script>
       //locationDetect();
       function showLoader(){
-                    $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/ajax-loader.gif' %}"></div></div>');
+                    $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/Rolling-loader-1.gif' %}"></div></div>');
                 }
       function hideLoader(){
-          $('#loadingDiv').hide();
+          $('.loader').hide();
       }
       function showLocation(position) {
         var lat = position.coords.latitude;

@@ -309,11 +309,11 @@
     </script>
     <script>
         function showLoader(){
-            $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/ajax-loader.gif' %}"></div></div>');
-        }
-        function hideLoader(){
-            $('#loadingDiv').hide();
-        }
+                    $('body').append('<div style="" id="loadingDiv"><div class="loader"><img src="{% static 'css/slick/Rolling-loader-1.gif' %}"></div></div>');
+                }
+      function hideLoader(){
+          $('.loader').hide();
+      }
         function zoom(e) {
             var zoomer = e.currentTarget;
             e.offsetX ? offsetX = e.offsetX : offsetX = e.touches[0].pageX

@@ -27,7 +27,7 @@ def addToCart(request, pk):
 
     if request.user:
         try:
-            user_details = UserAddresses.objects.get(user=request.user.id)
+            user_details = UserAddresses.objects.get(user=request.user.id,default_address=True)
             item = get_object_or_404(StoreProductsDetails, products=pk,
                              store__storeServicablePinCodes__contains=[user_details.pincode])
         except UserAddresses.DoesNotExist:
@@ -107,7 +107,7 @@ def cartCheckoutPageView(request):
 def removeSingleItemFromCart(request, pk):
     if request.user:
         try:
-            user_details = UserAddresses.objects.get(user=request.user.id)
+            user_details = UserAddresses.objects.get(user=request.user.id,default_address= True)
             item = get_object_or_404(StoreProductsDetails, products=pk,
                                 store__storeServicablePinCodes__contains=[user_details.pincode])
         except UserAddresses.DoesNotExist:
@@ -238,7 +238,7 @@ class CartAddView(APIView):
         quantity = int(data.get('quantity'))
         
         try:
-            user_details = UserAddresses.objects.get(user=request.user.id)
+            user_details = UserAddresses.objects.get(user=request.user.id,default_address = True)
             item = get_object_or_404(StoreProductsDetails, products=product_pk,
                                      store__storeServicablePinCodes__contains=[user_details.pincode])
         except UserAddresses.DoesNotExist:
@@ -288,7 +288,7 @@ class CartRemoveView(APIView):
         quantity = int(data.get('quantity'))
         
         try:
-            user_details = UserAddresses.objects.get(user=request.user.id)
+            user_details = UserAddresses.objects.get(user=request.user.id,default_address = True)
             item = get_object_or_404(StoreProductsDetails, products=product_pk,
                                      store__storeServicablePinCodes__contains=[user_details.pincode])
         except UserAddresses.DoesNotExist:
