@@ -185,43 +185,18 @@ class UserAddressUpdateView(APIView):
         data = request.data
         address = data.get('address')
         add_split = address.split(",")
-        add = {}
-        for addr in add_split:
-            if addr.isnumeric():
-                add['pincode'] = addr
-
-            elif addr.isalpha():
-                add['area'] = addr
-
-            else:
-                add['sector'] = addr
-
-        if add.get('pincode') is not None:
-            pincode = add.get('pincode')
         
-        if add.get('area') is not None or add.get('sector') is not None:
-            area = str(add.get('area')) + "," + str(add.get('sector'))
-
         user_address = UserAddresses()
         user_address.user = request.user
-        user_address.area = area
-        user_address.pincode = pincode
+        user_address.area = add_split[0] +", "+add_split[1]
+        user_address.city = add_split[2]
+        user_address.pincode = add_split[3]
         user_address.save()
         
         serializer = UserAddressesSerializer(instance=user_address)
-        # if serializer.is_valid():
-        #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
     def put(self,request,format = None):
-        # address1 = request.POST.get('address1') or 'None'
-        # address2 = request.POST.get('address2') or 'None'
-        # state = request.POST.get('state') or 'None'
-        # city = request.POST.get('city') or 'None'
-        # pincode = request.data.get('pincode')
-        # print(pincode)
-        # alternatePhoneNumber = request.POST.get('phone_number') or 'None'
         try:
             if request.user:
                 user_address = get_object_or_404(UserAddresses,user = request.user)
@@ -266,8 +241,11 @@ def savePartialAddressUser(request,address :str):
         if addr.isnumeric():
             add['pincode'] = addr
 
-        elif addr.isalpha():
+        elif addr.isalnum():
             add['area'] = addr
+        
+        elif addr.isalpha():
+            add['city'] = addr
             
         else:
             add['sector'] = addr
