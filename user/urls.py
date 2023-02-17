@@ -17,4 +17,5 @@ urlpatterns = [
     path('accounts/register/verify/', views.verify_otp, name='verify_otp'),
     path('accounts/api/v1/user-address/',views.UserAddressUpdateView.as_view()),
     path('accounts/user-address/',views.address_page,name="user-address-page"),
+    path('accounts/user-address/save-partial/<str:address>',views.savePartialAddressUser,name="save-partial-address"),
 ]

@@ -40,3 +40,17 @@ class StoreProductsDetails(models.Model):
         listprice = self.products.max_retail_price - self.discount
         return round(listprice,2)
     
+class storeServiceLocation(models.Model):
+    store = models.ForeignKey("StoreDetail", verbose_name=_("Store Delivery Location"), on_delete=models.CASCADE)
+    area = models.CharField(
+        _("Delivery Area"), max_length=500, null=True, default="", blank=True)
+    sector = models.CharField(
+        _("Delivery Sector"), max_length=500, null=True, default="", blank=True)
+    city = models.CharField(
+        _("Delivery City"), max_length=500, null=True, default="", blank=True)
+    pincode = models.IntegerField(_("Delivery Pincode"))
+
+    def __str__(self) -> str:
+        return "StoreName: {}\t Sector: {}\t Area: {}\t Pincode: {}".format(self.store,self.sector,self.area,self.pincode)
+
+

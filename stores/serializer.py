@@ -15,3 +15,9 @@ class StoreProductsDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = StoreProductsDetails
         fields = "__all__"
+
+
+class StoreServiceLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = storeServiceLocation
+        fields = '__all__'

@@ -32,3 +32,10 @@ class StoreDetailsAdmin(admin.ModelAdmin):
     search_fields: list = ('storeName','storeLocalityPinCode','storeServicablePinCodes','storeRating','storeStatus')
 
 admin.site.register(StoreDetail,StoreDetailsAdmin)
+
+class StoreDeliveryLocationAdmin(admin.ModelAdmin):
+    list_display: list = ('store', 'area', 'sector','pincode')
+    ordering: list = ['pincode','sector']
+    search_fields: list = ('store', 'area', 'sector', 'pincode')
+
+admin.site.register(storeServiceLocation,StoreDeliveryLocationAdmin)

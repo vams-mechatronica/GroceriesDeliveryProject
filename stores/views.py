@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from .models import *
 from .serializer import *
 from user.models import *
+from django.db.models import Q
 
 # Create your views here.
 defaultLocationpincode = 201301
@@ -67,6 +68,40 @@ class StoreVerifyAtLocation(APIView):
             if len(storeAtLocationPincode) > 0:
                 defaultLocationpincode = pincode
                 return Response({'available':True},status=status.HTTP_200_OK)
+            else:
+                return Response({'available': False}, status=status.HTTP_200_OK)
+        except StoreDetail.DoesNotExist:
+            pass
+
+
+class SuggestVerifyDeliveryLocation(APIView):
+    permission_classes = (AllowAny,)
+    authentication_classes = [authentication.BasicAuthentication,
+                              authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def get(self, request, format=None):
+        global defaultLocationpincode
+        value = request.GET.get('value')
+        address = {}
+        for addr in value.split(","):
+            if addr.isnumeric():
+                address['pincode'] = addr
+                
+            elif addr.isalpha():
+                address['area'] = addr
+                
+            else:
+                address['sector'] = addr
+        
+        # print(address)
+                
+
+        storeAtLocationPincode = storeServiceLocation.objects.filter(Q(pincode=address.get('pincode') or 0) | Q(area__icontains=address.get('area') or '') | Q(sector__icontains= address.get('sector') or ''))
+        try:
+            if len(storeAtLocationPincode) > 0:
+                defaultLocationpincode = address.get('pincode')
+                serializer = StoreServiceLocationSerializer(instance=storeAtLocationPincode,many= True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
             else:
                 return Response({'available': False}, status=status.HTTP_200_OK)
         except StoreDetail.DoesNotExist:

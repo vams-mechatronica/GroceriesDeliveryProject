@@ -135,8 +135,8 @@
                                         </div>
                                     </div>
                                     <div class="all-pro-price">
-                                        <span id="{{item.item.products.product_id}}-item-dis-price">₹{{item.get_amount_saved|floatformat:2}}</span>
-                                        <span class="sell_price" id="{{item.item.products.product_id}}-item-sell-price">₹{{item.get_total_item_price|floatformat:2}}</span>
+                                        <span id="{{item.item.products.product_id}}-item-dis-price">₹{{item.get_amount_saved|floatformat:0}}</span>
+                                        <span class="sell_price" id="{{item.item.products.product_id}}-item-sell-price">₹{{item.get_total_item_price|floatformat:0}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -155,8 +155,8 @@
                             <div class="cart-price">
                                 <span>Product</span>
                                 <div class="d-flex">
-                                    <span class="sell_price" id="sell_price">₹{{object.get_max_total|floatformat:2}}</span>
-                                <span class="total color_green" id="dis_price">₹{{object.get_total|floatformat:2}}</span>
+                                    <span class="sell_price" id="sell_price">₹{{object.get_max_total|floatformat:0}}</span>
+                                <span class="total color_green" id="dis_price">₹{{object.get_total|floatformat:0}}</span>
                                 </div>
                             </div>
                              <div class="cart-price">

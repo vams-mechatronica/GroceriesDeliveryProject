@@ -173,7 +173,7 @@ def verify_otp(request):
 
 
 class UserAddressUpdateView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,permissions.AllowAny)
     authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication)
 
     def get(self,request,format = None):
@@ -182,26 +182,37 @@ class UserAddressUpdateView(APIView):
         return Response(serializer.data,status=status.HTTP_200_OK)
     
     def post(self,request,format = None):
-        try:
-            if request.user:
-                pincode = request.data.get('pincode')
-                user_address,created = UserAddresses.objects.get_or_create(user=request.user,pincode=pincode)
-                print(created)
-                serializer = UserAddressesSerializer(instance=user_address)
-                # if serializer.is_valid():
-                #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-                return Response({'data':serializer.data,'created':created}, status=status.HTTP_400_BAD_REQUEST)
-            # serializer = UserAddressesSerializer(data=request.data)
-            # if serializer.is_valid():
-            #     instance, created = serializer.get_or_create()
-            #     if not created:
-            #         serializer.update(instance, serializer.validated_data)
-            #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
-            # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            print(e)
-            return Response({'data': 'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
-    #user,addressLine1,addressLine2,state,city,pincode
+        data = request.data
+        address = data.get('address')
+        add_split = address.split(",")
+        add = {}
+        for addr in add_split:
+            if addr.isnumeric():
+                add['pincode'] = addr
+
+            elif addr.isalpha():
+                add['area'] = addr
+
+            else:
+                add['sector'] = addr
+
+        if add.get('pincode') is not None:
+            pincode = add.get('pincode')
+        
+        if add.get('area') is not None or add.get('sector') is not None:
+            area = str(add.get('area')) + "," + str(add.get('sector'))
+
+        user_address = UserAddresses()
+        user_address.user = request.user
+        user_address.area = area
+        user_address.pincode = pincode
+        user_address.save()
+        
+        serializer = UserAddressesSerializer(instance=user_address)
+        # if serializer.is_valid():
+        #     return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
     def put(self,request,format = None):
         # address1 = request.POST.get('address1') or 'None'
@@ -248,9 +259,26 @@ def address_page(request):
     context = {'addresses': addresses}
     return render(request, "address.html", context)
 
+def savePartialAddressUser(request,address :str):
+    add_split = address.split(",")
+    add ={}
+    for addr in add_split:
+        if addr.isnumeric():
+            add['pincode'] = addr
 
-    
+        elif addr.isalpha():
+            add['area'] = addr
+            
+        else:
+            add['sector'] = addr
+        
+    pincode = add.get('pincode') or 0
+    area = add.get('area') or '' +","+ add.get('sector')
 
-
+    user_address = UserAddresses()
+    user_address.area = area
+    user_address.pincode = pincode
+    user_address.save()
+    return JsonResponse({'status':'Ok'})
 
             

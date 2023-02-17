@@ -141,6 +141,31 @@ cursor: pointer;
 .suggest-product img{
     width: 100%;
 }
+.suggest-location {
+    box-shadow: 0px 0px 2px #d1d0cf;
+    border-radius: 12px;
+    margin: 10px 0;
+
+}
+#location-list {
+    width: 100%;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.508);
+    padding: 10px;
+    height: max-content;
+    max-height: 300px;
+    overflow: hidden;
+    overflow-y: auto;
+    z-index: 2;
+}
+
+.suggest-location:hover {
+    box-shadow: 0px 0px 5px #04cf25b6;
+}
+
+.suggest-location img {
+    width: 100%;
+}
 
 .fix-in-area{
     display: none;

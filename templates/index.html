@@ -166,23 +166,18 @@
         <div class="d-flex input">
           <div class="col-1 mag-lens">⌕</div>
           <div class="col-11">
-            <input type="text" class="pe-5" id="user_input_autocomplete_address" onmousehover="locationDetect()" name="address"
-              class="form-control" placeholder="Enter your City or Area or Pincode" required>
-            <label for="current-location" class="current-location" onmousehover="locationDetect()" title="Your Current Location">
-              <input type="hidden" id="current-location" value="Use My Current Location" required>
-            </label>
-            
-            <!-- <input type="text" list="location-list" name="location" id="user_input_autocomplete_address"
-              placeholder="Enter your city, area, pincode" onclick="locationDetect()"> -->
+            <input type="text" class="pe-5" id="user_input_autocomplete_address" onkeyup="showLocationSearch(this.value)" name="address"
+              class="form-control" placeholder="Enter your City or Area or Pincode" required>            
           </div>
+          {% comment %} <div class="suggestDeliveryLocation" style="display: none;"></div>  {% endcomment %}
         </div>
-        <datalist id="location-list">
+        <div id="location-list">
           
-        </datalist>
+        </div>
         
-        <p class="error-loction">we currently not serving at this location</p>
-        <p class="success-loction">Cogratulation your order outside your door in 15min's</p>
-        <button onclick="ok_address('user_input_autocomplete_address')" class="col-xl-6 col-lg-6 col-md-6 col-12 btn-style1 btn-padding" >Save Address</button>
+        <p class="error-loction" style="display: none;">we currently not serving at this location</p>
+        <p class="success-loction" style="display: none;">Cogratulation your order outside your door in 15min's</p>
+        <button onclick="ok_address('user_input_autocomplete_address')" class="col-xl-6 col-lg-6 col-md-6 col-12 btn-style1 btn-padding address-save-btn">Save Address</button>
       </div>
     </div>
   </div>
@@ -289,49 +284,6 @@
             <div class=" col mt-2">
               <div class="top_product_cat">
                 <div class="product_cat_body">
-                  <!-- <div class="product_cat_row">
-                    <div class="product_cat_name_1">
-                      {% for category in categories %}
-                      {% if category.category_name == "Fruits & Vegetables" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Fruits & Vegetables"></a>
-                      {% endif %}{% endfor %}
-                    </div>
-                    <div class="product_cat_name_2">
-                      {% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Snacks & Drinks"></a>
-                      {% endif %}{% endfor %}
-                    </div>
-                    <div class="product_cat_name_3">
-                      {% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Home & Kitchen Appliances"></a>
-                      {% endif %}{% endfor %}
-                    </div>
-                  </div>
-                  <div class="product_cat_row">
-                    <div class="pproduct_cat_name_center">
-                      {% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cooking Essentials"></a>
-                      {% endif %}{% endfor %}
-                    </div>
-                    
-                  </div>
-                  <div class="product_cat_row">
-                    <div class="product_cat_name_4">
-                      {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Breakfast & Dairy"></a>
-                      {% endif %}{% endfor %}
-                    </div>
-                    <div class="product_cat_name_5">
-                      {% for category in categories %}{% if category.category_name == "Personal Care" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Personal Care"></a>
-                      {% endif %}{% endfor %} 
-                    </div>
-                    <div class="product_cat_name_6">
-                      {% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
-                      {% endif %}{% endfor %}
-                    </div>
-                  </div> -->
                   <div class='selector'>
                     <ul>
                       <li>
@@ -2224,7 +2176,99 @@ function get_otp(elm){
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-    
+      
+      
+      function showLocationSearch(value){
+        console.log(value);
+        domain = window.location.origin
+        path_name = '/api/v1/stores/suggest-delivery-location/' //change-this url
+        if(value.length < 5){
+          $('#location-list').empty()
+          $('#location-list').hide()
+        }
+        else{
+          $.ajax({
+              type: 'GET',
+              url: domain+path_name,
+              contentType: 'application/json',
+              data: {
+                  "csrfmiddlewaretoken":g_csrftoken,
+                  "value" : value,
+                  
+              },
+              success: function(response) {
+                  if (response){
+                    //console.log(response)
+                    
+                    $('#location-list').empty()
+                    sessionStorage.setItem('response',response) ;
+                    
+                    if (response.length > 0){
+                      //if 
+                      $('#location-list').show()
+                      $.each(response,function(index, item){
+                        var res = JSON.stringify(item)
+                        $('#location-list').append(`
+                        <div class="suggest-location d-flex col-12" >
+                          <div class="location_name col-8 align-self-center" id="`+index+`" onclick="searchLocationClick(this.id)">
+                            <p id="p-tag-`+index+`">`+item.area+`,`+item.sector+`,`+item.pincode+`</p>
+                          </div>
+                        </div>
+                        `)
+                      })
+                    }
+                  }
+                  else{
+                    $('.error-loction').show()
+                    $('#location-list').empty()
+                    $('#location-list').show()
+                    $('#location-list').append(`
+                    <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
+                    `)
+                  }
+              }
+              
+          });
+        }
+
+        }
+
+    function searchLocationClick(index) {
+      
+
+      //console.log(index)
+      var add = document.getElementById("p-tag-"+index).innerHTML;
+      //console.log(add);
+      document.getElementById("user_input_autocomplete_address").value = jQuery.trim(add).substring(0, 40);
+      $('#location-list').empty();
+      $('#location-list').hide();
+      $('.success-loction').show();
+    }
+
+    jQuery(document).ready(function(){
+      $('.address-save-btn').click(function(e){
+        e.preventDefault();
+        //fieldName = $(this).attr('field');
+        address = document.getElementById("user_input_autocomplete_address").value;
+        console.log("calling ");
+        domain = window.location.origin
+        console.log(domain);
+        path_name = '/api/v1/accounts/api/v1/user-address/' //change-this url
+        $.ajax({
+            type: 'POST',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken":g_csrftoken,
+                "address" : address
+            },
+            success: function(response) {
+                if (response){
+                  console.log(response);
+                  }
+                }
+              })
+            });
+        });
     </script>
 </body>
 </html>
