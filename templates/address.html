@@ -418,7 +418,7 @@
                     </div>
                 </div>
                 <div class="btn-address">
-                    <a onclick="checkForm('user_address_form')" class="address-btn active" id="form-button">Add Address</a>
+                    <a onclick="checkForm(user_address_form)" class="address-btn active" id="form-button">Add Address</a>
                 </div>
             </form>`)
         }
@@ -434,6 +434,7 @@
             }
         }
         function checkForm( id_form){
+            console.log("check form")
             if(!$('#first_name').val()){
                 !$('#first_name').focus()
             }

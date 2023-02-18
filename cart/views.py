@@ -81,9 +81,10 @@ def cartCheckoutPageView(request):
     else:
         itemsForCartPage = Order.objects.create(
             user=request.user, ordered_date=timezone.now())
-    
-    pincode = 201301
-    address, created = UserAddresses.objects.get_or_create(user=request.user,pincode=pincode,default_address = True)
+    try:
+        address= UserAddresses.objects.get(user=request.user,default_address = True)
+    except UserAddresses.DoesNotExist:
+        return redirect("user-address-page")
     a = round(itemsForCartPage.get_total(), 2)
     counter = len(itemsForCartPage.items.all())
 
@@ -150,13 +151,13 @@ def removeSingleItemFromCart(request, pk):
 
 @login_required
 def orderPaymentRequest(request, amount):
+    delivery_address_id = 0
     if request.user:
         user = User.objects.get(pk=request.user.id)
         order = Order.objects.get(user=request.user.id, ordered=False)
 
     if request.COOKIES.get('deliver_here') is not None:
         delivery_address_id = request.COOKIES.get('deliver_here')
-        print("DEl ID: ",delivery_address_id)
     else:
         raise JsonResponse({'Error':'Please select a delivery address'})
     
@@ -171,8 +172,14 @@ def orderPaymentRequest(request, amount):
         redirect_url=settings.PAYMENT_SUCCESS_REDIRECT_URL,
         allow_repeated_payments=False
     )
+    try:
+        if delivery_address_id != 0:
+            delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
+        else:
+            return redirect("user-address-page")
+    except UserAddresses.DoesNotExist:
+        return redirect("user-address-page")
     
-    delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
     order.shipping_address = delivery_address.user_formatted_full_address()
     order.billing_address = delivery_address.user_formatted_full_address()
     order.ref_code = response['payment_request']['id']
