@@ -288,7 +288,11 @@
             <p class="my-2">
             <span class="location_text my-2" onclick="showPopsearch('search-popup')" id="location-text">
               {% if request.user.is_authenticated %}
+              {% if user.user_address %}
               {{user.user_address|slice:40}}
+              {% else %}
+                <span class="bi bi-geo-alt"></span> Please Select Delivery Location
+              {% endif %}
               <i class="bi bi-caret-down-fill"></i>
               {% else %}
               <span class="bi bi-geo-alt"></span> 201301, Noida <span class="bi bi-pencil-square"></span>
