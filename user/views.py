@@ -15,7 +15,7 @@ from django.http import JsonResponse
 from django.utils.timezone import utc
 from .utils import OTPManager
 from random import randint
-
+from django.http import Http404
 User = get_user_model()
 
 
@@ -171,12 +171,12 @@ def verify_otp(request):
         return Response({'Error': "Invalid Data"}, status=status.HTTP_200_OK)
 
 
-class UserAddressUpdateView(APIView):
+class UserAddressView(APIView):
     permission_classes = (IsAuthenticated,permissions.AllowAny)
     authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication)
 
     def get(self,request,format = None):
-        address = UserAddresses.objects.get(user = request.user)
+        address = UserAddresses.objects.filter(user = request.user)
         serializer = UserAddressesSerializer(instance=address,many = True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
@@ -195,18 +195,43 @@ class UserAddressUpdateView(APIView):
         serializer = UserAddressesSerializer(instance=user_address)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def put(self,request,format = None):
+class UserAddressUpdateView(APIView):
+    permission_classes = (IsAuthenticated, permissions.AllowAny)
+    authentication_classes = (authentication.BasicAuthentication,
+                              authentication.TokenAuthentication, authentication.SessionAuthentication)
+
+    def get_object(self, pk):
         try:
-            if request.user:
-                user_address = get_object_or_404(UserAddresses,user = request.user)
-            serializer = UserAddressesSerializer(user_address,data = request.data,partial= True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data,status=status.HTTP_200_OK)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            print(e)
-            return Response({'data':'Error received'}, status=status.HTTP_401_UNAUTHORIZED)
+            return UserAddresses.objects.get(pk=pk)
+        except UserAddresses.DoesNotExist:
+            raise Http404
+
+    def get_other_objects(self,request):
+        otherAddress = UserAddresses.objects.filter(user=request.user)
+        serializer = UserAddressesSerializer(otherAddress, many=True)
+        return serializer
+
+    def get(self, request,pk, format=None):
+        address = self.get_object(pk)
+        serializer = UserAddressesSerializer(instance=address)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def put(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = UserAddressesSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        if snippet.default_address:
+            raise serializers.ValidationError({'default_address':'Primary address cannot be deleted. Please select other address as primary first'})
+        else:
+            snippet.delete()
+        serializer = self.get_other_objects(request)
+        return Response(serializer.data,status=status.HTTP_204_NO_CONTENT)
 
 def address_page(request):
     if request.method == 'POST':

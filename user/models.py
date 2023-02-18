@@ -69,6 +69,10 @@ class UserAddresses(models.Model):
             ", "+str(self.city)+", " + str(self.pincode)
         return address
     
+    def user_brief_address(self):
+        add = str(self.area)+", "+str(self.city)+", "+str(self.pincode)
+        return add
+    
     def save(self, *args, **kwargs):
         if self.default_address:
             self.__class__._default_manager.filter(

@@ -288,8 +288,8 @@
             <p class="my-2">
             <span class="location_text my-2" onclick="showPopsearch('search-popup')" id="location-text">
               {% if request.user.is_authenticated %}
-              {% if user.user_address %}
-              {{user.user_address|slice:40}}
+              {% if user.user_brief_address %}
+              {{user.user_brief_address|slice:40}}
               {% else %}
                 <span class="bi bi-geo-alt"></span> Please Select Delivery Location
               {% endif %}
@@ -2235,14 +2235,14 @@ function get_otp(elm){
                     sessionStorage.setItem('response',response) ;
                     
                     if (response.length > 0){
-                      //if 
+                      console.log(response);
                       $('#location-list').show()
                       $.each(response,function(index, item){
                         var res = JSON.stringify(item)
                         $('#location-list').append(`
                           <div class="suggest-location d-flex col-12 cstm-area" >
                             <div class="location_name col-8 align-self-center" id="`+index+`" onclick="searchLocationClick(this.id)">
-                              <p id="p-tag-`+index+`">`+item.area+`,`+item.sector+`,`+item.pincode+`</p>
+                              <p id="p-tag-`+index+`">`+item.area+`,`+item.sector+`,`+item.city+`,`+item.pincode+`</p>
                             </div>
                           </div>
                         `)

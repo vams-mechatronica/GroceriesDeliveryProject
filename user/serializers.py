@@ -190,7 +190,7 @@ class UserSerializer(serializers.ModelSerializer):
 class UserAddressesSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAddresses
-        fields = '__all__'
+        exclude =('user',)
     
     def get_or_create(self):
         user = CurrentUserDefault()
