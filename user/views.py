@@ -110,7 +110,6 @@ def userOrderDetail(request):
 def userOrderDetailExpanded(request,pk):
     if request.user:
         order_detail = Order.objects.get(user = request.user.id,pk=pk)
-        print(order_detail)
     context = {
         'orders':order_detail
     }
