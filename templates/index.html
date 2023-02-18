@@ -204,7 +204,7 @@
         
         <p class="error-loction" style="display: none;">we currently not serving at this location</p>
         <p class="success-loction" style="display: none;">Cogratulation your order outside your door in 15min's</p>
-        <button onclick="ok_address('user_input_autocomplete_address')" class="col-xl-6 col-lg-6 col-md-6 col-12 btn-style1 btn-padding address-save-btn">Save Address</button>
+        <button onclick="ok_address('user_input_autocomplete_address')" class="col-xl-6 col-lg-6 col-md-6 col-12 btn-style1 btn-padding address-save-btn" id="save-button-address" disabled>Save Address</button>
       </div>
     </div>
   </div>
@@ -2216,6 +2216,8 @@ function get_otp(elm){
         if(value.length < 5){
           $('#location-list').empty()
           $('#location-list').hide()
+          $('.error-loction').hide();
+          $('.success-loction').hide();
         }
         else{
           $.ajax({
@@ -2229,15 +2231,20 @@ function get_otp(elm){
               },
               statusCode: {
                 404: function(responseObject,textStatus,jqXHR){
-                  $('.error-loction').show()
-                  $('#location-list').empty()
-                  $('#location-list').hide()
+                  $('.success-loction').hide();
+                  $('.error-loction').show();
+                  $('#location-list').empty();
+                  $('#location-list').hide();
+                  $("#save-button-address").attr("disabled", true);
+                  $("#save-button-address").css({ "background-color": "#ccc", "transition": "0.3s" });
                 }
               },
               success: function(response) {
                   if (response){
                     console.log(response);
-                    
+                    $('.error-loction').hide();
+                    $("#save-button-address").attr("disabled", false);
+                    $("#save-button-address").css({ "background-color": "green", "transition": "0.3s" });
                     $('#location-list').empty()
                     sessionStorage.setItem('response',response) ;
                   
@@ -2272,6 +2279,7 @@ function get_otp(elm){
       $('#location-list').empty();
       $('#location-list').hide();
       $('.success-loction').show();
+      $('.error-loction').hide();
     }
 
     jQuery(document).ready(function(){
