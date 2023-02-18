@@ -2227,36 +2227,34 @@ function get_otp(elm){
                   "value" : value,
                   
               },
+              statusCode: {
+                404: function(responseObject,textStatus,jqXHR){
+                  $('.error-loction').show()
+                  $('#location-list').empty()
+                  $('#location-list').hide()
+                }
+              },
               success: function(response) {
                   if (response){
-                    //console.log(response)
+                    console.log(response);
                     
                     $('#location-list').empty()
                     sessionStorage.setItem('response',response) ;
-                    
-                    if (response.length > 0){
-                      console.log(response);
-                      $('#location-list').show()
-                      $.each(response,function(index, item){
-                        var res = JSON.stringify(item)
-                        $('#location-list').append(`
-                          <div class="suggest-location d-flex col-12 cstm-area" >
-                            <div class="location_name col-8 align-self-center" id="`+index+`" onclick="searchLocationClick(this.id)">
-                              <p id="p-tag-`+index+`">`+item.area+`,`+item.sector+`,`+item.city+`,`+item.pincode+`</p>
-                            </div>
-                          </div>
-                        `)
-                      })
-                    }
-                  }
-                  else{
-                    $('.error-loction').show()
-                    $('#location-list').empty()
+                  
+                    console.log(response);
                     $('#location-list').show()
-                    $('#location-list').append(`
-                    <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
-                    `)
+                    $.each(response,function(index, item){
+                      var res = JSON.stringify(item)
+                      $('#location-list').append(`
+                        <div class="suggest-location d-flex col-12 cstm-area" >
+                          <div class="location_name col-8 align-self-center" id="`+index+`" onclick="searchLocationClick(this.id)">
+                            <p id="p-tag-`+index+`">`+item.area+`,`+item.sector+`,`+item.city+`,`+item.pincode+`</p>
+                          </div>
+                        </div>
+                      `)
+                    })
                   }
+            
               }
               
           });

@@ -93,16 +93,20 @@ class SuggestVerifyDeliveryLocation(APIView):
             else:
                 address['sector'] = addr
         
-        # print(address)
-                
-
-        storeAtLocationPincode = storeServiceLocation.objects.filter(Q(pincode=address.get('pincode') or 0) | Q(area__icontains=address.get('area') or '') | Q(sector__icontains= address.get('sector') or ''))
+        if address.get('pincode') is not None and address.get('area') is None and address.get('sector') is None:
+            try:
+                storeAtLocationPincode = storeServiceLocation.objects.filter(
+                    pincode=address.get('pincode'))
+            except storeServiceLocation.DoesNotExist:
+                raise serializers.ValidationError({'pincode':'Sorry! We are not delivering at your location','available':False})
+        else:
+            storeAtLocationPincode = storeServiceLocation.objects.filter(Q(pincode=address.get('pincode') if address.get('pincode') is not None else 0) | Q(area__icontains=address.get('area') or '') | Q(sector__icontains= address.get('sector') or ''))
         try:
             if len(storeAtLocationPincode) > 0:
                 defaultLocationpincode = address.get('pincode')
                 serializer = StoreServiceLocationSerializer(instance=storeAtLocationPincode,many= True)
                 return Response(serializer.data, status=status.HTTP_200_OK)
             else:
-                return Response({'available': False}, status=status.HTTP_200_OK)
+                return Response({'pincode': 'Sorry! We are not delivering at your location', 'available': False}, status=status.HTTP_404_NOT_FOUND)
         except StoreDetail.DoesNotExist:
             pass
