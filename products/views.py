@@ -202,3 +202,8 @@ def privacy(request):
 def cookie(request):
     context = ({'user': 0})
     return render(request, "cooki.html", context=context)
+
+
+def contact(request):
+    context = ({'user': 0})
+    return render(request, "contact.html", context=context)

@@ -338,8 +338,8 @@
                       </li>
                       <li>
                         <input id='c4' type='checkbox'>
-                        <label for='c4'>{% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cooking Essentials"></a>
+                        <label for='c4'>{% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
                       {% endif %}{% endfor %}</label>
                       </li>
                       <li>
@@ -361,8 +361,8 @@
                       {% endif %}{% endfor %}</label>
                       </li>
                     </ul>
-                    <button>{% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
+                    <button>{% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cooking Essentials"></a>
                       {% endif %}{% endfor %}</button>
                   </div>
                 </div>
@@ -378,7 +378,7 @@
           <div class="product_heading">
             <h2>Trending Now</h2>
             {% for category in categories %}{% if category.category_name == "Trending" %}
-            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
+            <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all c-black">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
           </div>
@@ -414,7 +414,7 @@
                       <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Trending')" id="{{prod.products.product_id}}-increas:Trending">+</span>
                     </div>
                   </div>
-                  <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                  <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
                 {% else %}
               <p> No Products available</p>
@@ -469,7 +469,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick('{{prod.products.product_id}}','FruitVeg')" id="{{prod.products.product_id}}-increas:FruitVeg">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -524,7 +524,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick('{{prod.products.product_id}}','BreakfastDairy')" id="{{prod.products.product_id}}-increas:BreakfastDairy">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -579,7 +579,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CookingEss')" id="{{prod.products.product_id}}-increas:CookingEss">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -648,7 +648,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'CleaningEss')" id="{{prod.products.product_id}}-increas:CleaningEss">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -701,7 +701,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'PersonalCare')" id="{{prod.products.product_id}}-increas:PersonalCare">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -755,7 +755,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Snacks')" id="{{prod.products.product_id}}-increas:Snacks">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -822,7 +822,7 @@
                       <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Health')" id="{{prod.products.product_id}}-increas:Health">+</span>
                     </div>
                   </div>
-                  <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                  <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
                 </div>
               {% else %}
               <p> No Products available</p>
@@ -875,7 +875,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Dry')" id="{{prod.products.product_id}}-increas:Dry">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -942,7 +942,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Puja')" id="{{prod.products.product_id}}-increas:Puja">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -994,7 +994,7 @@
                     <span class="plus-bttn" onclick="plusBtnClick({{prod.products.product_id}},'Home')" id="{{prod.products.product_id}}-increas:Home">+</span>
                   </div>
                 </div>
-                <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+                <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
               </div>
               {% else %}
               <p> No Products available</p>
@@ -1080,7 +1080,7 @@
               <a href="{% url 'index' %}">Home</a>
               <!-- <a href="#">Orders</a> -->
               <a href="{% url 'about' %}">About us</a>
-              <a href="#">Contact us</a>
+              <a href="{% url 'contact_us' %}">Contact us</a>
               <!-- <a href="#">Blog</a> -->
             </div>
           </div>

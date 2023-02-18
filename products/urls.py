@@ -15,6 +15,7 @@ urlpatterns = [
     path('terms-conditions', term, name="terms_conditions"),
     path('privacy-policy', privacy, name="privacy_policy"),
     path('cookies-policy', cookie, name="cookies_policy"),
+    path('contact-us', contact, name="contact_us"),
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

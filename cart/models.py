@@ -47,8 +47,8 @@ class Order(models.Model):
     start_date = models.DateTimeField(auto_now_add=True)
     ordered_date = models.DateTimeField()
     ordered = models.BooleanField(default=False)
-    shipping_address = models.CharField(_("shipping_address"), max_length=250,blank=True,null=True)
-    billing_address = models.CharField(_("billing_address"), max_length=250,blank=True,null=True)
+    shipping_address = models.CharField(_("shipping_address"), max_length=2500,blank=True,null=True)
+    billing_address = models.CharField(_("billing_address"), max_length=2500,blank=True,null=True)
     payment = models.ForeignKey(
         'Payment', on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey(
@@ -70,7 +70,7 @@ class Order(models.Model):
     '''
 
     def __str__(self):
-        return self.user.username
+        return f"User Mobile No: {self.user.username}"
 
     def get_total(self):
         total = 0
@@ -115,7 +115,7 @@ class Payment(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username
+        return f"{self.user.username}"
 
 
 class Coupon(models.Model):
@@ -123,7 +123,7 @@ class Coupon(models.Model):
     amount = models.FloatField()
 
     def __str__(self):
-        return self.code
+        return f"{self.code}"
 
 
 class Refund(models.Model):

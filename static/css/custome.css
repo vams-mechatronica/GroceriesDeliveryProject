@@ -779,8 +779,9 @@ option {
       background: url(../img/curve-img.svg) no-repeat 100% 100%/cover;
       left: 0;
       right: 0;
-      bottom: -105px;
-      height: 23%;
+      bottom: -190px;
+      height: 50%;
+      width: 100%;
   }
     .list-page-header {
        max-width: 350px;
@@ -791,7 +792,7 @@ option {
     top: 0px !important;
   }
   .top_banner {
-    height: 80vh !important;
+    height: 60vh !important;
 }
 .selector {
   position: absolute;
@@ -842,7 +843,7 @@ option {
   font-size: 10px;
 }
 .btn-style1.btn-padding {
-  padding: 5px 8px;
+  padding: 10px 13px;
   line-height: 1;
   height: max-content;
   font-size: 10px;
@@ -859,6 +860,14 @@ option {
   display: flex;
   line-height: 16px;
   font-size: 14px;
+}
+.see_all a:first-child {
+  display: flex;
+  line-height: 16px;
+  font-size: 14px;
+}
+.c-black{
+  color: black;
 }
 }
   @media (max-width: 400px){

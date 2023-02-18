@@ -15,6 +15,7 @@ from django.utils import timezone
 from stores.models import *
 from user.models import UserAddresses
 from instamojo_wrapper import Instamojo
+from django.http import *
 import time
 api = Instamojo(api_key=settings.API_KEY,
                 auth_token=settings.AUTH_TOKEN, endpoint='https://test.instamojo.com/api/1.1/')
@@ -152,6 +153,13 @@ def orderPaymentRequest(request, amount):
     if request.user:
         user = User.objects.get(pk=request.user.id)
         order = Order.objects.get(user=request.user.id, ordered=False)
+
+    if request.COOKIES.get('deliver_here') is not None:
+        delivery_address_id = request.COOKIES.get('deliver_here')
+        print("DEl ID: ",delivery_address_id)
+    else:
+        raise JsonResponse({'Error':'Please select a delivery address'})
+    
     response = api.payment_request_create(
         amount=str(amount),
         purpose='test_purchase',
@@ -163,7 +171,10 @@ def orderPaymentRequest(request, amount):
         redirect_url=settings.PAYMENT_SUCCESS_REDIRECT_URL,
         allow_repeated_payments=False
     )
-    # print(response)
+    
+    delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
+    order.shipping_address = delivery_address.user_formatted_full_address()
+    order.billing_address = delivery_address.user_formatted_full_address()
     order.ref_code = response['payment_request']['id']
     order.save()
     payment_redirect_url = response['payment_request']['longurl']

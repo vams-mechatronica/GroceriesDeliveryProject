@@ -80,7 +80,7 @@
               </div>
               <a href={% url 'productdetail' prod.products.product_id %} class="btn btn-style1 btn-padding">ADD</a>
             </div>
-            <div class="product_dicont"><span>Rs{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
+            <div class="product_dicont"><span>₹{{prod.discount|floatformat:0|floatformat:0}} Off</span></div>
 
           </div>
           {% empty %}

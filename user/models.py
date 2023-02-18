@@ -49,17 +49,17 @@ class UserAddresses(models.Model):
         _("Landmark"), max_length=50, null=True, blank=True, default="")
     default_address = models.BooleanField(_("Default Address"),null=True,blank=True,default=True)
     nick_name = models.CharField(
-        _("Contact Nick Name"), max_length=50, default='', null=True, blank=True)
+        _("Contact Nick Name"), max_length=50, default="", null=True, blank=True)
     address_nick_name = models.CharField(_("Address Nick Name"), max_length=50,choices=ADDRESS,default='Home',null=True,blank=True)
     state = models.CharField(
-        _("select state"), max_length=200, blank=True, null=True,default=" ")
+        _("select state"), max_length=200, blank=True, null=True,default="")
     city = models.CharField(
-        _("select city"), max_length=200, blank=True, null=True,default=" ")
+        _("select city"), max_length=200, blank=True, null=True,default="")
     area = models.CharField(
-        _("Area"), max_length=200, blank=True, null=True, default=" ")
+        _("Area"), max_length=200, blank=True, null=True, default="")
     pincode = models.IntegerField(_("address pincode"))
     mobileno = models.CharField(
-        _("address phone number"), max_length=13, null=True, blank=True,default=" ")
+        _("address phone number"), max_length=13, null=True, blank=True,default="")
 
     def __str__(self) -> str:
         return "user:{} city: {} pincode: {} phoneno. {}".format(self.user, self.city, self.pincode, self.mobileno)
@@ -73,6 +73,15 @@ class UserAddresses(models.Model):
         add = str(self.area)+", "+str(self.city)+", "+str(self.pincode)
         return add
     
+    def user_formatted_full_address(self):
+        fAddress = "Contact Name: "+str(self.nick_name if self.nick_name != '' else self.first_name+" "+self.last_name)+\
+            ", "+str(self.house_no+", " if self.house_no is not "" else "")+str(self.apartment_name+", " if self.apartment_name is not "" else "") +\
+                str(self.street_detail + ", " if self.street_detail is not "" else "")+"Landmark: "+\
+                    str(self.landmark+", " if self.landmark is not "" else "")+str(self.area)+", " + \
+            str(self.city)+", "+(self.state+", " if self.state is not "" else "") + \
+            str(self.pincode)+", "+"M: "+(self.mobileno)
+        return fAddress
+
     def save(self, *args, **kwargs):
         if self.default_address:
             self.__class__._default_manager.filter(

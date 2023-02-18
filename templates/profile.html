@@ -105,7 +105,7 @@
                 <div class="col-md-12">
                     <div class="login-header">
                         <span class="user_mname">Hello !</span>
-                        <span class="user_mobile">+91{{user.mobileno}}</span>
+                        <span class="user_mobile" style='text-decoration:none;'>+91{{user.mobileno}}</span>
                     </div>
                     <ul class="login-user-action">
                         <li><a href="{% url 'orderhistoryuser' %}" style='text-decoration:none;'><i class="bi bi-bag-check"></i>Orders</a><i
@@ -113,7 +113,7 @@
                         </li>
                         <li><a href="{% url 'user-address-page' %}" style='text-decoration:none;'><i class="bi bi-geo-alt"></i>Address</a><i class="bi bi-chevron-right"></i>
                         </li>
-                        <li><a href="#" style='text-decoration:none;'><i class="bi bi-headset"></i>Support</a><i class="bi bi-chevron-right"></i>
+                        <li><a href="{% url 'contact_us' %}" style='text-decoration:none;'><i class="bi bi-headset"></i>Support</a><i class="bi bi-chevron-right"></i>
                         </li>
                         <li><a onclick="showLogout()"><i class="bi bi-box-arrow-right"></i>
                                 Log out</a><i class="bi bi-chevron-right"></i>

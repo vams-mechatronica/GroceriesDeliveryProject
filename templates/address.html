@@ -336,7 +336,7 @@
                 <p>Contact Name: {{addr.nick_name}}</p>
                 <p>Address: {{addr.user_address}}</p>
                 <p>M. no.: {{addr.mobileno}}</p>
-                <a class="deliver here">Deliver Here</a>
+                <a class="deliver here" id="{{addr.id}}" onclick="deliverHere(this.id)">Deliver Here</a>
             </div>
             {% endfor %}
         </div>
@@ -486,5 +486,31 @@
     <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
     <!-- You can alternatively load the minified version -->
     <script src="{% static 'js/jquery.bootstrap.modal.forms.min.js' %}"></script>
+    <script>
+        var getCookie = function (name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+                }
+            }
+            return cookieValue;
+        };
+        function deliverHere(id){
+            console.log("calling ADdres")
+            var deliver_here = getCookie('deliver_here')
+            if (deliver_here == null || deliver_here == undefined || deliver_here !== null){
+                deliver_here = id
+            }
+
+            document.cookie ='deliver_here=' + deliver_here + "; domain=;path=/"
+        }
+    </script>
 </body>
 </html>

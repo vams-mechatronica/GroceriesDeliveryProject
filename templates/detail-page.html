@@ -193,7 +193,7 @@
                                     <span class="new-price">₹{{product.list_price}}</span>
                                     <span class="old-price"><del>₹{{product.products.max_retail_price}}</del></span>
                                     <div class="Pro-lable">
-                                        <span class="p-discount">Rs.{{product.discount|floatformat:0}} Off</span>
+                                        <span class="p-discount">₹{{product.discount|floatformat:0}} Off</span>
                                     </div>
                                 </div>
                                 {% if request.user.is_authenticated%}
