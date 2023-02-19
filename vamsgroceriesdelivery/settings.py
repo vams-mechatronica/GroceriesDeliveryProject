@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import environ
+import re
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -72,6 +73,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -215,3 +217,11 @@ PAYMENT_SUCCESS_REDIRECT_URL = env('PAYMENT_SUCCESS_REDIRECT_URL')
 SEND_SMS=env('INSTAMOJO_SEND_PAYMENT_RECEIVED_SMS')
 SEND_EMAIL=env('INSTAMOJO_SEND_PAYMENT_RECEIVED_EMAIL')
 ENDPOINT = env('INSTAMOJO_TEST_ENDPOINT')
+
+IGNORABLE_404_URLS = [
+    re.compile(r'\.(php|cgi)$'),
+    re.compile(r'^/phpmyadmin/'),
+    re.compile(r'^/apple-touch-icon.*\.png$'),
+    re.compile(r'^/favicon\.ico$'),
+    re.compile(r'^/robots\.txt$'),
+]

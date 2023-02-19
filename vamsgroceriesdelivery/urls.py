@@ -15,10 +15,11 @@ Including another URLconf
 """
 from .settings import *
 from django.contrib import admin
-from django.urls import path,include,re_path
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from dj_rest_auth.views import PasswordResetConfirmView
+from django.conf.urls import handler404, handler500
 
 
 admin.site.site_header = env.str('ADMIN_SITE_HEADER')                    
@@ -40,3 +41,5 @@ urlpatterns = [
     path('',include('products.urls')),
     path('buy/',include('cart.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler500 = 'products.views.not_found'

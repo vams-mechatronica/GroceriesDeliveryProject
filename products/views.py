@@ -184,9 +184,9 @@ def about(request):
     return render(request, "about.html", context=context)
 
 
-# def not_found(request):
-#     context = ({'user': 0})
-#     return render(request, "404.html", context=context)
+def not_found(request):
+    context = ({'user': 0})
+    return render(request, "404.html", context=context)
 
 
 def term(request):
