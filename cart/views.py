@@ -175,6 +175,8 @@ def orderPaymentRequest(request, amount):
     try:
         if delivery_address_id != 0:
             delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
+            if delivery_address.house_no == "":
+                return redirect("user-address-page")
         else:
             return redirect("user-address-page")
     except UserAddresses.DoesNotExist:

@@ -885,7 +885,7 @@
         </div>
       </div>
     </div>
-    <div class="prmotion_banner">
+    {% comment %} <div class="prmotion_banner">
       <div class="container-xl">
         <div class="row">
           <div class="col-md-12">
@@ -899,7 +899,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
     <div class="prduct_slide_list">
       <div class="container-xl">
         <div class="row">
@@ -1089,7 +1089,7 @@
                 <h3 class="footer-title">Follow us</h3>
                 <a href="#"><i class="bi bi-facebook"></i> Facebook</a>
                 <a href="#"><i class="bi bi-twitter"></i> Twitter</a>
-                <a href="#"><i class="bi bi-instagram"></i> Instragaram</a>
+                <a href="#"><i class="bi bi-instagram"></i> Instagram</a>
                 <a href="#"><i class="bi bi-youtube"></i> Youtube</a>
               </div>
             </div>
@@ -1714,59 +1714,7 @@
     };
   
     const g_csrftoken = getCookie('csrftoken');
-    {% comment %} function showProducts(value){
-      console.log(value)
-      domain = window.location.origin
-      path_name = '/api/v1/stores/products/' //change-this url
-      if(value.length < 3){
-        $('.suggestProduct').empty()
-        $('.suggestProduct').hide()
-      }
-      $.ajax({
-          type: 'GET',
-          url: domain+path_name,
-          data: {
-              "csrfmiddlewaretoken":g_csrftoken,
-              "products" : value,
-              
-          },
-          success: function(response) {
-              if (response){
-                //console.log(response)
-                $('.suggestProduct').empty()
-                
-                if (response.length > 0){
-                  $('.suggestProduct').show()
-                  $.each(response,function(index, item){
-                    //console.log(response[index].products.product_id)
-                    $('.suggestProduct').append(`
-                    <div class="suggest-product d-flex col-12" onclick='window.location.href="/productdetail/`+response[index].products.product_id+`"' >
-                      <div class="col-2 ">
-                        <img src="https://ashekhar.pythonanywhere.com`+response[index].products.prod_mainimage+`" alt=""  >
-                      </div>
-                      <div class="product_name col-8 align-self-center">
-                        <p>`+response[index].products.product_name+`</p>
-                      </div>
-                      <div class="align-self-center">
-                        <div class="product_pirce "><span class="pro_mrp">`+response[index].products.max_retail_price+`</span><span class="pro_sell">`+response[index].products.max_retail_price+`</span></div>
-                        <!-- <a href="#" class="btn btn-style1 btn-padding">ADD</a> -->
-                      </div>
-                    </div>
-                    `)
-                  })
-                }
-              }
-              else{
-                $('.suggestProduct').empty()
-                $('.suggestProduct').show()
-                $('.suggestProduct').append(`
-                <p style="color: red;">Sorry! we regret but we don't have that product, that you search for.</p>
-                `)
-              }
-          }
-          
-      });
-} {% endcomment %}
+    
     function showProducts(value){
       //var g_csrftoken_p = getCookie('csrftoken')//
       //var csrftoken = Cookies.get('csrftoken');
