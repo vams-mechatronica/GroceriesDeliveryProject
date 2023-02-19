@@ -25,7 +25,6 @@ class StoreDetailsView(APIView):
 
 
 class StoreProductDetailsView(APIView):
-    authentication_classes = [authentication.SessionAuthentication]
     permission_classes = (AllowAny,)
 
     def get(self,request,format = None):
