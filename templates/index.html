@@ -264,7 +264,7 @@
           <a href={% url 'userprofilepage' %}><img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           {% else %}
-          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+          <a href="#" class="d-block link-dark text-decoration-none"
             aria-expanded="false">
             
             <img src="{% static 'img/icons/Unknown_person.jpg' %}" onclick="showPopLogin()" alt="mdo" width="32" height="32"
@@ -289,11 +289,11 @@
             <span class="location_text my-2" onclick="showPopsearch('search-popup')" id="location-text">
               {% if request.user.is_authenticated %}
               {% if user.user_brief_address %}
-              {{user.user_brief_address|slice:40}}
+              <span class="bi bi-geo-alt"></span>{{user.user_brief_address|slice:40}}<span class="bi bi-pencil-square"></span>
               {% else %}
-                <span class="bi bi-geo-alt"></span> Please Select Delivery Location
+                <span class="bi bi-geo-alt"></span> Please Select Delivery Location <span class="bi bi-pencil-square"></span>
               {% endif %}
-              <i class="bi bi-caret-down-fill"></i>
+              {% comment %} <i class="bi bi-caret-down-fill"></i> {% endcomment %}
               {% else %}
               <span class="bi bi-geo-alt"></span> 201301, Noida <span class="bi bi-pencil-square"></span>
               {% endif %}

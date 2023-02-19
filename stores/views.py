@@ -99,6 +99,26 @@ class SuggestVerifyDeliveryLocation(APIView):
                     pincode=address.get('pincode'))
             except storeServiceLocation.DoesNotExist:
                 raise serializers.ValidationError({'pincode':'Sorry! We are not delivering at your location','available':False})
+        
+        elif address.get('pincode') is None and address.get('area') is None and address.get('sector') is not None:
+            try:
+                # sector = str(address.get('sector')).split(" ")[0]
+
+                storeAtLocationPincode = storeServiceLocation.objects.filter(
+                    sector__icontains=address.get('sector'))
+            except storeServiceLocation.DoesNotExist:
+                raise serializers.ValidationError(
+                    {'sector': 'Sorry! We are not delivering at your location', 'available': False})
+        
+        elif address.get('pincode') is None and address.get('area') is not None and address.get('sector') is None:
+            try:
+                # sector = str(address.get('sector')).split(" ")[0]
+
+                storeAtLocationPincode = storeServiceLocation.objects.filter(
+                    area__icontains=address.get('area'))
+            except storeServiceLocation.DoesNotExist:
+                raise serializers.ValidationError(
+                    {'sector': 'Sorry! We are not delivering at your location', 'available': False})
         else:
             storeAtLocationPincode = storeServiceLocation.objects.filter(Q(pincode=address.get('pincode') if address.get('pincode') is not None else 0) | Q(area__icontains=address.get('area') or '') | Q(sector__icontains= address.get('sector') or ''))
         try:
