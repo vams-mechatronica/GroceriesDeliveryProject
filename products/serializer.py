@@ -26,6 +26,11 @@ class ProductReviewAndRatingsSerializer(serializers.ModelSerializer):
         fields = ['review','ratings','upload_image','author']
     
 class ProductsSerializer(serializers.ModelSerializer):
+
+    desc = serializers.SerializerMethodField()
+
+    def get_desc(self, instance):
+        return str(instance.desc.html)
     class Meta:
         model = Products
-        exclude = ('desc',)
+        fields = "__all__"
