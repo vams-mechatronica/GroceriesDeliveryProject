@@ -262,8 +262,7 @@
           {% if request.user.is_authenticated %}
           {% comment %} <a href={% url 'userprofilepage' %} class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"> {% endcomment %}
-          <a href={% url 'userprofilepage' %}  class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
-          aria-expanded="false"><img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+          <a href={% url 'userprofilepage' %}><img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           {% else %}
           <a href="#" class="d-block link-dark text-decoration-none"
