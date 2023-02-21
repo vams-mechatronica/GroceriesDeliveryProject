@@ -159,7 +159,8 @@ def orderPaymentRequest(request, amount):
     if request.COOKIES.get('deliver_here') is not None:
         delivery_address_id = request.COOKIES.get('deliver_here')
     else:
-        raise JsonResponse({'Error':'Please select a delivery address'})
+        # raise JsonResponse({'Error':'Please select a delivery address'})
+        messages.warning(request,'Please select a delivery address')
     
     response = api.payment_request_create(
         amount=str(amount),
@@ -176,6 +177,7 @@ def orderPaymentRequest(request, amount):
         if delivery_address_id != 0:
             delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
             if delivery_address.house_no == "":
+                messages.warning(request,'Please fill a house number')
                 return redirect("user-address-page")
         else:
             return redirect("user-address-page")

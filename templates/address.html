@@ -314,6 +314,13 @@
         Add New Address
     </h3>
 </div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <div class="body container d-flex flex-wrap">
     <div class="address-form p-xl-2 p-lg-2 p-md-2 col-xl-6 col-lg-6 col-md-8 col-12 my-xl-4" id="form_add">
         <div class="add_form" onclick="add_form_here()">
