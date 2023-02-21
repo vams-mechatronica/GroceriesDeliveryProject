@@ -30,6 +30,7 @@
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/input-allow.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    
     <style>
         .login-header {
             background: #FFB928FF;
@@ -58,7 +59,7 @@
         }
 
         ul.login-user-action li {
-            padding: 15px 0;
+            padding: 5px 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -90,7 +91,13 @@
             line-height: 19px;
             margin-bottom: 12px;
         }
-
+        .w-100{
+            width: 100%;
+        }
+        ul.login-user-action li a {
+            width: 100%;
+            display: flex;
+        }
         ul.login-user-action li a i {
             padding-right: 11px;
             vertical-align: middle;
@@ -105,24 +112,47 @@
                 <div class="col-md-12">
                     <div class="login-header">
                         <span class="user_mname">Hello !</span>
-                        <span class="user_mobile" style='text-decoration:none;'>+91{{user.mobileno}}</span>
+                        <span class="user_mobile">+91{{user.mobileno}}</span>
                     </div>
                     <ul class="login-user-action">
-                        <li><a href="{% url 'orderhistoryuser' %}" style='text-decoration:none;'><i class="bi bi-bag-check"></i>Orders</a><i
-                                class="bi bi-chevron-right"></i>
+                        <li>
+                            <a href="{% url 'orderhistoryuser' %}" style='text-decoration:none;'>
+                                <div class="d-flex justify-content-between w-100">
+                                    <p><i class="bi bi-bag-check"></i> Orders</p>
+                                    <p><i class="bi bi-chevron-right"></i></p> 
+                                </div>
+                            </a>
                         </li>
-                        <li><a href="{% url 'user-address-page' %}" style='text-decoration:none;'><i class="bi bi-geo-alt"></i>Address</a><i class="bi bi-chevron-right"></i>
+                        <li>
+                            <a href="{% url 'user_address' %}" style='text-decoration:none;'>
+                                <div class="d-flex justify-content-between w-100">
+                                    <p><i class="bi bi-geo-alt"></i> Address</p>
+                                    <p><i class="bi bi-chevron-right"></i></p> 
+                                </div>
+                            </a>
                         </li>
-                        <li><a href="{% url 'contact_us' %}" style='text-decoration:none;'><i class="bi bi-headset"></i>Support</a><i class="bi bi-chevron-right"></i>
+                        <li>
+                            <a href="{% url 'contact_us' %}" style='text-decoration:none;'>
+                                <div class="d-flex justify-content-between w-100">
+                                    <p><i class="bi bi-headset"></i> Support</p>
+                                    <p><i class="bi bi-chevron-right"></i></p> 
+                                </div>
+                            </a>
                         </li>
-                        <li><a onclick="showLogout()"><i class="bi bi-box-arrow-right"></i>
-                                Log out</a><i class="bi bi-chevron-right"></i>
+                        <li>
+                            <a onclick="showLogout()">
+                                <div class="d-flex justify-content-between w-100">
+                                    <p><i class="bi bi-box-arrow-right"></i> Orders</p>
+                                    <p><i class="bi bi-chevron-right"></i></p> 
+                                </div>
+                            </a>
                         </li>
                     </ul>
                     <div class="down_load">
                         <h2>Download the app</h2>
                         <p>Order anything and track- it in real time with Glove app</p>
-                        <img src="{% static 'img/logo/Gplay.svg' %}" width="100" alt="">
+                        <p><img src="{% static 'img/logo/Gplay.svg' %}" alt="Play Store"></p>
+                        <p><img style="background:black;border-radius:10px" src="{% static 'img/logo/Astore.svg' %}" alt="Play Store">  </p>
                     </div>
                 </div>
             </div>
@@ -134,7 +164,12 @@
             <hr class="log-hr">
             <div class="d-flex decision-head">
                 <p class="decision col-6 text-center  br-1-log log-text-2" onclick="hidePopLogout()">No</p>
-                <p class="decision col-6 text-center yes log-text-2"><a href="{% url 'logout' %}" style='text-decoration:none;'>Yes</a></p>
+                {% if request.user.is_authenticated %}
+                <p class="decision col-6 text-center yes log-text-2"><a style='text-decoration:none;'>Yes</a></p>
+                {% comment %}
+                href="{% url 'logout' %}"
+                {% endcomment %}
+                {% endif %}
             </div>
         </div>
     </div>

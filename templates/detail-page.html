@@ -84,7 +84,7 @@
                 </div>
                 <!-- </form> -->
                 <p class="bellow-para">By continuing, you agree to our</p>
-                <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+                <p class="extra-links"><a href="{% url 'terms_conditions' %}">Terms of service</a> <a href="{% url 'privacy_policy' %}">Privacy policy</a></p>
             </div>
         </div>
     </div>
@@ -193,7 +193,7 @@
                                     <span class="new-price">₹{{product.list_price}}</span>
                                     <span class="old-price"><del>₹{{product.products.max_retail_price}}</del></span>
                                     <div class="Pro-lable">
-                                        <span class="p-discount">₹{{product.discount|floatformat:0}} Off</span>
+                                        <span class="p-discount">Rs.{{product.discount|floatformat:0}} Off</span>
                                     </div>
                                 </div>
                                 {% if request.user.is_authenticated%}
@@ -499,7 +499,7 @@
 
         jQuery(document).ready(function(){
             $('.plus-bttn').click(function(e){
-                //showLoader();
+                showLoader();
                 e.preventDefault();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
@@ -517,7 +517,7 @@
                     success: function(response) {
                         if (response){
                         console.log(response);
-                        //hideLoader();
+                        hideLoader();
                         document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                         document.getElementById("quantity").innerHTML = response['qty'];
                         document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
@@ -528,7 +528,7 @@
             });
             $('.add-to-cart').click(function(e){
                 e.preventDefault();
-                //showLoader();
+                showLoader();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
                 console.log(elementId);
@@ -544,7 +544,7 @@
                 },
                     success: function(response) {
                         if (response){
-                        //hideLoader();
+                        hideLoader();
                         console.log(response);
                         document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                         document.getElementById("quantity").innerHTML = response['qty'];
@@ -556,7 +556,7 @@
 
             $('.minus-bttn').click(function(e){
                 e.preventDefault();
-                //showLoader();
+                showLoader();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
                 console.log(elementId);
@@ -572,7 +572,7 @@
                     },
                     success: function(response) {
                         if (response){
-                        //hideLoader();
+                        hideLoader();
                         console.log(response);
                         document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                         document.getElementById("quantity").innerHTML = response['qty'];

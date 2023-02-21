@@ -53,14 +53,14 @@
         padding: 10px 12px;
         outline: none;
         border: none;
-        background-color: rgb(219, 142, 0);
+        background-color: #017f68;
         border-radius: 12px;
         margin: 10px 0;
         color: white;
         transition: 0.3s;
     }
     .main-form button:hover{
-        background-color: orange;
+        background-color: #00a082;
         transition: 0.3s;
     }
 @media (max-width:900px) and (min-width:500px){

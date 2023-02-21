@@ -179,13 +179,12 @@
     height: 45vh;
     margin-bottom: 120px;
   }
-  .top_banner:before{
+  .top_banner:after{
     content: "";
     background: url(../img/icons/patt2.png) no-repeat 100% 100%/cover;
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -120px;
+    bottom: -50%;
+    width: 100%;
     height: 100%;
     z-index: -1;
   }
@@ -775,12 +774,10 @@ option {
   }
 
   @media (max-width: 550px){
-    .top_banner:before {
-      background: url(../img/curve-img.svg) no-repeat 100% 100%/cover;
-      left: 0;
-      right: 0;
-      bottom: -190px;
-      height: 50%;
+    .top_banner:after {
+      background: url(../img/5.png) no-repeat 100% 100%/cover;
+      bottom: -33%;
+      height: 35%;
       width: 100%;
   }
     .list-page-header {
@@ -792,7 +789,8 @@ option {
     top: 0px !important;
   }
   .top_banner {
-    height: 60vh !important;
+    height: 75vh !important;
+    margin-bottom: 30px;
 }
 .selector {
   position: absolute;
@@ -854,7 +852,7 @@ option {
   padding: 8px;
 }
 .product_dicont{
-  padding: 4px;
+  padding: 8px;
 }
 .see_all {
   display: flex;

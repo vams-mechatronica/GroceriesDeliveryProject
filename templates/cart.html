@@ -76,7 +76,7 @@
                 </div>
                 <!-- </form> -->
                 <p class="bellow-para">By continuing, you agree to our</p>
-                <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+                <p class="extra-links"><a href="{% url 'terms_conditions' %}">Terms of service</a> <a href="{% url 'privacy_policy' %}">Privacy policy</a></p>
             </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
                             <ul> {% if useraddress.user_address is None %}
                                     <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address-1"></span></li>
                                 {% else %}
-                                    <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address">{{useraddress.user_brief_address}}</span></li>
+                                    <li><span class="save-add"><b>Shipping Address</b></span>- <span class="current-add" id="c-address">{{useraddress.user_address}}</span></li>
                                 {% endif %}
                             </ul>
                             <a href="{% url 'user-address-page' %}" class="chng-add"><i class="ion-ios-location"></i> Change Address</a>
@@ -123,11 +123,13 @@
                                         <div class="center">
                                             <div class="plus-minus">
                                                 <span>
+                                                    {% comment %} <a href="{% url 'removesingleitemfromcart' item.item.products.product_id %}" class="minus-btn text-black">-</a> {% endcomment %}
                                                     <a class="minus-btn text-black" id="{{item.item.products.product_id}}-minus-btn" field="{{item.item.products.product_id}}-name">-</a>
-                                                    
+                                                    {% comment %} <input type="hidden" id="{{item.item.products.product_id}}-url-minus" data-url="{% url 'removesingleitemfromcart' item.item.products.product_id %}"> {% endcomment %}
                                                     <input type="text" name="{{item.item.products.product_id}}-name" id="{{item.item.products.product_id}}-name-value" value="{{item.quantity}}">
-                                                    
+                                                    {% comment %} <a href="{% url 'addtocart' item.item.products.product_id %}" class="plus-btn text-black">+</a> {% endcomment %}
                                                     <a class="plus-btn text-black" id="{{item.item.products.product_id}}-plus-btn" field="{{item.item.products.product_id}}-name">+</a>
+                                                    {% comment %} <input type="hidden" id="{{item.item.products.product_id}}-url-plus" data-url="{% url 'addtocart' item.item.products.product_id %}"> {% endcomment %}
                                                 </span>
                                             </div>
                                         </div>
@@ -222,7 +224,7 @@
 
         jQuery(document).ready(function(){
             $('.plus-btn').click(function(e){
-                ////showLoader();
+                showLoader();
                 e.preventDefault();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
@@ -240,7 +242,7 @@
                     success: function(response) {
                         if (response){
                         //console.log(response);
-                        //hideLoader();
+                        hideLoader();
                         document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
                         document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];
                         document.getElementById("grand-total").innerHTML = "₹"+response['amount'];
@@ -280,7 +282,7 @@
             });
 
             $('.minus-btn').click(function(e){
-                //showLoader();
+                showLoader();
                 e.preventDefault();
                 //fieldName = $(this).attr('field');
                 const elementId = $(this).attr('id').split('-')[0]
@@ -297,7 +299,7 @@
                     },
                     success: function(response) {
                         if (response){
-                        //hideLoader();
+                        hideLoader();
                         //console.log(response);
                         document.getElementById("dis_price").innerHTML = "₹"+response['amount'];
                         document.getElementById("sell_price").innerHTML = "₹"+response['tmax_amount'];

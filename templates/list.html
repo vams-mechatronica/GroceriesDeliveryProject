@@ -136,7 +136,7 @@
           </div>
         <!-- </form> -->
         <p class="bellow-para">By continuing, you agree to our</p>
-        <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+        <p class="extra-links"><a href="{% url 'terms_conditions' %}">Terms of service</a> <a href="{% url 'privacy_policy' %}">Privacy policy</a></p>
       </div>
     </div>
   </div>
@@ -174,7 +174,7 @@
               </div>
             </div>
 
-            <div class="product_dicont"><span>₹{{categorypro.discount|floatformat:0}} Off</span></div>
+            <div class="product_dicont"><span>Rs{{categorypro.discount|floatformat:0}} Off</span></div>
           
           </div>
         </div>
@@ -301,7 +301,7 @@
             },
             success: function(response) {
                 if (response){
-                  //hideLoader();
+                  hideLoader();
                   //console.log(response['cart']['items'][0]['quantity']);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
@@ -313,7 +313,7 @@
             });
       $('.add-to-cart').click(function(e){
         e.preventDefault();
-        //showLoader();
+        showLoader();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -329,7 +329,7 @@
           },
             success: function(response) {
                 if (response){
-                  //hideLoader();
+                  hideLoader();
                   //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
@@ -340,7 +340,7 @@
             });
       $('.minus-bttn').click(function(e){
         e.preventDefault();
-        //showLoader();
+        showLoader();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -356,7 +356,7 @@
             },
             success: function(response) {
                 if (response){
-                  //hideLoader();
+                  hideLoader();
                   //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];

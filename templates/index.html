@@ -157,8 +157,9 @@
       .list_here {
     display: none;
     position: absolute;
-    width: 100%;
-    top: 45%;
+    width: 90%;
+    left: 5%;
+    top: 18%;
     max-height: 164px;
     height: max-content;
     border: 1px solid #e5e5e5;
@@ -192,7 +193,7 @@
       <div class="search-body">
         <div class="d-flex input">
           <div class="col-1 mag-lens">⌕</div>
-          <div class="col-11">
+          <div class=" col-xl-11 col-lg-11 col-md-11 col-12">
             <input type="text" class="pe-5" id="user_input_autocomplete_address" onkeyup="showLocationSearch(this.value)" name="address"
               class="form-control" placeholder="Enter your City or Area or Pincode" required>            
           </div>
@@ -204,7 +205,7 @@
         
         <p class="error-loction" style="display: none;">we currently not serving at this location</p>
         <p class="success-loction" style="display: none;">Cogratulation your order outside your door in 15min's</p>
-        <button onclick="ok_address('user_input_autocomplete_address')" class="col-xl-6 col-lg-6 col-md-6 col-12 btn-style1 btn-padding address-save-btn" id="save-button-address" disabled>Save Address</button>
+        <button onclick="ok_address('user_input_autocomplete_address')" class="mt-4 col-xl-11 col-lg-11 col-md-11 col-11 m-auto btn-style1 btn-padding address-save-btn" id="save-button-address" disabled>Save Address</button>
       </div>
     </div>
   </div>
@@ -237,7 +238,7 @@
           </div>
         <!-- </form> -->
         <p class="bellow-para">By continuing, you agree to our</p>
-        <p class="extra-links"><a href="#">Terms of service</a> <a href="#">Privacy policy</a></p>
+        <p class="extra-links"><a href="{% url 'terms_conditions' %}" style='text-decoration:none;'>Terms of service</a> <a href="{% url 'privacy_policy' %}" style='text-decoration:none;'>Privacy policy</a></p>
       </div>
     </div>
   </div>
@@ -261,7 +262,8 @@
           {% if request.user.is_authenticated %}
           {% comment %} <a href={% url 'userprofilepage' %} class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false"> {% endcomment %}
-          <a href={% url 'userprofilepage' %}><img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+          <a href={% url 'userprofilepage' %}  class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"
+          aria-expanded="false"><img src="{% static 'img/icons/Unknown_person.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           {% else %}
           <a href="#" class="d-block link-dark text-decoration-none"
