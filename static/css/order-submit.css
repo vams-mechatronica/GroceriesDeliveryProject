@@ -126,6 +126,7 @@ strike{
     position: absolute;
     left: -210px;
     top: -40px;
+    z-index: -1;
 }
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
@@ -154,5 +155,6 @@ strike{
         position: absolute;
         left: -110px;
         top: -50px;
+        z-index: -1;
     }
   }

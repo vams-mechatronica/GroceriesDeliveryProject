@@ -12,7 +12,7 @@
         width: 100%;
         z-index: 1;
     }
-    .about-img::before{
+    /* .about-img::before{
         position: absolute;
         left: 0;
         top: 0;
@@ -21,7 +21,7 @@
         height: 100%;
         background-image: linear-gradient(to bottom, rgb(0, 110, 255),rgb(0, 136, 255), #00a082,rgb(229, 200, 145) ,rgb(241, 195, 110));
         z-index: -2;
-    }
+    } */
     .about-img::after{
         display: none;
         position: absolute;

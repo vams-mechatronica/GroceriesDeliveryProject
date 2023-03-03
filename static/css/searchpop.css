@@ -121,10 +121,18 @@ cursor: pointer;
 .top_location{
     position: relative;
 }
+.product_serch_header{
+    position: relative;
+    width: 70%;
+}
+.product_serch{
+    position: relative;
+}
 .suggestProduct{
     position: absolute;
     background-color: white;
     padding: 10px;
+    width: 100%;
     height: max-content;
     max-height: 300px;
     overflow: hidden;
@@ -178,6 +186,7 @@ cursor: pointer;
     width: 80%;
     left: 50%;
     transform: translate(-50%, 0);
+    z-index: 2;
 }
 
 
