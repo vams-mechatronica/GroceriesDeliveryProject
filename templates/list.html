@@ -66,6 +66,139 @@
       </div>
     </div>
   </div>
+  {% if 'Trending' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Home-&-Kitchen-Appliances.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Home' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Home-&-Kitchen-Appliances.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Cleaning' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Cleaning-Essentials.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Cooking' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Cooking-Essentials.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Dairy' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Dairy-&-Breakfast.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Dry' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Dry-Fruits.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Vegetables' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Fruits&-Vegetables.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Health' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Health-&-Baby-Care.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Personal' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Personal-Care.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Puja' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Puja-Store.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+  {% elif 'Snacks' in category.category_name %}
+  <style>
+    .about-back{
+      background-image: url(../static/img/page_banner/Snacks-&-Drinks.png);
+      height: 35vh;
+  }
+  @media(max-width:500px){
+    .about-back{
+      height: 25vh;
+  }
+  }
+</style>
+{% endif %}
   <style>
         .loader{
           position: fixed;
@@ -77,10 +210,6 @@
           height: 31px;
           width: 31px;
           }
-    .about-back{
-      background-image: url(/static/img/list-page-1.jpg);
-      height: 35vh;
-  }
   .product_grid{
     width: unset;
     width: 100%;
@@ -89,7 +218,7 @@
     margin-top: 170px;
 }.list-page-header {
   max-width: 450px;
-  top: 130px;
+  top: 110px;
 }
     @media(max-width:500px){
       .prod_list-page {
@@ -102,10 +231,6 @@
     max-width: 300px;
     top: 110px;
   }
-    .about-back{
-        background-image: url(/static/img/list-page-1.jpg);
-        height: 25vh;
-    }
     }
   </style>
   <!-- login popup start here  -->
