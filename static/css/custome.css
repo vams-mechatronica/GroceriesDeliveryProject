@@ -173,20 +173,28 @@
     background-color: var(--yellow-color);
   }
   /*Banner Css Start  */
+  @media (min-width:1300px){
+    .top_banner{
+      height: 40vh !important;
+      margin-bottom: 170px !important;
+    }
+  }
   .top_banner{
     background-color: var(--yellow-color);
     position: relative;
     height: 45vh;
-    margin-bottom: 120px;
+    margin-bottom: 140px;
+    width: 100%;
   }
   .top_banner:after{
     content: "";
-    background: url(../img/icons/patt2.png) no-repeat 100% 100%/cover;
+    background: url(../img/icons/patt1.png) no-repeat 100% 100%/cover;
     position: absolute;
     bottom: -50%;
     width: 100%;
     height: 100%;
     z-index: -1;
+    transform: scaleX(-1);
   }
   .dev_time_text {
     font-size: 24px;
@@ -310,7 +318,7 @@
   overflow: hidden;
   color: rgb(0, 0, 0);
   line-height: 18px;
-  height: 20px;
+  height: max-content ;
   font-size: 14px;
   margin-bottom: 2px;
   font-weight: 600;
@@ -772,13 +780,17 @@ option {
     font-size: 32px;
     margin-bottom: 15px;
   }
-
+.curve_img img{
+  border-radius: 50%;
+  border: 1px solid black ;
+}
   @media (max-width: 550px){
     .top_banner:after {
-      background: url(../img/5.png) no-repeat 100% 100%/cover;
-      bottom: -33%;
-      height: 35%;
-      width: 100%;
+      background: url(../img/5.png) no-repeat 100%/cover;
+      height: 85%;
+      width: 120%;
+      transform: translate(0%, 37%);
+      left: 0;
   }
     .list-page-header {
        max-width: 350px;
@@ -789,8 +801,8 @@ option {
     top: 0px !important;
   }
   .top_banner {
-    height: 75vh !important;
-    margin-bottom: 30px;
+    height: 55vh !important;
+    margin-bottom: 60px;
 }
 .selector {
   position: absolute;
@@ -803,6 +815,17 @@ option {
 }
 }
 @media (max-width: 550px){
+  
+  .curve_img img{
+    transform: scale(1.2);
+  }
+  .payment_secure img{
+    transform: scale(1.2);
+  }
+  .refund img{
+    width: 35%;
+    
+  }
   .container-xl{
     padding: 0 5px !important;
   }
@@ -841,10 +864,10 @@ option {
   font-size: 10px;
 }
 .btn-style1.btn-padding {
-  padding: 10px 13px;
+  padding: 13px 16px;
   line-height: 1;
   height: max-content;
-  font-size: 10px;
+  font-size: 14px;
   align-self: center;
   border-radius: 7px;
 }
@@ -1004,6 +1027,12 @@ bottom: 20px;
   width: 100px;
 }
 
+}
+@media (max-width: 420px) and (min-width:300px){
+  .top_banner {
+    height: 60vh !important;
+    margin-bottom: 60px;
+  }
 }
 @media (max-width: 375px) and (min-width:300px){
   [class*="product_cat_name"] {
