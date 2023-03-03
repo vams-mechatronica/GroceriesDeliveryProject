@@ -35,6 +35,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/searchpop.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
 
 </head>
@@ -579,11 +580,13 @@
                         document.getElementById(elementId+"-qunt_val-category").innerHTML = response['item_qty'];
                         if (response['item_qty'] == 0){
                                 $("#"+elementId+"-in-dec-category").hide();
-                                //$("#"+elementId+"-add_item:"+cate).show();
                                 $(".add-to-cart").show();
                                 $('.fix-in-area').show()
                             }
                         }
+                    },
+                    error:function(response){
+                        $(".add-to-cart").show();
                     }
                 })
             });
@@ -601,13 +604,17 @@
         function minusBtnClick(element_id,cat_name){
             text = parseInt($("#"+element_id+"-qunt_val-"+cat_name).text())
             val = text - 1
+            console.log(text)
+            console.log(val)
             if (val > 0){
                 $("#"+element_id+"-qunt_val-"+cat_name).empty(val)
                 $("#"+element_id+"-qunt_val-"+cat_name).append(val)
             }
             else if(val == 0){
+                console.log("#"+element_id+"-add_item:"+cat_name)
                 $("#"+element_id+"-in-dec-"+cat_name).hide()
-                $("#"+element_id+"-add_item:"+cat_name).show()
+                //$("#"+element_id+"-add_item:"+cat_name).removeAttr('style')
+                $(".add-to-cart").show();
                 $('.fix-in-area').hide()
             }
         }
