@@ -17,7 +17,7 @@ user_model = get_user_model()
 class OTPManager:
     @staticmethod
     def send_otp(fake_otp, otp, country_code, phone_number):
-        print(otp)
+        # print(otp)
         count = DeviceOtp.objects.filter(
             number=phone_number, created_date__date=date.today()).count()
         if count > 5:

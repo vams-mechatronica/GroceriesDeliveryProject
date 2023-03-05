@@ -31,18 +31,18 @@ def register(request):
 
         if password1 == password2:
             if User.objects.filter(username=username).exists():
-                print('Username exists! try another username...')
+                # print('Username exists! try another username...')
                 return redirect('register')
             else:
                 if User.objects.filter(email=email).exists():
-                    print('Email is already taken! try another one')
+                    # print('Email is already taken! try another one')
                     return redirect('register')
                 else:
                     user = User.objects.create_user(username=username, email=email, password=password1)
                     user.save()
                     return redirect('login')   
         else:
-            print('Password did not matched!..')
+            # print('Password did not matched!..')
             return redirect('register')
     else:
         return render(request, 'accounts/register.html')        
@@ -57,10 +57,10 @@ def login(request):
 
         if user is not None:
             auth.login(request,user)
-            print('Login Successfull!')
+            # print('Login Successfull!')
             return redirect('showProducts')
         else:
-            print('invalid credentials')
+            # print('invalid credentials')
             return redirect('login') 
     else:
         return render(request, 'accounts/login.html')           
@@ -159,7 +159,7 @@ def verify_otp(request):
         country_code = request.data.get('country_code')
         web = bool(request.data.get('web'))
         otp = request.data.get('otp')
-        print('otp is - ', otp)
+        # print('otp is - ', otp)
         if not web:
             return OTPManager.verify_otp(otp, country_code, phone_number,web)
         else:

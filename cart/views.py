@@ -84,7 +84,6 @@ def cartCheckoutPageView(request):
     try:
         if request.COOKIES.get('deliver_here') is not None:
             id = request.COOKIES.get('deliver_here')
-            print(id)
             address= UserAddresses.objects.get(user=request.user,pk=id)
         else:
             address = UserAddresses.objects.get(
@@ -241,8 +240,6 @@ def paymentStatusAndOrderStatusUpdate(request):
                         pending_payment.order_id = payment_status['payment_request']['id']
                         pending_payment.order_payment_id = payment_status[
                             'payment_request']['payments'][0]['payment_id']
-                        print("1",payment_status[
-                            'payment_request']['payments'][0]['payment_id'])
                         pending_payment.phone = payment_status['payment_request']['phone']
                         pending_payment.email = payment_status['payment_request']['email']
                         pending_payment.buyer_name = payment_status['payment_request']['buyer_name']
