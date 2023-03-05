@@ -31,4 +31,10 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display: list =('instamojo_id','user','amount','timestamp')
 
 admin.site.register(Payment,PaymentAdmin)
-admin.site.register(PendingPayment)
+class PendingPaymentAdmin(admin.ModelAdmin):
+    list_display = ('order_id','order_payment_id','buyer_name','phone','email','amount','status','created_at','modified_at')
+    ordering = ('buyer_name','amount','created_at')
+    search_fields = ('order_id','order_payment_id','buyer_name','phone','email','amount','status','created_at')
+
+
+admin.site.register(PendingPayment,PendingPaymentAdmin)
