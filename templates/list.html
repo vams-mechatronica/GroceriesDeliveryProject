@@ -410,7 +410,7 @@
     jQuery(document).ready(function(){
       $('.plus-bttn').click(function(e){
         e.preventDefault();
-        showLoader()
+        //showLoader()
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -426,7 +426,7 @@
             },
             success: function(response) {
                 if (response){
-                  hideLoader();
+                  //hideLoader();
                   //console.log(response['cart']['items'][0]['quantity']);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
@@ -438,7 +438,7 @@
             });
       $('.add-to-cart').click(function(e){
         e.preventDefault();
-        showLoader();
+        //showLoader();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -454,7 +454,7 @@
           },
             success: function(response) {
                 if (response){
-                  hideLoader();
+                  //hideLoader();
                   //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
@@ -465,7 +465,7 @@
             });
       $('.minus-bttn').click(function(e){
         e.preventDefault();
-        showLoader();
+        //showLoader();
         //fieldName = $(this).attr('field');
         const elementId = $(this).attr('id').split('-')[0]
         //console.log(elementId);
@@ -481,7 +481,7 @@
             },
             success: function(response) {
                 if (response){
-                  hideLoader();
+                  //hideLoader();
                   //console.log(response);
                   document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
                   document.getElementById("quantity").innerHTML = response['qty'];
