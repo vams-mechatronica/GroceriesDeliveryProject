@@ -32,7 +32,7 @@ class StoreProductDetailsView(APIView):
         if len(product_name) > 2:
             try:
                 if request.user:
-                    user_details = UserAddresses.objects.get(user = request.user.id)
+                    user_details = UserAddresses.objects.get(user = request.user.id,default_address =True)
                     product_details = StoreProductsDetails.objects.filter(
                         store__storeServicablePinCodes__contains=[user_details.pincode], products__product_name__icontains=product_name)
                     productDetailSerializer = StoreProductsDetailsSerializer(instance=product_details,many = True)
