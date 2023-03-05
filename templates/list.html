@@ -696,7 +696,10 @@
         });
       }
     }
-    $(window).on('load', function () {
+  </script>
+  {% if request.user.is_authenticated %}
+    <script>
+      $(window).on('load', function () {
       domain = window.location.origin
       path_name = '/buy/api/v1/customer/order/add/' //change-this url
       $.ajax({
@@ -714,8 +717,8 @@
             }
         })
       });
-  </script>
-  
+    </script>
+    {% endif %}
 </body>
 
 </html>

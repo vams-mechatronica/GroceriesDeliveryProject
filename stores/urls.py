@@ -8,6 +8,8 @@ urlpatterns = [
     path("stores/products/",StoreProductDetailsView.as_view()),
     path("stores/availability/", StoreVerifyAtLocation.as_view()),
     path("stores/suggest-delivery-location/",SuggestVerifyDeliveryLocation.as_view()),
+    path("contact-us/form/",contact_us_form,name="form-contact-us"),
+
 
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

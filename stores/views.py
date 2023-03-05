@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib import auth
+from django.contrib import auth,messages
 from rest_framework import generics, status, authentication, permissions
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
@@ -9,6 +9,7 @@ from .models import *
 from .serializer import *
 from user.models import *
 from django.db.models import Q
+from django.http import JsonResponse
 
 # Create your views here.
 defaultLocationpincode = 201301
@@ -129,3 +130,16 @@ class SuggestVerifyDeliveryLocation(APIView):
                 return Response({'pincode': 'Sorry! We are not delivering at your location', 'available': False}, status=status.HTTP_404_NOT_FOUND)
         except StoreDetail.DoesNotExist:
             pass
+
+def contact_us_form(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        subject = request.POST.get('email')
+        message = request.POST.get('message')
+
+        contact_us_form_detail = ContactUs(name=name,email=email,phone=phone,subject=subject,message=message)
+        contact_us_form_detail.save()
+        messages.info(request,"Message has been saved")
+    return redirect("contact_us") 

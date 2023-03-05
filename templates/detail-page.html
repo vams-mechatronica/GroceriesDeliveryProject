@@ -796,25 +796,30 @@
                 });
             }
         }
-        $(window).on('load', function () {
-            domain = window.location.origin
-            path_name = '/buy/api/v1/customer/order/add/' //change-this url
-            $.ajax({
-                type: 'GET',
-                url: domain+path_name,
-                data: {
-                    "csrfmiddlewaretoken":g_csrftoken,
-                },
-                success: function(response) {
-                    if (response['qty'] > 1){
-                    $('.fix-in-area').show();
-                    document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
-                    document.getElementById("quantity").innerHTML = response['qty'];
-                    }
-                    }
-                })
-            });
+        
     </script>
+    {% if request.user.is_authenticated %}
+    <script>
+      $(window).on('load', function () {
+      domain = window.location.origin
+      path_name = '/buy/api/v1/customer/order/add/' //change-this url
+      $.ajax({
+          type: 'GET',
+          url: domain+path_name,
+          data: {
+              "csrfmiddlewaretoken":g_csrftoken,
+          },
+          success: function(response) {
+            if (response['qty'] > 1){
+              $('.fix-in-area').show();
+              document.getElementById("cart-amount").innerHTML = "₹"+response['amount'];
+              document.getElementById("quantity").innerHTML = response['qty'];
+              }
+            }
+        })
+      });
+    </script>
+    {% endif %}
 </body>
 
 </html>

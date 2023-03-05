@@ -56,4 +56,21 @@ class storeServiceLocation(models.Model):
     def comb_area(self):
         return "{}, {}, {}".format(self.area,self.sector,self.city)
 
+class ContactUs(models.Model):
+    name = models.CharField(
+        _("Customer Name"), max_length=100, null=True, default="", blank=True)
+    email = models.EmailField(
+        _("Customer Email"), max_length=254, null=True, default="", blank=True)
+    phone = models.CharField(_("Customer Phone No."),
+                             max_length=100, null=True, default="", blank=True)
+    subject = models.CharField(
+        _("Subject"), max_length=100, null=True, default="", blank=True)
+    message = models.CharField(
+        _("Message"), max_length=2000, null=True, default="", blank=True)
+
+    created_at = models.DateTimeField(
+        _("Message Created At"), auto_now=True)
+
+    def __str__(self) -> str:
+        return self.name
 

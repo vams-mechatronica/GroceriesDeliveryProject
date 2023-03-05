@@ -39,3 +39,4 @@ class StoreDeliveryLocationAdmin(admin.ModelAdmin):
     search_fields: list = ('store', 'area', 'sector', 'pincode')
 
 admin.site.register(storeServiceLocation,StoreDeliveryLocationAdmin)
+admin.site.register(ContactUs)

@@ -165,10 +165,7 @@
             <div class="d-flex decision-head">
                 <p class="decision col-6 text-center  br-1-log log-text-2" onclick="hidePopLogout()">No</p>
                 {% if request.user.is_authenticated %}
-                <p class="decision col-6 text-center yes log-text-2"><a style='text-decoration:none;'>Yes</a></p>
-                {% comment %}
-                href="{% url 'logout' %}"
-                {% endcomment %}
+                <p class="decision col-6 text-center yes log-text-2"><a href="{% url 'logout' %}" style='text-decoration:none;'>Yes</a></p>
                 {% endif %}
             </div>
         </div>
