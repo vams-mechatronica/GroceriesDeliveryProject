@@ -210,13 +210,11 @@ def paymentStatusAndOrderStatusUpdate(request):
     if request.user:
         user = User.objects.get(pk=request.user.id)
         order = Order.objects.get(user=request.user.id, ordered=False)
-        # cartItems = Cart.objects.filter(user = request.user.id,ordered = False)
-        # for order in orders:
+        
         if order.ref_code:
             payment_status = api.payment_request_status(order.ref_code)
+            
             if payment_status['payment_request']['status'] == 'Completed':
-                # cartItems.ordered = True
-                # cartItems.save()
                 order.ordered = True
                 payment = Payment()
                 payment.instamojo_id = payment_status['payment_request']['payments'][0]['payment_id']
@@ -231,8 +229,46 @@ def paymentStatusAndOrderStatusUpdate(request):
 
                 order.payment = payment
                 order.save()
-            messages.success(request, "Your order was successful!")
-    return redirect("ordersummary", pk=order.id)
+                messages.success(request, "Your order was successful!")
+                return redirect("ordersummary", pk=order.id)
+            
+            elif payment_status['payment_request']['status'] == 'Pending':
+                
+                if len(payment_status['payment_request']['payments']) > 0:
+
+                    if payment_status['payment_request']['payments'][0]['status'] == 'Failed':
+                        pending_payment = PendingPayment()
+                        pending_payment.order_id = payment_status['payment_request']['id']
+                        pending_payment.order_payment_id = payment_status[
+                            'payment_request']['payments'][0]['payment_id']
+                        print("1",payment_status[
+                            'payment_request']['payments'][0]['payment_id'])
+                        pending_payment.phone = payment_status['payment_request']['phone']
+                        pending_payment.email = payment_status['payment_request']['email']
+                        pending_payment.buyer_name = payment_status['payment_request']['buyer_name']
+                        pending_payment.amount = payment_status['payment_request']['amount']
+                        pending_payment.purpose = payment_status['payment_request']['purpose']
+                        pending_payment.status = payment_status['payment_request']['status']
+                        pending_payment.created_at = payment_status['payment_request']['created_at']
+                        pending_payment.modified_at = payment_status['payment_request']['modified_at']
+                        pending_payment.api_response = payment_status
+                        pending_payment.save()
+                        return redirect("failed-payment", pk=order.id)
+                
+                else:
+                    pending_payment = PendingPayment()
+                    pending_payment.order_id = payment_status['payment_request']['id']
+                    pending_payment.phone = payment_status['payment_request']['phone']
+                    pending_payment.email = payment_status['payment_request']['email']
+                    pending_payment.buyer_name = payment_status['payment_request']['buyer_name']
+                    pending_payment.amount = payment_status['payment_request']['amount']
+                    pending_payment.purpose = payment_status['payment_request']['purpose']
+                    pending_payment.status = payment_status['payment_request']['status']
+                    pending_payment.api_response = payment_status
+                    pending_payment.created_at = payment_status['payment_request']['created_at']
+                    pending_payment.modified_at = payment_status['payment_request']['modified_at']
+                    pending_payment.save()
+                    return redirect("pending-payment", pk=order.id)
 
 @login_required
 def order_summary(request,pk):
@@ -243,6 +279,25 @@ def order_summary(request,pk):
         'order': order
     }
     return render(request, "ordersummary.html", context)
+
+def pending_payment_page(request,pk):
+    if request.user:
+        order = Order.objects.get(user=request.user.id, pk=pk)
+    
+    context = {
+        'order': order
+    }
+    return render(request,"payment_pending.html",context)
+
+
+def failed_payment_page(request,pk):
+    if request.user:
+        order = Order.objects.get(user=request.user.id, pk=pk)
+
+    context = {
+        'order': order
+    }
+    return render(request,"payment_failed.html",context)
 
 
 class CartAddView(APIView):

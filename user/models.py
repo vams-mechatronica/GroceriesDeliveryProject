@@ -94,7 +94,6 @@ class UserAddresses(models.Model):
             )
         ]
 
-
 class Country(models.Model):
     country_code = models.CharField(max_length=4, blank=True, null=True)
     country_name = models.CharField(max_length=50, blank=True, null=True)

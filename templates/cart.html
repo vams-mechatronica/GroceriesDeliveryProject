@@ -134,13 +134,13 @@
                                         <div class="center">
                                             <div class="plus-minus">
                                                 <span>
-                                                    {% comment %} <a href="{% url 'removesingleitemfromcart' item.item.products.product_id %}" class="minus-btn text-black">-</a> {% endcomment %}
+                                                    
                                                     <a class="minus-btn text-black" id="{{item.item.products.product_id}}-minus-btn" field="{{item.item.products.product_id}}-name">-</a>
-                                                    {% comment %} <input type="hidden" id="{{item.item.products.product_id}}-url-minus" data-url="{% url 'removesingleitemfromcart' item.item.products.product_id %}"> {% endcomment %}
+                                                    
                                                     <input type="text" name="{{item.item.products.product_id}}-name" id="{{item.item.products.product_id}}-name-value" value="{{item.quantity}}">
-                                                    {% comment %} <a href="{% url 'addtocart' item.item.products.product_id %}" class="plus-btn text-black">+</a> {% endcomment %}
+                        
                                                     <a class="plus-btn text-black" id="{{item.item.products.product_id}}-plus-btn" field="{{item.item.products.product_id}}-name">+</a>
-                                                    {% comment %} <input type="hidden" id="{{item.item.products.product_id}}-url-plus" data-url="{% url 'addtocart' item.item.products.product_id %}"> {% endcomment %}
+                                                    
                                                 </span>
                                             </div>
                                         </div>

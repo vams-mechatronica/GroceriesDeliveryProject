@@ -134,3 +134,28 @@ class Refund(models.Model):
 
     def __str__(self):
         return f"{self.pk}"
+
+class PendingPayment(models.Model):
+    order_id = models.CharField(_("Order ID"), max_length=250,default="",null=True,blank=True)
+    order_payment_id = models.CharField(
+        _("Payment ID"), max_length=250, default="", null=True, blank=True)
+    phone = models.CharField(_("Buyer Phone Number"),
+                             max_length=50, default="", null=True, blank=True)
+    email = models.EmailField(_("Buyer Email"), max_length=254,default="", null=True, blank=True)
+    buyer_name = models.CharField(
+        _("Buyer Name"), max_length=250, default="", null=True, blank=True)
+    amount = models.FloatField()
+    purpose = models.CharField(
+        _("Buyer Payment Purpose"), max_length=250, default="", null=True, blank=True)
+    status = models.CharField(
+        _("Payment Status"), max_length=50, default="", null=True, blank=True)
+    api_response = models.CharField(
+        _("Payment API Response"), max_length=5000, default="", null=True, blank=True)
+    created_at = models.CharField(
+        _("Payment Created At"), max_length=50, default="", null=True, blank=True)
+    modified_at = models.CharField(
+        _("Payment Modified At"), max_length=50, default="", null=True, blank=True)
+
+    def __str__(self):
+        return self.order_id
+    

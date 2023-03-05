@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -48,7 +48,7 @@
                    <p>Your order has been cancelled due to payment failure!</p>
                </div>
                <div class="text-center my-3">
-                   <p class="btn btn-danger">Retry Payment</p>
+                   <a href="{% url 'paymentcheckout' order.get_total|floatformat:2 %}" class="btn btn-danger">Retry Payment</a>
                </div>
            </div>
            <div class="col-xl-12 col-lg-12 col-md-12 col-12 d-flex flex-wrap last-block">
@@ -56,50 +56,14 @@
                    <div class="order-summary">
                        <h4 class="text-center my-2 ">Order Summary</h4>
                        <hr>
-                       <!-- <div class="order-item">
-                           <div class="product-card justify-content-between ">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex">
-                                        <div class="product-img col-3 col-xl-2 col-lg-2 col-md-2">
-                                            <img src="./img/product/1.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <p class="fw-2"> Mountain Dew Soft Drink Can</p>
-                                            <p><small>250 ml Qty:1</small></p>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                    <p>&#8377;18</p> 
-                                        <strike>&#8377;30</strike>
-                                    </div>
-                                </div>
-                            </div>
-                           <div class="product-card justify-content-between ">
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex">
-                                        <div class="product-img col-3 col-xl-2 col-lg-2 col-md-2">
-                                            <img src="./img/product/1.jpg" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <p class="fw-2"> Mountain Dew Soft Drink Can</p>
-                                            <p><small>250 ml Qty:1</small></p>
-                                        </div>
-                                    </div>
-                                    <div class="product-price">
-                                    <p>&#8377;18</p> 
-                                        <strike>&#8377;30</strike>
-                                    </div>
-                                </div>
-                            </div>
-                       </div> -->
                        <div class="pricing">
                             <div class="d-flex justify-content-between py-1">
                                 <p>Products</p>
-                                <p><strike>&#8377;30</strike> &#8377;26</p>
+                                <p><strike>&#8377;{{order.get_max_total}}</strike> &#8377;{{order.get_total|floatformat:2}}</p>
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <p class="text-success">Discount</p>
-                                <p class="text-success">&#8377;8</p>
+                                <p class="text-success">&#8377;{{order.get_total_discount}}</p>
                             </div>
                             <div class="d-flex justify-content-between py-1">
                                 <p>Delivery Charge</p>
@@ -108,7 +72,7 @@
                             <hr>
                             <div class="d-flex justify-content-between">
                                 <p><strong>Total</strong></p>
-                                <p> <strike>&#8377;30</strike> &#8377;26 </p>
+                                <p> <strike>&#8377;{{order.get_max_total|floatformat:2}}</strike> &#8377;{{order.get_total|floatformat:2}} </p>
                             </div>
                         </div>
                    </div>
@@ -118,7 +82,7 @@
                         <div class="go-center">
                             <h4 class="text-center my-2">Visit Store</h4>
                             <div class="text-center my-3">
-                                <a href="" class="button-btn">Visit Website</a>
+                                <a href="{% url 'index' %}" class="button-btn">Visit Website</a>
                             </div>
                         </div>
                    </div>

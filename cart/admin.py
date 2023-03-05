@@ -31,3 +31,4 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display: list =('instamojo_id','user','amount','timestamp')
 
 admin.site.register(Payment,PaymentAdmin)
+admin.site.register(PendingPayment)
