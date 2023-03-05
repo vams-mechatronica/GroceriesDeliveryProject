@@ -73,8 +73,8 @@ class UserAddresses(models.Model):
         return add
     
     def user_formatted_full_address(self):
-        fAddress = "Contact Name: "+str(self.nick_name if self.nick_name != '' else str(self.first_name)+" "+\
-            str(self.last_name))+", "+str(self.house_no+", " if self.house_no != "" else "")+str(self.apartment_name+", " if self.apartment_name != "" else "") +str(self.street_detail + ", " if self.street_detail != "" else "")+"Landmark: " +str(self.landmark+", " if self.landmark != "" else "")+str(self.area)+", " + \
+        fAddress = "Contact Name: "+str(self.first_name+" "+self.last_name if self.last_name != '' else str(self.first_name)+" "+\
+            str(self.last_name))+", "+str(self.house_no+", " if self.house_no != "" else "")+str(self.street_detail + ", " if self.street_detail != "" else "")+"Landmark: " +str(self.landmark+", " if self.landmark != "" else "")+str(self.area)+", " + \
             str(self.city)+", "+(self.state+", " if self.state != "" else "") + \
             str(self.pincode)+", "+"M: "+(self.mobileno)
         return fAddress

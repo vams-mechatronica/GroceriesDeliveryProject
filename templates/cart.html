@@ -182,7 +182,7 @@
                                 <span><b>Total</b></span>
                                 <span class="total-amount" id="grand-total">₹{{grandtotal|floatformat:2}}</span>
                             </div>
-                            <a href="#" class="check-link btn btn-style1">Continue to payment</a>
+                            <a href="{% url 'paymentcheckout' grandtotal %}" class="check-link btn btn-style1">Continue to payment</a>
                         </div>
                     </div>
                 </div>
