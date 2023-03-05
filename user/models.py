@@ -41,15 +41,11 @@ class UserAddresses(models.Model):
         _("Address Last Name"), max_length=50, null=True, blank=True, default="")
     house_no = models.CharField(
         _("House No"), max_length=50, null=True, blank=True, default="")
-    apartment_name = models.CharField(
-        _("Apartment Name"), max_length=50, null=True, blank=True, default="")
     street_detail = models.CharField(
         _("Street Detail"), max_length=50, null=True, blank=True, default="")
     landmark = models.CharField(
         _("Landmark"), max_length=50, null=True, blank=True, default="")
     default_address = models.BooleanField(_("Default Address"),null=True,blank=True,default=True)
-    nick_name = models.CharField(
-        _("Contact Nick Name"), max_length=50, default="", null=True, blank=True)
     address_nick_name = models.CharField(_("Address Nick Name"), max_length=50,choices=ADDRESS,default='Home',null=True,blank=True)
     state = models.CharField(
         _("select state"), max_length=200, blank=True, null=True,default="")
@@ -63,10 +59,13 @@ class UserAddresses(models.Model):
 
     def __str__(self) -> str:
         return "user:{} city: {} pincode: {} phoneno. {}".format(self.user, self.city, self.pincode, self.mobileno)
+    
+    def contact_name(self):
+        return "{} {}".format(self.first_name,self.last_name)
 
     def user_address(self):
         address = str(self.house_no)+", "+str(self.street_detail) + \
-            ", "+str(self.city)+", " + str(self.pincode)
+            ", "+str(self.area)+","+str(self.city)+", " + str(self.pincode)
         return address
     
     def user_brief_address(self):

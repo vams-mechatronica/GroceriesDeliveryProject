@@ -124,7 +124,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'user-address-page' %}" style='text-decoration:none;'>
+                            <a href="{% url 'user-address-page' %}" onclick="redirect_url_address_page()" style='text-decoration:none;'>
                                 <div class="d-flex justify-content-between w-100">
                                     <p><i class="bi bi-geo-alt"></i> Address</p>
                                     <p><i class="bi bi-chevron-right"></i></p> 
@@ -191,6 +191,34 @@
                 $('#' + butn).css({ "background-color": "#ccc", "transition": "0.3s" })
                 $('#' + butn).attr("disabled")
                 $('#' + butn).attr("type", "button")
+            }
+        }
+        var getCookie = function (name) {
+            var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        };
+        
+        function redirect_url_address_page(){
+            var redirect_page = getCookie('redirect_page')
+
+            if (redirect_page == null || redirect_page == undefined){
+                redirect_page = 'address'
+                document.cookie = 'redirect_page=' +redirect_page+ ";domain=;path=/"
+                }
+            else{
+                redirect_page = 'address'
+                document.cookie = 'redirect_page=' +redirect_page+ ";domain=;path=/"
             }
         }
     </script>

@@ -52,5 +52,8 @@ class storeServiceLocation(models.Model):
 
     def __str__(self) -> str:
         return "StoreName: {}\t Sector: {}\t Area: {}\t Pincode: {}".format(self.store,self.sector,self.area,self.pincode)
+    
+    def comb_area(self):
+        return "{}, {}, {}".format(self.area,self.sector,self.city)
 
 

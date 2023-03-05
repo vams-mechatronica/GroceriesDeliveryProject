@@ -17,6 +17,10 @@ urlpatterns = [
     path('accounts/register/verify/', views.verify_otp, name='verify_otp'),
     path('accounts/api/v1/user-address/', views.UserAddressView.as_view()),
     path('accounts/api/v1/user-address/<int:pk>/', views.UserAddressUpdateView.as_view()),
-    path('accounts/user-address/',views.address_page,name="user-address-page"),
+    path('accounts/user-address/', views.address_page, name="user-address-page"),
+    path('accounts/user-address/delete/<int:pk>',
+         views.delete_user_address, name="delete-address"),
+    path('accounts/user-address/delivery/<int:num>/<int:pk>',
+         views.deliver_here_link, name="deliver-here"),
     path('accounts/user-address/save-partial/<str:address>',views.savePartialAddressUser,name="save-partial-address"),
 ]

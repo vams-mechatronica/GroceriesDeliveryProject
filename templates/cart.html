@@ -49,6 +49,14 @@
             height: 31px;
             width: 31px;
             }
+            .cart-header{
+                position: fixed;
+                width: 100%;
+                z-index: 2;
+            }
+            .cart-page{
+                padding-top: 100px;
+            }
         </style>
         <!-- login popup start here  -->
         <div class="login-sign-popup" id="login">
@@ -97,7 +105,7 @@
                                         -{{useraddress.user_address|slice:":30"}} {% if useraddress.user_address|length > 30 %}...{% endif %}</span></li>
                                 {% endif %}
                             </ul>
-                            <a href="{% url 'user-address-page' %}" class="chng-add h4"><span class="bi bi-pencil-square"></span></a>
+                            <a href="{% url 'user-address-page' %}" onclick="redirect_url_address_page()" class="chng-add h4"><span class="bi bi-pencil-square"></span></a>
                         </div>
                     </div>
                 </div>
@@ -360,6 +368,19 @@
       function showPopsearch(em_id) {
       $('#' + em_id).show()
       $('body').css({ "overflow": "hidden" })
+    }
+
+    function redirect_url_address_page(){
+        var redirect_page = getCookie('redirect_page');
+
+        if (redirect_page == null || redirect_page == undefined){
+            redirect_page = 'cart'
+            document.cookie = 'redirect_page=' +redirect_page+ ";domain=;path=/"
+            }
+        else{
+            redirect_page = 'cart'
+            document.cookie = 'redirect_page=' +redirect_page+ ";domain=;path=/"
+        }
     }
     </script>
     </body>

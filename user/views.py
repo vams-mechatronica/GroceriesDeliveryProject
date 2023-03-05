@@ -10,6 +10,7 @@ from products.serializer import userSerializer
 from cart.models import Order
 from rest_framework.decorators import api_view, permission_classes
 from .models import *
+from stores.models import *
 from datetime import datetime,timezone
 from django.http import JsonResponse
 from django.utils.timezone import utc
@@ -239,23 +240,24 @@ def address_page(request):
         lastname = request.POST.get('last_name')
         mobileno = request.POST.get('phone')
         houseno = request.POST.get('house_no')
-        apartment = request.POST.get('appart_name')
         street = request.POST.get('street_address')
         landmark = request.POST.get('landmark_detail')
         area = request.POST.get('area_detail')
         city = request.POST.get('city_district')
+        state = request.POST.get('state')
         pincode = request.POST.get('Pincode')
-        nicknameaddress = request.POST.get('nick_name_address')
-        nickname = request.POST.get('nickname')
+        nicknameaddress = request.POST.get('address_nick')
         addr = UserAddresses(user = request.user,\
             first_name = firstname,last_name = lastname,\
                 mobileno=mobileno,house_no = houseno,\
-                    apartment_name = apartment,street_detail = street,\
+                    street_detail = street,\
                         landmark=landmark,area = area,city = city,\
-                            pincode =pincode,address_nick_name = nicknameaddress,nick_name = nickname,default_address = True)
+                            pincode =pincode,state = state,\
+                                address_nick_name = nicknameaddress,default_address = True)
         addr.save()
     addresses = UserAddresses.objects.filter(user=request.user)
-    context = {'addresses': addresses}
+    store_delivery_locations = storeServiceLocation.objects.all()
+    context = {'addresses': addresses,'store_locations':store_delivery_locations}
     return render(request, "address.html", context)
 
 def savePartialAddressUser(request,address :str):
@@ -283,4 +285,26 @@ def savePartialAddressUser(request,address :str):
     user_address.save()
     return JsonResponse({'status':'Ok'})
 
-            
+def delete_user_address(request,pk):
+    UserAddresses.objects.filter(pk=pk).delete()
+    return redirect("user-address-page")
+
+def deliver_here_link(request,num,pk):
+    
+    address = get_object_or_404(UserAddresses,pk=pk,user = request.user)
+    address.deliver_here = True
+    address.save()
+    
+
+    excluded_address = UserAddresses.objects.filter(user = request.user).exclude(pk=pk)
+    for excl_add in excluded_address:
+        excl_add.deliver_here = False
+        excl_add.save()
+    
+    if num == 1:
+        return redirect('user-address-page')
+    elif num == 2:
+        return redirect('cartview')
+        
+
+

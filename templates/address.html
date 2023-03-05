@@ -215,6 +215,13 @@
             border: 1px solid #00a082;
 
         }
+
+        .choose_address_type .btn input[type="radio"]:checked+.btn-outline-warning {
+            background-color: #007bff;
+            color: #00a082;
+            border: 1px solid #00a082;
+        }
+
         @keyframes slideUp {
             0%,
             50% {
@@ -322,149 +329,32 @@
             color: red;
         }
     </style>
-<div class="header-goback">
-    <button onclick="window.history.back()"></button>
-    <h3 class="text-center text-light">
-        Add New Address
-    </h3>
-</div>
-<div class="body container d-flex flex-wrap">
-    {% if addresses %}
-    <div class="address-form p-xl-2 p-lg-2 p-md-2 col-xl-6 col-lg-6 col-md-8 col-12 my-xl-4" id="form_add">
-        <div class="add_form" onclick="add_form_here()">
-            <div class="center_data">
-                <span></span>
-                <p>Add New Address</p>
-            </div>
-        </div>
+    <div class="header-goback">
+        <button onclick="window.history.back()"></button>
+        <h3 class="text-center text-light">
+            Add New Address
+        </h3>
     </div>
-    <div class="col-xl-6 col-lg-6  col-12 px-xl-4 px-lg-4 px-md-4 mt-4">
-        <div class="address-form p-xl-2 p-lg-2 p-md-2">
-            <h4>Saved Address - <a href="{{addr.id}}"><span class="bi bi-pencil-square"></span></a> &nbsp;&nbsp; <a href="{{addr.id}}" class="delete"><i class="bi bi-trash"></i>
-            </a></h4>
-            {% for addr in addresses %}
-            <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
-                {% if addr.default_address is True %}
-                <h6><span class="default-address">default-address</span> : {{addr.address_nick_name}}</h6>
-                {% else %}
-                <h6>{{addr.address_nick_name}}</h6>
-                {% endif %}
-                <p>Contact Name: {{addr.nick_name}}</p>
-                <p>Address: {{addr.user_address}}</p>
-                <p>M. no.: {{addr.mobileno}}</p>
-                <a class="deliver here">Deliver Here</a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    {% else %}
-    
-    <div class="address-form p-xl-2 p-lg-2 p-md-2 col-xl-6 col-lg-6 col-md-8 col-12 my-xl-4" id="form_add">
-        <form action="" method="post" id="user_address_form" action="{% url 'user_address' %}">
-            {% csrf_token %}
-            <h4>Personal Details</h4>
-            <div class="personal-details">
-                <div class="d-flex">
-                    <div class="col-6 default-box">
-                        <label for="first_name"><span class="danger">*</span>First Name</label>
-                        <input type="text" onkeyup="change_lable(this)" name="firstname" id="first_name" placeholder="*First Name">
-                        
-                    </div>
-                    <div class="col-6 default-box">
-                        <label for="last_name"><span class="danger">*</span> Last Name</label>
-                        <input type="text" onkeyup="change_lable(this)" name="lastname" id="last_name" placeholder="*Last Name">
-                    </div>
-                </div>
-                <div class="number default-box col-12">
-                    <label for="phone"><span class="danger">*</span> Contact number to say Namaste!</label>
-                    <input type="text" onkeyup="change_lable(this)" name="phone_number" id="phone" placeholder="*Contact number to say Namaste!">
-                </div>
-            </div>
-            <div class="address-details">
-                <h4>Address Details</h4>
-                <div class="d-flex">
-                    <div class="default-box col-6">
-                        <label for="Pincode"><span class="danger">*</span>Pincode</label>
-                        <select name="Pincode" id="Pincode">
-                            <option value="201301">Select Pincode</option>
-                            <option value="201301">201301</option>
-                            <option value="201301">201301</option>
-                        </select>
-                    </div>
-                    <div class="default-box col-6">
-                        <label for="house_no"><span class="danger">*</span>House no</label>
-                        <input type="text" onkeyup="change_lable(this)" name="house_no" id="house_no" placeholder="*House/Flat no">
-                    </div>
-                </div>
-                <div class="default-box col-12">
-                    <label for="area_detail"><span class="danger">*</span> Area details</label>
-                    <select name="area_detail" id="area_detail">
-                        <option value="xzy road fallana dimkana gali">Select Area</option>
-                        <option value="xzy road fallana dimkana gali">xyz road fallana dimkana gali</option>
-                    </select>
-                </div>
-                <div class="default-box col-12">
-                    <label for="street_address">Street details to locate you</label>
-                    <textarea type="text" rows="1" onkeyup="change_lable(this)" name="street_address" id="street_address" placeholder="Locality/Street Name/ Apartment*"></textarea>
-                </div>
-                <div class="default-box col-12">
-                    <label for="landmark_detail">Landmark*</label>
-                    <textarea type="text" rows="1" onkeyup="change_lable(this)" name="landmark_detail" id="landmark_detail" placeholder="Landmark*"></textarea>
-                </div>
-                <div class="d-flex">
-                    <div class="default-box col-6">
-                        <label for="state">State*</label>
-                        <input type="text" onkeyup="change_lable(this)" name="state" id="state" placeholder="State*">
-                    </div>
-                    <div class="default-box col-6">
-                        <label for="city_district">City/District</label>
-                        <input type="text" onkeyup="change_lable(this)" name="city_district" id="city_district" placeholder="City/District">
-                    </div>
-                </div>
-                <div class="choose_address_type col-12" name="nick_name_address">
-                    <p>Choose nick name for this address</p>
-                    <input type="radio" class="btn-check " name="address_nick" id="address_mark_Home" value="Home" autocomplete="off">
-                    <label class="btn btn-outline-warning" for="address_mark_Home">Home</label>
-
-                    <input type="radio" class="btn-check" name="address_nick" id="address_mark_Office" value="Office" autocomplete="off">
-                    <label class="btn btn-outline-warning ms-3" for="address_mark_Office"> Office </label>
-
-                    <input type="radio" class="btn-check" name="address_nick" id="address_mark_Other" value="Others" autocomplete="off">
-                    <label class="btn btn-outline-warning ms-3" for="address_mark_Other">Other</label>
-                    
-                </div>
-                <br>
-                <br>
-            </div>
-            <div class="btn-address">
-                <a onclick="checkForm('user_address_form')" class="address-btn active" id="form-button">Add Address</a>
-            </div>
-        </form>
-    </div>
-    {% endif %}
-</div>
-
-    <script>
-        function add_form_here(){
-            $('#form_add').empty()
-            $('#form_add').append(`<form action="" method="post" id="user_address_form" action="{% url 'user-address-page' %}">
+    <div class="body container d-flex flex-wrap">
+        <div class="address-form p-xl-2 p-lg-2 p-md-2 col-xl-6 col-lg-6 col-md-8 col-12 my-xl-4" id="form_add">
+            <form method="post" id="user_address_form" action="{% url 'user-address-page' %}">
                 {% csrf_token %}
                 <h4>Personal Details</h4>
                 <div class="personal-details">
                     <div class="d-flex">
                         <div class="col-6 default-box">
                             <label for="first_name"><span class="danger">*</span>First Name</label>
-                            <input type="text" onkeyup="change_lable(this)" name="firstname" id="first_name" placeholder="*First Name">
+                            <input type="text" onkeyup="change_lable(this)" name="first_name" id="first_name" placeholder="*First Name">
                             
                         </div>
                         <div class="col-6 default-box">
                             <label for="last_name"><span class="danger">*</span> Last Name</label>
-                            <input type="text" onkeyup="change_lable(this)" name="lastname" id="last_name" placeholder="*Last Name">
+                            <input type="text" onkeyup="change_lable(this)" name="last_name" id="last_name" placeholder="*Last Name">
                         </div>
                     </div>
                     <div class="number default-box col-12">
                         <label for="phone"><span class="danger">*</span> Contact number to say Namaste!</label>
-                        <input type="text" onkeyup="change_lable(this)" name="phone_number" id="phone" placeholder="*Contact number to say Namaste!">
+                        <input type="text" onkeyup="change_lable(this)" name="phone" id="phone" placeholder="*Contact number to say Namaste!">
                     </div>
                 </div>
                 <div class="address-details">
@@ -472,7 +362,12 @@
                     <div class="d-flex">
                         <div class="default-box col-6">
                             <label for="Pincode"><span class="danger">*</span>Pincode</label>
-                            <input type="text" onkeyup="change_lable(this)" name="Pincode" id="Pincode" placeholder="*Pincode">
+                            <select name="Pincode" id="Pincode">
+                                <option value="201301">Select Pincode</option>
+                                {% for pincode in store_locations %}
+                                <option value="{{pincode.pincode}}">{{pincode.pincode}}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                         <div class="default-box col-6">
                             <label for="house_no"><span class="danger">*</span>House no</label>
@@ -481,15 +376,20 @@
                     </div>
                     <div class="default-box col-12">
                         <label for="area_detail"><span class="danger">*</span> Area details</label>
-                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="area_detail" id="area_detail" placeholder="*Area details"></textarea>
+                        <select name="area_detail" id="area_detail">
+                            <option value="Noida">Select Area</option>
+                            {% for sl in store_locations %}
+                            <option value="{{sl.comb_area}}">{{sl.comb_area}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="default-box col-12">
                         <label for="street_address">Street details to locate you</label>
-                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="street_address" id="street_address" placeholder="Locality/Street Name/ Apartment*"></textarea>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="street_address" id="street_address" placeholder="Locality/ Street Name/ Apartment*"></textarea>
                     </div>
                     <div class="default-box col-12">
-                        <label for="landmark_detail">Landmark for easy reach out</label>
-                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="landmark_detail" id="landmark_detail" placeholder="Landmark for easy reach out (optional)"></textarea>
+                        <label for="landmark_detail">Landmark*</label>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="landmark_detail" id="landmark_detail" placeholder="Landmark*"></textarea>
                     </div>
                     <div class="d-flex">
                         <div class="default-box col-6">
@@ -500,35 +400,57 @@
                             <label for="city_district">City/District</label>
                             <input type="text" onkeyup="change_lable(this)" name="city_district" id="city_district" placeholder="City/District">
                         </div>
-                        <!-- <div class="default-box col-6">
-                            <label for="appart_name"><span class="danger">*</span>Apparment name</label>
-                            <input type="text" onkeyup="change_lable(this)" name="appart_name" id="appart_name" placeholder="*Apparment name">
-                        </div> -->
                     </div>
-                    <div class="choose_address_type col-12" name="nick_name_address">
-                        <p>Choose nick name for this address</p>
-                        <input type="radio" class="btn-check " name="address_nick" id="address_mark_Home" value="Home" autocomplete="off">
-                        <label class="btn btn-outline-warning" for="address_mark_Home">Home</label>
-    
-                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Office" value="Office" autocomplete="off">
-                        <label class="btn btn-outline-warning ms-3" for="address_mark_Office"> Office </label>
-    
-                        <input type="radio" class="btn-check" name="address_nick" id="address_mark_Other" value="Others" autocomplete="off">
-                        <label class="btn btn-outline-warning ms-3" for="address_mark_Other">Other</label>
+                    <div class="choose_address_type col-12 btn-group btn-group-toggle" role="group" name="address_nick" data-toggle="buttons">
+                        <p>Choose a Nick Name: </p>
+                        <input type="radio" class="btn-check" name="address_nick" id="Home" value="Home">
+                        <label for="Home" class="btn btn-outline-warning ms-3">Home</label>
+                        
+                        <input type="radio" class="btn-check" name="address_nick" id="Office" value="Office">
+                        <label for="Office" class="btn btn-outline-warning ms-3"> Office </label>
+                       
+                        <input type="radio" class="btn-check" name="address_nick" id="Others" value="Others">
+                        <label for="Others" class="btn btn-outline-warning ms-3">Other</label> 
                         
                     </div>
                     <br>
                     <br>
-                    <!-- <div class="default-box col-12">
-                        <label for="nickname">nickname</label>
-                        <input type="text" onkeyup="change_lable(this)" name="nickname" id="nickname" placeholder="nickname">
-                    </div> -->
                 </div>
                 <div class="btn-address">
-                    <a onclick="checkForm('user_address_form')" class="address-btn active" id="form-button">Add Address</a>
+                    {% comment %} <a onclick="checkForm('user_address_form'); event.preventDefault(); document.getElementById('user_address_form').submit();" class="active button" id="form-button">Add Address</a> {% endcomment %}
+                    <a onclick="checkForm('user_address_form'); event.preventDefault();" class="active button" id="form-button">Add Address</a>
                 </div>
-            </form>`)
-        }
+            </form>
+        </div>
+        {% if addresses %}
+        <div class="col-xl-6 col-lg-6  col-12 px-xl-4 px-lg-4 px-md-4 mt-4">
+            <div class="address-form p-xl-2 p-lg-2 p-md-2">
+                <h4>Saved Address </h4>
+                {% for addr in addresses %}
+                <div class="col-xl-12 col-lg-12 col-md-12 col-12 deliver-card">
+                    {% if addr.default_address is True %}
+                    <h6><span class="default-address"><b>Default:</b></span>&nbsp; {{addr.address_nick_name}}</h6>
+                    {% else %}
+                    <h6>{{addr.address_nick_name}}</h6>
+                    {% endif %}
+                    <p><b>Contact Name:</b>&nbsp; {{addr.contact_name}}</p>
+                    <p><b>Address:</b>&nbsp; {{addr.user_address}}</p>
+                    <p><b>M. No.:</b>&nbsp; {{addr.mobileno}}</p>
+                    {% comment %} <a href="{% url 'deliver-here' num=2 pk=addr.id %}" class="deliver here active">Deliver Here</a>  {% endcomment %}
+                    <a onclick="deliver_here_cookie({{addr.id}})" class="deliver here active">Deliver Here</a> 
+                    &nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="{% url 'delete-address' addr.id %}" class="delete">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
         function change_lable(el){
             $(el).removeAttr('placeholder')
             console.log()
@@ -540,7 +462,7 @@
                 $(el).prev().show().css( {"top": "0px", "transition" : "all 1s ease-out" ,"animation-name": "slideUp",            "animation-duration": "0.3s", "animation-timing-function": "ease-in"});
             }
         }
-        function checkForm( id_form){
+        function checkForm(id_form){
             console.log("working")
             if(!$('#first_name').val()){
                 $('#first_name').focus()
@@ -553,9 +475,6 @@
             }
             else if(!$('#house_no').val()){
                 $('#house_no').focus()
-            }
-            else if(!$('#appart_name').val()){
-                $('#appart_name').focus()
             }
             else if(!$('#street_address').val()){
                 $('#street_address').focus()
@@ -573,8 +492,47 @@
                 $('#Pincode').focus()
             }
             else{
-                console.log("working")
                 $('#user_address_form').submit()
+            }
+        }
+        var getCookie = function (name) {
+            var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        };
+        
+        function deliver_here_cookie(e){
+            var deliver_here = getCookie('deliver_here')
+            var redirect_url = getCookie('redirect_page')
+
+            if (deliver_here == null || deliver_here == undefined){
+                deliver_here = e
+                document.cookie = 'deliver_here=' +deliver_here+ ";domain=;path=/;expires=" + new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
+                if (redirect_url === "cart"){
+                    window.location.href = "{% url 'cartview' %}";
+                }
+                else if(redirect_url === "address"){
+                    window.location.href = "{% url 'user-address-page' %}";
+                }
+            } else {
+                deliver_here = e
+                document.cookie = 'deliver_here=' +deliver_here+ ";domain=;path=/;expires=" + new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toUTCString();
+                if (redirect_url === "cart"){
+                    window.location.href = "{% url 'cartview' %}";
+                }
+                else if(redirect_url === "address"){
+                    window.location.href = "{% url 'user-address-page' %}";
+                }
             }
         }
     </script>

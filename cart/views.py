@@ -82,7 +82,14 @@ def cartCheckoutPageView(request):
         itemsForCartPage = Order.objects.create(
             user=request.user, ordered_date=timezone.now())
     try:
-        address= UserAddresses.objects.get(user=request.user,default_address = True)
+        if request.COOKIES.get('deliver_here') is not None:
+            id = request.COOKIES.get('deliver_here')
+            print(id)
+            address= UserAddresses.objects.get(user=request.user,pk=id)
+        else:
+            address = UserAddresses.objects.get(
+                user=request.user, default_address=True)
+
     except UserAddresses.DoesNotExist:
         return redirect("user-address-page")
     a = round(itemsForCartPage.get_total(), 2)
