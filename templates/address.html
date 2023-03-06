@@ -440,6 +440,9 @@
                     <a onclick="deliver_here_cookie({{addr.id}})" class="deliver here active">Deliver Here</a> 
                     &nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a onclick="edit_address({{addr.id}})">
+                    <span class="bi bi-pencil-square"></span>
+                    </a>
                     <a href="{% url 'delete-address' addr.id %}" class="delete">
                         <i class="bi bi-trash"></i>
                     </a>
@@ -534,6 +537,109 @@
                     window.location.href = "{% url 'user-address-page' %}";
                 }
             }
+        }
+        const g_csrftoken = getCookie('csrftoken');
+        function edit_address(id){
+            domain = window.location.origin
+            path_name = '/api/v1/accounts/api/v1/user-address/'+id+'/'
+            $.ajax({
+            type: 'GET',
+            url: domain+path_name,
+            data: {
+                "csrfmiddlewaretoken":g_csrftoken,
+            },
+            success: function(response) {
+                if (response){
+                    $('#form_add').empty()
+                    $('#form_add').append(`<form method="post" id="user_address_form" action="update/`+response['id']+`/">
+                {% csrf_token %}
+                <h4>Personal Details</h4>
+                <div class="personal-details">
+                    <div class="d-flex">
+                        <div class="col-6 default-box">
+                            <label for="first_name"><span class="danger">*</span>First Name</label>
+                            <input type="text" onkeyup="change_lable(this)" name="first_name" id="first_name" value="`+response['first_name']+`">
+                            
+                        </div>
+                        <div class="col-6 default-box">
+                            <label for="last_name"><span class="danger">*</span> Last Name</label>
+                            <input type="text" onkeyup="change_lable(this)" name="last_name" id="last_name" value="`+response['last_name']+`">
+                        </div>
+                    </div>
+                    <div class="number default-box col-12">
+                        <label for="phone"><span class="danger">*</span> Contact number to say Namaste!</label>
+                        <input type="text" onkeyup="change_lable(this)" name="phone" id="phone" value="`+response['mobileno']+`">
+                    </div>
+                </div>
+                <div class="address-details">
+                    <h4>Address Details</h4>
+                    <div class="d-flex">
+                        <div class="default-box col-6">
+                            <label for="Pincode"><span class="danger">*</span>Pincode</label>
+                            <select name="Pincode" id="Pincode">
+                                <option value="`+response['pincode']+`">`
+                                    +response['pincode']+`</option>
+                                {% for pincode in store_locations %}
+                                <option value="{{pincode.pincode}}">{{pincode.pincode}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="default-box col-6">
+                            <label for="house_no"><span class="danger">*</span>House no</label>
+                            <input type="text" onkeyup="change_lable(this)" name="house_no" id="house_no" value="`+response['house_no']+`">
+                        </div>
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="area_detail"><span class="danger">*</span> Area details</label>
+                        <select name="area_detail" id="area_detail">
+                            <option value="`+response['area']+`">`+response['area']+`</option>
+                            {% for sl in store_locations %}
+                            <option value="{{sl.comb_area}}">{{sl.comb_area}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="street_address">Street details to locate you</label>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="street_address" id="street_address">`+response['street_detail']+`</textarea>
+                    </div>
+                    <div class="default-box col-12">
+                        <label for="landmark_detail">Landmark*</label>
+                        <textarea type="text" rows="1" onkeyup="change_lable(this)" name="landmark_detail" id="landmark_detail">`+response['landmark']+`</textarea>
+                    </div>
+                    <div class="d-flex">
+                        <div class="default-box col-6">
+                            <label for="state">State*</label>
+                            <input type="text" onkeyup="change_lable(this)" name="state" id="state" value="`+response['state']+`">
+                        </div>
+                        <div class="default-box col-6">
+                            <label for="city_district">City/District</label>
+                            <input type="text" onkeyup="change_lable(this)" name="city_district" id="city_district" value="`+response['city']+`">
+                        </div>
+                    </div>
+                    <div class="choose_address_type col-12 btn-group btn-group-toggle" role="group" name="address_nick" data-toggle="buttons">
+                        <p>Choose a Nick Name: </p>
+                        <input type="radio" class="btn-check" name="address_nick" id="Home" value="Home">
+                        <label for="Home" class="btn btn-outline-warning ms-3">Home</label>
+                        
+                        <input type="radio" class="btn-check" name="address_nick" id="Office" value="Office">
+                        <label for="Office" class="btn btn-outline-warning ms-3"> Office </label>
+                       
+                        <input type="radio" class="btn-check" name="address_nick" id="Others" value="Others">
+                        <label for="Others" class="btn btn-outline-warning ms-3">Other</label> 
+                        
+                    </div>
+                    <br>
+                    <br>
+                </div>
+                <div class="btn-address">
+                    <a onclick="checkForm('user_address_form'); event.preventDefault();" class="active button" id="form-button">Add Address</a>
+                </div>
+            </form>`)
+                    
+
+                    }
+                }
+            })
         }
     </script>
     <!-- Core javascript for this theme -->

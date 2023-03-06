@@ -173,7 +173,7 @@ def verify_otp(request):
 
 
 class UserAddressView(APIView):
-    permission_classes = (IsAuthenticated,permissions.AllowAny)
+    permission_classes = (IsAuthenticated,)
     authentication_classes = (authentication.BasicAuthentication,authentication.TokenAuthentication,authentication.SessionAuthentication)
 
     def get(self,request,format = None):
@@ -289,22 +289,31 @@ def delete_user_address(request,pk):
     UserAddresses.objects.filter(pk=pk).delete()
     return redirect("user-address-page")
 
-def deliver_here_link(request,num,pk):
-    
-    address = get_object_or_404(UserAddresses,pk=pk,user = request.user)
-    address.deliver_here = True
-    address.save()
-    
-
-    excluded_address = UserAddresses.objects.filter(user = request.user).exclude(pk=pk)
-    for excl_add in excluded_address:
-        excl_add.deliver_here = False
-        excl_add.save()
-    
-    if num == 1:
-        return redirect('user-address-page')
-    elif num == 2:
-        return redirect('cartview')
         
-
-
+def update_address(request,pk):
+    if request.method == 'POST':
+        firstname = request.POST.get('first_name')
+        lastname = request.POST.get('last_name')
+        mobileno = request.POST.get('phone')
+        houseno = request.POST.get('house_no')
+        street = request.POST.get('street_address')
+        landmark = request.POST.get('landmark_detail')
+        city = request.POST.get('city_district')
+        state = request.POST.get('state')
+        area = request.POST.get('area_detail')
+        pincode = request.POST.get('Pincode')
+        nicknameaddress = request.POST.get('address_nick')
+        add = UserAddresses.objects.get(pk=pk)
+        add.first_name = firstname
+        add.last_name = lastname
+        add.mobileno = mobileno
+        add.house_no = houseno
+        add.street_detail = street
+        add.landmark = landmark
+        add.city = city
+        add.state = state
+        add.address_nick_name = nicknameaddress
+        add.area = area
+        add.pincode = pincode
+        add.save()
+        return redirect("user-address-page")
