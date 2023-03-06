@@ -115,12 +115,13 @@ class SuggestVerifyDeliveryLocation(APIView):
                 # sector = str(address.get('sector')).split(" ")[0]
 
                 storeAtLocationPincode = storeServiceLocation.objects.filter(
-                    area__icontains=address.get('area'))
+                    Q(area__icontains=address.get('area') or '') | Q(city__icontains=address.get('area') or ''))
             except storeServiceLocation.DoesNotExist:
                 raise serializers.ValidationError(
                     {'sector': 'Sorry! We are not delivering at your location', 'available': False})
         else:
-            storeAtLocationPincode = storeServiceLocation.objects.filter(Q(pincode=address.get('pincode') if address.get('pincode') is not None else 0) | Q(area__icontains=address.get('area') or '') | Q(sector__icontains= address.get('sector') or ''))
+            storeAtLocationPincode = storeServiceLocation.objects.filter(Q(pincode=address.get('pincode') if address.get('pincode') is not None else 0) | Q(
+                area__icontains=address.get('area') or '') | Q(sector__icontains=address.get('sector') or '') | Q(city__icontains=address.get('area') or ''))
         try:
             if len(storeAtLocationPincode) > 0:
                 defaultLocationpincode = address.get('pincode')

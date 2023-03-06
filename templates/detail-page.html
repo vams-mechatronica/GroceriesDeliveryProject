@@ -237,7 +237,7 @@
                             </div>
                             {% endif %} {% endcomment %}
                             <!-- lavitate cart view  -->
-                            <div class="pro-btn fix-in-area"  onclick="{% if request.user.is_authenticated %} window.location.href='{% url 'cartview' %}'{% else %} showPopLogin() {% endif %}" >
+                            <div class="pro-btn fix-in-area"  onclick="{% if request.user.is_authenticated %} window.location.href='{% url 'cartview' %}'{% else %} showPopLogin() {% endif %};redirect_url_address_page();" >
                             <a class="btn-style1 d-flex justify-content-between"><div><span id="quantity">1 </span> items  | <span id="cart-amount"></span></div><div><i class="bi bi-bag"></i> View cart</div></a>
                             </div>
                             <!-- lavitate cart view  -->
@@ -818,6 +818,18 @@
             }
         })
       });
+      function redirect_url_address_page(){
+            var redirect_page = getCookie('redirect_page')
+
+            if (redirect_page == null || redirect_page == undefined){
+                redirect_page = 'car'
+                document.cookie = 'redirect_page=' +redirect_page+ ";domain=;path=/"
+                }
+            else{
+                redirect_page = 'cart'
+                document.cookie = 'redirect_page=' +redirect_page+ ";domain=;path=/"
+            }
+        }
     </script>
     {% endif %}
 </body>
