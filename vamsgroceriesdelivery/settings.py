@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import environ
 import re
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -109,7 +111,7 @@ WSGI_APPLICATION = 'vamsgroceriesdelivery.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-if DEBUG ==False:
+if DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",

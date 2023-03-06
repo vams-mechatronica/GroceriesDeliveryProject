@@ -242,7 +242,8 @@ def address_page(request):
         houseno = request.POST.get('house_no')
         street = request.POST.get('street_address')
         landmark = request.POST.get('landmark_detail')
-        area = request.POST.get('area_detail')
+        area = request.POST.get('area_detail').split(",")
+        area_comb = area[0]+","+area[1]
         city = request.POST.get('city_district')
         state = request.POST.get('state')
         pincode = request.POST.get('Pincode')
@@ -251,13 +252,14 @@ def address_page(request):
             first_name = firstname,last_name = lastname,\
                 mobileno=mobileno,house_no = houseno,\
                     street_detail = street,\
-                        landmark=landmark,area = area,city = city,\
+                        landmark=landmark,area = area_comb,city = city,\
                             pincode =pincode,state = state,\
                                 address_nick_name = nicknameaddress,default_address = True)
         addr.save()
     addresses = UserAddresses.objects.filter(user=request.user)
-    store_delivery_locations = storeServiceLocation.objects.all()
-    context = {'addresses': addresses,'store_locations':store_delivery_locations}
+    pincode = storeServiceLocation.objects.order_by().values_list('pincode',flat=True).distinct()
+    area = storeServiceLocation.objects.all()
+    context = {'addresses': addresses,'store_locations':pincode,'area':area}
     return render(request, "address.html", context)
 
 def savePartialAddressUser(request,address :str):

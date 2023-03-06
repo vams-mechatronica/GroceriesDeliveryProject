@@ -90,7 +90,8 @@ def cartCheckoutPageView(request):
                 user=request.user, default_address=True)
 
     except UserAddresses.DoesNotExist:
-        return redirect("user-address-page")
+        address = ""
+    
     a = round(itemsForCartPage.get_total(), 2)
     counter = len(itemsForCartPage.items.all())
 
@@ -100,6 +101,7 @@ def cartCheckoutPageView(request):
         delivery_charges = 0
 
     grandtotal = a + delivery_charges
+    print(address)
 
     context = {
         'object': itemsForCartPage,

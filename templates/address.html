@@ -365,7 +365,7 @@
                             <select name="Pincode" id="Pincode">
                                 <option value="201301">Select Pincode</option>
                                 {% for pincode in store_locations %}
-                                <option value="{{pincode.pincode}}">{{pincode.pincode}}</option>
+                                <option value="{{pincode}}">{{pincode}}</option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -378,7 +378,7 @@
                         <label for="area_detail"><span class="danger">*</span> Area details</label>
                         <select name="area_detail" id="area_detail">
                             <option value="Noida">Select Area</option>
-                            {% for sl in store_locations %}
+                            {% for sl in area %}
                             <option value="{{sl.comb_area}}">{{sl.comb_area}}</option>
                             {% endfor %}
                         </select>

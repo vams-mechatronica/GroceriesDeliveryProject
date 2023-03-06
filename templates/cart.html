@@ -98,11 +98,11 @@
                     <div class="col">
                         <h1>Cart</h1>
                         <div class="change-address">
-                            <ul> {% if useraddress.user_address is None %}
-                                    <li class=" text-center"><span class="bi bi-geo-alt"></span><span class="save-add"></span> <span class="current-add" id="c-address-1"></span></li>
+                            <ul> {% if useraddress == "" %}
+                                    <li class=" text-center" title="Please Select a Delivery Location"><span class="bi bi-geo-alt"></span><span class="save-add"></span> <span class="current-add" id="c-address">Please Select a Delivery Location</span></li>
                                 {% else %}
                                     <li class="h5 text-center" title="{{useraddress.user_address}}"><span class="bi bi-geo-alt"></span><span class="save-add"></span> <span class="current-add" id="c-address">
-                                        -{{useraddress.user_address|slice:":30"}} {% if useraddress.user_address|length > 30 %}...{% endif %}</span></li>
+                                        {{useraddress.user_address|slice:":30"}} {% if useraddress.user_address|length > 30 %}...{% endif %}</span></li>
                                 {% endif %}
                             </ul>
                             <a href="{% url 'user-address-page' %}" onclick="redirect_url_address_page()" class="chng-add h4"><span class="bi bi-pencil-square"></span></a>
