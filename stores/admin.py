@@ -39,4 +39,9 @@ class StoreDeliveryLocationAdmin(admin.ModelAdmin):
     search_fields: list = ('store', 'area', 'sector', 'pincode')
 
 admin.site.register(storeServiceLocation,StoreDeliveryLocationAdmin)
-admin.site.register(ContactUs)
+
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ('name','email','phone','subject','created_at')
+    ordering = ['-created_at']
+    search_fields = ('name','email','phone')
+admin.site.register(ContactUs,ContactUsAdmin)
