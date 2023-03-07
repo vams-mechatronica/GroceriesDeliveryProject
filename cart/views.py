@@ -90,6 +90,7 @@ def cartCheckoutPageView(request):
                 user=request.user, default_address=True)
 
     except UserAddresses.DoesNotExist:
+        messages.warning(request,"Please select a delivery address")
         address = ""
     
     a = round(itemsForCartPage.get_total(), 2)
@@ -188,8 +189,10 @@ def orderPaymentRequest(request, amount):
                 messages.warning(request,'Please fill a house number')
                 return redirect("user-address-page")
         else:
+            messages.error(request,"Please fill your address details")
             return redirect("user-address-page")
     except UserAddresses.DoesNotExist:
+        messages.error(request, "Please fill your address details")
         return redirect("user-address-page")
     
     order.shipping_address = delivery_address.user_formatted_full_address()

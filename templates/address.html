@@ -329,6 +329,18 @@
             color: red;
         }
     </style>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} auto-dismiss">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <script>
+            setTimeout(function() {
+                $('.auto-dismiss').fadeOut('slow');
+            }, 3000);
+        </script>
+    {% endif %}
     <div class="header-goback">
         <button onclick="window.history.back()"></button>
         <h3 class="text-center text-light">

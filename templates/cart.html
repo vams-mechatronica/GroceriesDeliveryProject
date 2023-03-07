@@ -58,6 +58,18 @@
                 padding-top: 100px;
             }
         </style>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} auto-dismiss">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                    $('.auto-dismiss').fadeOut('slow');
+                }, 5000);
+            </script>
+        {% endif %}
         <!-- login popup start here  -->
         <div class="login-sign-popup" id="login">
             <div class="login col-xl-6 col-lg-6 col-md-6 col-12">

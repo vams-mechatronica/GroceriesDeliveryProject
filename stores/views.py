@@ -142,5 +142,5 @@ def contact_us_form(request):
 
         contact_us_form_detail = ContactUs(name=name,email=email,phone=phone,subject=subject,message=message)
         contact_us_form_detail.save()
-        messages.info(request,"Message has been saved")
+        messages.success(request,"Message has been sent")
     return redirect("contact_us") 

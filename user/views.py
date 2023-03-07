@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib import auth
+from django.contrib import auth,messages
 from .serializers import *
 from rest_framework import generics,status,permissions,authentication
 from rest_framework.response import Response
@@ -256,6 +256,7 @@ def address_page(request):
                             pincode =pincode,state = state,\
                                 address_nick_name = nicknameaddress,default_address = True)
         addr.save()
+        messages.success(request,"Address saved")
     addresses = UserAddresses.objects.filter(user=request.user)
     pincode = storeServiceLocation.objects.order_by().values_list('pincode',flat=True).distinct()
     area = storeServiceLocation.objects.all()
@@ -289,6 +290,7 @@ def savePartialAddressUser(request,address :str):
 
 def delete_user_address(request,pk):
     UserAddresses.objects.filter(pk=pk).delete()
+    messages.info(request,"Address has been deleted")
     return redirect("user-address-page")
 
         
@@ -318,4 +320,5 @@ def update_address(request,pk):
         add.area = area
         add.pincode = pincode
         add.save()
+        messages.success(request,"Address has been updated")
         return redirect("user-address-page")
