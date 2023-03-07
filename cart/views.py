@@ -186,13 +186,19 @@ def orderPaymentRequest(request, amount):
         if delivery_address_id != 0:
             delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
             if delivery_address.house_no == "":
-                messages.warning(request,'Please fill a house number')
+                html = HttpResponse("Redirecting...")
+                html.set_cookie("redirect_page", "cart")
+                messages.warning(request, 'Please fill a house number')
                 return redirect("user-address-page")
         else:
-            messages.error(request,"Please fill your address details")
+            html = HttpResponse("Redirecting...")
+            html.set_cookie("redirect_page", "cart")
+            messages.warning(request, "Please fill your address details")
             return redirect("user-address-page")
     except UserAddresses.DoesNotExist:
-        messages.error(request, "Please fill your address details")
+        html = HttpResponse("Redirecting...")
+        html.set_cookie("redirect_page", "cart")
+        messages.warning(request, "Please fill your address details")
         return redirect("user-address-page")
     
     order.shipping_address = delivery_address.user_formatted_full_address()
@@ -206,6 +212,8 @@ def orderPaymentRequest(request, amount):
         }
         return render(request, "paymentredirect.html", context)
     else:
+        html = HttpResponse("Redirecting...")
+        html.set_cookie("redirect_page", "cart")
         return redirect("cartview")
 
 

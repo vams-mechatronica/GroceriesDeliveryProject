@@ -449,7 +449,7 @@
                     <p><b>Address:</b>&nbsp; {{addr.user_address}}</p>
                     <p><b>M. No.:</b>&nbsp; {{addr.mobileno}}</p>
                     {% comment %} <a href="{% url 'deliver-here' num=2 pk=addr.id %}" class="deliver here active">Deliver Here</a>  {% endcomment %}
-                    <a onclick="deliver_here_cookie({{addr.id}})" class="deliver here active">Deliver Here</a> 
+                    <a onclick="deliver_here_cookie({{addr.id}})" class="deliver here active deliver-here-btn">Deliver Here</a> 
                     &nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a onclick="edit_address({{addr.id}})">
@@ -653,6 +653,12 @@
                 }
             })
         }
+        $(window).on('load', function () {
+            var redirect_url = getCookie('redirect_page')
+            if (redirect_url == "address"){
+                $('.deliver-here-btn').css('visibility', 'hidden');
+            }
+        });
     </script>
     <!-- Core javascript for this theme -->
     <script src="{% static 'theme/js/bootstrap.bundle.min.js' %}"></script>
