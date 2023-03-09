@@ -5,7 +5,8 @@ from .models import *
 class CartAdmin(admin.ModelAdmin):
     list_display: list = ('user','itemname','storename','itemavailablestock','quantity','ordered')
     ordering: list = ['user']
-    search_fields: list = ('user','ordered')
+    search_fields: list = ('user__mobileno', 'ordered',
+                           'quantity')
 
     def storename(self,obj):
         return obj.item.store.storeName
@@ -21,7 +22,8 @@ admin.site.register(Cart,CartAdmin)
 class OrderAdmin(admin.ModelAdmin):
     list_display: list = ('user','ref_code','items_get','ordered','ordered_date','shipping_address','payment','received','refund_requested')
     ordering: list = ['user','ref_code','ordered','ordered_date','payment','refund_requested']
-    search_fields: list = ('user','red_code','ordered','ordered_date','payment','refund_requested','shipping_address')
+    search_fields: list = ('user__mobileno', 'ordered', 'ordered_date',
+                           'payment__instamojo_id', 'refund_requested', 'shipping_address')
 
     def items_get (self,obj):
         return [item.item.products.product_name for item in obj.items.all()]

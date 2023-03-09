@@ -5,7 +5,7 @@ from .models import *
 class ProductsAdmin(admin.ModelAdmin):
     list_display: list = ('product_name','unit','prod_mainimage','max_retail_price','modified_at')
     ordering: list = ['-modified_at']
-    search_fields: list = ('product_name','material_feature','max_retail_price','pro_category')
+    search_fields: list = ('product_name','max_retail_price','pro_category')
 
 admin.site.register(Products,ProductsAdmin)
 
@@ -23,7 +23,7 @@ admin.site.register(ProductImages,ProductImagesAdmin)
 
 class ProductRARAdmin(admin.ModelAdmin):
     list_display: list = ('author','ratings','review')
-    search_fields: list = ('author','ratings')
+    search_fields: list = ('author__mobileno','ratings')
 
 admin.site.register(ProductReviewAndRatings,ProductRARAdmin)
 
@@ -32,9 +32,5 @@ class BannersAdmin(admin.ModelAdmin):
     search_fields: list = ('banner_status','banner_name')
 
 admin.site.register(Banners,BannersAdmin)
-
-# class CategoriesProductsAdmin(admin.ModelAdmin):
-#     list_display: list = ('categoriesproduct_id',)
-#     search_fields: list = ('categoriesproduct_id',)
 
 admin.site.register(CategoriesProducts)
