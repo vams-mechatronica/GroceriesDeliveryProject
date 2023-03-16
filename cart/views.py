@@ -167,10 +167,36 @@ def orderPaymentRequest(request, amount):
 
     if request.COOKIES.get('deliver_here') is not None:
         delivery_address_id = request.COOKIES.get('deliver_here')
+        print(delivery_address_id)
     else:
         # raise JsonResponse({'Error':'Please select a delivery address'})
         messages.warning(request,'Please select a delivery address')
     
+    try:
+        if delivery_address_id != 0:
+            delivery_address = UserAddresses.objects.get(
+                user=request.user, pk=delivery_address_id)
+            if delivery_address.house_no == "":
+                # html = HttpResponse("Redirecting...")
+                # html.set_cookie("redirect_page", "cart")
+                messages.warning(
+                    request, 'Please Fill House Number & Contact Number')
+                return redirect("cartview")
+        else:
+            # html = HttpResponse("Redirecting...")
+            # html.set_cookie("redirect_page", "cart")
+            messages.warning(
+                request, "Please Select a <i>Delivery Address<i> Where You Want To Deliver Your Order!")
+            return redirect("cartview")
+    
+    except UserAddresses.DoesNotExist:
+        # html = HttpResponse("Redirecting...")
+        # html.set_cookie("redirect_page", "cart")
+        messages.warning(request, "Please Fill A Delivery Address")
+        return redirect("cartview")
+
+
+
     response = api.payment_request_create(
         amount=str(amount),
         purpose='test_purchase',
@@ -182,24 +208,7 @@ def orderPaymentRequest(request, amount):
         redirect_url=settings.PAYMENT_SUCCESS_REDIRECT_URL,
         allow_repeated_payments=False
     )
-    try:
-        if delivery_address_id != 0:
-            delivery_address = UserAddresses.objects.get(user= request.user,pk=delivery_address_id)
-            if delivery_address.house_no == "":
-                html = HttpResponse("Redirecting...")
-                html.set_cookie("redirect_page", "cart")
-                messages.warning(request, 'Please fill a house number')
-                return redirect("user-address-page")
-        else:
-            html = HttpResponse("Redirecting...")
-            html.set_cookie("redirect_page", "cart")
-            messages.warning(request, "Please fill your address details")
-            return redirect("user-address-page")
-    except UserAddresses.DoesNotExist:
-        html = HttpResponse("Redirecting...")
-        html.set_cookie("redirect_page", "cart")
-        messages.warning(request, "Please fill your address details")
-        return redirect("user-address-page")
+    
     
     order.shipping_address = delivery_address.user_formatted_full_address()
     order.billing_address = delivery_address.user_formatted_full_address()
