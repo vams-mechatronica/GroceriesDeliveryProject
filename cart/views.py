@@ -167,7 +167,7 @@ def orderPaymentRequest(request, amount):
 
     if request.COOKIES.get('deliver_here') is not None:
         delivery_address_id = request.COOKIES.get('deliver_here')
-        print(delivery_address_id)
+        # print(delivery_address_id)
     else:
         # raise JsonResponse({'Error':'Please select a delivery address'})
         messages.warning(request,'Please select a delivery address')
