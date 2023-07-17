@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'django_quill',
     # 'django-filter',
     # 'bootstrap_modal_forms',
+    "verify_email.apps.VerifyEmailConfig",
 ]
 
 MIDDLEWARE = [
