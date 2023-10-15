@@ -29,9 +29,8 @@ admin.site.site_title = env.str('ADMIN_SITE_TITLE')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path("api/v1/accounts/", include("dj_rest_auth.urls")),
-    path("api/v1/accounts/registration/",include("dj_rest_auth.registration.urls")),
-    path('api/v1/', include('user.urls')),
+    path("api/v1/auth/", include("dj_rest_auth.urls")),
+    path('api/v1/auth/', include('user.urls')),
     path(
         'rest-auth/password/reset/confirm/<slug:uidb64>/<slug:token>/',
         PasswordResetConfirmView.as_view(), name='password_reset_confirm'
@@ -40,6 +39,11 @@ urlpatterns = [
     path('api/v1/', include('stores.urls')),
     path('',include('products.urls')),
     path('buy/',include('cart.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+else:
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler500 = 'products.views.not_found'
