@@ -20,13 +20,17 @@ class CartAdmin(admin.ModelAdmin):
 admin.site.register(Cart,CartAdmin)
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display: list = ('user','ref_code','items_get','ordered','ordered_date','shipping_address','payment','received','refund_requested')
+    list_display: list = ('user','ref_code','items_get','ordered','ordered_date','shipping_address','payment','get_total','received','refund_requested')
     ordering: list = ['user','ref_code','ordered','ordered_date','payment','refund_requested']
     search_fields: list = ('user__mobileno', 'ordered', 'ordered_date',
                            'payment__instamojo_id', 'refund_requested', 'shipping_address')
 
     def items_get (self,obj):
         return [item.item.products.product_name for item in obj.items.all()]
+    
+    # def amount(self,obj):
+    #     return obj.payment.amount
+
 admin.site.register(Order,OrderAdmin)
 
 class PaymentAdmin(admin.ModelAdmin):

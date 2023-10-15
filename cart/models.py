@@ -39,6 +39,26 @@ class Cart(models.Model):
     def get_product_name(self):
         return self.item.products.product_name
 
+
+class Payment(models.Model):
+    instamojo_id = models.CharField(max_length=50)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.SET_NULL, blank=True, null=True)
+    amount = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}"
+
+
+class Coupon(models.Model):
+    code = models.CharField(max_length=15)
+    amount = models.FloatField()
+
+    def __str__(self):
+        return f"{self.code}"
+
+
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
@@ -49,10 +69,9 @@ class Order(models.Model):
     ordered = models.BooleanField(default=False)
     shipping_address = models.CharField(_("shipping_address"), max_length=2500,blank=True,null=True)
     billing_address = models.CharField(_("billing_address"), max_length=2500,blank=True,null=True)
-    payment = models.ForeignKey(
-        'Payment', on_delete=models.SET_NULL, blank=True, null=True)
+    payment = models.ForeignKey(Payment,on_delete=models.SET_NULL, blank=True, null=True)
     coupon = models.ForeignKey(
-        'Coupon', on_delete=models.SET_NULL, blank=True, null=True)
+        Coupon, on_delete=models.SET_NULL, blank=True, null=True)
     being_delivered = models.BooleanField(default=False)
     received = models.BooleanField(default=False)
     refund_requested = models.BooleanField(default=False)
@@ -105,27 +124,6 @@ class Order(models.Model):
     def get_total_discount(self):
         return self.get_max_total() - self.get_total()
 
-
-    
-class Payment(models.Model):
-    instamojo_id = models.CharField(max_length=50)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             on_delete=models.SET_NULL, blank=True, null=True)
-    amount = models.FloatField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.username}"
-
-
-class Coupon(models.Model):
-    code = models.CharField(max_length=15)
-    amount = models.FloatField()
-
-    def __str__(self):
-        return f"{self.code}"
-
-
 class Refund(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     reason = models.TextField()
@@ -134,6 +132,7 @@ class Refund(models.Model):
 
     def __str__(self):
         return f"{self.pk}"
+    
 
 class PendingPayment(models.Model):
     order_id = models.CharField(_("Order ID"), max_length=250,default="",null=True,blank=True)

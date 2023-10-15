@@ -24,11 +24,17 @@ class ModifiedArrayField(ArrayField):
 class Products(models.Model):
     CATEGORIES = (('Tea & Coffee','Tea & Coffee'),('Fruits & Vegetables','Fruits & Vegetables'),('Breakfast & Dairy','BREAKFAST & DAIRY'),('Snacks & Drinks','Snacks & Drinks'),('Puja Store','Puja Store'),('Dry Fruits','Dry Fruits'),('Trending','TRENDING'),('Home & Kitchen Appliances','Home & Kitchen Appliances'),('Cleaning Essentials','Cleaning Essentials'),('Personal Care','Personal Care'),('Cooking Essentials','Cooking Essentials'),('Health & Baby Care','Health & Baby Care'))
 
+    SUBCATEGORIES = (('Tea & Coffee', 'Tea & Coffee'), ('Fruits & Vegetables', 'Fruits & Vegetables'), ('Breakfast & Dairy', 'BREAKFAST & DAIRY'), ('Snacks & Drinks', 'Snacks & Drinks'), ('Puja Store', 'Puja Store'), ('Dry Fruits', 'Dry Fruits'), ('Trending',
+                                                                                                                                                                                                                                                        'TRENDING'), ('Home & Kitchen Appliances', 'Home & Kitchen Appliances'), ('Cleaning Essentials', 'Cleaning Essentials'), ('Personal Care', 'Personal Care'), ('Cooking Essentials', 'Cooking Essentials'), ('Health & Baby Care', 'Health & Baby Care'))
+
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=150)
     desc = QuillField(null=True,blank=True)
     unit = models.CharField(max_length=50,blank=True)
-    pro_category = ModifiedArrayField(models.CharField(_("Product Category"),max_length=255,choices=CATEGORIES,null = True,blank=True),null=True)
+    category = ModifiedArrayField(models.CharField(_("Product Category"),max_length=255,choices=CATEGORIES,null = True,blank=True),null=True)
+    subcategory = ModifiedArrayField(models.CharField(
+        _("Product Category"), max_length=255, choices=SUBCATEGORIES, null=True, blank=True), null=True)
+    
     max_retail_price = models.DecimalField(_("MRP (in Rs.)"), max_digits=8, decimal_places=2,null=True)
     prod_mainimage = models.ImageField(_("Product Main Image"),upload_to=ProductFileStorage(name='product',id=date.today().strftime("%Y%m%d")).uploadImage, height_field=None, width_field=None, max_length=None,null=True,default=None,blank=True)
     modified_at = models.DateTimeField(_("Modified At"), auto_now=True)
