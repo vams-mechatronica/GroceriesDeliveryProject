@@ -341,26 +341,26 @@
                       </li>
                       <li>
                         <input id='c2' type='checkbox'>
-                        <label for='c2'>{% for category in categories %}{% if category.category_name == "Snacks & Drinks" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Snacks & Drinks"></a>
+                        <label for='c2'>{% for category in categories %}{% if category.category_name == "Beverages" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Beverages"></a>
                       {% endif %}{% endfor %}</label>
                       </li>
                       <li>
                         <input id='c3' type='checkbox'>
-                        <label for='c3'>{% for category in categories %}{% if category.category_name == "Home & Kitchen Appliances" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Home & Kitchen Appliances"></a>
+                        <label for='c3'>{% for category in categories %}{% if category.category_name == "Home Care" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Home Care"></a>
                       {% endif %}{% endfor %}</label>
                       </li>
                       <li>
                         <input id='c4' type='checkbox'>
-                        <label for='c4'>{% for category in categories %}{% if category.category_name == "Health & Baby Care" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
+                        <label for='c4'>{% for category in categories %}{% if category.category_name == "Baby Care" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Baby Care"></a>
                       {% endif %}{% endfor %}</label>
                       </li>
                       <li>
                         <input id='c5' type='checkbox'>
-                        <label for='c5'>{% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Breakfast & Dairy"></a>
+                        <label for='c5'>{% for category in categories %}{% if category.category_name == "Packaged Food" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Packaged Food"></a>
                       {% endif %}{% endfor %}</label>
                       </li>
                       <li>
@@ -371,13 +371,13 @@
                       </li>
                       <li>
                         <input id='c7' type='checkbox'>
-                        <label for='c7'>{% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essentials"></a>
+                        <label for='c7'>{% for category in categories %}{% if category.category_name == "Cleaning Essential" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cleaning Essential"></a>
                       {% endif %}{% endfor %}</label>
                       </li>
                     </ul>
-                    <button>{% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
-                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Cooking Essentials"></a>
+                    <button>{% for category in categories %}{% if category.category_name == "Grocery" %}
+                      <a href={% url 'seeallproductsincategory' category.category_id %}><img src=http://ashekhar.pythonanywhere.com/media/{{category.category_image}} alt="Grocery"></a>
                       {% endif %}{% endfor %}</button>
                   </div>
                 </div>
@@ -453,8 +453,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Fruits & Vegetables</h2>
-            {% for category in categories %}{% if category.category_name == "Fruits & Vegetables" %}
+            <h2>Grocery</h2>
+            {% for category in categories %}{% if category.category_name == "Grocery" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -464,7 +464,7 @@
             <div id="prev-2"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Fruits & Vegetables" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Grocery" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -511,8 +511,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Breakfast & Dairy</h2>
-            {% for category in categories %}{% if category.category_name == "Breakfast & Dairy" %}
+            <h2>Grocery</h2>
+            {% for category in categories %}{% if category.category_name == "Grocery" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -522,7 +522,7 @@
             <div id="prev-3"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Breakfast & Dairy" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Grocery" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -568,8 +568,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Cooking Essentials</h2>
-            {% for category in categories %}{% if category.category_name == "Cooking Essentials" %}
+            <h2>Cleaning Essential</h2>
+            {% for category in categories %}{% if category.category_name == "Cleaning Essential" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -579,7 +579,7 @@
             <div id="prev-4"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Cooking Essentials" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Cleaning Essential" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -640,8 +640,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Cleaning Essentials</h2>
-            {% for category in categories %}{% if category.category_name == "Cleaning Essentials" %}
+            <h2>Beverages</h2>
+            {% for category in categories %}{% if category.category_name == "Beverages" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -651,7 +651,7 @@
             <div id="prev-5"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Cleaning Essentials" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Beverages" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -697,8 +697,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Personal Care</h2>
-            {% for category in categories %}{% if category.category_name == "Personal Care" %}
+            <h2>Packaged Food</h2>
+            {% for category in categories %}{% if category.category_name == "Packaged Food" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -708,7 +708,7 @@
             <div id="prev-6"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Personal Care" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Packaged Food" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -751,7 +751,7 @@
         </div>
       </div>
     </div>
-    <div class="prduct_slide_list">
+    {% comment %} <div class="prduct_slide_list">
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
@@ -761,7 +761,7 @@
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %} 
             {% comment %} <a href={% url 'trendingitems' %} class="see_all">See All <i
-                class="bi bi-chevron-right"></i></a> {% endcomment %}
+                class="bi bi-chevron-right"></i></a>
           </div>
           <div class="swiper-container" id="swiper-7">
             <div id="next-7"></div>
@@ -809,7 +809,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
     <div class="prmotion_banner">
       <div class="container-xl">
         <div class="row">
@@ -829,8 +829,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Health & Baby Care</h2>
-            {% for category in categories %}{% if category.category_name == "Health & Baby Care" %}
+            <h2>Fruits & Vegetables</h2>
+            {% for category in categories %}{% if category.category_name == "Fruits & Vegetables" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -840,7 +840,7 @@
             <div id="prev-8"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Health & Baby Care" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Fruits & Vegetables" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                   <div class="product_img">
                     <img
@@ -886,8 +886,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Dry Fruits</h2>
-            {% for category in categories %}{% if category.category_name == "Dry Fruits" %}
+            <h2>Home Care</h2>
+            {% for category in categories %}{% if category.category_name == "Home Care" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -897,7 +897,7 @@
             <div id="prev-9"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Dry Fruits" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Home Care" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -959,8 +959,8 @@
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
-            <h2>Puja Store</h2>
-            {% for category in categories %}{% if category.category_name == "Puja Store" %}
+            <h2>Baby Care</h2>
+            {% for category in categories %}{% if category.category_name == "Baby Care" %}
             <a href={% url 'seeallproductsincategory' category.category_id %} class="see_all">See All <i
                 class="bi bi-chevron-right"></i></a>
             {% endif %}{% endfor %}
@@ -970,7 +970,7 @@
             <div id="prev-10"></div>
             <div class="swiper-wrapper">
               {% for prod in products %}
-              {% if "Puja Store" in prod.products.category and prod.display_home is True and prod.status is True %}
+              {% if "Baby Care" in prod.products.category and prod.display_home is True and prod.status is True %}
               <div class="product_grid swiper-slide">
                 <div class="product_img">
                   <img
@@ -1013,7 +1013,7 @@
         </div>
       </div>
     </div>
-    <div class="prduct_slide_list">
+    {% comment %} <div class="prduct_slide_list">
       <div class="container-xl">
         <div class="row">
           <div class="product_heading">
@@ -1069,7 +1069,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
     {% comment %} {% endfor %} {% endcomment %}
     <div class="album py-5 bg-light">
       <div class="container">
